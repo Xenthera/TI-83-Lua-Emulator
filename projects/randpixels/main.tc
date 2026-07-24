@@ -1,0 +1,23 @@
+#include "rand.tc"
+
+// TV snow in Tiny-C: clear, then sprinkle random pixels each frame.
+
+void main() {
+  byte x;
+  byte y;
+  byte n;
+
+  lcd_init();
+  seed = 0xACE1;
+
+  while (1) {
+    lcd_clear();
+    n = 0;
+    while (n < 200) {
+      x = rand96();
+      y = rand64();
+      draw_pixel(x, y);
+      n = n + 1;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+// Pipeline screen test written in Tiny-C
+
+void main() {
+  byte n;
+
+  lcd_init();
+  lcd_clear();
+
+  draw_string(0, 0, "Bobby is cool");
+
+  n = 0;
+  while (n < 30) {
+    n = n + 1;
+  }
+
+  if (n == 3) {
+    draw_string(0, 16, "PASS");
+  }
+ else
+ {
+    draw_string(0, 16, "FAIL!");
+ }
+
+  draw_string(0, 32, "0123456789");
+
+  poke(0xC001, 0xA5);
+
+  while (1) {
+    halt();
+  }
+}

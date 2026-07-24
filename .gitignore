@@ -1,0 +1,11 @@
+rom/*
+!rom/.gitkeep
+!rom/README.md
+asm/generated/*
+!asm/generated/.gitkeep
+dist/*
+!dist/.gitkeep
+*.bin
+.DS_Store
+*.love
+rom/love-debug.log

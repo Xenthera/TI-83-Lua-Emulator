@@ -1,0 +1,135 @@
+// Tiny-C graphics helpers built on draw_pixel(x, y).
+// #include <stdlib/gfx.tc>
+
+void draw_hline(byte x0, byte x1, byte y) {
+  byte x;
+  byte t;
+  if (x1 < x0) {
+    t = x0;
+    x0 = x1;
+    x1 = t;
+  }
+  x = x0;
+  while (x <= x1) {
+    draw_pixel(x, y);
+    x = x + 1;
+  }
+}
+
+void draw_vline(byte x, byte y0, byte y1) {
+  byte y;
+  byte t;
+  if (y1 < y0) {
+    t = y0;
+    y0 = y1;
+    y1 = t;
+  }
+  y = y0;
+  while (y <= y1) {
+    draw_pixel(x, y);
+    y = y + 1;
+  }
+}
+
+void draw_rect(byte x, byte y, byte w, byte h) {
+  byte x1;
+  byte y1;
+  if (w == 0) {
+    return;
+  }
+  if (h == 0) {
+    return;
+  }
+  x1 = x + w - 1;
+  y1 = y + h - 1;
+  draw_hline(x, x1, y);
+  draw_hline(x, x1, y1);
+  draw_vline(x, y, y1);
+  draw_vline(x1, y, y1);
+}
+
+void fill_rect(byte x, byte y, byte w, byte h) {
+  byte yy;
+  byte y1;
+  byte x1;
+  if (w == 0) {
+    return;
+  }
+  if (h == 0) {
+    return;
+  }
+  x1 = x + w - 1;
+  y1 = y + h - 1;
+  yy = y;
+  while (yy <= y1) {
+    draw_hline(x, x1, yy);
+    yy = yy + 1;
+  }
+}
+
+// Walk the major axis; acc steps the minor axis (unsigned Bresenham).
+void draw_line(byte x0, byte y0, byte x1, byte y1) {
+  byte x;
+  byte y;
+  byte sx;
+  byte sy;
+  byte dx;
+  byte dy;
+  byte acc;
+  byte i;
+  byte n;
+
+  if (x0 == x1) {
+    draw_vline(x0, y0, y1);
+    return;
+  }
+  if (y0 == y1) {
+    draw_hline(x0, x1, y0);
+    return;
+  }
+
+  if (x0 < x1) {
+    dx = x1 - x0;
+    sx = 1;
+  } else {
+    dx = x0 - x1;
+    sx = 255;
+  }
+  if (y0 < y1) {
+    dy = y1 - y0;
+    sy = 1;
+  } else {
+    dy = y0 - y1;
+    sy = 255;
+  }
+
+  x = x0;
+  y = y0;
+  acc = 0;
+  i = 0;
+  if (dx >= dy) {
+    n = dx;
+    while (i <= n) {
+      draw_pixel(x, y);
+      acc = acc + dy;
+      if (acc >= dx) {
+        y = y + sy;
+        acc = acc - dx;
+      }
+      x = x + sx;
+      i = i + 1;
+    }
+  } else {
+    n = dy;
+    while (i <= n) {
+      draw_pixel(x, y);
+      acc = acc + dx;
+      if (acc >= dy) {
+        x = x + sx;
+        acc = acc - dy;
+      }
+      y = y + sy;
+      i = i + 1;
+    }
+  }
+}

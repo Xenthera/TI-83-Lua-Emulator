@@ -1,0 +1,25 @@
+// Simple LCG — used by main for DIY TV snow (no native fill_noise).
+
+word seed;
+
+word rand() {
+  seed = seed * 251 + 59;
+  return seed;
+}
+
+byte rand96() {
+  word r;
+  byte x;
+  r = rand();
+  x = r & 0x7F;
+  if (x >= 96) {
+    x = x - 96;
+  }
+  return x;
+}
+
+byte rand64() {
+  word r;
+  r = rand();
+  return r & 0x3F;
+}

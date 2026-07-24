@@ -1,0 +1,48 @@
+// Mandelbrot on 96x64 using signed Q8.8 (fmul) for z-iteration.
+// Map screen with integer Q8.8 scales (not fmul — small steps truncate to 0).
+//   cx = -2.0 + x*(3/96)   ->  0xFE00 + x*8
+//   cy = -1.25 + y*(2.5/64) -> 0xFEC0 + y*10
+
+void draw_mandelbrot() {
+  byte x;
+  byte y;
+  byte iter;
+  word cx;
+  word cy;
+  word zx;
+  word zy;
+  word zx2;
+  word zy2;
+  word xt;
+  word mag;
+
+  y = 0;
+  while (y < 64) {
+    cy = y * 10 + 0xFEC0;
+    x = 0;
+    while (x < 96) {
+      cx = x * 8 + 0xFE00;
+      zx = 0;
+      zy = 0;
+      iter = 0;
+      while (iter < 12) {
+        zx2 = fmul(zx, zx);
+        zy2 = fmul(zy, zy);
+        mag = zx2 + zy2;
+        if (mag > 0x0400) {
+          iter = 99;
+        } else {
+          xt = fmul(zx, zy);
+          zy = xt + xt + cy;
+          zx = zx2 - zy2 + cx;
+          iter = iter + 1;
+        }
+      }
+      if (iter == 12) {
+        draw_pixel(x, y);
+      }
+      x = x + 1;
+    }
+    y = y + 1;
+  }
+}

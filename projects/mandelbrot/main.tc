@@ -1,0 +1,11 @@
+#include "mandel.tc"
+
+
+void main() {
+  lcd_init();
+  lcd_clear();
+  draw_mandelbrot();
+  word a = 10;
+  byte b = 11;
+  a + b;
+}
