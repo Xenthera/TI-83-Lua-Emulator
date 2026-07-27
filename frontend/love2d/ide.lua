@@ -1058,8 +1058,9 @@ function Ide:_wake_os(machine)
   machine:run_cycles(3 * 1000 * 1000)
   machine:set_key("on", false)
   machine:run_cycles(20 * 1000 * 1000)
-  -- Boot leaves FPS compacted (MemChk free~0); apps like MirageOS need this.
-  Eightxp.release_homescreen_edit(machine.mmu, machine.cpu.iy)
+  -- Do NOT CloseEditBuf here: boot leaves editOpen over the free-RAM gap so
+  -- the homescreen entry line can grow. Releasing it causes ERR:MEMORY on
+  -- Enter. .8xp inject calls Eightxp.release_homescreen_edit itself.
   local nz = 0
   local fb = machine:framebuffer()
   for i = 0, 12 * 64 - 1 do

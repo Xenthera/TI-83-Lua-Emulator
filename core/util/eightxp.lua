@@ -309,6 +309,13 @@ end
 -- the OS treat the program as an empty gap-buffer — blank editor despite valid
 -- tokens. Mirrors the important parts of BCALL CloseEditBuf without calling ROM
 -- (the BCALL trampoline is unsafe: CloseEditBuf reuses scrap RAM).
+--
+-- Two empty-edit shapes exist:
+--   1) Boot / full-gap: editTop..editBtm is nearly all free RAM (~20KB+).
+--      Keep FPS high and collapse edit/iMath to it. The old slab path moved
+--      FPS down to editTop+0x3E, which stole the gap, smashed Y= / VAT math,
+--      and printed garbage after the Y= menu briefly appeared.
+--   2) Small CreateEdit slab (~0x3E): park FPS at editTop+CLOSE_EDIT_SLAB.
 function Eightxp.release_homescreen_edit(mmu, iy)
   iy = iy or FLAGS_IY
   local ef_addr = (iy + EDIT_FLAGS_OFF) % 65536
@@ -327,20 +334,45 @@ function Eightxp.release_homescreen_edit(mmu, iy)
   mmu:write(ef_addr, ef - EDIT_OPEN)
 
   if empty and top >= USER_MEM and top < SYM_TABLE then
+    local span = (btm - top) % 65536
+    local fps = read16(mmu, FPS)
     local ops = read16(mmu, OPS)
-    local slab = top + CLOSE_EDIT_SLAB
-    if slab > ops - 32 then
-      slab = math.max(top, ops - 32)
-    end
-    write16(mmu, TEMP_MEM, slab)
-    write16(mmu, FP_BASE, slab)
-    write16(mmu, FPS, slab)
-    write16(mmu, IMATH_PTR1, top)
-    write16(mmu, IMATH_PTR1 + 2, slab)
-    write16(mmu, IMATH_PTR1 + 4, ops)
-    write16(mmu, IMATH_PTR1 + 6, CLOSE_EDIT_SLAB)
-    for off = 0, 6, 2 do
-      write16(mmu, EDIT_TOP + off, slab)
+
+    if span > CLOSE_EDIT_SLAB * 4 then
+      -- Full-gap empty edit (boot): reclaim by exposing free RAM under FPS.
+      local park = fps
+      if park < btm then
+        park = btm
+      end
+      if park > ops then
+        park = ops
+      end
+      write16(mmu, TEMP_MEM, park)
+      write16(mmu, FP_BASE, park)
+      write16(mmu, FPS, park)
+      write16(mmu, IMATH_PTR1, park)
+      write16(mmu, IMATH_PTR1 + 2, park)
+      write16(mmu, IMATH_PTR1 + 4, park)
+      write16(mmu, IMATH_PTR1 + 6, 0)
+      for off = 0, 6, 2 do
+        write16(mmu, EDIT_TOP + off, park)
+      end
+    else
+      -- Small CreateEdit-style buffer.
+      local slab = top + CLOSE_EDIT_SLAB
+      if slab > ops - 32 then
+        slab = math.max(top, ops - 32)
+      end
+      write16(mmu, TEMP_MEM, slab)
+      write16(mmu, FP_BASE, slab)
+      write16(mmu, FPS, slab)
+      write16(mmu, IMATH_PTR1, top)
+      write16(mmu, IMATH_PTR1 + 2, slab)
+      write16(mmu, IMATH_PTR1 + 4, ops)
+      write16(mmu, IMATH_PTR1 + 6, CLOSE_EDIT_SLAB)
+      for off = 0, 6, 2 do
+        write16(mmu, EDIT_TOP + off, slab)
+      end
     end
   end
   return true

@@ -635,11 +635,8 @@ function M.run(opts)
     held = nil
     held_cycles = 0
     sync_pad_pressed(nil)
-    -- Boot leaves FPS compacted (MemChk free~0). MirageOS and other apps
-    -- that allocate hit ERR:MEMORY until the homescreen edit slab is released.
-    if was == "on" then
-      Eightxp.release_homescreen_edit(machine.mmu, machine.cpu.iy)
-    end
+    -- Homescreen needs the boot editOpen gap for the entry line; do not
+    -- CloseEditBuf on ON wake (that causes ERR:MEMORY on Enter).
   end
 
   -- Declared before press_key so the install guard closes over this local
@@ -707,7 +704,8 @@ function M.run(opts)
     pump(hold)
     machine:set_key("on", false)
     pump(20 * 1000 * 1000)
-    Eightxp.release_homescreen_edit(machine.mmu, machine.cpu.iy)
+    -- Leave boot editOpen intact so homescreen Enter works; inject paths
+    -- call Eightxp.release_homescreen_edit when they need the free gap.
     machine.lcd._dirty = true
   end
 
