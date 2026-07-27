@@ -1,0 +1,59 @@
+// Hardware abstraction for recovered TI-OS Tiny-C.
+// Implement these on each host; link/MMU are intentionally soft stubs.
+
+// Port numbers (match TI-83+ ASIC)
+// PORT_LINK=0x00 PORT_KEYPAD=0x01 PORT_STATUS=0x02
+// PORT_INTMASK=0x03 PORT_MMU_A=0x06 PORT_MMU_B=0x07
+// PORT_LCD_CMD=0x10 PORT_LCD_DATA=0x11 PORT_SE_STATUS=0x20
+
+byte PORT_LINK;
+byte PORT_KEYPAD;
+byte PORT_STATUS;
+byte PORT_INTMASK;
+byte PORT_INTACK;
+byte PORT_ASYN;
+byte PORT_MMU_A;
+byte PORT_MMU_B;
+byte PORT_LCD_CMD;
+byte PORT_LCD_DATA;
+byte PORT_SE_STATUS;
+
+void hw_init_ports() {
+  PORT_LINK = 0x00;
+  PORT_KEYPAD = 0x01;
+  PORT_STATUS = 0x02;
+  PORT_INTMASK = 0x03;
+  PORT_INTACK = 0x04;
+  PORT_ASYN = 0x05;
+  PORT_MMU_A = 0x06;
+  PORT_MMU_B = 0x07;
+  PORT_LCD_CMD = 0x10;
+  PORT_LCD_DATA = 0x11;
+  PORT_SE_STATUS = 0x20;
+}
+
+byte hw_in(byte port);
+void hw_out(byte port, byte val);
+
+byte link_in();
+void link_out(byte v);
+void mmu_set_bank_a(byte page);
+void mmu_set_bank_b(byte page);
+
+byte flag_z();
+byte flag_nz();
+byte flag_c();
+byte flag_nc();
+byte flag_pe();
+byte flag_po();
+byte flag_p();
+byte flag_m();
+void flag_cmp(byte left, byte right);
+
+/* TI-OS RST 28h ROM calls - stub on host ports */
+void os_bcall(word id);
+
+/* Call into another flash page mapped at 0x4000 */
+void os_banked_call(word cpu_addr);
+
+void link_io_stub();

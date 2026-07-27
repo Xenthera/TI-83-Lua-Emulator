@@ -1,0 +1,160 @@
+// 3x5 tiny font as row bitmasks (bit2=left, bit1=mid, bit0=right).
+// Smaller than 5x3 pixel grids, and indexing only needs ×5 (no mul_u16).
+//
+//   #include "tinyfont.tc"
+//   draw_str(x, y, "HELLO");
+//   draw_letter(x, y, 65);  // 'A'
+//   draw_digit(x, y, 7);
+
+byte TINY_DIGIT[10][5] = {
+  {7, 5, 5, 5, 7},
+  {2, 6, 2, 2, 7},
+  {7, 1, 7, 4, 7},
+  {7, 1, 7, 1, 7},
+  {5, 5, 7, 1, 1},
+  {7, 4, 7, 1, 7},
+  {7, 4, 7, 5, 7},
+  {7, 1, 1, 1, 1},
+  {7, 5, 7, 5, 7},
+  {7, 5, 7, 1, 7},
+};
+
+// A=0 .. Z=25
+byte TINY_AZ[26][5] = {
+  {2, 5, 7, 5, 5},
+  {6, 5, 6, 5, 6},
+  {3, 4, 4, 4, 3},
+  {6, 5, 5, 5, 6},
+  {7, 4, 6, 4, 7},
+  {7, 4, 6, 4, 4},
+  {3, 4, 5, 5, 3},
+  {5, 5, 7, 5, 5},
+  {7, 2, 2, 2, 7},
+  {7, 1, 1, 5, 2},
+  {5, 6, 4, 6, 5},
+  {4, 4, 4, 4, 7},
+  {5, 7, 5, 5, 5},
+  {6, 5, 5, 5, 5},
+  {2, 5, 5, 5, 2},
+  {6, 5, 6, 4, 4},
+  {2, 5, 5, 7, 1},
+  {6, 5, 6, 6, 5},
+  {3, 4, 2, 1, 6},
+  {7, 2, 2, 2, 2},
+  {5, 5, 5, 5, 7},
+  {5, 5, 5, 5, 2},
+  {5, 5, 5, 7, 5},
+  {5, 5, 2, 5, 5},
+  {5, 5, 2, 2, 2},
+  {7, 1, 2, 4, 7},
+};
+
+byte TINY_DOLLAR[5] = {2, 7, 2, 7, 2};
+
+// One row: bit2=left .. bit0=right.
+void draw_bits3(byte x, byte y, byte bits) {
+  byte i;
+  byte mask;
+  i = 0;
+  mask = 4;
+  while (i < 3) {
+    if ((bits & mask) != 0) {
+      draw_pixel(x + i, y);
+    }
+    mask = mask >> 1;
+    i = i + 1;
+  }
+}
+
+void draw_digit(byte x, byte y, byte d) {
+  byte r;
+  r = 0;
+  while (r < 5) {
+    draw_bits3(x, y + r, TINY_DIGIT[d][r]);
+    r = r + 1;
+  }
+}
+
+void draw_letter(byte x, byte y, byte ch) {
+  byte r;
+  if (ch == 32) {
+    return;
+  }
+  if (ch == 36) {
+    r = 0;
+    while (r < 5) {
+      draw_bits3(x, y + r, TINY_DOLLAR[r]);
+      r = r + 1;
+    }
+    return;
+  }
+  if ((ch >= 48) & (ch <= 57)) {
+    draw_digit(x, y, ch - 48);
+    return;
+  }
+  if ((ch >= 65) & (ch <= 90)) {
+    r = 0;
+    while (r < 5) {
+      draw_bits3(x, y + r, TINY_AZ[ch - 65][r]);
+      r = r + 1;
+    }
+  }
+}
+
+void draw_u16(byte x, byte y, word n) {
+  byte d;
+  byte cx;
+  byte started;
+  word q;
+  cx = x;
+  started = 0;
+  q = n / 10000;
+  d = q;
+  if (d != 0) {
+    draw_digit(cx, y, d);
+    cx = cx + 4;
+    started = 1;
+  }
+  n = n % 10000;
+  q = n / 1000;
+  d = q;
+  if ((d != 0) | (started != 0)) {
+    draw_digit(cx, y, d);
+    cx = cx + 4;
+    started = 1;
+  }
+  n = n % 1000;
+  q = n / 100;
+  d = q;
+  if ((d != 0) | (started != 0)) {
+    draw_digit(cx, y, d);
+    cx = cx + 4;
+    started = 1;
+  }
+  n = n % 100;
+  q = n / 10;
+  d = q;
+  if ((d != 0) | (started != 0)) {
+    draw_digit(cx, y, d);
+    cx = cx + 4;
+  }
+  d = n % 10;
+  draw_digit(cx, y, d);
+}
+
+void draw_u8(byte x, byte y, byte n) {
+  draw_u16(x, y, n);
+}
+
+void draw_str(byte x, byte y, word s) {
+  byte ch;
+  byte cx;
+  cx = x;
+  ch = peek(s);
+  while (ch != 0) {
+    draw_letter(cx, y, ch);
+    cx = cx + 4;
+    s = s + 1;
+    ch = peek(s);
+  }
+}

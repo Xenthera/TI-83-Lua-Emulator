@@ -64,7 +64,7 @@ return function(ok)
   ok("dummy read is stale latch", dummy == 0)
   ok("first real read is col0", first == 0xA5)
   ok("second read is col1", second == 0x5A)
-  -- dummy+2 reads each advance once → column 3
+  -- dummy+2 reads each advance once -> column 3
   ok("pointer advanced after latch reads", lcd.x == 3)
 
   -- draw_pixel-style RMW: must dummy-read or OR clobbers sibling bits.

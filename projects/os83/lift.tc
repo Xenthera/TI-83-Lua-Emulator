@@ -1,0 +1,6 @@
+// Hybrid-only translation unit: lifted page0 leaves (no main / CRT).
+// Built by tools/os_hybrid_page0.lua with no_crt + code_org.
+// key_scan is compiled separately in-place at 0x035A (see key.tc).
+
+#include "mmu.tc"
+#include "lcd.tc"

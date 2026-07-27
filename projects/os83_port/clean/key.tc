@@ -1,0 +1,14 @@
+// Portable TI-OS key_scan (page0 0x035A behavior).
+// group = keypad select mask for port 01; returns raw active-low row bits.
+
+byte key_scan(byte group) {
+  byte row;
+  if ((hw_in(PORT_STATUS) & 0x80) != 0) {
+    if ((hw_in(PORT_SE_STATUS) & 0x01) != 0) {
+    }
+  }
+  hw_out(PORT_KEYPAD, group);
+  row = hw_in(PORT_KEYPAD);
+  hw_out(PORT_KEYPAD, 0xFF);
+  return row;
+}

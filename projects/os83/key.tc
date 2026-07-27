@@ -1,0 +1,15 @@
+// OS key_scan @ 0x035A - NOT the bare-metal GetCSC helper in asm/lib/key.asm.
+// ABI: A = group mask (port 01 select), returns raw row bits in A.
+// SE path probes port 0x02 bit7 / port 0x20 bit0; keypad I/O is shared.
+
+byte key_scan_tc(byte group) osabi {
+  byte row;
+  if ((in_port(0x02) & 0x80) != 0) {
+    if ((in_port(0x20) & 0x01) != 0) {
+    }
+  }
+  out_port(0x01, group);
+  row = in_port(0x01);
+  out_port(0x01, 0xFF);
+  return row;
+}

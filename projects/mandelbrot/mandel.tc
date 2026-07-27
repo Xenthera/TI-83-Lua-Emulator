@@ -1,5 +1,5 @@
 // Mandelbrot on 96x64 using signed Q8.8 (fmul) for z-iteration.
-// Map screen with integer Q8.8 scales (not fmul — small steps truncate to 0).
+// Map screen with integer Q8.8 scales (not fmul - small steps truncate to 0).
 //   cx = -2.0 + x*(3/96)   ->  0xFE00 + x*8
 //   cy = -1.25 + y*(2.5/64) -> 0xFEC0 + y*10
 

@@ -1,0 +1,114 @@
+// Betting chips along the bottom, aligned to F1-F5 graph keys.
+// F1=1 F2=5 F3=10 F4=50 F5=100; CLEAR clears; ENTER deals.
+
+void plot8(byte cx, byte cy, byte x, byte y) {
+  if (cx + x < 96) {
+    if (cy + y < 64) { draw_pixel(cx + x, cy + y); }
+    if (cy >= y) { draw_pixel(cx + x, cy - y); }
+  }
+  if (cx >= x) {
+    if (cy + y < 64) { draw_pixel(cx - x, cy + y); }
+    if (cy >= y) { draw_pixel(cx - x, cy - y); }
+  }
+  if (cx + y < 96) {
+    if (cy + x < 64) { draw_pixel(cx + y, cy + x); }
+    if (cy >= x) { draw_pixel(cx + y, cy - x); }
+  }
+  if (cx >= y) {
+    if (cy + x < 64) { draw_pixel(cx - y, cy + x); }
+    if (cy >= x) { draw_pixel(cx - y, cy - x); }
+  }
+}
+
+void draw_circle(byte cx, byte cy, byte r) {
+  byte x;
+  byte y;
+  byte rr;
+  byte xx;
+  if (r == 0) {
+    draw_pixel(cx, cy);
+    return;
+  }
+  rr = r * r;
+  y = 0;
+  while (y <= r) {
+    x = 0;
+    while (1) {
+      xx = x * x + y * y;
+      if (xx > rr) {
+        break;
+      }
+      if (x >= r) {
+        break;
+      }
+      x = x + 1;
+    }
+    if (x > 0) {
+      x = x - 1;
+    }
+    plot8(cx, cy, x, y);
+    y = y + 1;
+  }
+}
+
+void draw_chip(byte cx, byte cy, byte val) {
+  // r=9 → 19px wide, fills an F-key column; snug fit for "100"
+  draw_circle(cx, cy, 9);
+  draw_circle(cx, cy, 7);
+  draw_pixel(cx, cy - 9);
+  draw_pixel(cx, cy + 9);
+  draw_pixel(cx - 9, cy);
+  draw_pixel(cx + 9, cy);
+  if (val < 10) {
+    draw_digit(cx - 1, cy - 2, val);
+  } else {
+    if (val < 100) {
+      draw_digit(cx - 3, cy - 2, val / 10);
+      draw_digit(cx + 1, cy - 2, val % 10);
+    } else {
+      // "100" with 3px step (glyphs touch) so it stays inside the ring
+      draw_digit(cx - 4, cy - 2, 1);
+      draw_digit(cx - 1, cy - 2, 0);
+      draw_digit(cx + 2, cy - 2, 0);
+    }
+  }
+}
+
+byte chip_value(byte slot) {
+  if (slot == 0) { return 1; }
+  if (slot == 1) { return 5; }
+  if (slot == 2) { return 10; }
+  if (slot == 3) { return 50; }
+  return 100;
+}
+
+// Center of F-key column (5 columns x 19px).
+byte chip_x(byte slot) {
+  return slot * 19 + 9;
+}
+
+void paint_bet_wager(byte wager) {
+  // WAGER value at (74,12); clear enough for 3 digits (byte wager).
+  erase_rect(74, 12, 14, 5);
+  draw_u8(74, 12, wager);
+}
+
+void paint_bet_screen(word cash, byte wager) {
+  byte i;
+  byte v;
+  lcd_clear();
+  draw_str(1, 2, "PLACE BET");
+  draw_str(1, 12, "CASH");
+  draw_u16(22, 12, cash);
+  draw_str(50, 12, "WAGER");
+  paint_bet_wager(wager);
+  draw_str(1, 24, "CLEAR=CLR");
+  draw_str(1, 32, "ENTER=DEAL");
+  i = 0;
+  while (i < 5) {
+    v = chip_value(i);
+    // Bottom row above the physical F-keys (r=9 → sits on y=44..62)
+    draw_chip(chip_x(i), 53, v);
+    i = i + 1;
+  }
+}

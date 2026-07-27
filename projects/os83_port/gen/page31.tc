@@ -1,0 +1,8756 @@
+// Recovered from flash page 31 (mechanical lift)
+// cpu window 0x4000..0x7FFF prefix=p31_
+#include "hw.tc"
+
+void p31_L_4000();
+void p31_str_2();
+void p31_L_4021();
+void p31_L_4170();
+void p31_L_423F();
+void p31_L_4272();
+void p31_L_4282();
+void p31_L_429F();
+void p31_L_42C9();
+void p31_L_4312();
+void p31_L_431F();
+void p31_L_4347();
+void p31_L_4372();
+void p31_L_4396();
+void p31_L_43B3();
+void p31_L_43C3();
+void p31_L_4407();
+void p31_L_443C();
+void p31_L_4448();
+void p31_L_4453();
+void p31_L_4459();
+void p31_L_445E();
+void p31_L_45B9();
+void p31_L_4616();
+void p31_L_4621();
+void p31_L_4643();
+void p31_L_47C8();
+void p31_L_47D0();
+void p31_L_4C20();
+void p31_L_4E20();
+void p31_lcd_init();
+void p31_lcd_write_cmd();
+void p31_lcd_write_data();
+void p31_lcd_put();
+void p31_lcd_put_2();
+void p31_L_4F14();
+void p31_L_4F20();
+void p31_L_4F24();
+void p31_L_4F60();
+void p31_L_4FC8();
+void p31_L_4FFD();
+void p31_L_51A3();
+void p31_L_51D3();
+void p31_L_5220();
+void p31_L_523E();
+void p31_L_5256();
+void p31_L_527B();
+void p31_L_5283();
+void p31_L_5293();
+void p31_L_52A3();
+void p31_L_52B3();
+void p31_L_52C3();
+void p31_L_52E1();
+void p31_L_52F4();
+void p31_L_534F();
+void p31_mmu_set_bankA();
+void p31_L_536D();
+void p31_L_539F();
+void p31_L_53A5();
+void p31_L_53AC();
+void p31_L_53AF();
+void p31_L_53B5();
+void p31_str_1();
+void p31_L_53CB();
+void p31_L_53DF();
+void p31_L_54DD();
+void p31_L_56DD();
+void p31_L_56ED();
+void p31_L_58CB();
+void p31_L_5A01();
+void p31_L_5BB1();
+void p31_L_5D1F();
+void p31_L_5DDD();
+void p31_L_5E1F();
+void p31_L_606E();
+void p31_L_6163();
+void p31_L_616F();
+void p31_L_6461();
+void p31_L_6564();
+void p31_L_65D6();
+void p31_L_681F();
+void p31_L_6974();
+void p31_L_6B62();
+void p31_L_6E6F();
+void p31_L_6E77();
+void p31_L_6F44();
+void p31_L_6F63();
+void p31_L_6F6C();
+void p31_L_742E();
+void p31_L_7564();
+void p31_L_75DD();
+void p31_L_76F3();
+void p31_L_7835();
+void p31_L_7FF0();
+
+// flash page 31 cpu 0x4000 (offset 0x0000)
+void p31_L_4000() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x1F;
+  mmu_set_bank_a(a);
+  mmu_set_bank_b(a);
+  /* jp 0x80D5 - other page/RAM */
+}
+
+// flash page 31 cpu 0x400F (offset 0x000F)
+void p31_str_2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld sp,0x2E31 */
+  /* ld (0x3935),a */
+  /* nop */
+  p00_rst38_isr();
+  p00_rst38_isr();
+  if (flag_z()) return;
+  c = a;
+  /* rra */
+  /* sbc a,a */
+  d = e;
+  /* rra */
+  /* ld (hl),b */
+  b = c;
+  /* rra */
+  p31_L_4021();
+  return;
+}
+
+// flash page 31 cpu 0x4021 (offset 0x0021)
+void p31_L_4021() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld e,(hl) */
+  b = h;
+  /* rra */
+  flag_cmp(a, c);
+  b = l;
+  /* rra */
+  a = a | e;
+  b = e;
+  /* rra */
+  e = c;
+  b = h;
+  /* rra */
+  a = a - d;
+  b = d;
+  /* rra */
+  /* sub (hl) */
+  b = e;
+  /* rra */
+  a = a ^ h;
+  d = e;
+  /* rra */
+  a = a ^ h;
+  d = e;
+  /* rra */
+  a = a ^ h;
+  d = e;
+  /* rra */
+  a = a ^ h;
+  d = e;
+  /* rra */
+  a = a ^ h;
+  d = e;
+  /* rra */
+  /* pop hl */
+  d = d;
+  /* rra */
+  /* ex (sp),hl */
+  d = d;
+  /* rra */
+  if (flag_p()) p00_L_1F52(); /* page0 */
+  a = a | 0x52;
+  /* rra */
+  /* sbc a,a */
+  d = e;
+  /* rra */
+  e = l;
+  d = e;
+  /* rra */
+  l = l;
+  d = e;
+  /* rra */
+  a = a + d;
+  b = d;
+  /* rra */
+  /* rlca */
+  b = h;
+  /* rra */
+  /* adc a,0x43 */
+  /* rra */
+  /* ld hl,0x1F46 */
+  /* sbc a,a */
+  d = e;
+  /* rra */
+  /* sbc a,a */
+  d = e;
+  /* rra */
+  /* sbc a,a */
+  d = e;
+  /* rra */
+  b = e;
+  /* ld b,(hl) */
+  /* rra */
+  b = e;
+  /* ld b,(hl) */
+  /* rra */
+  /* sbc a,a */
+  d = e;
+  /* rra */
+  p00_rst10();
+  b = e;
+  /* rra */
+  /* jp 0x1F43 - other page/RAM */
+}
+
+// flash page 31 cpu 0x4170 (offset 0x0170)
+void p31_L_4170() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(de) */
+  /* cp (hl) */
+  if (flag_nz()) return;
+  a = a | a;
+  if (flag_z()) return;
+  b = a;
+  lab_p31_L_4176:
+  /* inc hl */
+  /* inc de */
+  /* ld a,(de) */
+  /* cp (hl) */
+  if (flag_nz()) return;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4176;
+  return;
+}
+
+// flash page 31 cpu 0x423F (offset 0x023F)
+void p31_L_423F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = b;
+  a = a | a;
+  if (flag_z()) goto lab_p31_L_4271;
+  /* push bc */
+  /* inc hl */
+  b = 0x00;
+  /* add hl,bc */
+  /* ex de,hl */
+  /* pop bc */
+  /* ld c,(ix) */
+  /* inc ix */
+  l = 0x00;
+  lab_p31_L_4251:
+  /* push bc */
+  /* push af */
+  /* ld a,(ix) */
+  h = a;
+  lab_p31_L_4257:
+  /* add hl,hl */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4257;
+  l = a;
+  /* pop af */
+  /* ld a,(de) */
+  /* sbc a,h */
+  /* ld (de),a */
+  /* inc de */
+  /* inc ix */
+  /* pop bc */
+  c = c - 1;
+  if (flag_nz()) goto lab_p31_L_4251;
+  /* push af */
+  h = 0x00;
+  lab_p31_L_4269:
+  /* add hl,hl */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4269;
+  /* pop af */
+  /* ld a,(de) */
+  /* sbc a,h */
+  /* ld (de),a */
+  return;
+  lab_p31_L_4271:
+  /* add hl,bc */
+  p31_L_4272();
+  return;
+}
+
+// flash page 31 cpu 0x4272 (offset 0x0272)
+void p31_L_4272() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = a | a;
+  /* inc hl */
+  /* ld b,(ix) */
+  lab_p31_L_4277:
+  /* ld a,(hl) */
+  /* sbc a,(ix+0x01) */
+  /* ld (hl),a */
+  /* inc hl */
+  /* inc ix */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4277;
+  return;
+}
+
+// flash page 31 cpu 0x4282 (offset 0x0282)
+void p31_L_4282() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0x1E;
+  /* ld hl,0x4000 */
+  p31_mmu_set_bankA();
+  a = a | a;
+  if (flag_z()) goto lab_p31_L_4290;
+  h = 0x60;
+  lab_p31_L_4290:
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x429F (offset 0x029F)
+void p31_L_429F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,i */
+  /* push af */
+  p31_L_443C();
+  /* ld de,0x0A10 */
+  p31_L_43B3();
+  if (flag_nz()) goto lab_p31_L_42BD;
+  /* inc hl */
+  d = c;
+  p31_L_4407();
+  e = d;
+  d = c;
+  /* push de */
+  /* ld de,0x8499 */
+  p31_L_536D();
+  flag_cmp(a, a);
+  /* pop bc */
+  lab_p31_L_42BD:
+  p31_L_4448();
+  /* pop de */
+  /* push af */
+  /* bit 2,e */
+  if (flag_z()) goto lab_p31_L_42C7;
+  /* ei */
+  lab_p31_L_42C7:
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x42C9 (offset 0x02C9)
+void p31_L_42C9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  p31_L_4282();
+  /* ld de,0x1FE0 */
+  /* add hl,de */
+  a = 0x1E;
+  p31_mmu_set_bankA();
+  a = a & 0x01;
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 31 cpu 0x4312 (offset 0x0312)
+void p31_L_4312() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x838F) */
+  /* ld de,0x0401 */
+  a = a | a;
+  /* sbc hl,de */
+  return;
+}
+
+// flash page 31 cpu 0x431F (offset 0x031F)
+void p31_L_431F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_431C:
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  /* rlca */
+  b = h;
+  /* pop de */
+  /* add hl,bc */
+  /* push af */
+  p31_mmu_set_bankA();
+  /* inc hl */
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p31_L_4339;
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  a = a ^ e;
+  a = a & 0xF0;
+  if (flag_nz()) goto lab_p31_L_431C;
+  /* pop af */
+  /* dec hl */
+  flag_cmp(a, a);
+  return;
+  lab_p31_L_4339:
+  a = a + 1;
+  if (flag_nz()) goto lab_p31_L_431C;
+  a = a + 1;
+  /* pop bc */
+  a = b;
+  return;
+}
+
+// flash page 31 cpu 0x4347 (offset 0x0347)
+void p31_L_4347() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_4340:
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  /* pop de */
+  /* add hl,bc */
+  /* push af */
+  p31_mmu_set_bankA();
+  /* inc hl */
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p31_L_435D;
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  a = a ^ e;
+  a = a & 0xF0;
+  if (flag_nz()) goto lab_p31_L_4340;
+  /* pop af */
+  /* dec hl */
+  flag_cmp(a, a);
+  return;
+  lab_p31_L_435D:
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_z()) goto lab_p31_L_4340;
+  /* sub 0x02 */
+  if (flag_z()) goto lab_p31_L_4340;
+  a = a - 1;
+  if (flag_z()) goto lab_p31_L_4340;
+  /* pop bc */
+  a = b;
+  return;
+}
+
+// flash page 31 cpu 0x4372 (offset 0x0372)
+void p31_L_4372() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_436B:
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  /* pop de */
+  /* add hl,bc */
+  /* push af */
+  p31_mmu_set_bankA();
+  /* inc hl */
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p31_L_4388;
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  a = a ^ e;
+  a = a & 0xF0;
+  if (flag_nz()) goto lab_p31_L_436B;
+  /* pop af */
+  /* dec hl */
+  flag_cmp(a, a);
+  return;
+  lab_p31_L_4388:
+  /* pop bc */
+  a = b;
+  return;
+}
+
+// flash page 31 cpu 0x4396 (offset 0x0396)
+void p31_L_4396() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_438B:
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  b = a;
+  a = e;
+  /* pop de */
+  flag_cmp(a, e);
+  if (flag_nz()) return;
+  /* add hl,bc */
+  /* push af */
+  p31_mmu_set_bankA();
+  /* inc hl */
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p31_L_43B0;
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  a = a ^ e;
+  a = a & 0xF0;
+  if (flag_nz()) goto lab_p31_L_438B;
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  /* pop de */
+  flag_cmp(a, a);
+  return;
+  lab_p31_L_43B0:
+  /* pop bc */
+  a = b;
+  return;
+}
+
+// flash page 31 cpu 0x43B3 (offset 0x03B3)
+void p31_L_43B3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_431C:
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  /* pop de */
+  /* add hl,bc */
+  lab_p31_L_4323:
+  /* push af */
+  p31_mmu_set_bankA();
+  /* inc hl */
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p31_L_4339;
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  a = a ^ e;
+  a = a & 0xF0;
+  if (flag_nz()) goto lab_p31_L_431C;
+  /* pop af */
+  /* dec hl */
+  flag_cmp(a, a);
+  return;
+  lab_p31_L_4339:
+  a = a + 1;
+  if (flag_nz()) goto lab_p31_L_431C;
+  a = a + 1;
+  /* pop bc */
+  a = b;
+  return;
+  p31_L_4282();
+  a = 0x1E;
+  p31_mmu_set_bankA();
+  a = a | a;
+  if (flag_nz()) return;
+  a = 0x1E;
+  /* inc hl */
+  goto lab_p31_L_4323;
+}
+
+// flash page 31 cpu 0x43C3 (offset 0x03C3)
+void p31_L_43C3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_431C:
+  /* pop af */
+  /* push de */
+  p31_L_4407();
+  /* pop de */
+  /* add hl,bc */
+  lab_p31_L_4323:
+  /* push af */
+  p31_mmu_set_bankA();
+  /* inc hl */
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p31_L_4339;
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  a = a ^ e;
+  a = a & 0xF0;
+  if (flag_nz()) goto lab_p31_L_431C;
+  /* pop af */
+  /* dec hl */
+  flag_cmp(a, a);
+  return;
+  lab_p31_L_4339:
+  a = a + 1;
+  if (flag_nz()) goto lab_p31_L_431C;
+  a = a + 1;
+  /* pop bc */
+  a = b;
+  return;
+  a = 0x1E;
+  /* push de */
+  p31_L_4407();
+  /* pop de */
+  /* add hl,bc */
+  goto lab_p31_L_4323;
+}
+
+// flash page 31 cpu 0x4407 (offset 0x0407)
+void p31_L_4407() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  p31_mmu_set_bankA();
+  e = a;
+  a = a | 0xF0;
+  a = a + 1;
+  if (flag_z()) goto lab_p31_L_441E;
+  a = a + 1;
+  if (flag_z()) goto lab_p31_L_4427;
+  b = 0x00;
+  a = a + 1;
+  if (flag_z()) goto lab_p31_L_442E;
+  /* add a,0x0D */
+  c = a;
+  goto lab_p31_L_4435;
+  lab_p31_L_441E:
+  /* ld bc,0x0004 */
+  /* add hl,bc */
+  /* ld bc,0x0000 */
+  goto lab_p31_L_4435;
+  lab_p31_L_4427:
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  b = a;
+  lab_p31_L_442E:
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  p31_mmu_set_bankA();
+  c = a;
+  lab_p31_L_4435:
+  /* inc hl */
+  a = e;
+  a = a & 0x0F;
+  e = a;
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x443C (offset 0x043C)
+void p31_L_443C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4448 (offset 0x0448)
+void p31_L_4448() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0;
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4453 (offset 0x0453)
+void p31_L_4453() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* cp 0x1E */ flag_cmp(a, 0x1E);
+  if (flag_c()) { p31_L_445E(); return; }
+  a = a | a;
+  return;
+}
+
+// flash page 31 cpu 0x4459 (offset 0x0459)
+void p31_L_4459() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x1E;
+  b = 0x00;
+  /* ex de,hl */
+  p31_L_445E();
+  return;
+}
+
+// flash page 31 cpu 0x445E (offset 0x045E)
+void p31_L_445E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8478 */
+  /* ld (hl),b */
+  /* ld bc,0x0001 */
+  goto lab_p31_L_4531;
+  lab_p31_L_4531:
+  p31_L_53CB();
+  a = a + l;
+  mmu_set_bank_a(a);
+  a = a & 0x40;
+  if (flag_nz()) goto lab_p31_L_4591;
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p31_L_4591;
+  a = 0xF0;
+  /* ld (0x3FFF),a */
+  /* push bc */
+  a = hw_in(PORT_MMU_A);
+  b = a;
+  a = 0x02;
+  mmu_set_bank_a(a);
+  a = 0xAA;
+  /* ld (0x6AAA),a */
+  a = 0x01;
+  mmu_set_bank_a(a);
+  a = 0x55;
+  /* ld (0x5555),a */
+  a = 0x02;
+  mmu_set_bank_a(a);
+  a = 0xA0;
+  /* ld (0x6AAA),a */
+  a = b;
+  mmu_set_bank_a(a);
+  /* pop bc */
+  /* ld a,(hl) */
+  /* ld (de),a */
+  /* inc hl */
+  /* dec bc */
+  /* push bc */
+  a = a & 0x80;
+  b = a;
+  lab_p31_L_456F:
+  /* ld a,(de) */
+  a = a ^ b;
+  /* jp p,0x814A - other page/RAM */
+  a = a & 0x20;
+  if (flag_z()) goto lab_p31_L_456F;
+  /* ld a,(de) */
+  a = a ^ b;
+  /* jp m,0x817F - other page/RAM */
+  goto lab_p31_L_456F;
+  lab_p31_L_4591:
+  a = 0x1F;
+  mmu_set_bank_a(a);
+  /* push hl */
+  /* push hl */
+  /* push hl */
+  /* nop */
+  /* nop */
+  /* nop */
+  goto lab_p31_L_459D;
+  lab_p31_L_459D:
+  /* pop hl */
+  /* pop hl */
+  /* pop hl */
+  a = 0xF0;
+  /* ld (0x3FFF),a */
+  return;
+}
+
+// flash page 31 cpu 0x45B9 (offset 0x05B9)
+void p31_L_45B9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p31_L_53CB();
+  e = d;
+  /* push af */
+  a = a & 0x40;
+  if (flag_nz()) goto lab_p31_L_4611;
+  /* bit 7,h */
+  if (flag_nz()) goto lab_p31_L_4611;
+  a = 0x02;
+  mmu_set_bank_a(a);
+  a = 0xAA;
+  /* ld (0x6AAA),a */
+  a = 0x01;
+  mmu_set_bank_a(a);
+  a = 0x55;
+  /* ld (0x5555),a */
+  a = 0x02;
+  mmu_set_bank_a(a);
+  a = 0x80;
+  /* ld (0x6AAA),a */
+  a = 0x02;
+  mmu_set_bank_a(a);
+  a = 0xAA;
+  /* ld (0x6AAA),a */
+  a = 0x01;
+  mmu_set_bank_a(a);
+  a = 0x55;
+  /* ld (0x5555),a */
+  /* pop af */
+  mmu_set_bank_a(a);
+  /* ld (hl),0x30 */
+  lab_p31_L_45F8:
+  /* ld a,(hl) */
+  /* bit 7,a */
+  if (flag_nz()) goto lab_p31_L_4606;
+  /* bit 5,a */
+  if (flag_z()) goto lab_p31_L_45F8;
+  /* ld a,(hl) */
+  /* bit 7,a */
+  if (flag_z()) goto lab_p31_L_4612;
+  lab_p31_L_4606:
+  a = 0;
+  lab_p31_L_4607:
+  a = 0xF0;
+  /* ld (0x0000),a */
+  a = 0x1F;
+  mmu_set_bank_a(a);
+  return;
+  lab_p31_L_4611:
+  /* pop af */
+  lab_p31_L_4612:
+  a = a | 0xFF;
+  goto lab_p31_L_4607;
+}
+
+// flash page 31 cpu 0x4616 (offset 0x0616)
+void p31_L_4616() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* cp 0x1E */ flag_cmp(a, 0x1E);
+  if (flag_z()) goto lab_p31_L_461F;
+  /* ld hl,0x4000 */
+  p31_L_45B9();
+  return;
+  lab_p31_L_461F:
+  a = a | a;
+  return;
+}
+
+// flash page 31 cpu 0x4621 (offset 0x0621)
+void p31_L_4621() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = l;
+  a = a | a;
+  if (flag_nz()) goto lab_p31_L_4632;
+  a = h;
+  a = a & 0xDF;
+  /* cp 0x40 */ flag_cmp(a, 0x40);
+  if (flag_nz()) goto lab_p31_L_4632;
+  a = 0x1E;
+  p31_L_45B9();
+  lab_p31_L_4632:
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4643 (offset 0x0643)
+void p31_L_4643() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x845A */
+  a = 0x06;
+  /* ld (de),a */
+  /* push de */
+  /* inc de */
+  /* bit 3,(iy+0x32) */
+  if (flag_nz()) goto lab_p31_L_4664;
+  /* push de */
+  lab_p31_L_4652:
+  /* ld de,0x4678 */
+  /* add hl,de */
+  /* pop de */
+  b = 0x07;
+  lab_p31_L_4659:
+  /* ld a,(hl) */
+  a = a + a;
+  /* ld (de),a */
+  /* inc hl */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4659;
+  a = 0;
+  /* ld (de),a */
+  /* pop hl */
+  return;
+  lab_p31_L_4664:
+  a = 0;
+  /* ld (de),a */
+  /* inc de */
+  /* ld (de),a */
+  /* inc de */
+  /* ld (de),a */
+  /* inc de */
+  /* push de */
+  d = a;
+  e = a;
+  /* ld (0x8466),de */
+  /* ld (0x8468),a */
+  goto lab_p31_L_4652;
+}
+
+// flash page 31 cpu 0x47C8 (offset 0x07C8)
+void p31_L_47C8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  b = b + 1;
+  /* rra */
+  c = 0x1F;
+  b = b + 1;
+  /* nop */
+  b = 0x00;
+  /* nop */
+  b = b + 1;
+  b = b + 1;
+  /* rra */
+  b = b + 1;
+  b = b + 1;
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  goto lab_p31_L_47E6;
+  lab_p31_L_47E6:
+  /* nop */
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  goto lab_p31_L_4807;
+  lab_p31_L_4807:
+  b = 0x0E;
+  /* ld de,0x0601 */
+  /* ex af,af' */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_482E;
+  b = 0x0E;
+  /* ld de,0x0601 */
+  /* ld bc,0x0E11 */
+  b = 0x09;
+  /* add hl,bc */
+  /* ld de,0x1F11 */
+  /* ld bc,0x0601 */
+  /* rra */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4833;
+  c = 0x01;
+  /* ld de,0x060E */
+  b = b + 1;
+  /* ex af,af' */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_484A;
+  /* ld de,0x0E11 */
+  lab_p31_L_482E:
+  c = 0x06;
+  b = 0x1F;
+  /* rra */
+  /* ld bc,0x0202 */
+  lab_p31_L_4833:
+  /* ld (bc),a */
+  b = b + 1;
+  b = b + 1;
+  /* ex af,af' */
+  b = 0x0E;
+  /* ld de,0x0E11 */
+  /* ld de,0x0E11 */
+  b = 0x0E;
+  /* ld de,0x0F11 */
+  /* ld bc,0x0402 */
+  b = 0x00;
+  /* nop */
+  lab_p31_L_484A:
+  goto lab_p31_L_4864;
+  lab_p31_L_4864:
+  /* nop */
+  /* rra */
+  /* nop */
+  b = 0x00;
+  /* nop */
+  goto lab_p31_L_4872;
+  lab_p31_L_4872:
+  /* inc bc */
+  b = 0x04;
+  /* nop */
+  b = b + 1;
+  b = 0x0E;
+  /* ld de,0x1513 */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_488E;
+  b = 0x04;
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  /* ld de,0x111F */
+  /* ld de,0x1E06 */
+  /* add hl,bc */
+  /* add hl,bc */
+  c = 0x09;
+  /* add hl,bc */
+  lab_p31_L_488E:
+  e = 0x06;
+  c = 0x11;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_48A4;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_48A7;
+  c = 0x06;
+  e = 0x09;
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  e = 0x06;
+  /* rra */
+  /* add hl,bc */
+  /* ex af,af' */
+  c = 0x08;
+  lab_p31_L_48A4:
+  /* ex af,af' */
+  /* add hl,bc */
+  /* rra */
+  lab_p31_L_48A7:
+  b = 0x1F;
+  /* add hl,bc */
+  /* ex af,af' */
+  c = 0x08;
+  /* ex af,af' */
+  goto lab_p31_L_48B6;
+  lab_p31_L_48B6:
+  /* rrca */
+  b = 0x19;
+  /* add hl,bc */
+  /* add hl,bc */
+  /* rrca */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x0E;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  c = 0x06;
+  /* inc bc */
+  /* ld bc,0x0101 */
+  /* ld de,0x0E11 */
+  b = 0x19;
+  /* add hl,bc */
+  /* ld a,(bc) */
+  c = c + 1;
+  /* ld a,(bc) */
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x1C;
+  /* ex af,af' */
+  /* ex af,af' */
+  /* ex af,af' */
+  /* ex af,af' */
+  /* add hl,bc */
+  /* rra */
+  b = 0x11;
+  /* dec de */
+  /* rra */
+  d = d - 1;
+  /* ld de,0x1111 */
+  b = 0x11;
+  /* add hl,de */
+  e = e - 1;
+  /* rla */
+  /* inc de */
+  /* ld de,0x0611 */
+  c = 0x11;
+  /* ld de,0x1111 */
+  /* ld de,0x060E */
+  e = 0x09;
+  /* add hl,bc */
+  c = 0x08;
+  /* ex af,af' */
+  e = e + 1;
+  b = 0x0E;
+  /* ld de,0x1111 */
+  d = d - 1;
+  /* ld (de),a */
+  c = c - 1;
+  b = 0x1E;
+  /* add hl,bc */
+  /* add hl,bc */
+  c = 0x0A;
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x0F;
+  /* ld de,0x0E10 */
+  /* ld bc,0x1E11 */
+  b = 0x1F;
+  d = d - 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  c = 0x06;
+  /* ld de,0x1111 */
+  /* ld de,0x1111 */
+  c = 0x06;
+  /* ld de,0x1111 */
+  /* ld de,0x0A11 */
+  b = b + 1;
+  b = 0x11;
+  /* ld de,0x1511 */
+  /* rra */
+  /* dec de */
+  /* ld de,0x1106 */
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  b = b + 1;
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  /* ld de,0x1106 */
+  /* ld de,0x040A */
+  b = b + 1;
+  b = b + 1;
+  c = 0x06;
+  /* rra */
+  /* ld de,0x0402 */
+  /* ex af,af' */
+  /* ld de,0x061F */
+  c = 0x11;
+  /* ld de,0x111F */
+  /* ld de,0x060E */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4962;
+  /* ex af,af' */
+  b = b + 1;
+  /* ld (bc),a */
+  /* ld (bc),a */
+  /* ld bc,0x1C06 */
+  b = b + 1;
+  lab_p31_L_4962:
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  e = e + 1;
+  b = 0x04;
+  /* ld a,(bc) */
+  /* ld de,0x0000 */
+  /* nop */
+  /* nop */
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* rra */
+  b = 0x0C;
+  c = c + 1;
+  b = b + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x00;
+  /* nop */
+  c = c + 1;
+  /* ld (bc),a */
+  c = 0x12;
+  c = c - 1;
+  b = 0x18;
+  /* ex af,af' */
+  c = 0x09;
+  /* add hl,bc */
+  /* add hl,bc */
+  e = 0x06;
+  /* nop */
+  /* nop */
+  c = 0x11;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_49A7;
+  lab_p31_L_49A7:
+  b = 0x03;
+}
+
+// flash page 31 cpu 0x47D0 (offset 0x07D0)
+void p31_L_47D0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  b = b + 1;
+  b = b + 1;
+  /* rra */
+  b = b + 1;
+  b = b + 1;
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  goto lab_p31_L_47E6;
+  lab_p31_L_47E6:
+  /* nop */
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  goto lab_p31_L_4807;
+  lab_p31_L_4807:
+  b = 0x0E;
+  /* ld de,0x0601 */
+  /* ex af,af' */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_482E;
+  b = 0x0E;
+  /* ld de,0x0601 */
+  /* ld bc,0x0E11 */
+  b = 0x09;
+  /* add hl,bc */
+  /* ld de,0x1F11 */
+  /* ld bc,0x0601 */
+  /* rra */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4833;
+  c = 0x01;
+  /* ld de,0x060E */
+  b = b + 1;
+  /* ex af,af' */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_484A;
+  /* ld de,0x0E11 */
+  lab_p31_L_482E:
+  c = 0x06;
+  b = 0x1F;
+  /* rra */
+  /* ld bc,0x0202 */
+  lab_p31_L_4833:
+  /* ld (bc),a */
+  b = b + 1;
+  b = b + 1;
+  /* ex af,af' */
+  b = 0x0E;
+  /* ld de,0x0E11 */
+  /* ld de,0x0E11 */
+  b = 0x0E;
+  /* ld de,0x0F11 */
+  /* ld bc,0x0402 */
+  b = 0x00;
+  /* nop */
+  lab_p31_L_484A:
+  goto lab_p31_L_4864;
+  lab_p31_L_4864:
+  /* nop */
+  /* rra */
+  /* nop */
+  b = 0x00;
+  /* nop */
+  goto lab_p31_L_4872;
+  lab_p31_L_4872:
+  /* inc bc */
+  b = 0x04;
+  /* nop */
+  b = b + 1;
+  b = 0x0E;
+  /* ld de,0x1513 */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_488E;
+  b = 0x04;
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  /* ld de,0x111F */
+  /* ld de,0x1E06 */
+  /* add hl,bc */
+  /* add hl,bc */
+  c = 0x09;
+  /* add hl,bc */
+  lab_p31_L_488E:
+  e = 0x06;
+  c = 0x11;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_48A4;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_48A7;
+  c = 0x06;
+  e = 0x09;
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  e = 0x06;
+  /* rra */
+  /* add hl,bc */
+  /* ex af,af' */
+  c = 0x08;
+  lab_p31_L_48A4:
+  /* ex af,af' */
+  /* add hl,bc */
+  /* rra */
+  lab_p31_L_48A7:
+  b = 0x1F;
+  /* add hl,bc */
+  /* ex af,af' */
+  c = 0x08;
+  /* ex af,af' */
+  goto lab_p31_L_48B6;
+  lab_p31_L_48B6:
+  /* rrca */
+  b = 0x19;
+  /* add hl,bc */
+  /* add hl,bc */
+  /* rrca */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x0E;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  c = 0x06;
+  /* inc bc */
+  /* ld bc,0x0101 */
+  /* ld de,0x0E11 */
+  b = 0x19;
+  /* add hl,bc */
+  /* ld a,(bc) */
+  c = c + 1;
+  /* ld a,(bc) */
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x1C;
+  /* ex af,af' */
+  /* ex af,af' */
+  /* ex af,af' */
+  /* ex af,af' */
+  /* add hl,bc */
+  /* rra */
+  b = 0x11;
+  /* dec de */
+  /* rra */
+  d = d - 1;
+  /* ld de,0x1111 */
+  b = 0x11;
+  /* add hl,de */
+  e = e - 1;
+  /* rla */
+  /* inc de */
+  /* ld de,0x0611 */
+  c = 0x11;
+  /* ld de,0x1111 */
+  /* ld de,0x060E */
+  e = 0x09;
+  /* add hl,bc */
+  c = 0x08;
+  /* ex af,af' */
+  e = e + 1;
+  b = 0x0E;
+  /* ld de,0x1111 */
+  d = d - 1;
+  /* ld (de),a */
+  c = c - 1;
+  b = 0x1E;
+  /* add hl,bc */
+  /* add hl,bc */
+  c = 0x0A;
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x0F;
+  /* ld de,0x0E10 */
+  /* ld bc,0x1E11 */
+  b = 0x1F;
+  d = d - 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  c = 0x06;
+  /* ld de,0x1111 */
+  /* ld de,0x1111 */
+  c = 0x06;
+  /* ld de,0x1111 */
+  /* ld de,0x0A11 */
+  b = b + 1;
+  b = 0x11;
+  /* ld de,0x1511 */
+  /* rra */
+  /* dec de */
+  /* ld de,0x1106 */
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  b = b + 1;
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  /* ld de,0x1106 */
+  /* ld de,0x040A */
+  b = b + 1;
+  b = b + 1;
+  c = 0x06;
+  /* rra */
+  /* ld de,0x0402 */
+  /* ex af,af' */
+  /* ld de,0x061F */
+  c = 0x11;
+  /* ld de,0x111F */
+  /* ld de,0x060E */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4962;
+  /* ex af,af' */
+  b = b + 1;
+  /* ld (bc),a */
+  /* ld (bc),a */
+  /* ld bc,0x1C06 */
+  b = b + 1;
+  lab_p31_L_4962:
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  e = e + 1;
+  b = 0x04;
+  /* ld a,(bc) */
+  /* ld de,0x0000 */
+  /* nop */
+  /* nop */
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* rra */
+  b = 0x0C;
+  c = c + 1;
+  b = b + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x00;
+  /* nop */
+  c = c + 1;
+  /* ld (bc),a */
+  c = 0x12;
+  c = c - 1;
+  b = 0x18;
+  /* ex af,af' */
+  c = 0x09;
+  /* add hl,bc */
+  /* add hl,bc */
+  e = 0x06;
+  /* nop */
+  /* nop */
+  c = 0x11;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_49A7;
+  c = 0x06;
+  b = 0x02;
+  c = 0x12;
+  lab_p31_L_49A7:
+  b = 0x03;
+  b = b + 1;
+  b = b + 1;
+  /* rrca */
+}
+
+// flash page 31 cpu 0x4C20 (offset 0x0C20)
+void p31_L_4C20() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = b - 1;
+  /* ld a,(bc) */
+  /* nop */
+  d = 0x09;
+  /* add hl,bc */
+  /* add hl,de */
+  b = 0x10;
+  /* ex af,af' */
+  b = b + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x01;
+  /* ld (bc),a */
+  b = b + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x00;
+  /* ld a,(bc) */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x04;
+  /* nop */
+  b = b + 1;
+  c = c + 1;
+  goto lab_p31_L_4C5F;
+  lab_p31_L_4C5F:
+  b = 0x00;
+  /* nop */
+  /* add hl,bc */
+  d = d - 1;
+  b = b - 1;
+  /* ld (bc),a */
+  b = b + 1;
+  b = 0x04;
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  /* ld de,0x1111 */
+  /* rra */
+  b = 0x06;
+  /* ex af,af' */
+  b = b + 1;
+  c = 0x11;
+  /* ld de,0x060E */
+  /* nop */
+  /* nop */
+  /* rrca */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4C8B;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4C8E;
+  b = 0x07;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  b = b + 1;
+  /* rlca */
+  b = 0x10;
+  /* ex af,af' */
+  b = b + 1;
+  lab_p31_L_4C8B:
+  b = b + 1;
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  lab_p31_L_4C8E:
+  /* ld de,0x0006 */
+  /* nop */
+  /* ld (de),a */
+  /* ld (de),a */
+  d = 0x19;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4C9E;
+  /* nop */
+  /* nop */
+  /* rra */
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  /* ld a,(bc) */
+  lab_p31_L_4C9E:
+  /* dec de */
+  b = 0x00;
+  /* nop */
+  c = 0x11;
+  /* ld de,0x101E */
+  b = 0x1F;
+  /* ld de,0x0408 */
+  /* ex af,af' */
+  /* ld de,0x061F */
+  /* nop */
+  /* nop */
+  /* rrca */
+  /* ld (de),a */
+  /* ld (de),a */
+  /* ld (de),a */
+  c = c + 1;
+  b = 0x00;
+  /* nop */
+  /* rra */
+  d = d + 1;
+  b = b + 1;
+  b = b + 1;
+  /* inc bc */
+  b = 0x00;
+  b = b + 1;
+  c = 0x15;
+  d = d - 1;
+  c = 0x04;
+  b = 0x0E;
+  /* ld de,0x1111 */
+  /* ld de,0x110A */
+  b = 0x1F;
+  /* nop */
+  /* ld de,0x040A */
+  /* ld a,(bc) */
+  /* ld de,0x1F06 */
+  /* nop */
+  /* ld de,0x040A */
+  /* ex af,af' */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4CE6;
+  b = b - 1;
+  /* ld (bc),a */
+  b = b - 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  lab_p31_L_4CE6:
+  /* nop */
+  b = 0x00;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  d = d - 1;
+  b = 0x00;
+  /* nop */
+  b = b + 1;
+  c = c + 1;
+  /* rra */
+  c = c + 1;
+  b = b + 1;
+  b = 0x00;
+  /* rra */
+  /* ld de,0x1111 */
+  /* rra */
+  /* nop */
+  b = 0x01;
+  /* ld (bc),a */
+  /* ld (bc),a */
+  b = b + 1;
+  /* ex af,af' */
+  /* ex af,af' */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4D0E;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  c = 0x00;
+  lab_p31_L_4D0E:
+  /* nop */
+  b = 0x1C;
+  b = b + 1;
+  /* ex af,af' */
+  e = e + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x1C;
+  d = d + 1;
+  e = e + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x1C;
+  /* ex af,af' */
+  b = b + 1;
+  e = e + 1;
+  /* nop */
+  /* nop */
+  /* nop */
+  b = 0x18;
+  d = d + 1;
+  d = d + 1;
+  /* dec de */
+  b = 0x05;
+  /* ld (bc),a */
+  b = 0x00;
+  /* ld bc,0x0600 */
+  /* ld (bc),a */
+  b = b + 1;
+  c = 0x06;
+  b = b + 1;
+  /* ld a,(bc) */
+  /* nop */
+  e = 0x09;
+  c = 0x18;
+  b = 0x00;
+  /* nop */
+  /* add hl,de */
+  /* ld a,(bc) */
+  b = b + 1;
+  /* ld a,(bc) */
+  /* inc de */
+  b = 0x1F;
+  /* add hl,bc */
+  /* ex af,af' */
+  c = 0x0A;
+  /* ex af,af' */
+  goto lab_p31_L_4D56;
+  lab_p31_L_4D56:
+  c = 0x06;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* ld (bc),a */
+  /* ld (bc),a */
+  /* inc bc */
+  b = 0x11;
+  /* add hl,de */
+  e = e - 1;
+  /* dec de */
+  /* add hl,de */
+  /* add hl,de */
+  /* add hl,de */
+  b = 0x12;
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* add hl,bc */
+  /* ld (de),a */
+  b = 0x00;
+  e = e + 1;
+  d = 0x17;
+  d = 0x1C;
+  /* nop */
+  b = 0x1F;
+  /* rra */
+  /* rra */
+  /* rra */
+  /* rra */
+  /* rra */
+  /* rra */
+  b = 0x1F;
+  /* dec de */
+  /* ld de,0x1B1B */
+  /* dec de */
+  /* rra */
+  b = 0x1F;
+  /* dec de */
+  d = d - 1;
+  d = d - 1;
+  /* ld de,0x1F15 */
+  b = 0x1F;
+  /* rra */
+  /* add hl,de */
+  d = d - 1;
+}
+
+// flash page 31 cpu 0x4E20 (offset 0x0E20)
+void p31_L_4E20() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  e = e + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E3B;
+  /* rla */
+  b = 0x01;
+  b = 0x06;
+  e = e + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E43;
+  /* inc de */
+  b = 0x05;
+  /* ld (bc),a */
+  b = 0x1C;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E4B;
+  /* rla */
+  /* ld bc,0x0202 */
+  b = 0x1C;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E56;
+  lab_p31_L_4E3B:
+  d = d - 1;
+  /* rlca */
+  b = b - 1;
+  b = 0x06;
+  e = e + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E5B;
+  lab_p31_L_4E43:
+  /* ld (de),a */
+  b = b - 1;
+  /* inc bc */
+  b = 0x06;
+  e = e + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E63;
+  lab_p31_L_4E4B:
+  /* ld (de),a */
+  b = b - 1;
+  /* rlca */
+  b = b - 1;
+  b = 0x1C;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E71;
+  d = d - 1;
+  b = 0x05;
+  lab_p31_L_4E56:
+  b = 0x06;
+  e = e + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E73;
+  lab_p31_L_4E5B:
+  /* inc de */
+  b = b + 1;
+  b = b + 1;
+  /* inc bc */
+  b = 0x1C;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E7B;
+  lab_p31_L_4E63:
+  d = 0x05;
+  b = b - 1;
+  b = 0x06;
+  e = e + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E86;
+  /* ld (de),a */
+  /* inc bc */
+  /* ld (bc),a */
+  /* inc bc */
+  b = 0x1C;
+  lab_p31_L_4E71:
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4E8B;
+  lab_p31_L_4E73:
+  /* rla */
+  b = b + 1;
+  b = 0x04;
+  p31_lcd_init();
+  return;
+  lab_p31_L_4E7B:
+  /* ld c,(hl) */
+  a = 0x01;
+  p31_lcd_write_cmd();
+  a = 0x05;
+  p31_lcd_write_cmd();
+  lab_p31_L_4E86:
+  a = 0xF0;
+  p31_lcd_write_cmd();
+  lab_p31_L_4E8B:
+  return;
+}
+
+// flash page 31 cpu 0x4E77 (offset 0x0E77)
+void p31_lcd_init() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x18;
+  p31_lcd_write_cmd();
+  a = 0x01;
+  p31_lcd_write_cmd();
+  a = 0x05;
+  p31_lcd_write_cmd();
+  a = 0xF0;
+  p31_lcd_write_cmd();
+  return;
+}
+
+// flash page 31 cpu 0x4E8C (offset 0x0E8C)
+void p31_lcd_write_cmd() {
+  /* CURATED -> clean/lcd_write_cmd */
+  lcd_write_cmd();
+}
+
+// flash page 31 cpu 0x4E98 (offset 0x0E98)
+void p31_lcd_write_data() {
+  /* CURATED -> clean/lcd_write_data */
+  lcd_write_data();
+}
+
+// flash page 31 cpu 0x4EA4 (offset 0x0EA4)
+void p31_lcd_put() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  a = 0x80;
+  p31_lcd_write_cmd();
+  a = 0x20;
+  lab_p31_L_4EAD:
+  c = a;
+  p31_lcd_write_cmd();
+  b = 0x40;
+  a = 0;
+  lab_p31_L_4EB4:
+  p31_lcd_write_data();
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4EB4;
+  a = c;
+  a = a + 1;
+  /* cp 0x2C */ flag_cmp(a, 0x2C);
+  if (flag_c()) goto lab_p31_L_4EAD;
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4EC2 (offset 0x0EC2)
+void p31_lcd_put_2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* cp 0xD6 */ flag_cmp(a, 0xD6);
+  if (flag_z()) { p31_L_4F14(); return; }
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* push hl */
+  l = a;
+  h = 0x00;
+  /* ld a,i */
+  /* push af */
+  /* di */
+  a = h;
+  p31_lcd_write_cmd();
+  /* ld a,(0x844B) */
+  a = a + a;
+  a = a + a;
+  a = a + a;
+  /* add a,0x80 */
+  p31_lcd_write_cmd();
+  /* add hl,hl */
+  /* add hl,hl */
+  /* add hl,hl */
+  /* ld de,0x4678 */
+  /* add hl,de */
+  /* ld a,(0x844C) */
+  /* add a,0x20 */
+  p31_lcd_write_cmd();
+  b = 0x07;
+  lab_p31_L_4EF1:
+  /* ld a,(hl) */
+  /* rla */
+  /* inc hl */
+  p31_lcd_write_data();
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_4EF1;
+  /* ld a,(0x844C) */
+  a = a + 1;
+  /* ld (0x844C),a */
+  /* cp 0x10 */ flag_cmp(a, 0x10);
+  if (flag_nc()) p31_L_4F14();
+  a = 0x01;
+  p31_lcd_write_cmd();
+  /* pop af */
+  if (flag_po()) goto lab_p31_L_4F0F;
+  /* ei */
+  lab_p31_L_4F0F:
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4F14 (offset 0x0F14)
+void p31_L_4F14() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0;
+  /* ld (0x844C),a */
+  /* ld a,(0x844B) */
+  a = a + 1;
+  a = a & 0x07;
+  /* ld (0x844B),a */
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4F20 (offset 0x0F20)
+void p31_L_4F20() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  c = e;
+  a = a + h;
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4F24 (offset 0x0F24)
+void p31_L_4F24() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  lab_p31_L_4F25:
+  /* ld a,(hl) */
+  /* inc hl */
+  a = a | a;
+  if (flag_z()) goto lab_p31_L_4F2F;
+  p31_lcd_put_2();
+  goto lab_p31_L_4F25;
+  lab_p31_L_4F2F:
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x4F60 (offset 0x0F60)
+void p31_L_4F60() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = b;
+  a = a | c;
+  if (flag_z()) return;
+  /* ld de,(0x8269) */
+  /* srl d */
+  a = e;
+  /* rra */
+  d = a;
+  /* rrca */
+  /* rrca */
+  /* add a,0xA5 */
+  e = a;
+  a = d;
+  d = 0x83;
+  lab_p31_L_4F74:
+  /* add a,0x04 */
+  /* ldi */
+  if (flag_c()) goto lab_p31_L_4F8A;
+  if (flag_pe()) goto lab_p31_L_4F74;
+  a = a + a;
+  /* ld (0x8269),a */
+  /* ld a,(0x826A) */
+  /* rra */
+  /* rlca */
+  /* ld (0x826A),a */
+  return;
+  lab_p31_L_4F8A:
+  /* push hl */
+  /* push bc */
+  a = a + a;
+  /* ld hl,0x8269 */
+  /* ld (hl),a */
+  /* inc hl */
+  /* ld a,(hl) */
+  /* rra */
+  /* rlca */
+  /* add a,0x02 */
+  /* ld (hl),a */
+  if (flag_nc()) goto lab_p31_L_4F9E;
+  lab_p31_L_4F9A:
+  /* inc hl */
+  /* inc (hl) */
+  if (flag_z()) goto lab_p31_L_4F9A;
+  lab_p31_L_4F9E:
+  /* ld hl,0x8292 */
+  /* ld de,0x8259 */
+  /* ld bc,0x0010 */
+  /* ldir */
+  p31_L_51A3();
+  /* ld hl,0x8259 */
+  /* ld de,0x8292 */
+  p31_L_4FFD();
+  /* inc hl */
+  /* inc de */
+  p31_L_4FFD();
+  /* inc hl */
+  /* inc de */
+  p31_L_4FFD();
+  /* inc hl */
+  /* inc de */
+  p31_L_4FFD();
+  /* pop bc */
+  /* pop hl */
+  goto lab_p31_L_4F60;
+}
+
+// flash page 31 cpu 0x4FC8 (offset 0x0FC8)
+void p31_L_4FC8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8269 */
+  /* ld de,0x8251 */
+  /* ld bc,0x0008 */
+  /* ldir */
+  /* ld hl,0x4FFB */
+  /* ld bc,0x0001 */
+  p31_L_4F60();
+  /* inc hl */
+  lab_p31_L_4FDD:
+  /* ld a,(0x8269) */
+  /* cp 0xC0 */ flag_cmp(a, 0xC0);
+  if (flag_z()) goto lab_p31_L_4FEB;
+  lab_p31_L_4FE4:
+  /* dec hl */
+  c = c + 1;
+  p31_L_4F60();
+  goto lab_p31_L_4FDD;
+  lab_p31_L_4FEB:
+  /* ld a,(0x826A) */
+  a = a & 0x01;
+  if (flag_z()) goto lab_p31_L_4FE4;
+  /* ld hl,0x8251 */
+  /* ld bc,0x0008 */
+  p31_L_4F60();
+  return;
+}
+
+// flash page 31 cpu 0x4FFD (offset 0x0FFD)
+void p31_L_4FFD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(de) */
+  /* add a,(hl) */
+  /* ld (de),a */
+  /* inc hl */
+  /* inc de */
+  /* ld a,(de) */
+  /* adc a,(hl) */
+  /* ld (de),a */
+  /* inc hl */
+  /* inc de */
+  /* ld a,(de) */
+  /* adc a,(hl) */
+  /* ld (de),a */
+  /* inc hl */
+  /* inc de */
+  /* ld a,(de) */
+  /* adc a,(hl) */
+  /* ld (de),a */
+  return;
+}
+
+// flash page 31 cpu 0x51A3 (offset 0x11A3)
+void p31_L_51A3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x5010 */
+  b = 0x10;
+  /* ld ix,0x519F */
+  lab_p31_L_51AC:
+  p31_L_51D3();
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_51AC;
+  b = 0x10;
+  /* ld ix,0x519F */
+  lab_p31_L_51B7:
+  p31_L_5220();
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_51B7;
+  b = 0x10;
+  /* ld ix,0x519F */
+  lab_p31_L_51C2:
+  p31_L_523E();
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_51C2;
+  b = 0x10;
+  /* ld ix,0x519F */
+  lab_p31_L_51CD:
+  p31_L_5256();
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_51CD;
+  return;
+}
+
+// flash page 31 cpu 0x51D3 (offset 0x11D3)
+void p31_L_51D3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  /* ld ixl,(ix+0x02) */
+  h = 0x82;
+  p31_L_527B();
+  /* ld ixl,(ix+0x03) */
+  p31_L_52A3();
+  /* ld ixl,(ix+0x01) */
+  p31_L_5283();
+  /* ld ixl,(ix+0x03) */
+  p31_L_52A3();
+  /* ld ixl,(ix) */
+  p31_L_52B3();
+  /* pop hl */
+  /* push hl */
+  /* ld l,(hl) */
+  h = 0x83;
+  p31_L_52B3();
+  /* pop hl */
+  /* inc hl */
+  p31_L_52B3();
+  /* inc hl */
+  /* ld a,(hl) */
+  /* inc hl */
+  /* push hl */
+  p31_L_52C3();
+  /* ld ixl,(ix+0x01) */
+  h = 0x82;
+  p31_L_52B3();
+  /* ld ixl,(ix) */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  /* inc hl */
+  /* ld (hl),c */
+  /* inc hl */
+  /* ld (hl),b */
+  /* dec ix */
+  /* pop hl */
+  /* pop bc */
+  return;
+}
+
+// flash page 31 cpu 0x5220 (offset 0x1220)
+void p31_L_5220() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_51EF:
+  /* ld ixl,(ix) */
+  p31_L_52B3();
+  /* pop hl */
+  /* push hl */
+  /* ld l,(hl) */
+  h = 0x83;
+  p31_L_52B3();
+  /* pop hl */
+  /* inc hl */
+  p31_L_52B3();
+  /* inc hl */
+  /* ld a,(hl) */
+  /* inc hl */
+  /* push hl */
+  p31_L_52C3();
+  /* ld ixl,(ix+0x01) */
+  h = 0x82;
+  p31_L_52B3();
+  /* ld ixl,(ix) */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  /* inc hl */
+  /* ld (hl),c */
+  /* inc hl */
+  /* ld (hl),b */
+  /* dec ix */
+  /* pop hl */
+  /* pop bc */
+  return;
+  /* push bc */
+  /* push hl */
+  /* ld ixl,(ix+0x01) */
+  h = 0x82;
+  p31_L_527B();
+  /* ld ixl,(ix+0x02) */
+  p31_L_52A3();
+  /* ld ixl,(ix+0x03) */
+  p31_L_5283();
+  /* ld ixl,(ix+0x02) */
+  p31_L_52A3();
+  goto lab_p31_L_51EF;
+}
+
+// flash page 31 cpu 0x523E (offset 0x123E)
+void p31_L_523E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_51EF:
+  /* ld ixl,(ix) */
+  p31_L_52B3();
+  /* pop hl */
+  /* push hl */
+  /* ld l,(hl) */
+  h = 0x83;
+  p31_L_52B3();
+  /* pop hl */
+  /* inc hl */
+  p31_L_52B3();
+  /* inc hl */
+  /* ld a,(hl) */
+  /* inc hl */
+  /* push hl */
+  p31_L_52C3();
+  /* ld ixl,(ix+0x01) */
+  h = 0x82;
+  p31_L_52B3();
+  /* ld ixl,(ix) */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  /* inc hl */
+  /* ld (hl),c */
+  /* inc hl */
+  /* ld (hl),b */
+  /* dec ix */
+  /* pop hl */
+  /* pop bc */
+  return;
+  /* push bc */
+  /* push hl */
+  /* ld ixl,(ix+0x01) */
+  h = 0x82;
+  p31_L_527B();
+  /* ld ixl,(ix+0x02) */
+  p31_L_52A3();
+  /* ld ixl,(ix+0x03) */
+  p31_L_52A3();
+  goto lab_p31_L_51EF;
+}
+
+// flash page 31 cpu 0x5256 (offset 0x1256)
+void p31_L_5256() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p31_L_51EF:
+  /* ld ixl,(ix) */
+  p31_L_52B3();
+  /* pop hl */
+  /* push hl */
+  /* ld l,(hl) */
+  h = 0x83;
+  p31_L_52B3();
+  /* pop hl */
+  /* inc hl */
+  p31_L_52B3();
+  /* inc hl */
+  /* ld a,(hl) */
+  /* inc hl */
+  /* push hl */
+  p31_L_52C3();
+  /* ld ixl,(ix+0x01) */
+  h = 0x82;
+  p31_L_52B3();
+  /* ld ixl,(ix) */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  /* inc hl */
+  /* ld (hl),c */
+  /* inc hl */
+  /* ld (hl),b */
+  /* dec ix */
+  /* pop hl */
+  /* pop bc */
+  return;
+  /* push bc */
+  /* push hl */
+  /* ld ixl,(ix+0x03) */
+  h = 0x82;
+  /* ld a,(hl) */
+  a = a ^ 0xFF;
+  e = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a ^ 0xFF;
+  d = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a ^ 0xFF;
+  c = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a ^ 0xFF;
+  b = a;
+  /* ld ixl,(ix+0x01) */
+  p31_L_5293();
+  /* ld ixl,(ix+0x02) */
+  p31_L_52A3();
+  goto lab_p31_L_51EF;
+}
+
+// flash page 31 cpu 0x527B (offset 0x127B)
+void p31_L_527B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  /* inc hl */
+  /* ld c,(hl) */
+  /* inc hl */
+  /* ld b,(hl) */
+  return;
+}
+
+// flash page 31 cpu 0x5283 (offset 0x1283)
+void p31_L_5283() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(hl) */
+  a = a & e;
+  e = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a & d;
+  d = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a & c;
+  c = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a & b;
+  b = a;
+  return;
+}
+
+// flash page 31 cpu 0x5293 (offset 0x1293)
+void p31_L_5293() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(hl) */
+  a = a | e;
+  e = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a | d;
+  d = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a | c;
+  c = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a | b;
+  b = a;
+  return;
+}
+
+// flash page 31 cpu 0x52A3 (offset 0x12A3)
+void p31_L_52A3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(hl) */
+  a = a ^ e;
+  e = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a ^ d;
+  d = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a ^ c;
+  c = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  a = a ^ b;
+  b = a;
+  return;
+}
+
+// flash page 31 cpu 0x52B3 (offset 0x12B3)
+void p31_L_52B3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(hl) */
+  a = a + e;
+  e = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  /* adc a,d */
+  d = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  /* adc a,c */
+  c = a;
+  /* inc hl */
+  /* ld a,(hl) */
+  /* adc a,b */
+  b = a;
+  return;
+}
+
+// flash page 31 cpu 0x52C3 (offset 0x12C3)
+void p31_L_52C3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* sub 0x08 */
+  if (flag_c()) goto lab_p31_L_52CE;
+  l = b;
+  b = c;
+  c = d;
+  d = e;
+  e = l;
+  goto lab_p31_L_52C3;
+  lab_p31_L_52CE:
+  /* add a,0x08 */
+  if (flag_z()) return;
+  l = a;
+  a = b;
+  b = l;
+  /* ex de,hl */
+  lab_p31_L_52D5:
+  /* add hl,hl */
+  /* rl c */
+  /* rla */
+  if (flag_nc()) goto lab_p31_L_52DC;
+  l = l + 1;
+  lab_p31_L_52DC:
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_52D5;
+  /* ex de,hl */
+  b = a;
+  return;
+}
+
+// flash page 31 cpu 0x52E1 (offset 0x12E1)
+void p31_L_52E1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  d = 0x00;
+  /* ld hl,0x0000 */
+  a = a | a;
+  if (flag_z()) return;
+  lab_p31_L_52E8:
+  /* rra */
+  if (flag_nc()) goto lab_p31_L_52EC;
+  /* add hl,de */
+  lab_p31_L_52EC:
+  /* sla e */
+  /* rl d */
+  a = a | a;
+  if (flag_nz()) goto lab_p31_L_52E8;
+  return;
+}
+
+// flash page 31 cpu 0x52F4 (offset 0x12F4)
+void p31_L_52F4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  d = 0x00;
+  /* push bc */
+  a = h;
+  c = l;
+  /* ld hl,0x0000 */
+  b = 0x10;
+  lab_p31_L_52FE:
+  /* sll c */
+  /* rla */
+  /* adc hl,hl */
+  if (flag_c()) goto lab_p31_L_5311;
+  /* sbc hl,de */
+  if (flag_nc()) goto lab_p31_L_530B;
+  /* add hl,de */
+  c = c - 1;
+  lab_p31_L_530B:
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_52FE;
+  lab_p31_L_530D:
+  d = a;
+  e = c;
+  /* pop bc */
+  return;
+  lab_p31_L_5311:
+  a = a | a;
+  /* sbc hl,de */
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_52FE;
+  goto lab_p31_L_530D;
+}
+
+// flash page 31 cpu 0x534F (offset 0x134F)
+void p31_L_534F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  l = a;
+  h = c;
+  /* ld (0x8478),hl */
+  /* ld c,ixh */
+  /* ld b,ixl */
+  /* ld (0x847A),bc */
+  return;
+}
+
+// flash page 31 cpu 0x535D (offset 0x135D)
+void p31_mmu_set_bankA() {
+  /* CURATED -> clean/mmu_set_bank_a */
+  byte a;
+  mmu_set_bank_a(a);
+}
+
+// flash page 31 cpu 0x536D (offset 0x136D)
+void p31_L_536D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p31_L_53CB();
+  a = a ^ 0xFF;
+  a = a & 0x1F;
+  mmu_set_bank_a(a);
+  a = a | a;
+  if (flag_z()) goto lab_p31_L_5390;
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p31_L_5396;
+  lab_p31_L_537C:
+  /* ldi */
+  /* jp po,0x8125 - other page/RAM */
+  /* bit 7,h */
+  if (flag_z()) goto lab_p31_L_537C;
+  a = h;
+  /* sub 0x40 */
+  h = a;
+  a = hw_in(PORT_MMU_A);
+  a = a + 1;
+  mmu_set_bank_a(a);
+  goto lab_p31_L_537C;
+  lab_p31_L_5390:
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p31_L_5396;
+  /* ldir */
+  lab_p31_L_5396:
+  a = hw_in(PORT_MMU_A);
+  /* push af */
+  a = 0x1F;
+  mmu_set_bank_a(a);
+  /* pop af */
+  return;
+}
+
+// flash page 31 cpu 0x539F (offset 0x139F)
+void p31_L_539F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  return;
+}
+
+// flash page 31 cpu 0x53A5 (offset 0x13A5)
+void p31_L_53A5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x00;
+  return;
+}
+
+// flash page 31 cpu 0x53AC (offset 0x13AC)
+void p31_L_53AC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  return;
+}
+
+// flash page 31 cpu 0x53AF (offset 0x13AF)
+void p31_L_53AF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x0000 */
+  /* ld (0x844B),hl */
+  p31_L_53B5();
+  return;
+}
+
+// flash page 31 cpu 0x53B5 (offset 0x13B5)
+void p31_L_53B5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x53C1 */
+  p31_L_4F24();
+  /* ld hl,0x400F */
+  p31_L_4F24();
+  return;
+}
+
+// flash page 31 cpu 0x53C1 (offset 0x13C1)
+void p31_str_1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = d;
+  l = a;
+  l = a;
+  /* ld (hl),h */
+  /* ld b,(hl) */
+  /* ld (hl),d */
+  h = l;
+  h = l;
+  if (flag_nz()) { p31_L_53CB(); return; }
+  p31_L_53CB();
+  return;
+}
+
+// flash page 31 cpu 0x53CB (offset 0x13CB)
+void p31_L_53CB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ex (sp),hl */
+  /* push de */
+  /* push bc */
+  /* push af */
+  /* ld c,(hl) */
+  b = 0x00;
+  /* inc hl */
+  /* ld de,0x8100 */
+  /* ldir */
+  /* pop af */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* jp 0x8100 - other page/RAM */
+}
+
+// flash page 31 cpu 0x53DF (offset 0x13DF)
+void p31_L_53DF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* di */
+  /* sub 0x07 */
+  if (flag_c()) return;
+  /* ld hl,0x0000 */
+  if (flag_z()) goto lab_p31_L_53ED;
+  b = a;
+  lab_p31_L_53E9:
+  /* add hl,hl */
+  l = l + 1;
+  b = b - 1;
+  if (b != 0) goto lab_p31_L_53E9;
+  lab_p31_L_53ED:
+  a = 0x01;
+  hw_out(PORT_ASYN, a);
+  a = h;
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x16, a);
+  a = 0;
+  hw_out(PORT_ASYN, a);
+  a = l;
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x16, a);
+  return;
+}
+
+// flash page 31 cpu 0x54DD (offset 0x14DD)
+void p31_L_54DD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x56DD (offset 0x16DD)
+void p31_L_56DD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_56ED();
+  return;
+}
+
+// flash page 31 cpu 0x56ED (offset 0x16ED)
+void p31_L_56ED() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x58CB (offset 0x18CB)
+void p31_L_58CB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x5A01 (offset 0x1A01)
+void p31_L_5A01() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x5BB1 (offset 0x1BB1)
+void p31_L_5BB1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x5D1F (offset 0x1D1F)
+void p31_L_5D1F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_5DDD();
+  return;
+}
+
+// flash page 31 cpu 0x5DDD (offset 0x1DDD)
+void p31_L_5DDD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_5E1F();
+  return;
+}
+
+// flash page 31 cpu 0x5E1F (offset 0x1E1F)
+void p31_L_5E1F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x606E (offset 0x206E)
+void p31_L_606E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_6163();
+  return;
+}
+
+// flash page 31 cpu 0x6163 (offset 0x2163)
+void p31_L_6163() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_616F();
+  return;
+}
+
+// flash page 31 cpu 0x616F (offset 0x216F)
+void p31_L_616F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x6461 (offset 0x2461)
+void p31_L_6461() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x6564 (offset 0x2564)
+void p31_L_6564() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_65D6();
+  return;
+}
+
+// flash page 31 cpu 0x65D6 (offset 0x25D6)
+void p31_L_65D6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x681F (offset 0x281F)
+void p31_L_681F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x6974 (offset 0x2974)
+void p31_L_6974() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x6B62 (offset 0x2B62)
+void p31_L_6B62() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x6E6F (offset 0x2E6F)
+void p31_L_6E6F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_6E77();
+  return;
+}
+
+// flash page 31 cpu 0x6E77 (offset 0x2E77)
+void p31_L_6E77() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_6F44();
+  return;
+}
+
+// flash page 31 cpu 0x6F44 (offset 0x2F44)
+void p31_L_6F44() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_6F63();
+  return;
+}
+
+// flash page 31 cpu 0x6F63 (offset 0x2F63)
+void p31_L_6F63() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_6F6C();
+  return;
+}
+
+// flash page 31 cpu 0x6F6C (offset 0x2F6C)
+void p31_L_6F6C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x742E (offset 0x342E)
+void p31_L_742E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x7564 (offset 0x3564)
+void p31_L_7564() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  p31_L_75DD();
+  return;
+}
+
+// flash page 31 cpu 0x75DD (offset 0x35DD)
+void p31_L_75DD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x76F3 (offset 0x36F3)
+void p31_L_76F3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x7835 (offset 0x3835)
+void p31_L_7835() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+  /* nop */
+}
+
+// flash page 31 cpu 0x7FF0 (offset 0x3FF0)
+void p31_L_7FF0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  return;
+}

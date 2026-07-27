@@ -1,4 +1,4 @@
-// Simple LCG — used by main for DIY TV snow (no native fill_noise).
+// Simple LCG - used by main for DIY TV snow (no native fill_noise).
 
 word seed;
 

@@ -1,0 +1,33 @@
+// Portable LCD helpers (page0 TI-OS leaves).
+
+void lcd_busy_wait() {
+  while ((hw_in(PORT_STATUS) & 0x02) == 0) {
+  }
+}
+
+void lcd_send_cmd(byte cmd) {
+  lcd_busy_wait();
+  hw_out(PORT_LCD_CMD, cmd);
+}
+
+void lcd_write_cmd() {
+  lcd_send_cmd(0x02);
+}
+
+void lcd_write_data() {
+  lcd_busy_wait();
+  /* data byte is in A on calc; host should pass via lcd_send_data */
+}
+
+void lcd_send_data(byte val) {
+  lcd_busy_wait();
+  hw_out(PORT_LCD_DATA, val);
+}
+
+void lcd_cmd_07() {
+  lcd_send_cmd(0x07);
+}
+
+void lcd_cmd_05() {
+  lcd_send_cmd(0x05);
+}

@@ -1,0 +1,8 @@
+// Portable MMU stubs - no-ops when the flash image is flattened.
+
+void mmu_set_bank_a(byte page) {
+  /* flattened recovery: ignore banking */
+}
+
+void mmu_set_bank_b(byte page) {
+}

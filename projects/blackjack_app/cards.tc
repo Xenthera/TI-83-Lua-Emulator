@@ -1,0 +1,184 @@
+// Blackjack project: pixel card sprites (needs tinyfont.tc + stdlib/gfx.tc).
+//
+// Card codes: 0..51, rank = c % 13 (A=0 .. K=12), suit = c / 13
+//   0=clubs  1=diamonds  2=hearts  3=spades
+//
+// Stacked hands: each next card is offset by CARD_STACK_DX so the
+// previous card's rank+suit column stays visible on the left.
+
+byte CARD_W;
+byte CARD_H;
+byte CARD_STACK_DX;
+
+// 5x5 suit pips: SUITS[suit][row][col], 1 = pixel on.
+byte SUITS[4][5][5] = {
+  {
+    {0, 1, 0, 1, 0},
+    {0, 1, 1, 1, 0},
+    {1, 1, 1, 1, 1},
+    {0, 0, 1, 0, 0},
+    {0, 1, 1, 1, 0},
+  },
+  {
+    {0, 0, 1, 0, 0},
+    {0, 1, 1, 1, 0},
+    {1, 1, 1, 1, 1},
+    {0, 1, 1, 1, 0},
+    {0, 0, 1, 0, 0},
+  },
+  {
+    {0, 1, 0, 1, 0},
+    {1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1},
+    {0, 1, 1, 1, 0},
+    {0, 0, 1, 0, 0},
+  },
+  {
+    {0, 0, 1, 0, 0},
+    {0, 1, 1, 1, 0},
+    {1, 1, 1, 1, 1},
+    {0, 0, 1, 0, 0},
+    {0, 1, 0, 1, 0},
+  },
+};
+
+void cards_init() {
+  CARD_W = 14;
+  CARD_H = 18;
+  CARD_STACK_DX = 7;
+}
+
+void draw_rank_glyph(byte x, byte y, byte rank) {
+  // A, 2-10, J, Q, K — all via the shared tiny font.
+  if (rank == 0) {
+    draw_letter(x, y, 65); // A
+    return;
+  }
+  if ((rank >= 1) & (rank <= 8)) {
+    draw_digit(x, y, rank + 1);
+    return;
+  }
+  if (rank == 9) {
+    draw_digit(x, y, 1);
+    draw_digit(x + 4, y, 0);
+    return;
+  }
+  if (rank == 10) {
+    draw_letter(x, y, 74); // J
+    return;
+  }
+  if (rank == 11) {
+    draw_letter(x, y, 81); // Q
+    return;
+  }
+  if (rank == 12) {
+    draw_letter(x, y, 75); // K
+  }
+}
+
+void draw_suit(byte x, byte y, byte suit) {
+  byte r;
+  byte c;
+  r = 0;
+  while (r < 5) {
+    c = 0;
+    while (c < 5) {
+      if (SUITS[suit][r][c] != 0) {
+        draw_pixel(x + c, y + r);
+      }
+      c = c + 1;
+    }
+    r = r + 1;
+  }
+}
+
+void draw_card_back(byte x, byte y) {
+  byte i;
+  erase_rect(x, y, CARD_W, CARD_H);
+  draw_rect(x, y, CARD_W, CARD_H);
+  i = 2;
+  while (i < CARD_H - 2) {
+    draw_hline(x + 2, x + CARD_W - 3, y + i);
+    i = i + 2;
+  }
+}
+
+void draw_card_face(byte x, byte y, byte card) {
+  byte rank;
+  byte suit;
+  rank = card % 13;
+  suit = card / 13;
+  erase_rect(x, y, CARD_W, CARD_H);
+  draw_rect(x, y, CARD_W, CARD_H);
+  if (rank == 9) {
+    draw_rank_glyph(x + 1, y + 2, rank);
+  } else {
+    draw_rank_glyph(x + 2, y + 2, rank);
+  }
+  draw_suit(x + 4, y + 9, suit);
+}
+
+// Stack so the hand fits in [x .. x_right]. Shrinks peek spacing when needed.
+void draw_hand_fit(byte x, byte y, byte cards[], byte n, byte hide_first, byte x_right) {
+  byte i;
+  byte cx;
+  byte dx;
+  byte avail;
+  byte last;
+  if (n == 0) {
+    return;
+  }
+  if (x_right <= x + CARD_W) {
+    x_right = x + CARD_W;
+  }
+  if (n == 1) {
+    dx = 0;
+  } else {
+    avail = x_right - x - CARD_W;
+    dx = avail / (n - 1);
+    if (dx > CARD_STACK_DX) {
+      dx = CARD_STACK_DX;
+    }
+    if (dx < 3) {
+      dx = 3;
+    }
+  }
+  cx = x;
+  i = 0;
+  while (i < n) {
+    last = 0;
+    if (i + 1 == n) {
+      last = 1;
+    }
+    // Keep the final card fully on-screen even if peeks were tight.
+    if (last != 0) {
+      if (cx + CARD_W > x_right + 1) {
+        cx = x_right - CARD_W + 1;
+      }
+    } else {
+      if (cx + CARD_W > x_right + 1) {
+        break;
+      }
+    }
+    if (hide_first == 1) {
+      if (i == 0) {
+        draw_card_back(cx, y);
+      } else {
+        draw_card_face(cx, y, cards[i]);
+      }
+    } else {
+      draw_card_face(cx, y, cards[i]);
+    }
+    cx = cx + dx;
+    i = i + 1;
+  }
+}
+
+void draw_hand_stacked(byte x, byte y, byte cards[], byte n, byte hide_first) {
+  draw_hand_fit(x, y, cards, n, hide_first, 94);
+}
+
+// Clear a hand band before redrawing (full width under the label column).
+void erase_hand_band(byte y) {
+  erase_rect(8, y, 88, CARD_H);
+}

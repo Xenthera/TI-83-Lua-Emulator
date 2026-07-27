@@ -9,6 +9,8 @@ local MemMap = require("memmap")
 local KeypadUI = require("keypad_ui")
 local MachineMod = require("core.machine")
 local Lcd = require("core.hw.lcd")
+local Eightxk = require("core.util.eightxk")
+local Eightxp = require("core.util.eightxp")
 
 local Ide = {}
 Ide.__index = Ide
@@ -81,16 +83,22 @@ function Ide:_layout_calculator_face()
 end
 
 local STATUS_GAP = 12
+local GROUP_GAP = 14
+local BTN_GAP = 5
 
 local function ui_metrics()
   local font = love.graphics.getFont()
   local fh = font and math.ceil(font:getHeight()) or 14
-  local toolbar_h = math.max(42, fh + 24)
+  local label_h = math.max(12, fh - 1)
+  local btn_h = math.max(22, fh + 8)
+  local row_pad = 4
+  -- Two-row toolbar: group label + buttons per row.
+  local row_h = label_h + 2 + btn_h
+  local toolbar_h = row_pad + row_h + 4 + row_h + row_pad
   local tab_h = math.max(28, fh + 12)
   local file_tab_h = math.max(24, fh + 10)
   local console_footer = math.max(18, fh + 6)
   local console_h = math.max(110, fh * 6 + console_footer + 28)
-  local btn_h = math.max(24, fh + 10)
   return {
     fh = fh,
     font = font,
@@ -100,7 +108,13 @@ local function ui_metrics()
     console_h = console_h,
     console_footer = console_footer,
     btn_h = btn_h,
-    btn_y = math.floor((toolbar_h - btn_h) / 2),
+    label_h = label_h,
+    row_pad = row_pad,
+    row_h = row_h,
+    row1_label_y = row_pad,
+    row1_btn_y = row_pad + label_h + 2,
+    row2_label_y = row_pad + row_h + 4,
+    row2_btn_y = row_pad + row_h + 4 + label_h + 2,
   }
 end
 
@@ -136,8 +150,75 @@ function Ide.new(root)
   -- Last successful Build output (512KB flash image), for Export ROM.
   self.last_built_rom = nil
   self.last_built_name = nil
+  self.last_built_os = false
+  -- Last Flash App .8xk bytes (for Export App).
+  self.last_built_xk = nil
+  self.last_built_xk_name = nil
+  self.toolbar_groups = {}
+  -- External edit watch: content fingerprints of project.tiproj + *.tc
+  self._disk_sigs = nil
+  self._disk_poll_t = 0
   self:_load_default_project()
   return self
+end
+
+--- Current Tiny-C build target: "app" or "bare".
+function Ide:build_target()
+  if self.project and self.project.target == "app" then
+    return "app"
+  end
+  return "bare"
+end
+
+function Ide:set_build_target(target)
+  if not self.project then
+    self:log_error("No project open")
+    return
+  end
+  if target == "app" then
+    self.project.target = "app"
+    if not self.project.app_name or self.project.app_name == "" then
+      local n = (self.project.name or "TINYAPP"):upper():gsub("[^A-Z0-9]", "")
+      if #n > 8 then n = n:sub(1, 8) end
+      if n == "" then n = "TINYAPP" end
+      self.project.app_name = n
+    end
+    if self.project.sign == nil then
+      self.project.sign = true
+    end
+    self:log("Target: Flash App (.8xk)  name=" .. tostring(self.project.app_name)
+      .. (self.project.sign and "  sign=on" or "  sign=off"))
+  else
+    self.project.target = nil
+    self:log("Target: Bare-metal ROM")
+  end
+  if self.project.dir then
+    Tiproj.save_dir(self.project.dir, self.project)
+    self:_remember_disk_sigs()
+  end
+end
+
+function Ide:sign_enabled()
+  if self:build_target() ~= "app" then return false end
+  if self.project and self.project.sign == false then return false end
+  return true
+end
+
+function Ide:set_sign_enabled(on)
+  if not self.project then
+    self:log_error("No project open")
+    return
+  end
+  if self:build_target() ~= "app" then
+    self:log_error("Sign only applies to Flash App target")
+    return
+  end
+  self.project.sign = on and true or false
+  self:log(on and "Sign: on (real calc / key 0104)" or "Sign: off (emulator only)")
+  if self.project.dir then
+    Tiproj.save_dir(self.project.dir, self.project)
+    self:_remember_disk_sigs()
+  end
 end
 
 function Ide:_sorted_files()
@@ -156,17 +237,126 @@ function Ide:_sync_editor_to_project()
   end
 end
 
---- Pull *.tc from disk (so external / AI edits apply), keep current editor buffer.
-function Ide:_reload_disk_sources()
-  if not self.project or not self.project.dir then return end
-  local cur = self.open_file
-  local cur_text = self.tc_editor:get_text()
+local function read_file_raw(path)
+  local f = io.open(path, "rb")
+  if not f then return nil end
+  local data = f:read("*a")
+  f:close()
+  return data
+end
+
+local function content_sig(data)
+  if data == nil then return nil end
+  -- cheap fingerprint: length + ends (enough for small .tc sources)
+  local n = #data
+  if n <= 96 then
+    return tostring(n) .. ":" .. data
+  end
+  return string.format("%d:%s:%s", n, data:sub(1, 48), data:sub(-48))
+end
+
+--- Snapshot tiproj + all *.tc currently on disk in the project folder.
+function Ide:_scan_project_disk()
+  local dir = self.project and self.project.dir
+  if not dir then return nil end
+  local snap = { tiproj = nil, files = {} }
+  local man_path = Tiproj.join(dir, "project.tiproj")
+  snap.tiproj = content_sig(read_file_raw(man_path))
+  -- Prefer tiproj listing; also pick up new files via reload helper.
+  local tmp = { files = {}, dir = dir, entry = self.project.entry or "main.tc" }
+  Tiproj.reload_from_dir(tmp, dir)
+  for name, body in pairs(tmp.files or {}) do
+    snap.files[name] = content_sig(body)
+  end
+  return snap, tmp.files
+end
+
+function Ide:_remember_disk_sigs()
+  local snap = self:_scan_project_disk()
+  self._disk_sigs = snap
+end
+
+local function sigs_differ(a, b)
+  if a == nil or b == nil then return a ~= b end
+  if a.tiproj ~= b.tiproj then return true end
+  local keys = {}
+  for k in pairs(a.files or {}) do keys[k] = true end
+  for k in pairs(b.files or {}) do keys[k] = true end
+  for k in pairs(keys) do
+    if (a.files and a.files[k]) ~= (b.files and b.files[k]) then
+      return true
+    end
+  end
+  return false
+end
+
+--- Apply tiproj manifest fields from disk without dropping open buffers yet.
+function Ide:_reload_tiproj_manifest()
+  if not self.project or not self.project.dir then return false end
+  local path = Tiproj.join(self.project.dir, "project.tiproj")
+  local doc = Tiproj.load_file(path)
+  if not doc then return false end
+  self.project.name = doc.name or self.project.name
+  self.project.entry = doc.entry or self.project.entry
+  self.project.target = doc.target
+  self.project.app_name = doc.app_name
+  self.project.sign = doc.sign
+  self.project.force_pages = doc.force_pages
+  return true
+end
+
+--- Pull project.tiproj + *.tc from disk (disk wins). Used by watch + Build.
+-- @param quiet if true, skip console log when nothing useful changed
+function Ide:_reload_disk_sources(quiet)
+  if not self.project or not self.project.dir then return false end
+  local prev_open = self.open_file
+  local prev_cy = self.tc_editor.cy
+  local prev_cx = self.tc_editor.cx
+  local before = self._disk_sigs
+  local snap, files = self:_scan_project_disk()
+  if not snap then return false end
+  if before and not sigs_differ(before, snap) then
+    return false
+  end
+
+  self:_reload_tiproj_manifest()
+  self.project.files = files or {}
   Tiproj.reload_from_dir(self.project, self.project.dir)
-  if cur and cur_text and self.tc_editor.dirty then
-    self.project.files[cur] = cur_text
-  elseif cur and self.project.files[cur] then
-    self.tc_editor:set_text(self.project.files[cur])
+
+  -- File tabs: keep open file if it still exists; else fall back to entry.
+  if prev_open and self.project.files[prev_open] then
+    self.open_file = prev_open
+  else
+    self.open_file = self.project.entry
+  end
+  if self.open_file and self.project.files[self.open_file] then
+    self.tc_editor:set_text(self.project.files[self.open_file])
     self.tc_editor.dirty = false
+    if prev_cy then
+      self.tc_editor:goto_line(prev_cy, prev_cx or 1)
+    end
+  end
+
+  self._disk_sigs = snap
+  if not quiet then
+    local n = 0
+    for _ in pairs(self.project.files or {}) do n = n + 1 end
+    self:log(string.format("Project reloaded from disk (%d .tc)", n))
+  end
+  return true
+end
+
+--- Poll for external edits (Cursor/AI/other editors). Call on focus + timer.
+function Ide:poll_project_disk()
+  if not self.project or not self.project.dir then return end
+  local snap = self:_scan_project_disk()
+  if not snap then return end
+  if not self._disk_sigs then
+    self._disk_sigs = snap
+    return
+  end
+  if sigs_differ(self._disk_sigs, snap) then
+    self:_reload_disk_sources(false)
   end
 end
 
@@ -489,7 +679,9 @@ function Ide:load_project(path)
   self.tc_editor:set_text(doc.files[doc.entry] or "")
   self.tc_editor.dirty = false
   self.tab = "tc"
-  self:log("Opened " .. (doc.dir or path) .. " (" .. doc.name .. ")")
+  self:_remember_disk_sigs()
+  local tgt = (doc.target == "app") and ("app/" .. tostring(doc.app_name or doc.name)) or "bare"
+  self:log("Opened " .. (doc.dir or path) .. " (" .. doc.name .. ")  target=" .. tgt)
   return true
 end
 
@@ -603,46 +795,88 @@ function Ide:layout(ww, wh)
   self.asm_editor:set_bounds(r.x + 4, r.y + 4, r.w - 8, r.h - 8)
   self.docs:set_bounds(r.x + 4, r.y + 4, r.w - 8, r.h - 8)
 
-  local by = m.btn_y
   local bh = m.btn_h
-  local function make_btns(start_x, specs)
+  local tgt = self:build_target()
+  local export_label = (tgt == "app") and "Export .8xk" or "Export ROM"
+  local groups = {}
+  local all_btns = {}
+
+  local function add_group(label, btn_y, label_y, start_x, specs)
     local bx = start_x
-    local list = {}
+    local first_x = bx
     for _, spec in ipairs(specs) do
-      local id, label = spec[1], spec[2]
-      local tw = font and font:getWidth(label) or (#label * 8)
-      local w = math.max(44, math.ceil(tw + 18))
-      list[#list + 1] = { id = id, label = label, x = bx, y = by, w = w, h = bh }
-      bx = bx + w + 6
+      local id, text, style = spec[1], spec[2], spec[3]
+      local tw = font and font:getWidth(text) or (#text * 8)
+      local w = math.max(40, math.ceil(tw + 16))
+      local b = {
+        id = id,
+        label = text,
+        x = bx,
+        y = btn_y,
+        w = w,
+        h = bh,
+        style = style, -- "seg" | "seg_on" | nil
+      }
+      all_btns[#all_btns + 1] = b
+      bx = bx + w + BTN_GAP
     end
-    return list, bx
+    local end_x = bx - BTN_GAP
+    groups[#groups + 1] = {
+      label = label,
+      x = first_x,
+      y = label_y,
+      w = math.max(0, end_x - first_x),
+    }
+    return end_x + GROUP_GAP
   end
 
-  -- Editor column: project / ROM tools.
-  local editor_btns, editor_end = make_btns(10, {
-    { "build", "Build" },
-    { "os", "Boot OS" },
-    { "load_rom", "Load ROM" },
-    { "export_rom", "Export" },
+  -- Row 1: project + target + build/export
+  local x1 = 10
+  x1 = add_group("Project", m.row1_btn_y, m.row1_label_y, x1, {
     { "open", "Open" },
     { "save", "Save" },
   })
-  -- Calculator column: run controls + memmap toggle.
-  local calc_btns, calc_end = make_btns(self.calc_rect.x + 8, {
+  local sign_on = self:sign_enabled()
+  x1 = add_group("Target", m.row1_btn_y, m.row1_label_y, x1, {
+    { "target_bare", "Bare", tgt == "bare" and "seg_on" or "seg" },
+    { "target_app", "App", tgt == "app" and "seg_on" or "seg" },
+    { "sign", "Sign", tgt ~= "app" and "disabled" or (sign_on and "seg_on" or "seg") },
+  })
+  local can_inject = self:_has_built_xk()
+  x1 = add_group("Build", m.row1_btn_y, m.row1_label_y, x1, {
+    { "build", "Build" },
+    { "export", export_label },
+    { "inject_xk", "Inject .8xk", (not can_inject) and "disabled" or nil },
+  })
+  local editor_end = x1
+
+  -- Row 2: inject into running calc + OS tooling
+  local x2 = 10
+  x2 = add_group("Inject", m.row2_btn_y, m.row2_label_y, x2, {
+    { "load_rom", "ROM" },
+    { "load_app", ".8xk" },
+    { "load_prgm", ".8xp" },
+    { "load_grp", ".8xg" },
+  })
+  x2 = add_group("OS", m.row2_btn_y, m.row2_label_y, x2, {
+    { "os", "Boot OS" },
+    { "load_p0", "Load P0" },
+  })
+
+  -- Calculator column (right): run controls on row 1
+  local calc_x = self.calc_rect.x + 8
+  calc_x = add_group("Run", m.row1_btn_y, m.row1_label_y, calc_x, {
     { "play", self.running and "Pause" or "Play" },
     { "step", "Step" },
     { "reset", "Reset" },
     { "mem", self.memmap.open and "Mem >" or "Mem <" },
   })
-  self.editor_buttons = editor_btns
-  self.calc_buttons = calc_btns
-  self.buttons = {}
-  for _, b in ipairs(editor_btns) do
-    self.buttons[#self.buttons + 1] = b
-  end
-  for _, b in ipairs(calc_btns) do
-    self.buttons[#self.buttons + 1] = b
-  end
+  local calc_end = calc_x
+
+  self.toolbar_groups = groups
+  self.buttons = all_btns
+  self.editor_buttons = all_btns
+  self.calc_buttons = {}
 
   -- Main tabs sized to labels
   local tx = 8
@@ -671,35 +905,45 @@ function Ide:layout(ww, wh)
     end
   end
 
-  -- Gate controls sit with Play/Step on the calculator toolbar.
-  local gx = calc_end + 8
+  -- Gate controls on row 2 of the calculator column.
   local check = math.max(14, math.floor(m.fh * 0.95))
+  local gate_w = font and font:getWidth("Gate") or 32
+  local field_w = math.max(56, (font and font:getWidth("0000000") or 56) + 16)
+  local field_h = math.max(22, m.fh + 8)
+  local hz_w = font and font:getWidth("Hz") or 16
+  local gate_block = check + 6 + gate_w + 8 + field_w + 6 + hz_w
+  local gx = self.calc_rect.x + 8
+  local max_end = ww - 8
+  if gx + gate_block > max_end then
+    gx = math.max(self.calc_rect.x + 8, max_end - gate_block)
+  end
+  -- Prefer sitting after Run group when there is room.
+  if calc_end + gate_block + 8 <= max_end then
+    gx = calc_end
+  end
   self.gate_check = {
     x = gx,
-    y = by + math.floor((bh - check) / 2),
+    y = m.row2_btn_y + math.floor((bh - check) / 2),
     w = check,
     h = check,
   }
   gx = gx + check + 6
   self.gate_label_x = gx
-  local gate_w = font and font:getWidth("Gate") or 32
   gx = gx + gate_w + 8
-  local field_w = math.max(48, (font and font:getWidth("0000000") or 56) + 12)
-  local field_h = math.max(20, m.fh + 6)
   self.gate_field = {
     x = gx,
-    y = by + math.floor((bh - field_h) / 2),
+    y = m.row2_btn_y + math.floor((bh - field_h) / 2),
     w = field_w,
     h = field_h,
   }
   gx = gx + field_w + 6
   self.gate_hz_label_x = gx
-  local hz_w = font and font:getWidth("Hz") or 16
   self.gate_end_x = gx + hz_w
+  self.gate_text_y = m.row2_btn_y + math.floor((bh - m.fh) / 2)
 
-  -- Status fills leftover space in the editor toolbar strip.
+  -- Status on row 1 after Build group, clipped before calc column.
   self.status_x = editor_end + STATUS_GAP
-  self.status_max_x = self.calc_rect.x - 8
+  self.status_max_x = math.min(self.calc_rect.x - 8, ww - 8)
 end
 
 function Ide:hit_gate(mx, my)
@@ -783,7 +1027,8 @@ function Ide:hit_button(mx, my)
   local gid = self:hit_gate(mx, my)
   if gid then return gid end
   for _, b in ipairs(self.buttons) do
-    if mx >= b.x and my >= b.y and mx < b.x + b.w and my < b.y + b.h then
+    if b.style ~= "disabled"
+        and mx >= b.x and my >= b.y and mx < b.x + b.w and my < b.y + b.h then
       return b.id
     end
   end
@@ -803,11 +1048,41 @@ function Ide:hit_button(mx, my)
   return nil
 end
 
+--- Soft power-off HALT then hold ON to wake TI-OS.
+function Ide:_wake_os(machine)
+  machine:run_cycles(5 * 1000 * 1000)
+  if machine.cpu.halted then
+    self:log("OS at power-off HALT - holding ON to wake ...")
+  end
+  machine:set_key("on", true)
+  machine:run_cycles(3 * 1000 * 1000)
+  machine:set_key("on", false)
+  machine:run_cycles(20 * 1000 * 1000)
+  -- Boot leaves FPS compacted (MemChk free~0); apps like MirageOS need this.
+  Eightxp.release_homescreen_edit(machine.mmu, machine.cpu.iy)
+  local nz = 0
+  local fb = machine:framebuffer()
+  for i = 0, 12 * 64 - 1 do
+    if (fb[i] or 0) ~= 0 then nz = nz + 1 end
+  end
+  return nz
+end
+
 --- Load real TI-83+ flash dump and start the calculator OS.
+-- Prefers the last Build that spliced page 0 into the stock ROM.
 function Ide:boot_os(machine, on_loaded)
-  local path = self.root .. "/rom/ti83plus.rom"
-  self:log("Booting TI-83+ OS from " .. path .. " ...")
-  local ok, err = machine:load_rom_file(path)
+  local ok, err
+  local label
+  if self.last_built_rom and self.last_built_os and #self.last_built_rom == 512 * 1024 then
+    label = "last Build (page0 splice)"
+    self:log("Booting TI-83+ OS from " .. label .. " ...")
+    ok, err = machine:load_rom_bytes(self.last_built_rom)
+  else
+    local path = self.root .. "/rom/ti83plus.rom"
+    label = path
+    self:log("Booting TI-83+ OS from " .. path .. " ...")
+    ok, err = machine:load_rom_file(path)
+  end
   if not ok then
     self:log_error("OS BOOT FAIL: " .. tostring(err))
     return false
@@ -817,67 +1092,153 @@ function Ide:boot_os(machine, on_loaded)
   self.focus = "lcd"
   self.tc_editor.focused = false
   self.asm_editor.focused = false
-  -- Boot ends in soft power-off (EI/HALT). Hold ON through the OS debounce
-  -- (~0x1016 port-4 polls) so the wake handler accepts the keypress.
-  machine:run_cycles(5 * 1000 * 1000)
-  if machine.cpu.halted then
-    self:log("OS at power-off HALT — holding ON to wake ...")
-  end
-  machine:set_key("on", true)
-  machine:run_cycles(3 * 1000 * 1000)
-  machine:set_key("on", false)
-  machine:run_cycles(20 * 1000 * 1000)
+  local nz = self:_wake_os(machine)
   if self.memmap.open then
     self.memmap:refresh(machine)
   end
-  local nz = 0
-  local fb = machine:framebuffer()
-  for i = 0, 12 * 64 - 1 do
-    if (fb[i] or 0) ~= 0 then nz = nz + 1 end
-  end
   self:log(string.format(
-    "OS running  PC=%04X  display=%s  fb_nz=%d  (click LCD for keys)",
-    machine:pc(), tostring(machine:is_display_on()), nz
+    "OS running  PC=%04X  display=%s  fb_nz=%d  (%s)",
+    machine:pc(), tostring(machine:is_display_on()), nz, label
   ))
   if on_loaded then on_loaded() end
+  return true
+end
+
+--- Load page-0 disassembly into the ASM editor (paste-ready for Build).
+function Ide:load_page0_disasm()
+  local path = self.root .. "/rom/ti83plus_p0_dis.asm"
+  local f = io.open(path, "r")
+  if not f then
+    self:log_error("LOAD P0 FAIL: missing " .. path .. " - run: lua tools/reasm_ti_page0.lua")
+    return false
+  end
+  local src = f:read("*a")
+  f:close()
+  self.tab = "asm"
+  self.asm_editor:set_text(src)
+  self.asm_editor.focused = true
+  self.tc_editor.focused = false
+  self:log(string.format("Loaded page0 disasm (%d chars, %d lines) - Build to assemble+boot",
+    #src, #self.asm_editor.lines))
   return true
 end
 
 function Ide:build(machine, on_loaded)
   local mode = (self.tab == "asm") and "asm" or "tc"
   self:log("Building (" .. mode .. ")...")
-  local rom, err, asm
+  local rom, err, asm, result, info
   if mode == "tc" then
+    -- Disk wins (AI/external edits). Unsaved IDE buffer is discarded if disk changed.
+    self:_reload_disk_sources(true)
     self:_sync_editor_to_project()
-    -- Disk is source of truth: pick up AI / external edits, then keep dirty buffer.
-    self:_reload_disk_sources()
     if self.project and self.project.dir then
       Tiproj.save_dir(self.project.dir, self.project)
+      self:_remember_disk_sigs()
     end
     local entry = self.project and self.project.entry or "main.tc"
     local src = self.project and self.project.files[entry] or self.tc_editor:get_text()
-    local opts = {
-      root = self.root,
-      files = self.project and self.project.files or nil,
-      entry = entry,
-    }
-    rom, err, asm = BuildSvc.build_tc(self.root, src, opts)
+    local opts = Tiproj.compile_opts(self.project or { entry = entry, files = {} }, self.root)
+    opts.root = self.root
+    opts.files = self.project and self.project.files or opts.files
+    opts.entry = entry
+    -- Honor explicit Bare/App target toggle from the toolbar.
+    if self:build_target() == "app" then
+      opts.target = "app"
+      opts.app_name = opts.app_name
+        or (self.project and self.project.app_name)
+        or (self.project and self.project.name)
+        or "TINYAPP"
+      -- Honor Sign toolbar / tiproj.sign (default on for App).
+      if self.project and self.project.sign == false then
+        opts.sign = false
+      else
+        opts.sign = true
+      end
+    else
+      opts.target = "bare"
+      opts.app = nil
+    end
+    rom, err, asm, result, info = BuildSvc.build_tc(self.root, src, opts)
     if asm then
       self.asm_editor:set_text(asm)
       self:log("Tiny-C -> ASM ok (" .. #asm .. " chars)")
     end
   else
-    rom, err = BuildSvc.build_asm(self.root, self.asm_editor:get_text())
+    rom, err, result, info = BuildSvc.build_asm(self.root, self.asm_editor:get_text())
   end
   if not rom then
     self:log_error("BUILD FAIL: " .. tostring(err))
     self:_goto_error(err)
     return false
   end
+
+  -- Flash App .8xk: write file, inject into stock ROM, reset+wake (APPS menu).
+  if info and info.app then
+    local proj = self.project and self.project.name or "app"
+    local app_name = info.name or proj
+    local xk_path = self.root .. "/dist/" .. tostring(app_name) .. ".8xk"
+    do
+      os.execute(string.format('mkdir -p "%s/dist"', self.root))
+      local wf = assert(io.open(xk_path, "wb"))
+      wf:write(rom)
+      wf:close()
+    end
+    local base = assert(io.open(self.root .. "/rom/ti83plus.rom", "rb"))
+    local base_bytes = base:read("*a")
+    base:close()
+    local Eightxk = require("core.util.eightxk")
+    local injected, imeta = Eightxk.inject(base_bytes, rom)
+    if not injected then
+      self:log_error("APP INJECT FAIL: " .. tostring(imeta))
+      return false
+    end
+    local path = BuildSvc.write_rom(self.root, injected)
+    self.last_built_xk = rom
+    self.last_built_xk_name = app_name .. ".8xk"
+    self.last_built_rom = injected
+    self.last_built_os = true
+    self.last_built_name = app_name .. ".8xk"
+    local ok, load_err = machine:load_rom_bytes(injected)
+    if not ok then
+      ok, load_err = machine:load_rom_file(path)
+    end
+    if not ok then
+      self:log_error("LOAD FAIL: " .. tostring(load_err))
+      return false
+    end
+    machine:reset()
+    self.running = true
+    self.tc_editor.dirty = false
+    self.asm_editor.dirty = false
+    self.focus = "lcd"
+    self.tc_editor.focused = false
+    self.asm_editor.focused = false
+    local nz = self:_wake_os(machine)
+    local page = imeta and imeta.placed and imeta.placed[1] and imeta.placed[1].physical
+    local code = info.code_bytes or info.size or 0
+    local pages = info.n_pages or 1
+    local page_sz = info.page_bytes or 16384
+    self:log(string.format(
+      "Build OK (Flash App %s%s) — %d bytes code across %d page%s (%d bytes/page) -> %s  injected page %s  display=%s fb_nz=%d  APPS menu",
+      app_name, (info.signed and ", signed 0104" or ", unsigned"),
+      code, pages, pages == 1 and "" or "s", page_sz,
+      xk_path, page and string.format("%02X", page) or "?",
+      tostring(machine:is_display_on()), nz
+    ))
+    if on_loaded then on_loaded(true) end
+    return true
+  end
+
   local path = BuildSvc.write_rom(self.root, rom)
   self.last_built_rom = rom
+  self.last_built_os = info and info.spliced or false
   local proj = self.project and self.project.name
-  self.last_built_name = (proj and (proj .. ".rom")) or "pipeline.rom"
+  if self.last_built_os then
+    BuildSvc.write_os_rom(self.root, rom)
+    self.last_built_name = "ti83plus_reasm.rom"
+  else
+    self.last_built_name = (proj and (proj .. ".rom")) or "pipeline.rom"
+  end
   local ok, load_err = machine:load_rom_bytes(rom)
   if not ok then
     ok, load_err = machine:load_rom_file(path)
@@ -887,11 +1248,27 @@ function Ide:build(machine, on_loaded)
     return false
   end
   machine:reset()
-  machine:run_cycles(800000)
   self.running = true
   self.tc_editor.dirty = false
   self.asm_editor.dirty = false
-  self:log(string.format("Build OK -> %s  PC=%04X  (Export to save a copy)", path, machine:pc()))
+  if self.last_built_os then
+    self.focus = "lcd"
+    self.tc_editor.focused = false
+    self.asm_editor.focused = false
+    local nz = self:_wake_os(machine)
+    self:log(string.format(
+      "Build OK (TI page0 splice) -> %s  PC=%04X  display=%s  fb_nz=%d",
+      path, machine:pc(), tostring(machine:is_display_on()), nz
+    ))
+  else
+    machine:run_cycles(800000)
+    local code = (info and (info.code_bytes or info.size))
+      or (result and result.size) or 0
+    self:log(string.format(
+      "Build OK -> %s  %d bytes code  PC=%04X  (Export to save a copy)",
+      path, code, machine:pc()
+    ))
+  end
   if self.memmap.open then
     self.memmap:refresh(machine)
   end
@@ -929,7 +1306,199 @@ function Ide:load_rom(machine, on_loaded)
   return true
 end
 
---- Write the latest Build output to a user-chosen path.
+local function read_file_bytes(path)
+  local f, err = io.open(path, "rb")
+  if not f then
+    return nil, err
+  end
+  local data = f:read("*a")
+  f:close()
+  if not data or data == "" then
+    return nil, "empty file"
+  end
+  return data
+end
+
+function Ide:_has_built_xk()
+  local bytes = self.last_built_xk
+  if type(bytes) == "string" and #bytes >= 80 and bytes:sub(1, 8) == "**TIFL**" then
+    return true
+  end
+  local path = self:_built_xk_fallback_path()
+  if not path then return false end
+  local f = io.open(path, "rb")
+  if not f then return false end
+  local magic = f:read(8)
+  f:close()
+  return magic == "**TIFL**"
+end
+
+function Ide:_built_xk_fallback_path()
+  local name = self.last_built_xk_name
+  if not name then
+    local n = (self.project and (self.project.app_name or self.project.name)) or nil
+    if not n then return nil end
+    n = tostring(n):upper():gsub("[^A-Z0-9]", "")
+    if n == "" then return nil end
+    if #n > 8 then n = n:sub(1, 8) end
+    name = n .. ".8xk"
+  end
+  return self.root .. "/dist/" .. name
+end
+
+--- Shared live-archive inject path used by file picker and Build -> Inject .8xk.
+function Ide:_inject_xk_bytes(machine, data, label, on_loaded)
+  if not machine.rom_loaded then
+    self:log_error("INJECT APP: Boot OS (or Load ROM) first")
+    return false
+  end
+  if type(data) ~= "string" or #data < 80 or data:sub(1, 8) ~= "**TIFL**" then
+    self:log_error("INJECT APP FAIL: not a .8xk (missing TIFL header)")
+    return false
+  end
+  label = label or "app"
+  self:log("Installing Flash App " .. label .. " ...")
+  local meta, aerr = Eightxk.inject_flash(machine.mmu.flash.bytes, data)
+  if not meta then
+    self:log_error("INJECT APP FAIL: " .. tostring(aerr))
+    return false
+  end
+  machine:reset()
+  self.running = true
+  self.focus = "lcd"
+  self.tc_editor.focused = false
+  self.asm_editor.focused = false
+  local nz = self:_wake_os(machine)
+  if self.memmap.open then
+    self.memmap:refresh(machine)
+  end
+  local pages = {}
+  for _, p in ipairs(meta.placed or {}) do
+    pages[#pages + 1] = string.format("%02X", p.physical)
+  end
+  self:log(string.format(
+    "App %s installed -> page %s  (reset)  display=%s fb_nz=%d  APPS menu",
+    meta.name or label, table.concat(pages, ","),
+    tostring(machine:is_display_on()), nz
+  ))
+  if on_loaded then on_loaded() end
+  return true
+end
+
+--- Inject a .8xk Flash App into live archive, then reset so OS rescans APPS.
+function Ide:load_app(machine, on_loaded)
+  if not machine.rom_loaded then
+    self:log_error("LOAD APP: Boot OS (or Load ROM) first")
+    return false
+  end
+  local path = Dialog.choose_open_8x("app", self.root .. "/rom")
+  if not path then
+    self:log("Load App cancelled")
+    return false
+  end
+  local data, err = read_file_bytes(path)
+  if not data then
+    self:log_error("LOAD APP FAIL: " .. tostring(err))
+    return false
+  end
+  local base = path:match("([^/\\]+)$") or path
+  return self:_inject_xk_bytes(machine, data, base, on_loaded)
+end
+
+--- Inject the project's last built .8xk (same path as Inject .8xk file picker).
+function Ide:inject_built_app(machine, on_loaded)
+  local data = self.last_built_xk
+  local label = self.last_built_xk_name or "built.8xk"
+  if type(data) ~= "string" or #data < 80 or data:sub(1, 8) ~= "**TIFL**" then
+    local path = self:_built_xk_fallback_path()
+    if path then
+      local bytes, err = read_file_bytes(path)
+      if bytes then
+        data = bytes
+        label = path:match("([^/\\]+)$") or path
+        self.last_built_xk = bytes
+        self.last_built_xk_name = label
+      else
+        self:log_error("INJECT FAIL: Build an App first (" .. tostring(err) .. ")")
+        return false
+      end
+    else
+      self:log_error("INJECT FAIL: Build an App first")
+      return false
+    end
+  end
+  return self:_inject_xk_bytes(machine, data, label, on_loaded)
+end
+
+--- Inject .8xp / .8xg into live RAM/VAT (homescreen must be up).
+function Ide:load_ti_var(machine, kind, on_loaded)
+  kind = kind or "prog"
+  if not machine.rom_loaded then
+    self:log_error("LOAD " .. kind:upper() .. ": Boot OS first")
+    return false
+  end
+  if not Eightxp.vat_ready(machine.mmu) then
+    self:log_error("LOAD " .. kind:upper() .. ": VAT not ready - Boot OS and wait for homescreen, then retry")
+    return false
+  end
+  local default_dir = (kind == "group")
+      and (self.root .. "/rom/games")
+      or (self.root .. "/rom/basic_tests")
+  local path = Dialog.choose_open_8x(kind, default_dir)
+  if not path then
+    self:log(string.format("Load %s cancelled", kind == "group" and "GRP" or "PRGM"))
+    return false
+  end
+  local data, err = read_file_bytes(path)
+  if not data then
+    self:log_error("LOAD FAIL: " .. tostring(err))
+    return false
+  end
+  local base = path:match("([^/\\]+)$") or path
+  self:log(string.format("Injecting %s %s ...", kind, base))
+  local metas, ierr = Eightxp.inject_file(machine.mmu, data, { iy = machine.cpu.iy })
+  if not metas then
+    self:log_error("LOAD FAIL: " .. tostring(ierr))
+    return false
+  end
+  machine.lcd._dirty = true
+  if self.memmap.open then
+    self.memmap:refresh(machine)
+  end
+  self.focus = "lcd"
+  self.tc_editor.focused = false
+  self.asm_editor.focused = false
+  if metas.blackjack_setup then
+    self:log("Blackjack ready: PRGM -> BLACKJ83 (setup lists preloaded)")
+  elseif #metas == 1 then
+    local meta = metas[1]
+    self:log(string.format(
+      "Loaded %s -> %04X (%d bytes)  PRGM menu",
+      meta.name or base, meta.data_addr, meta.data_len
+    ))
+  else
+    local names = {}
+    for _, meta in ipairs(metas) do
+      names[#names + 1] = meta.name
+    end
+    self:log(string.format(
+      "Ungrouped %d vars: %s  (PRGM menu)",
+      #metas, table.concat(names, ", ")
+    ))
+  end
+  if on_loaded then on_loaded() end
+  return true
+end
+
+function Ide:load_prgm(machine, on_loaded)
+  return self:load_ti_var(machine, "prog", on_loaded)
+end
+
+function Ide:load_grp(machine, on_loaded)
+  return self:load_ti_var(machine, "group", on_loaded)
+end
+
+--- Write the latest Build ROM (512KB) to a user-chosen path.
 function Ide:export_rom()
   local bytes = self.last_built_rom
   if not bytes then
@@ -946,10 +1515,13 @@ function Ide:export_rom()
     end
   end
   if not bytes or #bytes ~= 512 * 1024 then
-    self:log_error("EXPORT FAIL: nothing to export — Build first")
+    self:log_error("EXPORT FAIL: nothing to export - Build a bare-metal ROM first")
     return false
   end
   local default_name = self.last_built_name or "pipeline.rom"
+  if default_name:match("%.8[xX][kK]$") then
+    default_name = "pipeline.rom"
+  end
   local path = Dialog.choose_save_rom(default_name)
   if not path then
     self:log("Export cancelled")
@@ -964,6 +1536,53 @@ function Ide:export_rom()
   f:close()
   self:log(string.format("Exported ROM (%d bytes) -> %s", #bytes, path))
   return true
+end
+
+--- Write the latest Flash App .8xk to a user-chosen path.
+function Ide:export_app()
+  local bytes = self.last_built_xk
+  local default_name = self.last_built_xk_name
+  if not bytes then
+    local name = (self.project and (self.project.app_name or self.project.name)) or "app"
+    name = tostring(name):upper():gsub("[^A-Z0-9]", "")
+    if name == "" then name = "APP" end
+    if #name > 8 then name = name:sub(1, 8) end
+    local fallback = self.root .. "/dist/" .. name .. ".8xk"
+    local f = io.open(fallback, "rb")
+    if f then
+      bytes = f:read("*a")
+      f:close()
+      default_name = name .. ".8xk"
+      self:log("Exporting " .. fallback .. " (no in-session App Build yet)")
+    end
+  end
+  if not bytes or #bytes < 80 or bytes:sub(1, 8) ~= "**TIFL**" then
+    self:log_error("EXPORT FAIL: nothing to export - Build a Flash App first")
+    return false
+  end
+  default_name = default_name or "app.8xk"
+  local path = Dialog.choose_save_8xk(default_name)
+  if not path then
+    self:log("Export cancelled")
+    return false
+  end
+  local f, err = io.open(path, "wb")
+  if not f then
+    self:log_error("EXPORT FAIL: " .. tostring(err))
+    return false
+  end
+  f:write(bytes)
+  f:close()
+  self:log(string.format("Exported Flash App (%d bytes) -> %s", #bytes, path))
+  return true
+end
+
+--- Export based on current Bare / App target.
+function Ide:export_current()
+  if self:build_target() == "app" then
+    return self:export_app()
+  end
+  return self:export_rom()
 end
 
 function Ide:save()
@@ -991,6 +1610,7 @@ function Ide:save()
     return
   end
   self.tc_editor.dirty = false
+  self:_remember_disk_sigs()
   self:log("Saved " .. self.project_dir .. "/*.tc")
 end
 
@@ -1054,14 +1674,40 @@ function Ide:mousepressed(mx, my, machine, on_loaded)
   if id == "build" then
     self:build(machine, on_loaded)
     return true
+  elseif id == "target_bare" then
+    self:set_build_target("bare")
+    return true
+  elseif id == "target_app" then
+    self:set_build_target("app")
+    return true
+  elseif id == "sign" then
+    if self:build_target() == "app" then
+      self:set_sign_enabled(not self:sign_enabled())
+    end
+    return true
+  elseif id == "export" or id == "export_rom" then
+    self:export_current()
+    return true
+  elseif id == "inject_xk" then
+    self:inject_built_app(machine, on_loaded)
+    return true
   elseif id == "os" then
     self:boot_os(machine, on_loaded)
+    return true
+  elseif id == "load_p0" then
+    self:load_page0_disasm()
     return true
   elseif id == "load_rom" then
     self:load_rom(machine, on_loaded)
     return true
-  elseif id == "export_rom" then
-    self:export_rom()
+  elseif id == "load_app" then
+    self:load_app(machine, on_loaded)
+    return true
+  elseif id == "load_prgm" then
+    self:load_prgm(machine, on_loaded)
+    return true
+  elseif id == "load_grp" then
+    self:load_grp(machine, on_loaded)
     return true
   elseif id == "play" then
     self:toggle_play()
@@ -1241,7 +1887,7 @@ function Ide:keypressed(key, machine, on_loaded)
     self:load_rom(machine, on_loaded)
     return true
   elseif key == "f10" then
-    self:export_rom()
+    self:export_current()
     return true
   elseif ctrl and key == "s" then
     self:save()
@@ -1254,10 +1900,13 @@ function Ide:keypressed(key, machine, on_loaded)
     end
     return true
   elseif ctrl and key == "e" then
-    self:export_rom()
+    self:export_current()
     return true
   elseif ctrl and key == "b" then
     self:build(machine, on_loaded)
+    return true
+  elseif ctrl and key == "t" then
+    self:set_build_target(self:build_target() == "app" and "bare" or "app")
     return true
   end
 
@@ -1309,20 +1958,60 @@ function Ide:update(dt, machine)
   if not self:is_docs() then
     self:active_editor():update(dt)
   end
+  self._disk_poll_t = (self._disk_poll_t or 0) + dt
+  if self._disk_poll_t >= 0.4 then
+    self._disk_poll_t = 0
+    self:poll_project_disk()
+  end
   self.memmap:update(dt, machine)
+  local tgt = self:build_target()
+  local can_inject = self:_has_built_xk()
   for _, b in ipairs(self.buttons) do
     if b.id == "play" then
       b.label = self.running and "Pause" or "Play"
     elseif b.id == "mem" then
       b.label = self.memmap.open and "Mem >" or "Mem <"
+    elseif b.id == "export" then
+      b.label = (tgt == "app") and "Export .8xk" or "Export ROM"
+    elseif b.id == "inject_xk" then
+      b.style = can_inject and nil or "disabled"
+    elseif b.id == "target_bare" then
+      b.style = (tgt == "bare") and "seg_on" or "seg"
+    elseif b.id == "target_app" then
+      b.style = (tgt == "app") and "seg_on" or "seg"
+    elseif b.id == "sign" then
+      if tgt ~= "app" then
+        b.style = "disabled"
+      else
+        b.style = self:sign_enabled() and "seg_on" or "seg"
+      end
     end
   end
 end
 
 local function draw_btn(b, hot, font, fh)
-  love.graphics.setColor(hot and 0.32 or 0.22, hot and 0.38 or 0.26, hot and 0.34 or 0.24, 1)
-  love.graphics.rectangle("fill", b.x, b.y, b.w, b.h, 4, 4)
-  love.graphics.setColor(0.85, 0.88, 0.82, 1)
+  local style = b.style
+  if style == "disabled" then
+    love.graphics.setColor(0.17, 0.18, 0.17, 1)
+    love.graphics.rectangle("fill", b.x, b.y, b.w, b.h, 4, 4)
+    love.graphics.setColor(0.38, 0.40, 0.38, 1)
+  elseif style == "seg_on" then
+    love.graphics.setColor(hot and 0.38 or 0.30, hot and 0.48 or 0.40, hot and 0.32 or 0.26, 1)
+    love.graphics.rectangle("fill", b.x, b.y, b.w, b.h, 4, 4)
+    love.graphics.setColor(0.55, 0.65, 0.35, 1)
+    love.graphics.rectangle("line", b.x + 0.5, b.y + 0.5, b.w - 1, b.h - 1, 4, 4)
+    love.graphics.setColor(0.95, 0.96, 0.85, 1)
+  elseif style == "seg" then
+    love.graphics.setColor(hot and 0.26 or 0.18, hot and 0.28 or 0.20, hot and 0.26 or 0.20, 1)
+    love.graphics.rectangle("fill", b.x, b.y, b.w, b.h, 4, 4)
+    love.graphics.setColor(0.35, 0.40, 0.35, 1)
+    love.graphics.rectangle("line", b.x + 0.5, b.y + 0.5, b.w - 1, b.h - 1, 4, 4)
+    love.graphics.setColor(0.85, 0.88, 0.82, 1)
+  else
+    love.graphics.setColor(hot and 0.32 or 0.22, hot and 0.38 or 0.26, hot and 0.34 or 0.24, 1)
+    love.graphics.rectangle("fill", b.x, b.y, b.w, b.h, 4, 4)
+    love.graphics.setColor(0.85, 0.88, 0.82, 1)
+  end
   local tw = font:getWidth(b.label)
   love.graphics.print(b.label, b.x + (b.w - tw) / 2, b.y + (b.h - fh) / 2)
 end
@@ -1340,50 +2029,83 @@ function Ide:draw()
 
   love.graphics.setColor(0.16, 0.17, 0.19, 1)
   love.graphics.rectangle("fill", 0, 0, ww, TOOLBAR_H)
+
+  -- Group captions + light separators between clusters.
+  for i, g in ipairs(self.toolbar_groups or {}) do
+    love.graphics.setColor(0.45, 0.50, 0.45, 1)
+    love.graphics.print(g.label, g.x, g.y)
+    if i > 1 then
+      local prev = self.toolbar_groups[i - 1]
+      -- Only draw a divider when groups share a row (same label y).
+      if prev and prev.y == g.y and g.x > prev.x + prev.w + 4 then
+        local dx = math.floor((prev.x + prev.w + g.x) / 2)
+        love.graphics.setColor(0.28, 0.30, 0.28, 1)
+        love.graphics.line(dx, g.y, dx, g.y + (m.row_h or 28) - 2)
+      end
+    end
+  end
+
   local mx, my = love.mouse.getPosition()
   for _, b in ipairs(self.buttons) do
     local hot = mx >= b.x and my >= b.y and mx < b.x + b.w and my < b.y + b.h
     draw_btn(b, hot, font, fh)
   end
 
-  -- Gate checkbox + Hz field
+  -- Gate checkbox + Hz number field (high-contrast so it reads as an input).
   local gc = self.gate_check
-  love.graphics.setColor(0.22, 0.26, 0.24, 1)
+  love.graphics.setColor(0.28, 0.30, 0.28, 1)
   love.graphics.rectangle("fill", gc.x, gc.y, gc.w, gc.h, 2, 2)
-  love.graphics.setColor(0.55, 0.65, 0.55, 1)
+  love.graphics.setColor(0.75, 0.82, 0.70, 1)
   love.graphics.rectangle("line", gc.x + 0.5, gc.y + 0.5, gc.w - 1, gc.h - 1, 2, 2)
   if self.gate_active then
-    love.graphics.setColor(0.45, 0.85, 0.55, 1)
+    love.graphics.setColor(0.95, 0.85, 0.25, 1)
     love.graphics.rectangle("fill", gc.x + 3, gc.y + 3, gc.w - 6, gc.h - 6, 1, 1)
   end
-  local text_y = math.floor((TOOLBAR_H - fh) / 2)
-  love.graphics.setColor(self.gate_active and 0.85 or 0.55, self.gate_active and 0.9 or 0.6, 0.7, 1)
+  local text_y = self.gate_text_y or math.floor((TOOLBAR_H - fh) / 2)
+  love.graphics.setColor(self.gate_active and 0.98 or 0.82, self.gate_active and 0.92 or 0.85, 0.55, 1)
   love.graphics.print("Gate", self.gate_label_x, text_y)
   local gf = self.gate_field
   local field_hot = self.focus == "gate_hz"
-  love.graphics.setColor(field_hot and 0.18 or 0.12, field_hot and 0.22 or 0.14, field_hot and 0.18 or 0.14, 1)
+  if field_hot then
+    love.graphics.setColor(1.0, 1.0, 0.92, 1)
+  elseif self.gate_active then
+    love.graphics.setColor(0.98, 0.90, 0.35, 1)
+  else
+    love.graphics.setColor(0.92, 0.93, 0.88, 1)
+  end
   love.graphics.rectangle("fill", gf.x, gf.y, gf.w, gf.h, 3, 3)
-  love.graphics.setColor(field_hot and 0.55 or 0.35, field_hot and 0.7 or 0.45, field_hot and 0.55 or 0.4, 1)
+  love.graphics.setColor(field_hot and 0.25 or 0.35, field_hot and 0.45 or 0.40, 0.20, 1)
   love.graphics.rectangle("line", gf.x + 0.5, gf.y + 0.5, gf.w - 1, gf.h - 1, 3, 3)
-  love.graphics.setColor(0.9, 0.92, 0.85, 1)
+  love.graphics.setColor(0.10, 0.12, 0.10, 1)
   love.graphics.print(self.gate_hz_text, gf.x + 6, gf.y + (gf.h - fh) / 2)
-  love.graphics.setColor(0.55, 0.6, 0.55, 1)
+  if field_hot then
+    local cx = gf.x + 6 + font:getWidth(self.gate_hz_text)
+    if (love.timer.getTime() % 1.0) < 0.55 then
+      love.graphics.rectangle("fill", cx, gf.y + 4, 2, gf.h - 8)
+    end
+  end
+  love.graphics.setColor(0.75, 0.78, 0.70, 1)
   love.graphics.print("Hz", self.gate_hz_label_x, text_y)
 
-  -- Status sits after editor tools; clipped so it never runs into the calc toolbar.
+  -- Status sits after Build group on row 1; clipped so it never runs into the calc toolbar.
   local status_x = self.status_x or 360
   local status_max = self.status_max_x or (self.calc_rect and self.calc_rect.x - 8) or (ww - 10)
   local status_w = math.max(0, status_max - status_x)
   if status_w > 8 then
     local proj = self.project_dir and self.project_dir:match("([^/]+)$") or "(no project)"
-    local status = proj .. "  -  " .. (self.status or "")
+    local tgt = self:build_target()
+    local tgt_s = (tgt == "app")
+      and ("app:" .. tostring(self.project and self.project.app_name or "?"))
+      or "bare"
+    local status = proj .. " [" .. tgt_s .. "]  " .. (self.status or "")
+    local status_y = m.row1_btn_y + math.floor((m.btn_h - fh) / 2)
     love.graphics.setScissor(status_x, 0, status_w, TOOLBAR_H)
     if self.status_kind == "error" then
       love.graphics.setColor(0.95, 0.35, 0.32, 1)
     else
       love.graphics.setColor(0.55, 0.6, 0.55, 1)
     end
-    love.graphics.print(status, status_x, text_y)
+    love.graphics.print(status, status_x, status_y)
     love.graphics.setScissor()
   end
 
@@ -1481,7 +2203,7 @@ function Ide:draw()
   love.graphics.setColor(0.4, 0.45, 0.4, 1)
   local hint = self.focus == "console"
       and "Console  drag=select  Ctrl+A/C  Esc clear"
-      or "Editor: F5 Build  F9 Load ROM  F10 Export  Ctrl+O  |  Calc: F6 Play  F8 Step"
+      or "F5 Build  Ctrl+T Bare/App  F10 Export  Ctrl+O Open  |  F6 Play  F8 Step  F9 Load ROM"
   love.graphics.print(
     hint,
     cr.x + 8, log_bottom + math.max(1, (CONSOLE_FOOTER_H - fh) / 2)
@@ -1495,7 +2217,7 @@ function Ide:draw_calculator()
   local cr = self.calc_rect
   if not cr or cr.w <= 0 then return end
 
-  -- Plain column backdrop — no separate calculator body pane.
+  -- Plain column backdrop - no separate calculator body pane.
   love.graphics.setColor(0.11, 0.12, 0.13, 1)
   love.graphics.rectangle("fill", cr.x, cr.y, cr.w, cr.h)
   self.keypad_ui:draw()

@@ -1,0 +1,66 @@
+// KEYTEST - minimal Flash App to verify APPS launch + BCALLs + GetKey.
+// IDE: Open projects/keytest_app, Target=App, Build, Boot OS, Inject .8xk, APPS -> KEYTEST
+// CLI: lua tools/tc_compile.lua --app projects/keytest_app/main.tc dist/KEYTEST.8xk --name KEYTEST
+//
+// ENTER exits to homescreen. Any other key shows its GetKey code.
+
+void put_digit(byte d) {
+  if (d == 0) { os_put_str("0"); }
+  if (d == 1) { os_put_str("1"); }
+  if (d == 2) { os_put_str("2"); }
+  if (d == 3) { os_put_str("3"); }
+  if (d == 4) { os_put_str("4"); }
+  if (d == 5) { os_put_str("5"); }
+  if (d == 6) { os_put_str("6"); }
+  if (d == 7) { os_put_str("7"); }
+  if (d == 8) { os_put_str("8"); }
+  if (d == 9) { os_put_str("9"); }
+}
+
+void put_u8(byte n) {
+  byte h;
+  byte t;
+  byte o;
+  h = n / 100;
+  t = (n / 10) % 10;
+  o = n % 10;
+  if (h != 0) {
+    put_digit(h);
+  }
+  if ((h != 0) | (t != 0)) {
+    put_digit(t);
+  }
+  put_digit(o);
+}
+
+void paint(byte k) {
+  os_clr_lcd();
+  os_home_up();
+  os_put_str("KEYTEST");
+  os_newline();
+  os_put_str("PRESS KEYS");
+  os_newline();
+  os_put_str("ENTER=EXIT");
+  os_newline();
+  os_newline();
+  os_put_str("LAST=");
+  put_u8(k);
+}
+
+void main() {
+  byte k;
+  k = 0;
+  paint(k);
+  while (1) {
+    k = os_get_key();
+    // TI-OS GetKey: ENTER is 5
+    if (k == 5) {
+      break;
+    }
+    paint(k);
+  }
+  os_clr_lcd();
+  os_home_up();
+  os_put_str("BYE");
+  os_exit();
+}

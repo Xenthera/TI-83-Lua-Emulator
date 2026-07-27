@@ -7,7 +7,13 @@ local KEYWORDS = {
   ["if"] = true,
   ["else"] = true,
   ["while"] = true,
+  ["for"] = true,
+  ["break"] = true,
+  ["continue"] = true,
   ["return"] = true,
+  ["extern"] = true,
+  ["osabi"] = true,
+  ["saveaf"] = true,
 }
 
 local function lex(src, filename)
@@ -163,7 +169,7 @@ local function lex(src, filename)
         advance()
         advance()
         add("op", two, sl, sc)
-      elseif ch:match("[(){};,=+%-%*/&|^<>]") then
+      elseif ch:match("[(){};,=+%-%*/%%&|^<>%[%]]") then
         advance()
         add("op", ch, sl, sc)
       else

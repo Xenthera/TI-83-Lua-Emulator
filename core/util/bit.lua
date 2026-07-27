@@ -1,66 +1,81 @@
--- Portable bit operations for LuaJIT and Lua 5.1+.
-local ok, bitlib = pcall(require, "bit")
-if not ok then
-  ok, bitlib = pcall(require, "bit32")
-end
+-- Portable bit operations for LuaJIT, PUC Lua, and ComputerCraft.
+-- Prefer native backends: global `bit` (CC / LuaJIT), `bit32`, then require().
 
 local band, bor, bxor, bnot, lshift, rshift
+local backend = "pure-lua"
 
-if ok and bitlib then
-  band = bitlib.band
-  bor = bitlib.bor
-  bxor = bitlib.bxor
-  bnot = bitlib.bnot
-  lshift = bitlib.lshift
-  rshift = bitlib.rshift
-else
-  -- Pure Lua fallback (slower).
-  function band(a, b)
-    local r, bit = 0, 1
-    a, b = a % 0x100000000, b % 0x100000000
-    for _ = 1, 32 do
-      if a % 2 == 1 and b % 2 == 1 then
-        r = r + bit
-      end
-      a, b, bit = math.floor(a / 2), math.floor(b / 2), bit * 2
+local function take(lib, name)
+  if type(lib) == "table" and type(lib.band) == "function" then
+    band = lib.band
+    bor = lib.bor
+    bxor = lib.bxor
+    bnot = lib.bnot
+    lshift = lib.lshift or lib.blshift
+    rshift = lib.rshift or lib.blogic_rshift or lib.brshift
+    if band and bor and bxor and bnot and lshift and rshift then
+      backend = name
+      return true
     end
-    return r
   end
+  return false
+end
 
-  function bor(a, b)
-    local r, bit = 0, 1
-    a, b = a % 0x100000000, b % 0x100000000
-    for _ = 1, 32 do
-      if a % 2 == 1 or b % 2 == 1 then
-        r = r + bit
+if not take(rawget(_G, "bit"), "bit-global") then
+  if not take(rawget(_G, "bit32"), "bit32-global") then
+    local ok, lib = pcall(require, "bit")
+    if not (ok and take(lib, "bit")) then
+      ok, lib = pcall(require, "bit32")
+      if not (ok and take(lib, "bit32")) then
+        -- Pure Lua fallback (much slower - avoid on CC if possible).
+        function band(a, b)
+          local r, bitv = 0, 1
+          a, b = a % 0x100000000, b % 0x100000000
+          for _ = 1, 32 do
+            if a % 2 == 1 and b % 2 == 1 then
+              r = r + bitv
+            end
+            a, b, bitv = math.floor(a / 2), math.floor(b / 2), bitv * 2
+          end
+          return r
+        end
+
+        function bor(a, b)
+          local r, bitv = 0, 1
+          a, b = a % 0x100000000, b % 0x100000000
+          for _ = 1, 32 do
+            if a % 2 == 1 or b % 2 == 1 then
+              r = r + bitv
+            end
+            a, b, bitv = math.floor(a / 2), math.floor(b / 2), bitv * 2
+          end
+          return r
+        end
+
+        function bxor(a, b)
+          local r, bitv = 0, 1
+          a, b = a % 0x100000000, b % 0x100000000
+          for _ = 1, 32 do
+            if (a % 2) ~= (b % 2) then
+              r = r + bitv
+            end
+            a, b, bitv = math.floor(a / 2), math.floor(b / 2), bitv * 2
+          end
+          return r
+        end
+
+        function bnot(a)
+          return (-1 - a) % 0x100000000
+        end
+
+        function lshift(a, n)
+          return (a * (2 ^ n)) % 0x100000000
+        end
+
+        function rshift(a, n)
+          return math.floor((a % 0x100000000) / (2 ^ n))
+        end
       end
-      a, b, bit = math.floor(a / 2), math.floor(b / 2), bit * 2
     end
-    return r
-  end
-
-  function bxor(a, b)
-    local r, bit = 0, 1
-    a, b = a % 0x100000000, b % 0x100000000
-    for _ = 1, 32 do
-      if (a % 2) ~= (b % 2) then
-        r = r + bit
-      end
-      a, b, bit = math.floor(a / 2), math.floor(b / 2), bit * 2
-    end
-    return r
-  end
-
-  function bnot(a)
-    return (-1 - a) % 0x100000000
-  end
-
-  function lshift(a, n)
-    return (a * (2 ^ n)) % 0x100000000
-  end
-
-  function rshift(a, n)
-    return math.floor((a % 0x100000000) / (2 ^ n))
   end
 end
 
@@ -101,4 +116,5 @@ return {
   high = high,
   pair = pair,
   test = test,
+  backend = backend,
 }

@@ -11,7 +11,12 @@ function M.compile_source(src, filename, opts)
   filename = filename or "<input>"
   local expanded = Preprocess.preprocess(src, filename, opts)
   local ast = Parser.parse(expanded, filename)
-  return Codegen.codegen(ast)
+  if opts.target == "app" or opts.app == true then
+    local AppLink = require("lang.app_link")
+    local asm = AppLink.link(ast, opts)
+    return asm
+  end
+  return Codegen.codegen(ast, opts)
 end
 
 function M.compile_file(path, opts)

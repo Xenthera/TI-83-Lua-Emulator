@@ -46,6 +46,9 @@ function Machine.new()
   -- Short UI taps can press+release between emu frames; keep keys down for a
   -- minimum emulated time so GetCSC/GetKey can see them (~1 frame at 6 MHz).
   self.min_key_hold_cycles = math.floor(CPU_HZ / 60)
+  -- TI power-on from HALT needs ON held ~0.5M+ cycles; a frame is too short
+  -- and the calc silently returns to the power-off HALT.
+  self.min_on_hold_cycles = math.floor(CPU_HZ / 2)
   self._key_down_at = {}
   self._key_release_at = {}
   return self
@@ -96,13 +99,27 @@ function Machine:run_cycles(budget)
   if not self.rom_loaded then
     return 0
   end
+  local cpu = self.cpu
+  local asic = self.asic
+  local keypad = self.keypad
   local ran = 0
+  local pending = 0
+  -- Batch ASIC work while executing; flush often enough for ~timer accuracy.
+  local BATCH = 48
+
   while ran < budget do
-    local cyc = self.cpu:step()
-    self.asic:tick(cyc)
+    local cyc = cpu:step()
+    pending = pending + cyc
     ran = ran + cyc
-    self.total_cycles = self.total_cycles + cyc
+    if pending >= BATCH or cpu.halted then
+      asic:tick(pending)
+      pending = 0
+    end
   end
+  if pending > 0 then
+    asic:tick(pending)
+  end
+  self.total_cycles = self.total_cycles + ran
   self:_release_due_keys()
   return ran
 end
@@ -121,14 +138,18 @@ function Machine:set_key(name, down)
     return self.keypad:set_key(name, false)
   end
 
-  local release_at = down_at + self.min_key_hold_cycles
+  local hold = self.min_key_hold_cycles
+  if name == "on" then
+    hold = self.min_on_hold_cycles or hold
+  end
+  local release_at = down_at + hold
   if self.total_cycles >= release_at then
     self._key_down_at[name] = nil
     self._key_release_at[name] = nil
     return self.keypad:set_key(name, false)
   end
 
-  -- Defer release until the key has been down for min_key_hold_cycles.
+  -- Defer release until the key has been down long enough for TI-OS to see it.
   self._key_release_at[name] = release_at
   return true
 end

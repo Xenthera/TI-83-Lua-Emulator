@@ -1,5 +1,8 @@
-// Tiny-C graphics helpers built on draw_pixel(x, y).
+// Tiny-C graphics helpers built on draw_pixel / erase_rect.
 // #include <stdlib/gfx.tc>
+// Call lcd_init() once before drawing (bare-metal or Flash App).
+//
+// erase_rect(x,y,w,h) is a native (byte-oriented LCD clear) — do not redefine.
 
 void draw_hline(byte x0, byte x1, byte y) {
   byte x;

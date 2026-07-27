@@ -9,3 +9,9 @@ dist/*
 .DS_Store
 *.love
 rom/love-debug.log
+native/build/
+ti83.prefs
+ti83_prefs_test.tmp
+# Platform-specific RabbitSign binaries (build via tools/install_rabbitsign.sh)
+tools/bin/*
+!tools/bin/.gitkeep

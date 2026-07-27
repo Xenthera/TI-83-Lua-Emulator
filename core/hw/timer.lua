@@ -47,16 +47,26 @@ function Timer:set_speed(speed)
 end
 
 function Timer:tick(cycles)
-  self.counter1 = self.counter1 + cycles
-  while self.counter1 >= self.period1 do
-    self.counter1 = self.counter1 - self.period1
-    self.pending1 = true
+  -- Single-instruction ticks are << period; keep a while for large jumps.
+  local c1 = self.counter1 + cycles
+  local p1 = self.period1
+  if c1 >= p1 then
+    repeat
+      c1 = c1 - p1
+      self.pending1 = true
+    until c1 < p1
   end
-  self.counter2 = self.counter2 + cycles
-  while self.counter2 >= self.period2 do
-    self.counter2 = self.counter2 - self.period2
-    self.pending2 = true
+  self.counter1 = c1
+
+  local c2 = self.counter2 + cycles
+  local p2 = self.period2
+  if c2 >= p2 then
+    repeat
+      c2 = c2 - p2
+      self.pending2 = true
+    until c2 < p2
   end
+  self.counter2 = c2
 end
 
 --- Back-compat: true if either timer is pending.

@@ -1,0 +1,7 @@
+// MMU / bank helpers - lifted from page0.
+// Inventory: mmu_set_bankA @ 0x0630 (out (0x06),a; ret) - OS ABI: page in A.
+
+// osabi: callee receives byte arg in A (TI-OS calling convention).
+void mmu_set_bankA_tc(byte page) osabi {
+  out_port(0x06, page);
+}

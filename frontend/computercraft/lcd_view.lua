@@ -1,6 +1,6 @@
 -- Paint the 96x64 TI LCD onto a wrapped ComputerCraft monitor (blit).
--- Uses the smallest text scale (0.5), 1:1 character cells, centered on a
--- black letterbox. Too-small monitors show a red error instead.
+-- Fast path: letterbox once, then only blit dirty 96-wide LCD rows via a
+-- precomputed byte->8-pixel blit LUT.
 
 local Lcd = require("core.hw.lcd")
 local CC = require("frontend.computercraft.cc")
@@ -10,13 +10,27 @@ local M = {}
 M.TEXT_SCALE = 0.5
 M.NEED_W = Lcd.WIDTH   -- 96
 M.NEED_H = Lcd.HEIGHT  -- 64
+M.BPR = Lcd.BYTES_PER_ROW
 
-local function bit_lit(byte, bitn)
-  local mask = 2 ^ (7 - bitn)
-  return math.floor(byte / mask) % 2 == 1
+local SPACES96 = string.rep(" ", M.NEED_W)
+
+local function build_byte_lut(blit_on, blit_off)
+  local lut = {}
+  for b = 0, 255 do
+    local p0 = (b >= 128) and blit_on or blit_off
+    local p1 = (b % 128 >= 64) and blit_on or blit_off
+    local p2 = (b % 64 >= 32) and blit_on or blit_off
+    local p3 = (b % 32 >= 16) and blit_on or blit_off
+    local p4 = (b % 16 >= 8) and blit_on or blit_off
+    local p5 = (b % 8 >= 4) and blit_on or blit_off
+    local p6 = (b % 4 >= 2) and blit_on or blit_off
+    local p7 = (b % 2 >= 1) and blit_on or blit_off
+    lut[b] = p0 .. p1 .. p2 .. p3 .. p4 .. p5 .. p6 .. p7
+  end
+  return lut
 end
 
---- Apply smallest text scale and black clear. Call on attach / resize.
+--- Apply smallest text scale and frame clear. Call on attach / resize.
 function M.setup(mon, opts)
   opts = opts or {}
   if mon.setTextScale then
@@ -29,16 +43,13 @@ function M.setup(mon, opts)
     end
   end
   local C = CC.colors()
-  mon.setBackgroundColor(C.black)
+  local frame = opts.frame or C.black
+  mon.setBackgroundColor(frame)
   mon.setTextColor(C.white)
   mon.clear()
   mon.setCursorPos(1, 1)
 end
 
---- Layout for the current monitor size (after setup / setTextScale).
--- Returns:
---   ok=true,  mw, mh, x0, y0  — top-left of 96x64 window (1-based)
---   ok=false, mw, mh, need    — need is "96x64" string for the error line
 function M.layout(mon)
   local mw, mh = mon.getSize()
   if mw < M.NEED_W or mh < M.NEED_H then
@@ -49,14 +60,12 @@ function M.layout(mon)
       need = M.NEED_W .. "x" .. M.NEED_H,
     }
   end
-  local x0 = math.floor((mw - M.NEED_W) / 2) + 1
-  local y0 = math.floor((mh - M.NEED_H) / 2) + 1
   return {
     ok = true,
     mw = mw,
     mh = mh,
-    x0 = x0,
-    y0 = y0,
+    x0 = math.floor((mw - M.NEED_W) / 2) + 1,
+    y0 = math.floor((mh - M.NEED_H) / 2) + 1,
   }
 end
 
@@ -73,9 +82,7 @@ local function paint_too_small(mon, lay)
       return
     end
     local x = math.floor((lay.mw - #text) / 2) + 1
-    if x < 1 then
-      x = 1
-    end
+    if x < 1 then x = 1 end
     mon.setCursorPos(x, y)
     mon.write(text:sub(1, lay.mw))
   end
@@ -86,62 +93,147 @@ local function paint_too_small(mon, lay)
   end
 end
 
---- Paint framebuffer 1:1, centered, black borders. Or red "too small" message.
-function M.paint(mon, fb, display_on, opts)
+--- Stateful painter: letterbox once, dirty-row LCD updates after that.
+local Painter = {}
+Painter.__index = Painter
+
+function M.new_painter(mon, opts)
   opts = opts or {}
+  local self = setmetatable({
+    mon = mon,
+    opts = opts,
+    lay = nil,
+    lut = nil,
+    fg96 = nil,
+    last_bg = {},
+    force = true,
+    display_on = true,
+  }, Painter)
+  return self
+end
+
+function Painter:rebind(mon)
+  self.mon = mon
+  self.force = true
+end
+
+function Painter:_rebuild_colors()
   local C = CC.colors()
-  -- Lit pixels: dark green (colors.green). Off: lime LCD glass.
-  local col_on = opts.on or C.green
-  local col_off = opts.off or C.lime
-  local col_border = opts.border or C.black
-  if not display_on then
-    col_on = col_off
-  end
-
-  local lay = M.layout(mon)
-  if not lay.ok then
-    paint_too_small(mon, lay)
-    return false, lay
-  end
-
-  local bpr = Lcd.BYTES_PER_ROW
+  local col_on = self.opts.on or C.green
+  local col_off = self.opts.off or C.lime
   local blit_on = CC.to_blit(col_on)
   local blit_off = CC.to_blit(col_off)
-  local blit_border = CC.to_blit(col_border)
-  local x0, y0 = lay.x0, lay.y0
-  local x1 = x0 + M.NEED_W - 1
-  local y1 = y0 + M.NEED_H - 1
-
-  for cy = 1, lay.mh do
-    local chars = {}
-    local fg = {}
-    local bg = {}
-    local in_row = cy >= y0 and cy <= y1
-    local ly = in_row and (cy - y0) or 0
-    for cx = 1, lay.mw do
-      local lit = false
-      local border = true
-      if in_row and cx >= x0 and cx <= x1 then
-        border = false
-        local lx = cx - x0
-        if fb and display_on then
-          local byte = fb[ly * bpr + math.floor(lx / 8)] or 0
-          lit = bit_lit(byte, lx % 8)
-        end
-      end
-      chars[cx] = " "
-      if border then
-        fg[cx] = blit_border
-        bg[cx] = blit_border
-      else
-        fg[cx] = blit_off
-        bg[cx] = lit and blit_on or blit_off
-      end
-    end
-    mon.setCursorPos(1, cy)
-    mon.blit(table.concat(chars), table.concat(fg), table.concat(bg))
-  end
-  return true, lay
+  self.lut = build_byte_lut(blit_on, blit_off)
+  self.fg96 = string.rep(blit_off, M.NEED_W)
+  self.bg_off96 = string.rep(blit_off, M.NEED_W)
+  self.last_bg = {}
+  self.force = true
 end
+
+--- Update on/off/frame colors (theme change) and force a full redraw.
+function Painter:set_colors(opts)
+  opts = opts or {}
+  if opts.on ~= nil then self.opts.on = opts.on end
+  if opts.off ~= nil then self.opts.off = opts.off end
+  if opts.frame ~= nil then self.opts.frame = opts.frame end
+  self:_rebuild_colors()
+  if self.mon then
+    local C = CC.colors()
+    self.mon.setBackgroundColor(self.opts.frame or C.black)
+    self.mon.clear()
+    self.force = true
+  end
+end
+
+function Painter:setup()
+  M.setup(self.mon, self.opts)
+  self.lay = M.layout(self.mon)
+  self:_rebuild_colors()
+  if not self.lay.ok then
+    paint_too_small(self.mon, self.lay)
+  end
+  return self.lay
+end
+
+local function row_bg(lut, fb, row, bpr, bg_off)
+  if not fb then
+    return bg_off
+  end
+  local base = row * bpr
+  -- 12 bytes -> 96 blit nibbles (one concat of 12 pre-made octets)
+  return lut[fb[base] or 0]
+    .. lut[fb[base + 1] or 0]
+    .. lut[fb[base + 2] or 0]
+    .. lut[fb[base + 3] or 0]
+    .. lut[fb[base + 4] or 0]
+    .. lut[fb[base + 5] or 0]
+    .. lut[fb[base + 6] or 0]
+    .. lut[fb[base + 7] or 0]
+    .. lut[fb[base + 8] or 0]
+    .. lut[fb[base + 9] or 0]
+    .. lut[fb[base + 10] or 0]
+    .. lut[fb[base + 11] or 0]
+end
+
+--- Paint LCD glass only (not the whole monitor). Returns ok, lay, rows_blitted.
+function Painter:paint(fb, display_on)
+  local lay = self.lay or M.layout(self.mon)
+  self.lay = lay
+  if not lay.ok then
+    paint_too_small(self.mon, lay)
+    return false, lay, 0
+  end
+
+  if not self.lut then
+    self:_rebuild_colors()
+  end
+
+  local on = not not display_on
+  if on ~= self.display_on then
+    self.display_on = on
+    self.force = true
+  end
+
+  local mon = self.mon
+  local lut = self.lut
+  local fg96 = self.fg96
+  local bg_off = self.bg_off96
+  local last = self.last_bg
+  local force = self.force
+  local x0, y0 = lay.x0, lay.y0
+  local bpr = M.BPR
+  local blitted = 0
+
+  for row = 0, M.NEED_H - 1 do
+    local bg
+    if on then
+      bg = row_bg(lut, fb, row, bpr, bg_off)
+    else
+      bg = bg_off
+    end
+    if force or last[row] ~= bg then
+      mon.setCursorPos(x0, y0 + row)
+      mon.blit(SPACES96, fg96, bg)
+      last[row] = bg
+      blitted = blitted + 1
+    end
+  end
+  self.force = false
+  return true, lay, blitted
+end
+
+--- One-shot paint (tests / simple callers). Uses a throwaway painter.
+function M.paint(mon, fb, display_on, opts)
+  local p = M.new_painter(mon, opts)
+  local lay = p:setup()
+  if not lay.ok then
+    return false, lay
+  end
+  -- setup already cleared; force all LCD rows
+  p.force = true
+  return p:paint(fb, display_on)
+end
+
+M.Painter = Painter
 
 return M

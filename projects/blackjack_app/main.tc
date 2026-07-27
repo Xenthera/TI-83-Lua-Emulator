@@ -1,0 +1,792 @@
+// Tiny-C Blackjack Flash App — bet chips, stacked cards, F-key softkeys.
+// Bet: F1-F5 add chips; CLR clears; ENTER deals.
+// Play: F1 HIT  F2 STAND  F3 DOUBLE  F4 SPLIT
+// Result: F1/ENTER REBET (same ante)  F2 BET (chip screen)
+// Quit: 2nd+MODE (GetKey kQuit)
+
+#include <stdlib/gfx.tc>
+#include <stdlib/rand.tc>
+#include "tinyfont.tc"
+#include "cards.tc"
+#include "softkeys.tc"
+#include "chips.tc"
+
+byte shoe[104];
+byte phand[12];
+byte dhand[12];
+byte hand2[12];
+byte shoe_i;
+byte p_n;
+byte d_n;
+byte n2;
+word cash;
+byte wager;
+byte ante;
+byte acted;
+byte active;
+byte split_on;
+byte bet1;
+byte bet2;
+word round_start_cash;
+word round_pnl;
+byte round_pnl_kind; // 0=push 1=won 2=lost
+
+// TI-OS GetKey: 2nd+MODE → kQuit (0x40). Leave the Flash App.
+void quit_if(byte k) {
+  if (k == 64) {
+    os_exit();
+  }
+}
+
+void shuffle() {
+  byte i;
+  byte j;
+  byte t;
+  for (i = 0; i < 52; i = i + 1) {
+    shoe[i] = i;
+  }
+  for (i = 51; i > 0; i = i - 1) {
+    j = rand_range(i + 1);
+    t = shoe[i];
+    shoe[i] = shoe[j];
+    shoe[j] = t;
+  }
+  shoe_i = 0;
+}
+
+byte draw_card() {
+  byte c;
+  if (shoe_i >= 52) {
+    shuffle();
+  }
+  c = shoe[shoe_i];
+  shoe_i = shoe_i + 1;
+  return c;
+}
+
+byte rank_of(byte c) {
+  return c % 13;
+}
+
+byte value_of(byte c) {
+  byte r;
+  r = rank_of(c);
+  if (r >= 10) {
+    return 10;
+  }
+  if (r == 0) {
+    return 11;
+  }
+  return r + 1;
+}
+
+byte hand_total(byte cards[], byte n) {
+  byte i;
+  byte tot;
+  byte aces;
+  byte v;
+  tot = 0;
+  aces = 0;
+  for (i = 0; i < n; i = i + 1) {
+    v = value_of(cards[i]);
+    tot = tot + v;
+    if (rank_of(cards[i]) == 0) {
+      aces = aces + 1;
+    }
+  }
+  while (tot > 21) {
+    if (aces == 0) {
+      break;
+    }
+    tot = tot - 10;
+    aces = aces - 1;
+  }
+  return tot;
+}
+
+byte cur_n() {
+  if (active == 0) {
+    return p_n;
+  }
+  return n2;
+}
+
+byte cur_total() {
+  if (active == 0) {
+    return hand_total(phand, p_n);
+  }
+  return hand_total(hand2, n2);
+}
+
+void hit_cur() {
+  if (active == 0) {
+    if (p_n < 12) {
+      phand[p_n] = draw_card();
+      p_n = p_n + 1;
+    }
+  } else {
+    if (n2 < 12) {
+      hand2[n2] = draw_card();
+      n2 = n2 + 1;
+    }
+  }
+  acted = 1;
+}
+
+byte can_double() {
+  byte need;
+  if (acted != 0) {
+    return 0;
+  }
+  if (cur_n() != 2) {
+    return 0;
+  }
+  if (active == 0) {
+    need = bet1;
+  } else {
+    need = bet2;
+  }
+  if (cash < need) {
+    return 0;
+  }
+  return 1;
+}
+
+byte can_split() {
+  if (acted != 0) {
+    return 0;
+  }
+  if (split_on != 0) {
+    return 0;
+  }
+  if (active != 0) {
+    return 0;
+  }
+  if (p_n != 2) {
+    return 0;
+  }
+  if (cash < ante) {
+    return 0;
+  }
+  if (rank_of(phand[0]) != rank_of(phand[1])) {
+    return 0;
+  }
+  return 1;
+}
+
+void add_chip(byte slot) {
+  byte v;
+  byte sum;
+  v = chip_value(slot);
+  if (v > cash) {
+    return;
+  }
+  sum = wager + v;
+  // refuse if total wager would exceed cash (ante comes out of cash)
+  if (sum > cash) {
+    return;
+  }
+  // byte wrap guard
+  if (sum < wager) {
+    return;
+  }
+  wager = sum;
+}
+
+void deal_round() {
+  p_n = 0;
+  d_n = 0;
+  n2 = 0;
+  acted = 0;
+  active = 0;
+  split_on = 0;
+  round_start_cash = cash;
+  ante = wager;
+  bet1 = wager;
+  bet2 = 0;
+  cash = cash - wager;
+  phand[p_n] = draw_card();
+  p_n = p_n + 1;
+  dhand[d_n] = draw_card();
+  d_n = d_n + 1;
+  phand[p_n] = draw_card();
+  p_n = p_n + 1;
+  dhand[d_n] = draw_card();
+  d_n = d_n + 1;
+}
+
+void do_split() {
+  hand2[0] = phand[1];
+  n2 = 1;
+  p_n = 1;
+  phand[p_n] = draw_card();
+  p_n = p_n + 1;
+  hand2[n2] = draw_card();
+  n2 = n2 + 1;
+  split_on = 1;
+  cash = cash - ante;
+  bet2 = ante;
+  acted = 0;
+  active = 0;
+}
+
+void do_double() {
+  if (active == 0) {
+    cash = cash - bet1;
+    bet1 = bet1 + bet1;
+  } else {
+    cash = cash - bet2;
+    bet2 = bet2 + bet2;
+  }
+  hit_cur();
+}
+
+// Play-UI dirty tracking (incremental redraw).
+byte ui_ready;
+byte ui_hide;
+byte ui_mode;
+byte ui_active;
+byte ui_split;
+byte ui_pn;
+byte ui_n2;
+byte ui_dn;
+byte ui_cd;
+byte ui_cs;
+byte ui_b1;
+byte ui_b2;
+word ui_cash;
+
+// Split = vertical full-width hands (compact cards). Single = one wide hand.
+byte Y_DEALER;
+byte Y_HAND1;
+byte Y_HAND2;
+
+void play_layout() {
+  if (split_on != 0) {
+    // Compact so D + H1 + H2 fit above softkeys (y=55).
+    CARD_W = 12;
+    CARD_H = 14;
+    CARD_STACK_DX = 5;
+    Y_DEALER = 7;
+    Y_HAND1 = 23;
+    Y_HAND2 = 38;
+  } else {
+    CARD_W = 14;
+    CARD_H = 18;
+    CARD_STACK_DX = 7;
+    Y_DEALER = 8;
+    Y_HAND1 = 28;
+    Y_HAND2 = 28;
+  }
+}
+
+void draw_hand_arrow(byte x, byte y) {
+  draw_pixel(x, y + 1);
+  draw_pixel(x, y + 2);
+  draw_pixel(x, y + 3);
+  draw_pixel(x + 1, y + 2);
+  draw_pixel(x + 1, y + 3);
+  draw_pixel(x + 2, y + 3);
+  draw_pixel(x + 1, y + 4);
+  draw_pixel(x, y + 4);
+  draw_pixel(x, y + 5);
+}
+
+void erase_arrow_col(byte x, byte y) {
+  erase_rect(x, y, 4, 8);
+}
+
+void paint_header() {
+  erase_rect(0, 0, 96, 7);
+  draw_str(1, 1, "BJ $");
+  draw_u16(20, 1, cash);
+  if (split_on == 0) {
+    draw_str(50, 1, "BET");
+    draw_u8(66, 1, bet1);
+  } else {
+    draw_str(48, 1, "B");
+    draw_u8(54, 1, bet1);
+    draw_str(70, 1, "B");
+    draw_u8(76, 1, bet2);
+  }
+}
+
+void paint_dealer_total(byte hide_dealer) {
+  byte dt;
+  erase_rect(82, Y_DEALER + 2, 14, 5);
+  if (hide_dealer != 0) {
+    draw_str(82, Y_DEALER + 2, "?");
+  } else {
+    dt = hand_total(dhand, d_n);
+    draw_u8(82, Y_DEALER + 2, dt);
+  }
+}
+
+void paint_dealer_hand(byte hide_dealer) {
+  erase_rect(0, Y_DEALER, 8, CARD_H);
+  draw_str(1, Y_DEALER + 2, "D");
+  erase_hand_band(Y_DEALER);
+  draw_hand_fit(10, Y_DEALER, dhand, d_n, hide_dealer, 80);
+  paint_dealer_total(hide_dealer);
+}
+
+void paint_hand1_total() {
+  byte pt;
+  erase_rect(80, Y_HAND1 + 2, 16, 5);
+  pt = hand_total(phand, p_n);
+  if (pt > 21) {
+    draw_str(80, Y_HAND1 + 2, "BUST");
+  } else {
+    draw_u8(82, Y_HAND1 + 2, pt);
+  }
+}
+
+void paint_hand2_total() {
+  byte p2;
+  erase_rect(80, Y_HAND2 + 2, 16, 5);
+  p2 = hand_total(hand2, n2);
+  if (p2 > 21) {
+    draw_str(80, Y_HAND2 + 2, "BUST");
+  } else {
+    draw_u8(82, Y_HAND2 + 2, p2);
+  }
+}
+
+void paint_player_hands() {
+  if (split_on == 0) {
+    erase_rect(0, Y_HAND1, 8, CARD_H);
+    draw_str(1, Y_HAND1 + 2, "P");
+    erase_hand_band(Y_HAND1);
+    draw_hand_fit(10, Y_HAND1, phand, p_n, 0, 80);
+    paint_hand1_total();
+  } else {
+    erase_arrow_col(0, Y_HAND1 + 3);
+    erase_arrow_col(0, Y_HAND2 + 3);
+    if (active == 0) {
+      draw_hand_arrow(1, Y_HAND1 + 4);
+    } else {
+      draw_hand_arrow(1, Y_HAND2 + 4);
+    }
+    erase_rect(4, Y_HAND1, 5, CARD_H);
+    draw_str(4, Y_HAND1 + 2, "1");
+    erase_hand_band(Y_HAND1);
+    draw_hand_fit(10, Y_HAND1, phand, p_n, 0, 80);
+    paint_hand1_total();
+
+    erase_rect(4, Y_HAND2, 5, CARD_H);
+    draw_str(4, Y_HAND2 + 2, "2");
+    erase_hand_band(Y_HAND2);
+    draw_hand_fit(10, Y_HAND2, hand2, n2, 0, 80);
+    paint_hand2_total();
+  }
+}
+
+void paint_footer(byte mode) {
+  byte cd;
+  byte cs;
+  erase_rect(0, SK_Y, 96, 9);
+  if (mode == 0) {
+    cd = can_double();
+    cs = can_split();
+    draw_softkey(0, 1, "HIT");
+    draw_softkey(1, 1, "STD");
+    draw_softkey(2, cd, "DBL");
+    draw_softkey(3, cs, "SPL");
+    ui_cd = cd;
+    ui_cs = cs;
+  } else {
+    // Keep result above softkeys; avoid wiping split hand-2 cards (ends ~y52).
+    erase_rect(0, 50, 96, 5);
+    if (mode == 1) { draw_str(1, 50, "YOU BUST"); }
+    if (mode == 2) { draw_str(1, 50, "DEALER BUST"); }
+    if (mode == 3) { draw_str(1, 50, "WIN"); }
+    if (mode == 4) { draw_str(1, 50, "LOSE"); }
+    if (mode == 5) { draw_str(1, 50, "PUSH"); }
+    // F1 REBET (5 glyphs → wider key), F2 BET
+    draw_rect(1, SK_Y, 24, SK_H);
+    draw_str(2, SK_Y + 2, "REBET");
+    draw_rect(28, SK_Y, 16, SK_H);
+    draw_str(29, SK_Y + 2, "BET");
+    // Very bottom-right: round P/L (tiny font is A–Z only).
+    erase_rect(48, SK_Y, 48, SK_H);
+    if (round_pnl_kind == 0) {
+      draw_str(72, SK_Y + 2, "PUSHED");
+    } else {
+      if (round_pnl_kind == 1) {
+        draw_str(56, SK_Y + 2, "WON");
+      } else {
+        draw_str(52, SK_Y + 2, "LOST");
+      }
+      draw_u16(72, SK_Y + 2, round_pnl);
+    }
+    ui_cd = 0;
+    ui_cs = 0;
+  }
+}
+
+void paint_softkeys_play() {
+  byte cd;
+  byte cs;
+  cd = can_double();
+  cs = can_split();
+  if ((cd == ui_cd) & (cs == ui_cs)) {
+    return;
+  }
+  erase_rect(0, SK_Y, 96, SK_H);
+  draw_softkey(0, 1, "HIT");
+  draw_softkey(1, 1, "STD");
+  draw_softkey(2, cd, "DBL");
+  draw_softkey(3, cs, "SPL");
+  ui_cd = cd;
+  ui_cs = cs;
+}
+
+// force via ui_ready==0 or layout/mode change. Call paint_reset() for a full frame.
+void paint(byte hide_dealer, byte mode) {
+  byte full;
+  full = 0;
+  if (ui_ready == 0) {
+    full = 1;
+  }
+  if (ui_split != split_on) {
+    full = 1;
+  }
+  if (ui_mode != mode) {
+    full = 1;
+  }
+  play_layout();
+  if (full != 0) {
+    lcd_clear();
+    paint_header();
+    paint_dealer_hand(hide_dealer);
+    paint_player_hands();
+    paint_footer(mode);
+    ui_ready = 1;
+    ui_hide = hide_dealer;
+    ui_mode = mode;
+    ui_active = active;
+    ui_split = split_on;
+    ui_pn = p_n;
+    ui_n2 = n2;
+    ui_dn = d_n;
+    ui_b1 = bet1;
+    ui_b2 = bet2;
+    ui_cash = cash;
+    return;
+  }
+
+  if ((ui_cash != cash) | (ui_b1 != bet1) | (ui_b2 != bet2)) {
+    paint_header();
+    ui_cash = cash;
+    ui_b1 = bet1;
+    ui_b2 = bet2;
+  }
+
+  if ((ui_hide != hide_dealer) | (ui_dn != d_n)) {
+    paint_dealer_hand(hide_dealer);
+    ui_hide = hide_dealer;
+    ui_dn = d_n;
+  }
+
+  if (split_on == 0) {
+    if (ui_pn != p_n) {
+      erase_hand_band(Y_HAND1);
+      draw_hand_fit(10, Y_HAND1, phand, p_n, 0, 80);
+      paint_hand1_total();
+      ui_pn = p_n;
+    }
+  } else {
+    if (ui_active != active) {
+      erase_arrow_col(0, Y_HAND1 + 3);
+      erase_arrow_col(0, Y_HAND2 + 3);
+      if (active == 0) {
+        draw_hand_arrow(1, Y_HAND1 + 4);
+      } else {
+        draw_hand_arrow(1, Y_HAND2 + 4);
+      }
+      ui_active = active;
+    }
+    if (ui_pn != p_n) {
+      erase_hand_band(Y_HAND1);
+      draw_hand_fit(10, Y_HAND1, phand, p_n, 0, 80);
+      paint_hand1_total();
+      ui_pn = p_n;
+    }
+    if (ui_n2 != n2) {
+      erase_hand_band(Y_HAND2);
+      draw_hand_fit(10, Y_HAND2, hand2, n2, 0, 80);
+      paint_hand2_total();
+      ui_n2 = n2;
+    }
+  }
+
+  if (mode == 0) {
+    paint_softkeys_play();
+  }
+}
+
+void paint_reset() {
+  ui_ready = 0;
+}
+
+void dealer_play() {
+  while (hand_total(dhand, d_n) < 17) {
+    if (d_n >= 12) {
+      break;
+    }
+    dhand[d_n] = draw_card();
+    d_n = d_n + 1;
+  }
+}
+
+// 1 if every player hand is bust (dealer need not play; bets already lost).
+byte all_hands_bust() {
+  if (hand_total(phand, p_n) <= 21) {
+    return 0;
+  }
+  if (split_on != 0) {
+    if (hand_total(hand2, n2) <= 21) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+// Ante already removed from cash.
+// Even-money win returns 2x stake; push returns stake.
+// Natural blackjack (unsplit two-card 21) pays 3:2 — ceil(1.5*bet) profit.
+//   e.g. bet 5 → profit 8 (not 7.5). cash is word so payouts do not wrap.
+void settle_one(byte pt, byte dt, byte bet, byte nat) {
+  word win;
+  if (bet == 0) {
+    return;
+  }
+  if (pt > 21) {
+    return;
+  }
+  if (nat != 0) {
+    // Dealer natural → push
+    if ((d_n == 2) & (dt == 21)) {
+      cash = cash + bet;
+      return;
+    }
+    // ceil(3*bet/2) == (3*bet + 1) / 2
+    win = bet;
+    win = win + win + win;
+    win = win + 1;
+    win = win / 2;
+    cash = cash + bet + win;
+    return;
+  }
+  if (dt > 21) {
+    cash = cash + bet + bet;
+    return;
+  }
+  if (pt > dt) {
+    cash = cash + bet + bet;
+    return;
+  }
+  if (pt == dt) {
+    cash = cash + bet;
+  }
+}
+
+byte result_msg(byte pt, byte dt) {
+  if (pt > 21) {
+    return 1;
+  }
+  if (dt > 21) {
+    return 2;
+  }
+  if (pt > dt) {
+    return 3;
+  }
+  if (pt < dt) {
+    return 4;
+  }
+  return 5;
+}
+
+// After result: F1 REBET (same ante if affordable), F2 BET (chip screen).
+// Returns 1 → open bet screen; 0 → wager already set for rebet deal.
+byte settle() {
+  byte pt;
+  byte dt;
+  byte msg;
+  byte p2;
+  byte k;
+  byte nat1;
+  dt = hand_total(dhand, d_n);
+  pt = hand_total(phand, p_n);
+  // Natural only on the original unsplit hand.
+  nat1 = 0;
+  if ((split_on == 0) & (p_n == 2) & (pt == 21)) {
+    nat1 = 1;
+  }
+  settle_one(pt, dt, bet1, nat1);
+  msg = result_msg(pt, dt);
+  if (split_on != 0) {
+    p2 = hand_total(hand2, n2);
+    settle_one(p2, dt, bet2, 0);
+    if (msg == 5) {
+      msg = result_msg(p2, dt);
+    }
+  }
+  if (cash > round_start_cash) {
+    round_pnl = cash - round_start_cash;
+    round_pnl_kind = 1;
+  } else {
+    if (cash < round_start_cash) {
+      round_pnl = round_start_cash - cash;
+      round_pnl_kind = 2;
+    } else {
+      round_pnl = 0;
+      round_pnl_kind = 0;
+    }
+  }
+  paint(0, msg);
+  while (1) {
+    k = os_get_key();
+    quit_if(k);
+    // F1 / ENTER → rebet last ante when cash allows
+    if ((k == 73) | (k == 5)) {
+      if ((ante > 0) & (cash >= ante)) {
+        wager = ante;
+        return 0;
+      }
+      return 1;
+    }
+    // F2 → place a new bet
+    if (k == 72) {
+      return 1;
+    }
+  }
+  return 1;
+}
+
+// F1-F5 add chips; CLEAR clears; ENTER deals.
+void bet_screen() {
+  byte k;
+  byte done;
+  byte prev;
+  done = 0;
+  if (cash == 0) {
+    cash = 50;
+  }
+  wager = 0;
+  // Re-seed each round so key wait / IRQ timing from the last hand matter.
+  srand_auto();
+  paint_bet_screen(cash, wager);
+  while (done == 0) {
+    k = os_get_key();
+    quit_if(k);
+    prev = wager;
+    // F1-F5 → 1 / 5 / 10 / 50 / 100
+    if (k == 73) { add_chip(0); }
+    if (k == 72) { add_chip(1); }
+    if (k == 46) { add_chip(2); }
+    if (k == 90) { add_chip(3); }
+    if (k == 68) { add_chip(4); }
+    // CLEAR → wipe wager
+    if (k == 9) {
+      wager = 0;
+    }
+    if (wager != prev) {
+      paint_bet_wager(wager);
+    }
+    // ENTER → deal
+    if (k == 5) {
+      if (wager > 0) {
+        done = 1;
+      }
+    }
+  }
+}
+
+void main() {
+  byte k;
+  byte pt;
+  byte done;
+  byte need_bet;
+  lcd_init();
+  cards_init();
+  softkeys_init();
+  cash = 200;
+  ante = 0;
+  need_bet = 1;
+  srand_auto();
+  shuffle();
+  while (1) {
+    if (need_bet != 0) {
+      bet_screen();
+    } else {
+      // Rebet: same ante as last deal (already in wager).
+      srand_auto();
+    }
+    deal_round();
+    paint_reset();
+    done = 0;
+    while (done == 0) {
+      paint(1, 0);
+      pt = cur_total();
+      if (pt >= 21) {
+        if (split_on != 0) {
+          if (active == 0) {
+            active = 1;
+            acted = 0;
+          } else {
+            done = 1;
+          }
+        } else {
+          done = 1;
+        }
+      } else {
+        k = os_get_key();
+        quit_if(k);
+        if ((k == 73) | (k == 5)) {
+          hit_cur();
+        } else {
+          if (k == 72) {
+            if (split_on != 0) {
+              if (active == 0) {
+                active = 1;
+                acted = 0;
+              } else {
+                done = 1;
+              }
+            } else {
+              done = 1;
+            }
+          } else {
+            if (k == 46) {
+              if (can_double() != 0) {
+                do_double();
+                if (split_on != 0) {
+                  if (active == 0) {
+                    active = 1;
+                    acted = 0;
+                  } else {
+                    done = 1;
+                  }
+                } else {
+                  done = 1;
+                }
+              }
+            } else {
+              if (k == 90) {
+                if (can_split() != 0) {
+                  do_split();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // Bust loses the ante already taken — no need to play dealer if every hand busted.
+    if (all_hands_bust() == 0) {
+      dealer_play();
+    }
+    need_bet = settle();
+  }
+}

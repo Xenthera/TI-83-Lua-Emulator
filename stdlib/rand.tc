@@ -1,0 +1,59 @@
+// Tiny-C PRNG helpers.
+// #include <stdlib/rand.tc>
+//
+// The TI-83+ has no real-time clock (unlike TI-84+). Use entropy() to
+// seed from R / IRQ timing, not wall-clock time.
+//
+//   srand(entropy());
+//   byte n = rand();           // 0..255
+//   byte k = rand_range(52);   // 0..51
+
+word _rand_state;
+
+void srand(word s) {
+  if (s == 0) {
+    s = 1;
+  }
+  _rand_state = s;
+}
+
+// Seed from hardware/timing entropy (see asm/lib/entropy.asm).
+void srand_auto() {
+  srand(entropy());
+}
+
+// 16-bit xorshift; returns full word, updates state.
+word randw() {
+  word x;
+  x = _rand_state;
+  x = x ^ (x << 7);
+  x = x ^ (x >> 9);
+  x = x ^ (x << 8);
+  if (x == 0) {
+    x = 1;
+  }
+  _rand_state = x;
+  return x;
+}
+
+byte rand() {
+  word x;
+  x = randw();
+  return x;
+}
+
+// Uniform in 0 .. (n-1). n must be > 0.
+byte rand_range(byte n) {
+  byte r;
+  byte lim;
+  if (n <= 1) {
+    return 0;
+  }
+  // rejection sampling avoids modulo bias for small n
+  lim = 255 - (255 % n);
+  r = rand();
+  while (r >= lim) {
+    r = rand();
+  }
+  return r % n;
+}

@@ -1,0 +1,7159 @@
+// Recovered from flash page 26 (mechanical lift)
+// cpu window 0x4000..0x7FFF prefix=p26_
+#include "hw.tc"
+
+void p26_L_4000();
+void p26_L_42BD();
+void p26_L_42C0();
+void p26_L_42CC();
+void p26_L_42DB();
+void p26_L_4413();
+void p26_L_4414();
+void p26_L_443B();
+void p26_L_447A();
+void p26_L_452C();
+void p26_L_4532();
+void p26_L_45CE();
+void p26_L_462D();
+void p26_L_463A();
+void p26_L_467B();
+void p26_L_46BF();
+void p26_L_46C0();
+void p26_L_4736();
+void p26_L_4739();
+void p26_L_4751();
+void p26_L_4766();
+void p26_L_47CF();
+void p26_L_47D2();
+void p26_L_4827();
+void p26_L_4849();
+void p26_L_4936();
+void p26_L_4972();
+void p26_L_4999();
+void p26_L_4A10();
+void p26_L_4A13();
+void p26_L_4A14();
+void p26_L_4A87();
+void p26_L_4A8E();
+void p26_L_4A90();
+void p26_L_4ADE();
+void p26_L_4AF9();
+void p26_L_4B26();
+void p26_L_4BC0();
+void p26_L_4BDD();
+void p26_L_4C7F();
+void p26_L_4C9D();
+void p26_L_4CA3();
+void p26_L_4D53();
+void p26_L_4D9B();
+void p26_L_4DA4();
+void p26_L_4E52();
+void p26_L_4E73();
+void p26_L_4EA9();
+void p26_L_4EC8();
+void p26_L_4EE7();
+void p26_L_4F82();
+void p26_L_4F88();
+void p26_L_5017();
+void p26_L_5029();
+void p26_L_50A8();
+void p26_L_50AB();
+void p26_L_50AE();
+void p26_L_50AF();
+void p26_L_50B8();
+void p26_L_50C4();
+void p26_L_50C7();
+void p26_L_50CD();
+void p26_L_50EE();
+void p26_L_5186();
+void p26_L_5195();
+void p26_L_5251();
+void p26_L_526A();
+void p26_L_5270();
+void p26_L_5283();
+void p26_L_5286();
+void p26_L_52A5();
+void p26_L_52C0();
+void p26_L_52F9();
+void p26_L_5301();
+void p26_L_5326();
+void p26_L_5342();
+void p26_L_5346();
+void p26_L_5355();
+void p26_L_535B();
+void p26_L_537D();
+void p26_L_5390();
+void p26_L_539C();
+void p26_L_5438();
+void p26_L_5439();
+void p26_L_543F();
+void p26_L_5446();
+void p26_L_5450();
+void p26_L_54B4();
+void p26_L_54BA();
+void p26_L_54DE();
+void p26_L_54F7();
+void p26_L_5503();
+void p26_L_557F();
+void p26_L_559D();
+void p26_L_55A0();
+void p26_L_55F8();
+void p26_L_5605();
+void p26_L_5620();
+void p26_L_5671();
+void p26_L_56A9();
+void p26_L_56E6();
+void p26_L_56E7();
+void p26_L_56ED();
+void p26_L_570B();
+void p26_L_570E();
+void p26_L_5725();
+void p26_L_5748();
+void p26_L_5759();
+void p26_L_5760();
+void p26_L_5782();
+void p26_L_5788();
+void p26_L_578E();
+void p26_L_5798();
+void p26_L_57B0();
+void p26_L_589C();
+void p26_L_58F2();
+void p26_L_59ED();
+void p26_L_5A18();
+void p26_L_5A71();
+void p26_L_5A79();
+void p26_L_5AB4();
+void p26_L_5C10();
+void p26_L_5C14();
+void p26_L_5C75();
+void p26_L_5C92();
+void p26_L_5CD7();
+void p26_L_5CF2();
+void p26_L_5D47();
+void p26_L_5D4E();
+void p26_L_5E0E();
+void p26_L_5E26();
+void p26_L_5E46();
+void p26_L_5E7B();
+void p26_L_5ED6();
+void p26_L_5EE5();
+void p26_L_60BA();
+void p26_L_625C();
+void p26_L_626D();
+void p26_L_6279();
+void p26_L_6289();
+void p26_L_62A7();
+void p26_L_62BA();
+void p26_L_62D0();
+void p26_L_62DA();
+void p26_L_62E0();
+void p26_L_637E();
+void p26_L_64AD();
+void p26_L_64B8();
+void p26_L_6703();
+void p26_L_68C6();
+void p26_L_68CB();
+void p26_L_68DA();
+void p26_L_6E90();
+void p26_L_6E93();
+void p26_L_6E96();
+void p26_L_6EA4();
+void p26_L_6EA9();
+void p26_L_6EB5();
+void p26_L_6EB9();
+void p26_L_6EBC();
+void p26_L_6ECF();
+void p26_L_6ED4();
+void p26_L_6EE3();
+void p26_L_6EF2();
+void p26_L_6F41();
+void p26_L_7186();
+void p26_L_718C();
+void p26_L_71A3();
+void p26_L_71D0();
+void p26_L_71E9();
+void p26_L_71F4();
+void p26_L_723D();
+void p26_L_7363();
+void p26_L_73B0();
+void p26_L_740A();
+void p26_L_740D();
+void p26_L_741E();
+void p26_L_742B();
+void p26_L_742D();
+void p26_L_7439();
+void p26_L_743B();
+void p26_L_7440();
+void p26_L_751D();
+void p26_L_7548();
+void p26_L_7749();
+void p26_L_7758();
+void p26_L_778C();
+void p26_L_7799();
+void p26_L_7834();
+void p26_L_7843();
+void p26_L_7853();
+void p26_L_7866();
+void p26_L_786E();
+void p26_L_7A3E();
+void p26_L_7A48();
+void p26_L_7A59();
+void p26_L_7A65();
+void p26_L_7A70();
+void p26_L_7A8C();
+void p26_L_7AA2();
+void p26_L_7AAE();
+void p26_L_7B45();
+void p26_L_7B9B();
+void p26_L_7BA0();
+void p26_L_7BB4();
+void p26_str_1();
+void p26_L_7E3E();
+void p26_L_7E41();
+
+// flash page 26 cpu 0x4000 (offset 0x0000)
+void p26_L_4000() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+  p00_rst38_isr();
+}
+
+// flash page 26 cpu 0x42BD (offset 0x02BD)
+void p26_L_42BD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_42CC();
+  p26_L_42C0();
+  return;
+}
+
+// flash page 26 cpu 0x42C0 (offset 0x02C0)
+void p26_L_42C0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_42CC();
+  p26_L_42CC();
+  p26_L_42CC();
+  p26_L_42CC();
+  p26_L_42CC();
+  return;
+}
+
+// flash page 26 cpu 0x42CC (offset 0x02CC)
+void p26_L_42CC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p00_L_1128(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  /* pop hl */
+  p00_L_11F8(); /* page0 */
+  /* push hl */
+  p00_rst30();
+  /* pop hl */
+  return;
+}
+
+// flash page 26 cpu 0x42DB (offset 0x02DB)
+void p26_L_42DB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1884(); /* page0 */
+  a = 0x86;
+  /* ld hl,0x8483 */
+  p00_L_0FE3(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_42EE;
+  /* jp nz,0x24C9 - other page/RAM */
+  lab_p26_L_42EE:
+  p00_rst18();
+  p00_L_120C(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_4376;
+  p00_L_1202(); /* page0 */
+  lab_p26_L_42FB:
+  p00_L_22F7(); /* page0 */
+  p00_L_1241(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_431C;
+  if (flag_z()) goto lab_p26_L_431C;
+  p00_L_1135(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_233D(); /* page0 */
+  goto lab_p26_L_42FB;
+  lab_p26_L_431C:
+  p00_L_22FC(); /* page0 */
+  p00_L_1221(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_433A;
+  if (flag_z()) goto lab_p26_L_433A;
+  p00_L_0C2A(); /* page0 */
+  p00_L_233D(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  goto lab_p26_L_431C;
+  lab_p26_L_433A:
+  p00_L_219B(); /* page0 */
+  p00_L_21D6(); /* page0 */
+  p00_L_1246(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_1169(); /* page0 */
+  /* ld hl,0x4200 */
+  p00_rst20();
+  p26_L_42BD();
+  p00_rst18();
+  /* ld hl,0x423F */
+  p00_rst20();
+  /* push hl */
+  p00_L_1128(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  /* pop hl */
+  p26_L_42BD();
+  p00_L_2196(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  /* jp 0x21A7 - other page/RAM */
+  lab_p26_L_4376:
+  p00_L_0ECC(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  p00_L_1169(); /* page0 */
+  /* ld hl,0x427E */
+  p00_rst20();
+  p26_L_42C0();
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_rst18();
+  p00_L_2324(); /* page0 */
+  /* ld hl,0x0FC3 */
+  p00_L_0C25(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  a = 0x03;
+  p00_L_152C(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  /* ld hl,0x42B4 */
+  p00_L_0C20(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_219B(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_rst30();
+  return;
+}
+
+// flash page 26 cpu 0x4413 (offset 0x0413)
+void p26_L_4413() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  p26_L_4414();
+  return;
+}
+
+// flash page 26 cpu 0x4414 (offset 0x0414)
+void p26_L_4414() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1135(); /* page0 */
+  /* jp 0x0ED0 - other page/RAM */
+}
+
+// flash page 26 cpu 0x443B (offset 0x043B)
+void p26_L_443B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8479) */
+  /* cp 0xC0 */ flag_cmp(a, 0xC0);
+  /* jp nc,0x128A - other page/RAM */
+  p00_L_0D1E(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_L_0E4C(); /* page0 */
+  p00_L_3933(); /* page0 */
+  /* ld hl,0x4455 */
+  /* jp 0x0EC1 - other page/RAM */
+}
+
+// flash page 26 cpu 0x447A (offset 0x047A)
+void p26_L_447A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1251(); /* page0 */
+  /* jp 0x0C13 - other page/RAM */
+}
+
+// flash page 26 cpu 0x452C (offset 0x052C)
+void p26_L_452C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_21A4(); /* page0 */
+  /* jp 0x21A4 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4532 (offset 0x0532)
+void p26_L_4532() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_463A();
+  p00_L_1171(); /* page0 */
+  p00_rst08();
+  p00_L_219B(); /* page0 */
+  p00_L_1169(); /* page0 */
+  p00_L_14CC(); /* page0 */
+  if (flag_nz()) p00_L_0ED0(); /* page0 */
+  p00_rst18();
+  p00_L_113A(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_rst18();
+  p00_L_3B5B(); /* page0 */
+  /* ex de,hl */
+  /* inc hl */
+  /* ld de,0x03E8 */
+  p00_L_192A(); /* page0 */
+  /* jp nc,0x24ED - other page/RAM */
+  /* push hl */
+  p00_L_1C40(); /* page0 */
+  /* ld (0x84D7),de */
+  p00_L_1135(); /* page0 */
+  p00_L_233D(); /* page0 */
+  p00_L_1130(); /* page0 */
+  p00_L_1251(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_4587;
+  /* ld hl,0x0001 */
+  p26_L_45CE();
+  p00_L_1229(); /* page0 */
+  /* pop hl */
+  p00_L_3B13(); /* page0 */
+  lab_p26_L_4581:
+  p00_L_22FC(); /* page0 */
+  p26_L_4C7F();
+  return;
+  lab_p26_L_4587:
+  p00_L_14C7(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_459E;
+  p00_L_1229(); /* page0 */
+  /* ld hl,0x0001 */
+  p00_L_3B13(); /* page0 */
+  /* ld hl,0x0002 */
+  p26_L_45CE();
+  /* pop hl */
+  goto lab_p26_L_4581;
+  lab_p26_L_459E:
+  p00_L_113A(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_2324(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_2375(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_2389(); /* page0 */
+  p00_L_128A(); /* page0 */
+  p00_rst18();
+  /* ld hl,0x0000 */
+  /* pop de */
+  p26_L_467B();
+  p00_L_2324(); /* page0 */
+  goto lab_p26_L_5377;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x45CE (offset 0x05CE)
+void p26_L_45CE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x8483),hl */
+  p00_L_128A(); /* page0 */
+  /* pop hl */
+  /* pop bc */
+  /* push bc */
+  /* push hl */
+  /* dec bc */
+  /* push bc */
+  /* ld de,(0x84D7) */
+  /* ld hl,(0x8483) */
+  p00_L_3AE9(); /* page0 */
+  /* ex de,hl */
+  lab_p26_L_45E5:
+  p00_L_11FD(); /* page0 */
+  /* pop bc */
+  /* dec bc */
+  a = c;
+  a = a | c;
+  if (flag_z()) return;
+  /* push bc */
+  goto lab_p26_L_45E5;
+}
+
+// flash page 26 cpu 0x462D (offset 0x062D)
+void p26_L_462D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  p00_L_2315(); /* page0 */
+  p26_L_4A87();
+  p00_L_219B(); /* page0 */
+  /* scf */
+  goto lab_p26_L_4642;
+  lab_p26_L_4642:
+  /* push af */
+  p26_L_46BF();
+  p00_L_1100(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_187F(); /* page0 */
+  /* pop af */
+  if (flag_c()) goto lab_p26_L_465A;
+  /* ld a,(0x8479) */
+  /* cp 0x83 */ flag_cmp(a, 0x83);
+  /* jp nc,0x24C9 - other page/RAM */
+  lab_p26_L_465A:
+  /* jp 0x113F - other page/RAM */
+}
+
+// flash page 26 cpu 0x463A (offset 0x063A)
+void p26_L_463A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_4A87();
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  a = a | a;
+  /* push af */
+  p26_L_46BF();
+  p00_L_1100(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_187F(); /* page0 */
+  /* pop af */
+  if (flag_c()) goto lab_p26_L_465A;
+  /* ld a,(0x8479) */
+  /* cp 0x83 */ flag_cmp(a, 0x83);
+  /* jp nc,0x24C9 - other page/RAM */
+  lab_p26_L_465A:
+  /* jp 0x113F - other page/RAM */
+}
+
+// flash page 26 cpu 0x467B (offset 0x067B)
+void p26_L_467B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* inc hl */
+  /* dec de */
+  a = d;
+  a = a | e;
+  if (flag_z()) goto lab_p26_L_46B6;
+  /* push de */
+  /* push hl */
+  p00_L_2315(); /* page0 */
+  p00_L_392D(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  p00_L_3B13(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_233D(); /* page0 */
+  p00_rst08();
+  p00_L_22D9(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_rst30();
+  p00_L_2310(); /* page0 */
+  p00_rst30();
+  p00_L_235C(); /* page0 */
+  /* pop hl */
+  /* pop de */
+  goto lab_p26_L_467B;
+  lab_p26_L_46B6:
+  /* push hl */
+  p00_L_392D(); /* page0 */
+  /* pop hl */
+  p00_L_3B13(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x46BF (offset 0x06BF)
+void p26_L_46BF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p26_L_46C0();
+  return;
+}
+
+// flash page 26 cpu 0x46C0 (offset 0x06C0)
+void p26_L_46C0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1873(); /* page0 */
+  p00_L_1159(); /* page0 */
+  p26_L_447A();
+  /* jp 0x1873 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4736 (offset 0x0736)
+void p26_L_4736() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_4A87();
+  p26_L_4739();
+  return;
+}
+
+// flash page 26 cpu 0x4739 (offset 0x0739)
+void p26_L_4739() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p00_rst18();
+  /* jp 0x22CF - other page/RAM */
+}
+
+// flash page 26 cpu 0x4751 (offset 0x0751)
+void p26_L_4751() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_21A4(); /* page0 */
+  /* jp 0x21A7 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4766 (offset 0x0766)
+void p26_L_4766() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_rst18();
+  p00_L_0D16(); /* page0 */
+  p00_rst18();
+  p00_rst30();
+  p00_rst18();
+  p26_L_42DB();
+  p00_rst18();
+  p00_L_2324(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  /* ld hl,0x475D */
+  p00_L_0C25(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_rst18();
+  p00_L_22D9(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_rst30();
+  p00_L_38A3(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_392D(); /* page0 */
+  p26_L_452C();
+  return;
+}
+
+// flash page 26 cpu 0x47CF (offset 0x07CF)
+void p26_L_47CF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2310(); /* page0 */
+  p26_L_47D2();
+  return;
+}
+
+// flash page 26 cpu 0x47D2 (offset 0x07D2)
+void p26_L_47D2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p00_L_127B(); /* page0 */
+  /* ld a,(0x8479) */
+  /* cp 0xB2 */ flag_cmp(a, 0xB2);
+  if (flag_nc()) goto lab_p26_L_4800;
+  p00_L_10E6(); /* page0 */
+  p00_L_1179(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_rst18();
+  p00_L_21E0(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_rst30();
+  p26_L_4413();
+  p26_L_4BDD();
+  p00_L_0D16(); /* page0 */
+  p00_L_1100(); /* page0 */
+  lab_p26_L_4800:
+  p00_L_219B(); /* page0 */
+  p00_L_15CB(); /* page0 */
+  /* push af */
+  p00_L_113F(); /* page0 */
+  /* pop af */
+  if (flag_nz()) p26_L_447A();
+  return;
+}
+
+// flash page 26 cpu 0x4827 (offset 0x0827)
+void p26_L_4827() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_15CB(); /* page0 */
+  /* jp nz,0x1229 - other page/RAM */
+  /* ld a,(0x8479) */
+  /* cp 0xE3 */ flag_cmp(a, 0xE3);
+  /* jp nc,0x128A - other page/RAM */
+  /* bit 0,b */
+  if (flag_z()) goto lab_p26_L_4AEE;
+  p00_L_0D16(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p26_L_4849();
+  return;
+  lab_p26_L_4AEE:
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p26_L_4BC0();
+  return;
+}
+
+// flash page 26 cpu 0x4849 (offset 0x0849)
+void p26_L_4849() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1884(); /* page0 */
+  p00_L_14CC(); /* page0 */
+  /* jp z,0x1229 - other page/RAM */
+  p00_rst18();
+  p00_L_21E0(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_48A3;
+  if (flag_z()) goto lab_p26_L_48A3;
+  p00_L_10DD(); /* page0 */
+  p00_L_0ECC(); /* page0 */
+  p00_L_1171(); /* page0 */
+  p00_L_1169(); /* page0 */
+  lab_p26_L_4869:
+  a = 0x88;
+  p00_L_0FE0(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst08();
+  p00_L_1130(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_489D;
+  /* ld hl,0x8499 */
+  p00_L_186A(); /* page0 */
+  p00_rst08();
+  p00_L_22FC(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1171(); /* page0 */
+  p00_rst08();
+  p00_L_1128(); /* page0 */
+  p00_rst30();
+  p00_L_1169(); /* page0 */
+  goto lab_p26_L_4869;
+  lab_p26_L_489D:
+  p26_L_4936();
+  p26_L_447A();
+  return;
+  lab_p26_L_48A3:
+  p00_L_0FDE(); /* page0 */
+  p00_L_1171(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_rst18();
+  p00_L_0ECC(); /* page0 */
+  p00_rst18();
+  p00_L_1169(); /* page0 */
+  p00_L_128A(); /* page0 */
+  lab_p26_L_48C0:
+  p00_L_0C1B(); /* page0 */
+  p00_rst18();
+  p00_L_22B3(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p00_L_1246(); /* page0 */
+  p00_rst30();
+  p00_L_2375(); /* page0 */
+  p00_L_10F8(); /* page0 */
+  p26_L_4A13();
+  p00_L_0ECC(); /* page0 */
+  p00_L_235C(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p26_L_4414();
+  p00_L_231F(); /* page0 */
+  p26_L_4A13();
+  p00_L_1171(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst08();
+  p00_L_1130(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1169(); /* page0 */
+  p00_L_1179(); /* page0 */
+  p00_L_0C2A(); /* page0 */
+  /* ld a,(0x847A) */
+  /* push af */
+  /* ld a,(0x8479) */
+  /* cp 0x78 */ flag_cmp(a, 0x78);
+  /* push af */
+  p00_L_219B(); /* page0 */
+  /* pop af */
+  /* pop bc */
+  if (flag_c()) goto lab_p26_L_4933;
+  a = b;
+  a = a | a;
+  if (flag_z()) goto lab_p26_L_4933;
+  /* ld a,(0x8479) */
+  /* cp 0x82 */ flag_cmp(a, 0x82);
+  if (flag_nz()) goto lab_p26_L_48C0;
+  lab_p26_L_4933:
+  p00_L_21A4(); /* page0 */
+  p26_L_4936();
+  return;
+}
+
+// flash page 26 cpu 0x4936 (offset 0x0936)
+void p26_L_4936() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_21CC(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_2310(); /* page0 */
+  a = 0x03;
+  p00_L_152C(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_392D(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  /* jp 0x21A4 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4972 (offset 0x0972)
+void p26_L_4972() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_10EF(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x4999 (offset 0x0999)
+void p26_L_4999() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  p26_L_4A87();
+  p00_L_0D16(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_15CB(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_49CA;
+  p00_L_14C7(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_49D0;
+  p00_L_219B(); /* page0 */
+  p00_L_21A7(); /* page0 */
+  p00_L_1251(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* jp c,0x24C9 - other page/RAM */
+  if (flag_nz()) goto lab_p26_L_49CD;
+  /* ld hl,0x0FC3 */
+  p00_rst20();
+  return;
+  lab_p26_L_49CA:
+  p00_L_21A4(); /* page0 */
+  lab_p26_L_49CD:
+  /* jp 0x128A - other page/RAM */
+  lab_p26_L_49D0:
+  p00_L_0D16(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_0C2A(); /* page0 */
+  p00_L_10F8(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_rst18();
+  a = 0x03;
+  p00_L_152C(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_392D(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  /* jp 0x21A4 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4A10 (offset 0x0A10)
+void p26_L_4A10() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1251(); /* page0 */
+  p26_L_4A13();
+  return;
+}
+
+// flash page 26 cpu 0x4A13 (offset 0x0A13)
+void p26_L_4A13() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst30();
+  p26_L_4A14();
+  return;
+}
+
+// flash page 26 cpu 0x4A14 (offset 0x0A14)
+void p26_L_4A14() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8479) */
+  /* cp 0x1D */ flag_cmp(a, 0x1D);
+  if (flag_nc()) return;
+  a = 0x1D;
+  /* jp 0x0FE0 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4A87 (offset 0x0A87)
+void p26_L_4A87() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_14D5(); /* page0 */
+  if (flag_z()) return;
+  /* jp 0x24C9 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4A8E (offset 0x0A8E)
+void p26_L_4A8E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x01;
+  p26_L_4A90();
+  return;
+}
+
+// flash page 26 cpu 0x4A90 (offset 0x0A90)
+void p26_L_4A90() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_4A8B:
+  /* jp 0x24C9 - other page/RAM */
+  /* push af */
+  p00_L_1130(); /* page0 */
+  d = 0x01;
+  p00_L_0FB1(); /* page0 */
+  lab_p26_L_4A99:
+  p00_L_163B(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_4AA7;
+  /* pop af */
+  /* ld a,(0x847A) */
+  /* cp 0x50 */ flag_cmp(a, 0x50);
+  if (flag_z()) return;
+  goto lab_p26_L_4A8B;
+  lab_p26_L_4AA7:
+  p00_L_0C2A(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  /* pop bc */
+  if (flag_z()) return;
+  a = b;
+  p00_L_1169(); /* page0 */
+  /* push af */
+  a = a | a;
+  if (flag_nz()) goto lab_p26_L_4AC0;
+  p00_rst08();
+  p00_L_22FC(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  goto lab_p26_L_4AD6;
+  lab_p26_L_4AC0:
+  p00_L_1135(); /* page0 */
+  p00_L_0C2A(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_rst08();
+  p00_L_1130(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  lab_p26_L_4AD6:
+  p00_L_233D(); /* page0 */
+  p00_L_1130(); /* page0 */
+  goto lab_p26_L_4A99;
+}
+
+// flash page 26 cpu 0x4ADE (offset 0x0ADE)
+void p26_L_4ADE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_483A:
+  p00_L_0D16(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p26_L_4849();
+  return;
+  /* push bc */
+  p00_L_1287(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* pop bc */
+  /* jp c,0x1229 - other page/RAM */
+  /* bit 0,b */
+  if (flag_nz()) goto lab_p26_L_483A;
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p26_L_4BC0();
+  return;
+}
+
+// flash page 26 cpu 0x4AF9 (offset 0x0AF9)
+void p26_L_4AF9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_4A87();
+  p00_rst18();
+  p00_L_0D16(); /* page0 */
+  p00_rst18();
+  p00_L_2324(); /* page0 */
+  p26_L_4A87();
+  p00_L_1246(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  p00_L_0D16(); /* page0 */
+  p00_rst18();
+  /* pop af */
+  return;
+}
+
+// flash page 26 cpu 0x4B26 (offset 0x0B26)
+void p26_L_4B26() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  /* ld hl,0x8BBD */
+  p00_rst20();
+  p00_rst18();
+  /* ld hl,0x8BD8 */
+  p00_rst20();
+  p26_L_4AF9();
+  /* push af */
+  p00_L_22B3(); /* page0 */
+  p00_L_128A(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_4BAB;
+  /* pop af */
+  p00_L_22CF(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_rst18();
+  p00_L_0C1B(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_rst30();
+  p00_rst08();
+  p00_L_113F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  p26_L_42DB();
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_rst18();
+  p00_L_22D9(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_L_392D(); /* page0 */
+  p00_L_2262(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  /* ld de,0x0036 */
+  /* jp 0x21B6 - other page/RAM */
+  lab_p26_L_4BAB:
+  if (flag_nz()) goto lab_p26_L_4BB4;
+  /* pop af */
+  if (flag_z()) goto lab_p26_L_4BBB;
+  /* jp c,0x24C9 - other page/RAM */
+  /* push af */
+  lab_p26_L_4BB4:
+  /* pop af */
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4BB8:
+  goto lab_p26_L_5377;
+  lab_p26_L_4BBB:
+  p00_L_1229(); /* page0 */
+  goto lab_p26_L_4BB8;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x4BC0 (offset 0x0BC0)
+void p26_L_4BC0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_4AF9();
+  p00_L_22D9(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_rst30();
+  p00_rst08();
+  p00_L_2324(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p26_L_4BDD();
+  p26_L_4C7F();
+  return;
+}
+
+// flash page 26 cpu 0x4BDD (offset 0x0BDD)
+void p26_L_4BDD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_46BF();
+  p00_L_163B(); /* page0 */
+  /* push af */
+  p00_L_2315(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  /* pop af */
+  if (flag_nc()) { p26_L_4C7F(); return; }
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p26_L_447A();
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_rst30();
+  p26_L_42DB();
+  p00_rst18();
+  p00_L_22D9(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_L_392D(); /* page0 */
+  p00_rst18();
+  p26_L_4C9D();
+  p00_rst30();
+  p00_L_1246(); /* page0 */
+  p00_rst30();
+  p00_L_1100(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p26_L_5450();
+  p00_L_2310(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  p26_L_4C9D();
+  /* pop af */
+  if (flag_nc()) goto lab_p26_L_4C85;
+  p00_L_21E0(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p26_L_447A();
+  p00_rst18();
+  p26_L_4CA3();
+  p00_L_231F(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p26_L_447A();
+  p26_L_4C7F();
+  return;
+  lab_p26_L_4C85:
+  p00_L_222C(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p00_rst18();
+  p26_L_4CA3();
+  p00_L_22C7(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p26_L_4C7F();
+  return;
+}
+
+// flash page 26 cpu 0x4C7F (offset 0x0C7F)
+void p26_L_4C7F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld bc,0x001B */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x4C9D (offset 0x0C9D)
+void p26_L_4C9D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_22CF(); /* page0 */
+  /* jp 0x231F - other page/RAM */
+}
+
+// flash page 26 cpu 0x4CA3 (offset 0x0CA3)
+void p26_L_4CA3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1229(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_rst30();
+  p00_L_2310(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p26_L_5788();
+  p26_L_447A();
+  p26_L_4A14();
+  p00_L_0ECC(); /* page0 */
+  p00_rst18();
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4CCE:
+  p00_L_0C1B(); /* page0 */
+  p00_rst18();
+  p00_L_2262(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p26_L_4DA4();
+  p00_L_2277(); /* page0 */
+  p00_L_0C2A(); /* page0 */
+  p26_L_4D53();
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p26_L_4D9B();
+  p00_L_2277(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_rst30();
+  p00_L_10DD(); /* page0 */
+  p00_L_2277(); /* page0 */
+  p00_L_2262(); /* page0 */
+  p00_rst30();
+  p00_L_22F7(); /* page0 */
+  p00_rst30();
+  p00_L_10EF(); /* page0 */
+  p00_L_0E4C(); /* page0 */
+  p26_L_4DA4();
+  p00_L_2277(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p26_L_4D53();
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1169(); /* page0 */
+  p26_L_4D9B();
+  p00_L_1130(); /* page0 */
+  p00_L_0C2A(); /* page0 */
+  p00_L_1169(); /* page0 */
+  p00_L_219B(); /* page0 */
+  /* ld a,(0x84B0) */
+  /* cp 0x79 */ flag_cmp(a, 0x79);
+  /* ld a,(0x84B1) */
+  if (flag_c()) goto lab_p26_L_4D4A;
+  if (flag_nz()) goto lab_p26_L_4D3F;
+  /* cp 0x30 */ flag_cmp(a, 0x30);
+  if (flag_c()) goto lab_p26_L_4D4A;
+  lab_p26_L_4D3F:
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p26_L_4D4A;
+  /* ld a,(0x8479) */
+  /* cp 0x82 */ flag_cmp(a, 0x82);
+  if (flag_nz()) goto lab_p26_L_4CCE;
+  lab_p26_L_4D4A:
+  p00_L_22FC(); /* page0 */
+  /* ld bc,0x0036 */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x4D53 (offset 0x0D53)
+void p26_L_4D53() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_10DD(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_0C18(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_rst30();
+  p00_L_1171(); /* page0 */
+  p00_L_2277(); /* page0 */
+  p00_L_10F8(); /* page0 */
+  p00_rst30();
+  p00_L_1108(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst08();
+  p00_L_1130(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_1169(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p26_L_4A10();
+  p00_L_0ECC(); /* page0 */
+  p00_L_2375(); /* page0 */
+  p00_L_1130(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p26_L_4A10();
+  /* jp 0x2389 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4D9B (offset 0x0D9B)
+void p26_L_4D9B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2310(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  /* jp 0x235C - other page/RAM */
+}
+
+// flash page 26 cpu 0x4DA4 (offset 0x0DA4)
+void p26_L_4DA4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_0D1F(); /* page0 */
+  p00_L_22B3(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  /* jp 0x1169 - other page/RAM */
+}
+
+// flash page 26 cpu 0x4E52 (offset 0x0E52)
+void p26_L_4E52() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  flag_cmp(a, b);
+  if (flag_c()) return;
+  /* push bc */
+  /* push af */
+  p00_L_1037(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_4E6F;
+  /* pop af */
+  /* push af */
+  a = a - 1;
+  /* ld hl,0x4E6F */
+  p00_L_25A2(); /* page0 */
+  b = a;
+  p00_L_3981(); /* page0 */
+  p00_L_25C8(); /* page0 */
+  /* pop af */
+  /* pop bc */
+  a = a | a;
+  return;
+  lab_p26_L_4E6F:
+  /* pop af */
+  /* pop bc */
+  /* scf */
+  return;
+}
+
+// flash page 26 cpu 0x4E73 (offset 0x0E73)
+void p26_L_4E73() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p26_L_4E52();
+  /* pop hl */
+  if (flag_c()) return;
+  /* push hl */
+  /* push bc */
+  a = a - b;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p26_L_4E8D;
+  if (flag_c()) goto lab_p26_L_4E89;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  /* jp nc,0x24E5 - other page/RAM */
+  goto lab_p26_L_4E91;
+  lab_p26_L_4E89:
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4E8D:
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4E91:
+  p00_rst18();
+  /* pop bc */
+  /* pop hl */
+  /* ld de,0x0012 */
+  p26_L_4EC8();
+  p00_L_2315(); /* page0 */
+  p26_L_55A0();
+  p00_L_219B(); /* page0 */
+  /* set 7,(iy+0x11) */
+  a = a | a;
+  return;
+}
+
+// flash page 26 cpu 0x4EA9 (offset 0x0EA9)
+void p26_L_4EA9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p26_L_4E52();
+  /* pop hl */
+  if (flag_c()) return;
+  /* push hl */
+  /* push bc */
+  a = a - b;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p26_L_4EBC;
+  /* jp nc,0x24E5 - other page/RAM */
+  p26_L_5CF2();
+  lab_p26_L_4EBC:
+  p26_L_5251();
+  /* pop bc */
+  /* pop hl */
+  /* ld de,0x0009 */
+  /* set 7,(iy+0x11) */
+  p26_L_4EC8();
+  return;
+}
+
+// flash page 26 cpu 0x4EC8 (offset 0x0EC8)
+void p26_L_4EC8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld hl,(0x9824) */
+  a = a | a;
+  /* sbc hl,de */
+  /* pop de */
+  lab_p26_L_4ED0:
+  /* ld a,(de) */
+  /* inc de */
+  /* push de */
+  p00_L_23CF(); /* page0 */
+  /* push hl */
+  /* push bc */
+  p00_rst20();
+  p00_L_1897(); /* page0 */
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  c = c - 1;
+  if (flag_nz()) goto lab_p26_L_4ED0;
+  a = a | a;
+  return;
+}
+
+// flash page 26 cpu 0x4EE7 (offset 0x0EE7)
+void p26_L_4EE7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  b = 0x06;
+  p26_L_4E52();
+  /* pop bc */
+  if (flag_c()) return;
+  /* push bc */
+  /* push af */
+  /* pop af */
+  /* cp 0x07 */ flag_cmp(a, 0x07);
+  if (flag_c()) goto lab_p26_L_4F06;
+  if (flag_z()) goto lab_p26_L_4F0E;
+  /* cp 0x09 */ flag_cmp(a, 0x09);
+  if (flag_c()) goto lab_p26_L_4F18;
+  lab_p26_L_4EFC:
+  /* jp nz,0x24E5 - other page/RAM */
+  /* pop af */
+  /* push af */
+  a = a | a;
+  if (flag_nz()) goto lab_p26_L_4EFC;
+  goto lab_p26_L_4F1C;
+  lab_p26_L_4F06:
+  p26_L_5CF2();
+  /* pop af */
+  a = a | a;
+  /* push af */
+  if (flag_z()) goto lab_p26_L_4F11;
+  lab_p26_L_4F0E:
+  p00_rst18();
+  goto lab_p26_L_4F15;
+  lab_p26_L_4F11:
+  p00_L_128A(); /* page0 */
+  p00_rst18();
+  lab_p26_L_4F15:
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4F18:
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4F1C:
+  p00_rst18();
+  /* ld de,0x001B */
+  c = 0x06;
+  /* ld hl,0x4F6F */
+  p26_L_4EC8();
+  p26_L_6289();
+  /* set 7,(iy+0x11) */
+  /* pop af */
+  a = a | a;
+  if (flag_z()) goto lab_p26_L_4F52;
+  p00_L_21A7(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p26_L_5251();
+  p00_L_21A7(); /* page0 */
+  p00_L_235C(); /* page0 */
+  p00_L_219B(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  p26_L_5301();
+  p00_L_21A4(); /* page0 */
+  /* pop af */
+  goto lab_p26_L_524C;
+  lab_p26_L_4F52:
+  /* pop af */
+  p00_L_219B(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  /* push af */
+  p00_L_2315(); /* page0 */
+  p26_L_55A0();
+  p00_L_219B(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  p26_L_5A79();
+  p00_L_21A4(); /* page0 */
+  goto lab_p26_L_57E3;
+  lab_p26_L_524C:
+  a = 0x15;
+  p26_L_5186();
+  return;
+  lab_p26_L_5495:
+  /* push af */
+  p26_L_5186();
+  /* pop af */
+  if (flag_z()) return;
+  /* res 7,(iy+0x09) */
+  p00_rst18();
+  a = 0x24;
+  p26_L_5D4E();
+  p00_L_21A7(); /* page0 */
+  p00_L_333F(); /* page0 */
+  /* ld hl,0x8B6C */
+  a = 0x74;
+  p00_L_32D9(); /* page0 */
+  return;
+  lab_p26_L_57E3:
+  /* ld hl,0x8B87 */
+  p00_rst20();
+  /* pop af */
+  a = 0x0E;
+  goto lab_p26_L_5495;
+}
+
+// flash page 26 cpu 0x4F82 (offset 0x0F82)
+void p26_L_4F82() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_3A05(); /* page0 */
+  p26_L_50AE();
+  p26_L_4F88();
+  return;
+}
+
+// flash page 26 cpu 0x4F88 (offset 0x0F88)
+void p26_L_4F88() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_0C18(); /* page0 */
+  p26_L_447A();
+  p00_L_1169(); /* page0 */
+  p00_L_15D6(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  if (flag_z()) return;
+  p00_L_163B(); /* page0 */
+  if (flag_c()) goto lab_p26_L_4FA2;
+  p00_L_0FDE(); /* page0 */
+  goto lab_p26_L_4FDC;
+  lab_p26_L_4FA2:
+  p00_rst08();
+  p00_L_128A(); /* page0 */
+  /* ld hl,0x707F */
+  /* ld (0x8479),hl */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_4FE7;
+  p00_L_1130(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  /* ld hl,0x4DB0 */
+  a = 0x03;
+  p26_L_5017();
+  a = 0x03;
+  p26_L_5029();
+  p00_L_1128(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  /* jp 0x21A7 - other page/RAM */
+  lab_p26_L_4FD3:
+  p00_L_1108(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_21A7(); /* page0 */
+  lab_p26_L_4FDC:
+  /* ld a,(0x84AF) */
+  /* ld hl,0x8478 */
+  /* xor (hl) */
+  /* ld (0x8478),a */
+  return;
+  lab_p26_L_4FE7:
+  a = 0x98;
+  /* ld (0x847A),a */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  p00_L_1179(); /* page0 */
+  p26_L_447A();
+  p00_L_0D16(); /* page0 */
+  p00_L_3921(); /* page0 */
+  p00_L_0E4C(); /* page0 */
+  p00_L_3A05(); /* page0 */
+  /* pop af */
+  /* ld hl,0x4E1C */
+  if (flag_c()) goto lab_p26_L_500B;
+  /* ld hl,0x4DE6 */
+  lab_p26_L_500B:
+  a = 0x02;
+  p26_L_5017();
+  a = 0x04;
+  p26_L_5029();
+  goto lab_p26_L_4FD3;
+}
+
+// flash page 26 cpu 0x5017 (offset 0x1017)
+void p26_L_5017() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p00_rst18();
+  /* pop hl */
+  p26_L_5029();
+  /* push hl */
+  p00_L_0D1F(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_1171(); /* page0 */
+  /* pop hl */
+  return;
+}
+
+// flash page 26 cpu 0x5029 (offset 0x1029)
+void p26_L_5029() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  p00_L_1287(); /* page0 */
+  lab_p26_L_502E:
+  /* pop hl */
+  p00_rst20();
+  /* push hl */
+  p00_rst30();
+  p00_L_22F7(); /* page0 */
+  /* pop hl */
+  /* pop af */
+  a = a - 1;
+  if (flag_z()) return;
+  /* push af */
+  /* push hl */
+  p00_L_0D1F(); /* page0 */
+  p00_rst08();
+  goto lab_p26_L_502E;
+}
+
+// flash page 26 cpu 0x50A8 (offset 0x10A8)
+void p26_L_50A8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_50B8();
+  p26_L_50AB();
+  return;
+}
+
+// flash page 26 cpu 0x50AB (offset 0x10AB)
+void p26_L_50AB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_0ED0(); /* page0 */
+  p26_L_50AE();
+  return;
+}
+
+// flash page 26 cpu 0x50AE (offset 0x10AE)
+void p26_L_50AE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p26_L_50AF();
+  return;
+}
+
+// flash page 26 cpu 0x50AF (offset 0x10AF)
+void p26_L_50AF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2315(); /* page0 */
+  p26_L_447A();
+  /* jp 0x0D16 - other page/RAM */
+}
+
+// flash page 26 cpu 0x50B8 (offset 0x10B8)
+void p26_L_50B8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8A5E */
+  /* ld a,(hl) */
+  a = a & 0x1F;
+  /* cp 0x0E */ flag_cmp(a, 0x0E);
+  /* jp z,0x2515 - other page/RAM */
+  return;
+}
+
+// flash page 26 cpu 0x50C4 (offset 0x10C4)
+void p26_L_50C4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8A43 */
+  p26_L_50C7();
+  return;
+}
+
+// flash page 26 cpu 0x50C7 (offset 0x10C7)
+void p26_L_50C7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x84A4 */
+  p00_L_1183(); /* page0 */
+  p26_L_50CD();
+  return;
+}
+
+// flash page 26 cpu 0x50CD (offset 0x10CD)
+void p26_L_50CD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_rst30();
+  a = 0x33;
+  p00_L_1897(); /* page0 */
+  p00_L_113A(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  a = 0x32;
+  p00_L_1897(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x50EE (offset 0x10EE)
+void p26_L_50EE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_222C(); /* page0 */
+  p26_L_4F88();
+  b = 0x08;
+  lab_p26_L_50F6:
+  /* push bc */
+  p00_rst18();
+  p00_L_2310(); /* page0 */
+  p26_L_4766();
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p26_L_47D2();
+  p00_L_22C7(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_2196(); /* page0 */
+  /* ld a,(0x8479) */
+  /* cp 0x78 */ flag_cmp(a, 0x78);
+  if (flag_c()) goto lab_p26_L_5124;
+  p00_rst30();
+  /* pop bc */
+  b = b - 1;
+  if (b != 0) goto lab_p26_L_50F6;
+  goto lab_p26_L_5128;
+  lab_p26_L_5124:
+  /* pop bc */
+  p00_L_1179(); /* page0 */
+  lab_p26_L_5128:
+  /* jp 0x21A4 - other page/RAM */
+}
+
+// flash page 26 cpu 0x5186 (offset 0x1186)
+void p26_L_5186() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* set 6,(iy+0x09) */
+  /* set 7,(iy+0x09) */
+  /* ld (0x8A36),a */
+  return;
+}
+
+// flash page 26 cpu 0x5195 (offset 0x1195)
+void p26_L_5195() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_5192:
+  /* jp 0x24E5 - other page/RAM */
+  /* cp 0x05 */ flag_cmp(a, 0x05);
+  if (flag_nc()) goto lab_p26_L_5192;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_c()) goto lab_p26_L_5192;
+  if (flag_z()) goto lab_p26_L_51BC;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_c()) goto lab_p26_L_51C2;
+  if (flag_nz()) goto lab_p26_L_51B2;
+  p00_L_1037(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_51C8;
+  a = 0xFF;
+  /* ld (0x8483),a */
+  /* jp 0x21E0 - other page/RAM */
+  lab_p26_L_51B2:
+  p00_L_22F7(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  /* jp z,0x24DD - other page/RAM */
+  return;
+  lab_p26_L_51BC:
+  p00_rst18();
+  a = 0x00;
+  p00_L_1682(); /* page0 */
+  lab_p26_L_51C2:
+  p00_rst18();
+  a = 0xFF;
+  /* ld (0x8478),a */
+  lab_p26_L_51C8:
+  p26_L_5CF2();
+  return;
+}
+
+// flash page 26 cpu 0x5251 (offset 0x1251)
+void p26_L_5251() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1653(); /* page0 */
+  p00_L_1873(); /* page0 */
+  /* ld a,(0x8479) */
+  /* cp 0x82 */ flag_cmp(a, 0x82);
+  /* jp nc,0x24C9 - other page/RAM */
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_c()) goto lab_p26_L_5268;
+  /* sub 0x02 */
+  /* ld (0x8479),a */
+  lab_p26_L_5268:
+  p00_rst18();
+  return;
+}
+
+// flash page 26 cpu 0x526A (offset 0x126A)
+void p26_L_526A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_5439();
+  p26_L_50B8();
+  p26_L_5270();
+  return;
+}
+
+// flash page 26 cpu 0x5270 (offset 0x1270)
+void p26_L_5270() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  p00_L_22CF(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p26_L_50AB();
+  p26_L_4F88();
+  p26_L_50C4();
+  p26_L_452C();
+  return;
+}
+
+// flash page 26 cpu 0x5283 (offset 0x1283)
+void p26_L_5283() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_5439();
+  p26_L_5286();
+  return;
+}
+
+// flash page 26 cpu 0x5286 (offset 0x1286)
+void p26_L_5286() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  /* ld hl,0x8A5E */
+  p00_rst20();
+  p26_L_50A8();
+  p00_L_10DD(); /* page0 */
+  /* ld hl,0x8A3A */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  p00_rst08();
+  p00_L_1135(); /* page0 */
+  p26_L_50EE();
+  p26_L_50C4();
+  p26_L_4C7F();
+  return;
+}
+
+// flash page 26 cpu 0x52A5 (offset 0x12A5)
+void p26_L_52A5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_52A2:
+  p26_L_4C7F();
+  return;
+  b = 0x28;
+  a = 0x02;
+  p26_L_5671();
+  p26_L_55F8();
+  p00_L_2310(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p26_L_4F82();
+  /* ld hl,0x8B90 */
+  p26_L_50C7();
+  goto lab_p26_L_52A2;
+}
+
+// flash page 26 cpu 0x52C0 (offset 0x12C0)
+void p26_L_52C0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_5605();
+  p26_L_55F8();
+  p00_L_22C7(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  /* ld hl,0x8BA2 */
+  p00_rst20();
+  p26_L_55F8();
+  p00_L_2310(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_rst30();
+  p26_L_4F82();
+  p00_L_1171(); /* page0 */
+  /* ld hl,0x8B99 */
+  p00_rst20();
+  /* ld hl,0x8BA2 */
+  p00_L_0C25(); /* page0 */
+  p00_L_1486(); /* page0 */
+  p26_L_50CD();
+  goto lab_p26_L_5377;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x52F9 (offset 0x12F9)
+void p26_L_52F9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_14C7(); /* page0 */
+  /* push af */
+  p26_L_5725();
+  /* pop af */
+  p26_L_5301();
+  return;
+}
+
+// flash page 26 cpu 0x5301 (offset 0x1301)
+void p26_L_5301() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  if (flag_nz()) goto lab_p26_L_5335;
+  /* set 7,(iy+0x11) */
+  /* ld hl,0x8BB4 */
+  p00_rst20();
+  /* ld hl,0x8BCF */
+  p00_L_11F8(); /* page0 */
+  p26_L_5760();
+  p00_L_21D6(); /* page0 */
+  p26_L_59ED();
+  lab_p26_L_531A:
+  p00_L_10DD(); /* page0 */
+  p26_L_50AF();
+  p00_L_10EF(); /* page0 */
+  p26_L_50EE();
+  p26_L_5326();
+  return;
+  lab_p26_L_5335:
+  /* res 7,(iy+0x11) */
+  p26_L_5A18();
+  p00_rst18();
+  p00_L_113A(); /* page0 */
+  goto lab_p26_L_531A;
+}
+
+// flash page 26 cpu 0x5326 (offset 0x1326)
+void p26_L_5326() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1171(); /* page0 */
+  p26_L_578E();
+  p00_L_1486(); /* page0 */
+  p26_L_50CD();
+  goto lab_p26_L_5377;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x5342 (offset 0x1342)
+void p26_L_5342() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* scf */
+  p26_L_56E7();
+  p26_L_5346();
+  return;
+}
+
+// flash page 26 cpu 0x5346 (offset 0x1346)
+void p26_L_5346() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_21E0(); /* page0 */
+  p26_L_50AF();
+  p26_L_4F88();
+  p26_L_5326();
+  /* jp 0x21A7 - other page/RAM */
+}
+
+// flash page 26 cpu 0x5355 (offset 0x1355)
+void p26_L_5355() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_5438();
+  p26_L_50B8();
+  p26_L_535B();
+  return;
+}
+
+// flash page 26 cpu 0x535B (offset 0x135B)
+void p26_L_535B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  p00_L_22CF(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_22B3(); /* page0 */
+  /* ld de,0x8D8F */
+  /* ld hl,0x8483 */
+  p00_L_1183(); /* page0 */
+  p26_L_5446();
+  p26_L_537D();
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+}
+
+// flash page 26 cpu 0x537D (offset 0x137D)
+void p26_L_537D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x23;
+  p00_L_1897(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_L_14CC(); /* page0 */
+  /* push af */
+  if (flag_z()) p00_L_15D6(); /* page0 */
+  p26_L_5503();
+  /* pop af */
+  p26_L_5390();
+  return;
+}
+
+// flash page 26 cpu 0x5390 (offset 0x1390)
+void p26_L_5390() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  if (flag_z()) p00_L_0C18(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_L_15C6(); /* page0 */
+  if (flag_nz()) p26_L_447A();
+  p26_L_539C();
+  return;
+}
+
+// flash page 26 cpu 0x539C (offset 0x139C)
+void p26_L_539C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x22;
+  /* jp 0x1897 - other page/RAM */
+}
+
+// flash page 26 cpu 0x5438 (offset 0x1438)
+void p26_L_5438() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p26_L_5439();
+  return;
+}
+
+// flash page 26 cpu 0x5439 (offset 0x1439)
+void p26_L_5439() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2324(); /* page0 */
+  p26_L_570B();
+  p26_L_543F();
+  return;
+}
+
+// flash page 26 cpu 0x543F (offset 0x143F)
+void p26_L_543F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_6EA4();
+  p00_L_3A05(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5446 (offset 0x1446)
+void p26_L_5446() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1100(); /* page0 */
+  /* ld hl,0x8A43 */
+  p00_rst20();
+  p00_L_0C2D(); /* page0 */
+  p26_L_5450();
+  return;
+}
+
+// flash page 26 cpu 0x5450 (offset 0x1450)
+void p26_L_5450() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_10F8(); /* page0 */
+  /* jp 0x0ED0 - other page/RAM */
+}
+
+// flash page 26 cpu 0x54B4 (offset 0x14B4)
+void p26_L_54B4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_5438();
+  p26_L_50B8();
+  p26_L_54BA();
+  return;
+}
+
+// flash page 26 cpu 0x54BA (offset 0x14BA)
+void p26_L_54BA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  /* ld hl,0x8A5E */
+  p00_rst20();
+  p00_L_0ED0(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  /* ld de,0x8D8F */
+  /* ld hl,0x8483 */
+  p00_L_1183(); /* page0 */
+  p26_L_5446();
+  a = 0x24;
+  p00_L_1897(); /* page0 */
+  p00_rst18();
+  p26_L_6EA4();
+  p00_L_0C2A(); /* page0 */
+  p00_rst08();
+  p26_L_54DE();
+  return;
+}
+
+// flash page 26 cpu 0x54DE (offset 0x14DE)
+void p26_L_54DE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2315(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  /* push af */
+  p00_L_219B(); /* page0 */
+  /* pop af */
+  /* push af */
+  if (flag_z()) p00_L_15D6(); /* page0 */
+  p26_L_47D2();
+  /* pop af */
+  p26_L_5390();
+  p26_L_452C();
+  return;
+}
+
+// flash page 26 cpu 0x54F7 (offset 0x14F7)
+void p26_L_54F7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_231F(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p26_L_5503();
+  return;
+}
+
+// flash page 26 cpu 0x5503 (offset 0x1503)
+void p26_L_5503() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p00_L_15D6(); /* page0 */
+  p00_rst08();
+  /* ld hl,0x5549 */
+  p00_rst20();
+  /* push hl */
+  p00_L_0D1F(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_0ECC(); /* page0 */
+  p00_rst18();
+  /* pop hl */
+  p00_rst20();
+  b = 0x05;
+  /* push bc */
+  lab_p26_L_551C:
+  /* push hl */
+  p00_L_22F7(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  /* pop hl */
+  /* pop bc */
+  b = b - 1;
+  if (b != 0) goto lab_p26_L_5540;
+  p00_L_233D(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p26_L_443B();
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_15C6(); /* page0 */
+  if (flag_nz()) p26_L_447A();
+  return;
+  lab_p26_L_5540:
+  /* push bc */
+  p00_L_11F8(); /* page0 */
+  /* push hl */
+  p00_rst30();
+  /* pop hl */
+  goto lab_p26_L_551C;
+}
+
+// flash page 26 cpu 0x557F (offset 0x157F)
+void p26_L_557F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  /* jp c,0x24E5 - other page/RAM */
+  if (flag_z()) goto lab_p26_L_558F;
+  /* cp 0x05 */ flag_cmp(a, 0x05);
+  if (flag_z()) goto lab_p26_L_5597;
+  /* jp nc,0x24E5 - other page/RAM */
+  goto lab_p26_L_5593;
+  lab_p26_L_558F:
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_5593:
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_5597:
+  p00_L_1653(); /* page0 */
+  /* jp 0x14C7 - other page/RAM */
+}
+
+// flash page 26 cpu 0x559D (offset 0x159D)
+void p26_L_559D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_22FC(); /* page0 */
+  p26_L_55A0();
+  return;
+}
+
+// flash page 26 cpu 0x55A0 (offset 0x15A0)
+void p26_L_55A0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = 0x00;
+  p00_L_14C7(); /* page0 */
+  if (flag_z()) goto lab_p26_L_55AE;
+  b = b + 1;
+  p00_L_15CB(); /* page0 */
+  if (flag_z()) goto lab_p26_L_55AE;
+  b = b + 1;
+  lab_p26_L_55AE:
+  a = b;
+  /* ld (0x8A37),a */
+  return;
+}
+
+// flash page 26 cpu 0x55F8 (offset 0x15F8)
+void p26_L_55F8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1100(); /* page0 */
+  p26_L_447A();
+  p00_L_10F8(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5605 (offset 0x1605)
+void p26_L_5605() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = 0x2A;
+  a = 0x30;
+  p26_L_5671();
+  p00_L_22CF(); /* page0 */
+  a = 0x2D;
+  p00_L_1897(); /* page0 */
+  p26_L_4A87();
+  p00_rst08();
+  p00_L_22D9(); /* page0 */
+  a = 0x29;
+  goto lab_p26_L_5682;
+  lab_p26_L_5682:
+  /* push af */
+  p00_L_187F(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_568E;
+  /* jp nz,0x24C9 - other page/RAM */
+  lab_p26_L_568E:
+  p00_L_0ED0(); /* page0 */
+  /* pop af */
+  p00_L_1897(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5620 (offset 0x1620)
+void p26_L_5620() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+  p26_L_5605();
+  p00_L_2315(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_rst30();
+  p00_L_10DD(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p00_L_22B3(); /* page0 */
+  p00_rst30();
+  p26_L_5788();
+  a = 0x28;
+  p00_L_1897(); /* page0 */
+  p26_L_55F8();
+  p00_L_10DD(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_0ECC(); /* page0 */
+  p00_L_1171(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p00_L_0ECC(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_rst30();
+  p26_L_4972();
+  p00_L_3A05(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  /* ld hl,0x8B99 */
+  p00_rst20();
+  /* ld hl,0x8BA2 */
+  p00_L_0C25(); /* page0 */
+  p26_L_5788();
+  p26_L_537D();
+  goto lab_p26_L_5377;
+}
+
+// flash page 26 cpu 0x5671 (offset 0x1671)
+void p26_L_5671() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push af */
+  p00_L_2315(); /* page0 */
+  /* pop af */
+  p00_L_1897(); /* page0 */
+  p26_L_4A87();
+  p00_rst08();
+  p00_L_2324(); /* page0 */
+  /* pop af */
+  /* push af */
+  p00_L_187F(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_568E;
+  /* jp nz,0x24C9 - other page/RAM */
+  lab_p26_L_568E:
+  p00_L_0ED0(); /* page0 */
+  /* pop af */
+  p00_L_1897(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x56A9 (offset 0x16A9)
+void p26_L_56A9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_22CF(); /* page0 */
+  p00_L_1873(); /* page0 */
+  p00_L_163B(); /* page0 */
+  /* jp nc,0x24C9 - other page/RAM */
+  b = 0x28;
+  a = 0x02;
+  p26_L_5671();
+  p00_L_22C7(); /* page0 */
+  /* ld de,0x8D8F */
+  /* ld hl,0x8483 */
+  p00_L_1183(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p26_L_55F8();
+  p00_L_2310(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_3A05(); /* page0 */
+  p26_L_4413();
+  p26_L_537D();
+  p26_L_452C();
+  return;
+}
+
+// flash page 26 cpu 0x56E6 (offset 0x16E6)
+void p26_L_56E6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0;
+  p26_L_56E7();
+  return;
+}
+
+// flash page 26 cpu 0x56E7 (offset 0x16E7)
+void p26_L_56E7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  p00_rst18();
+  p26_L_5725();
+  /* pop af */
+  p26_L_56ED();
+  return;
+}
+
+// flash page 26 cpu 0x56ED (offset 0x16ED)
+void p26_L_56ED() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_4D4D:
+  /* ld bc,0x0036 */
+  /* jp 0x21AA - other page/RAM */
+  /* push af */
+  p00_L_2267(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_L_2277(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_L_2262(); /* page0 */
+  p26_L_5760();
+  /* pop af */
+  if (flag_c()) return;
+  p26_L_537D();
+  p00_L_21A7(); /* page0 */
+  goto lab_p26_L_4D4D;
+}
+
+// flash page 26 cpu 0x570B (offset 0x170B)
+void p26_L_570B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2310(); /* page0 */
+  p26_L_570E();
+  return;
+}
+
+// flash page 26 cpu 0x570E (offset 0x170E)
+void p26_L_570E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8483) */
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  a = 0x01;
+  if (flag_z()) goto lab_p26_L_571D;
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  a = 0x02;
+  lab_p26_L_571D:
+  p26_L_637E();
+  /* res 5,(iy+0x09) */
+  return;
+}
+
+// flash page 26 cpu 0x5725 (offset 0x1725)
+void p26_L_5725() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_22CF(); /* page0 */
+  p26_L_570B();
+  /* ld de,0x8BC6 */
+  p26_L_5748();
+  /* ld hl,0x8D2A */
+  /* ld de,0x8D39 */
+  /* ld bc,0x000F */
+  /* ldir */
+  p00_L_22D9(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p26_L_570E();
+  /* ld de,0x8BAB */
+  p26_L_5748();
+  return;
+}
+
+// flash page 26 cpu 0x5748 (offset 0x1748)
+void p26_L_5748() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x0E;
+  /* ld hl,0x8A43 */
+  p26_L_5759();
+  /* ld hl,0x8A5E */
+  p26_L_5759();
+  /* ld hl,0x8A3A */
+  p26_L_5759();
+  return;
+}
+
+// flash page 26 cpu 0x5759 (offset 0x1759)
+void p26_L_5759() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p00_L_1183(); /* page0 */
+  /* pop hl */
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 26 cpu 0x5760 (offset 0x1760)
+void p26_L_5760() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_10E6(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  /* ld hl,0x8BBD */
+  p00_L_0EC1(); /* page0 */
+  p00_L_14A2(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  /* ld hl,0x8BD8 */
+  p00_L_0EC1(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_rst30();
+  p00_L_1171(); /* page0 */
+  p00_L_3A05(); /* page0 */
+  p26_L_5782();
+  return;
+}
+
+// flash page 26 cpu 0x5782 (offset 0x1782)
+void p26_L_5782() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_10DD(); /* page0 */
+  p26_L_578E();
+  p26_L_5788();
+  return;
+}
+
+// flash page 26 cpu 0x5788 (offset 0x1788)
+void p26_L_5788() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_10EF(); /* page0 */
+  /* jp 0x0ED0 - other page/RAM */
+}
+
+// flash page 26 cpu 0x578E (offset 0x178E)
+void p26_L_578E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8BAB */
+  p00_rst20();
+  /* ld hl,0x8BC6 */
+  /* jp 0x0C25 - other page/RAM */
+}
+
+// flash page 26 cpu 0x5798 (offset 0x1798)
+void p26_L_5798() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_rst20();
+  p00_L_0D1E(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  p00_L_0EC1(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  p00_L_10DD(); /* page0 */
+  /* pop hl */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  p26_L_4413();
+  return;
+}
+
+// flash page 26 cpu 0x57B0 (offset 0x17B0)
+void p26_L_57B0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_rst20();
+  p00_L_0D1E(); /* page0 */
+  p00_rst18();
+  /* pop hl */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1128(); /* page0 */
+  /* jp 0x1169 - other page/RAM */
+}
+
+// flash page 26 cpu 0x589C (offset 0x189C)
+void p26_L_589C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x0D;
+  p00_L_3675(); /* page0 */
+  p00_L_15E0(); /* page0 */
+  p00_L_0E4C(); /* page0 */
+  a = 0x0C;
+  p00_L_3675(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x58F2 (offset 0x18F2)
+void p26_L_58F2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  c = a;
+  a = b;
+  /* push af */
+  a = c;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  /* jp z,0x24E5 - other page/RAM */
+  if (flag_c()) goto lab_p26_L_59BC;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_c()) goto lab_p26_L_59C7;
+  if (flag_nz()) goto lab_p26_L_5919;
+  p00_L_1037(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_59CD;
+  a = 0xFF;
+  /* ld (0x8483),a */
+  p00_L_21E0(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  goto lab_p26_L_59DC;
+  lab_p26_L_5919:
+  /* cp 0x05 */ flag_cmp(a, 0x05);
+  if (flag_nc()) goto lab_p26_L_594C;
+  a = 0xFF;
+  /* ld (0x848E),a */
+  p00_L_22F7(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_5940;
+  p00_L_232E(); /* page0 */
+  p00_L_21DB(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  /* pop af */
+  /* push af */
+  a = a | a;
+  if (flag_z()) goto lab_p26_L_593D;
+  /* pop af */
+  /* push af */
+  /* jp nc,0x24DD - other page/RAM */
+  lab_p26_L_593D:
+  goto lab_p26_L_59E0;
+  lab_p26_L_5940:
+  p00_L_1037(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_59D3;
+  p00_L_21DB(); /* page0 */
+  goto lab_p26_L_59DC;
+  lab_p26_L_594C:
+  if (flag_nz()) goto lab_p26_L_5987;
+  a = 0xFF;
+  /* ld (0x848E),a */
+  p00_L_2310(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_5977;
+  /* pop af */
+  /* push af */
+  a = a | a;
+  /* jp nz,0x24DD - other page/RAM */
+  /* pop af */
+  /* push af */
+  /* jp nc,0x24DD - other page/RAM */
+  p00_L_234D(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_234D(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  goto lab_p26_L_59E8;
+  lab_p26_L_5977:
+  p00_L_22F7(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_59DC;
+  p00_L_232E(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  goto lab_p26_L_59E0;
+  lab_p26_L_5987:
+  /* cp 0x06 */ flag_cmp(a, 0x06);
+  if (flag_nz()) goto lab_p26_L_59AF;
+  /* pop af */
+  /* push af */
+  a = a | a;
+  if (flag_nz()) goto lab_p26_L_59E0;
+  /* pop af */
+  /* push af */
+  if (flag_nc()) goto lab_p26_L_59E0;
+  p00_L_2310(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_59E0;
+  a = 0xFF;
+  /* ld (0x848E),a */
+  p00_L_234D(); /* page0 */
+  p00_L_22F2(); /* page0 */
+  p00_L_2333(); /* page0 */
+  p00_L_21DB(); /* page0 */
+  goto lab_p26_L_59E8;
+  lab_p26_L_59AF:
+  /* cp 0x07 */ flag_cmp(a, 0x07);
+  if (flag_nz()) goto lab_p26_L_59B7;
+  /* pop af */
+  /* push af */
+  if (flag_c()) goto lab_p26_L_59E8;
+  lab_p26_L_59B7:
+  /* jp nc,0x24E5 - other page/RAM */
+  goto lab_p26_L_59E0;
+  lab_p26_L_59BC:
+  p00_rst18();
+  a = 0x00;
+  p00_L_1682(); /* page0 */
+  p00_rst18();
+  /* ld hl,0x847A */
+  /* inc (hl) */
+  lab_p26_L_59C7:
+  p00_rst18();
+  a = 0xFF;
+  /* ld (0x8478),a */
+  lab_p26_L_59CD:
+  p00_rst18();
+  a = 0xFF;
+  /* ld (0x8478),a */
+  lab_p26_L_59D3:
+  p26_L_5CF2();
+  /* pop af */
+  /* push af */
+  a = a | a;
+  if (flag_z()) p00_L_128A(); /* page0 */
+  lab_p26_L_59DC:
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_59E0:
+  /* pop af */
+  /* push af */
+  if (flag_nc()) goto lab_p26_L_59E8;
+  p00_rst18();
+  p00_L_128A(); /* page0 */
+  lab_p26_L_59E8:
+  p00_L_1653(); /* page0 */
+  /* pop af */
+  return;
+}
+
+// flash page 26 cpu 0x59ED (offset 0x19ED)
+void p26_L_59ED() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8BB4 */
+  /* ld de,0x8BBD */
+  p26_L_5798();
+  p00_L_1169(); /* page0 */
+  /* ld hl,0x8BCF */
+  /* ld de,0x8BD8 */
+  p26_L_5798();
+  p00_L_1128(); /* page0 */
+  p00_rst30();
+  p00_L_10DD(); /* page0 */
+  p00_L_113A(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  p26_L_5788();
+  a = 0x27;
+  p00_L_1897(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5A18 (offset 0x1A18)
+void p26_L_5A18() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8BBD */
+  p00_rst20();
+  /* ld hl,0x8BD8 */
+  p00_L_0C20(); /* page0 */
+  p00_L_1246(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  a = 0x27;
+  p00_L_1897(); /* page0 */
+  p00_L_1171(); /* page0 */
+  /* ld hl,0x8BB4 */
+  /* ld de,0x8BBD */
+  p26_L_57B0();
+  /* ld hl,0x8BCF */
+  /* ld de,0x8BD8 */
+  p26_L_57B0();
+  p00_rst30();
+  p00_L_1108(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_3A05(); /* page0 */
+  a = 0x31;
+  p00_L_1897(); /* page0 */
+  p00_rst18();
+  /* ld hl,0x8BBD */
+  p00_rst20();
+  p00_L_0ECC(); /* page0 */
+  p00_L_1169(); /* page0 */
+  /* ld hl,0x8BD8 */
+  p00_rst20();
+  p00_L_0ECC(); /* page0 */
+  p00_L_1128(); /* page0 */
+  p00_rst30();
+  p00_L_3A05(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5A71 (offset 0x1A71)
+void p26_L_5A71() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_14C7(); /* page0 */
+  /* push af */
+  p26_L_5725();
+  /* pop af */
+  p26_L_5A79();
+  return;
+}
+
+// flash page 26 cpu 0x5A79 (offset 0x1A79)
+void p26_L_5A79() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  if (flag_nz()) goto lab_p26_L_5AA0;
+  /* set 7,(iy+0x11) */
+  /* ld hl,0x8BB4 */
+  p00_rst20();
+  /* ld hl,0x8BCF */
+  p00_L_11F8(); /* page0 */
+  p26_L_5760();
+  a = 0x24;
+  p00_L_1897(); /* page0 */
+  p26_L_59ED();
+  p00_rst08();
+  /* ld hl,0x8B6C */
+  p00_rst20();
+  lab_p26_L_5A99:
+  p00_rst18();
+  p26_L_54DE();
+  /* jp 0x21A7 - other page/RAM */
+  lab_p26_L_5AA0:
+  /* res 7,(iy+0x11) */
+  p26_L_5A18();
+  p26_L_5782();
+  a = 0x24;
+  p00_L_1897(); /* page0 */
+  p00_L_1108(); /* page0 */
+  goto lab_p26_L_5A99;
+}
+
+// flash page 26 cpu 0x5AB4 (offset 0x1AB4)
+void p26_L_5AB4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+  p26_L_4AF9();
+  p00_L_22B3(); /* page0 */
+  p00_L_0FDE(); /* page0 */
+  p00_L_14CC(); /* page0 */
+  if (flag_z()) goto lab_p26_L_5AD0;
+  p00_L_1229(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* jp c,0x24C9 - other page/RAM */
+  if (flag_nz()) goto lab_p26_L_5AD3;
+  p00_L_128A(); /* page0 */
+  lab_p26_L_5AD0:
+  goto lab_p26_L_5377;
+  lab_p26_L_5AD3:
+  /* ld hl,0x0FC3 */
+  p00_rst20();
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_5AF7;
+  p00_L_21A4(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p26_L_447A();
+  p00_L_2196(); /* page0 */
+  p00_L_235C(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_2333(); /* page0 */
+  p26_L_5AB4();
+  /* jp 0x0ECC - other page/RAM */
+  lab_p26_L_5AF7:
+  p00_L_2315(); /* page0 */
+  p26_L_42DB();
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_rst30();
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_rst18();
+  p00_L_2267(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_rst30();
+  p00_rst18();
+  p00_L_2277(); /* page0 */
+  p26_L_447A();
+  p00_L_38A3(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_rst30();
+  p00_L_235C(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_rst30();
+  p00_L_1246(); /* page0 */
+  p00_rst30();
+  p00_L_1100(); /* page0 */
+  p00_L_22CF(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_10F8(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_23A4(); /* page0 */
+  p00_L_1229(); /* page0 */
+  a = 0x10;
+  lab_p26_L_5B57:
+  /* push af */
+  p00_L_23B3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_22C7(); /* page0 */
+  p00_rst30();
+  p00_rst08();
+  p00_L_22CF(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_rst18();
+  p00_L_38A3(); /* page0 */
+  p00_L_22B3(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p26_L_447A();
+  p00_L_38A3(); /* page0 */
+  p00_L_22B3(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_L_1100(); /* page0 */
+  p00_L_2272(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_5BC4;
+  p00_L_10F8(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_392D(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst18();
+  p00_L_22D9(); /* page0 */
+  p00_rst18();
+  p00_L_22D9(); /* page0 */
+  p00_rst18();
+  p00_L_21E0(); /* page0 */
+  p26_L_4CA3();
+  p00_L_22B3(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  goto lab_p26_L_5BF2;
+  lab_p26_L_5BC4:
+  p00_L_10F8(); /* page0 */
+  p00_L_2324(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_L_392D(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_rst18();
+  p00_L_2267(); /* page0 */
+  p00_rst18();
+  p00_L_1229(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_rst18();
+  p26_L_4CA3();
+  p00_L_22C7(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  lab_p26_L_5BF2:
+  /* ld a,(0x8479) */
+  /* push af */
+  p00_L_22B3(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst30();
+  /* pop af */
+  /* cp 0x7C */ flag_cmp(a, 0x7C);
+  if (flag_c()) goto lab_p26_L_5C09;
+  /* pop af */
+  a = a - 1;
+  if (flag_nz()) goto lab_p26_L_5B57;
+  goto lab_p26_L_5C0A;
+  lab_p26_L_5C09:
+  /* pop af */
+  lab_p26_L_5C0A:
+  p00_L_21A4(); /* page0 */
+  goto lab_p26_L_5377;
+}
+
+// flash page 26 cpu 0x5C10 (offset 0x1C10)
+void p26_L_5C10() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  p26_L_5725();
+  p26_L_5C14();
+  return;
+}
+
+// flash page 26 cpu 0x5C14 (offset 0x1C14)
+void p26_L_5C14() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_219B(); /* page0 */
+  p26_L_55A0();
+  p00_L_1287(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  /* ld hl,0x8BB4 */
+  p00_rst20();
+  /* ld hl,0x8BCF */
+  p00_L_0EC1(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  a = 0x26;
+  p00_L_1897(); /* page0 */
+  /* pop af */
+  if (flag_z()) goto lab_p26_L_5C42;
+  p26_L_5C75();
+  p26_L_4BC0();
+  p26_L_452C();
+  p26_L_539C();
+  return;
+  lab_p26_L_5C42:
+  p26_L_5C75();
+  p26_L_4BC0();
+  /* ld hl,0x0FC3 */
+  p00_L_11F8(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_5C5B;
+  if (flag_z()) goto lab_p26_L_5C5B;
+  p26_L_447A();
+  p00_rst18();
+  goto lab_p26_L_5C5F;
+  lab_p26_L_5C5B:
+  p00_rst18();
+  p26_L_447A();
+  lab_p26_L_5C5F:
+  a = 0;
+  p26_L_5C75();
+  p26_L_5AB4();
+  p00_L_10DD(); /* page0 */
+  p00_L_219B(); /* page0 */
+  p00_L_0C18(); /* page0 */
+  p26_L_539C();
+  p26_L_452C();
+  return;
+}
+
+// flash page 26 cpu 0x5C75 (offset 0x1C75)
+void p26_L_5C75() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  if (flag_c()) p00_L_0ECC(); /* page0 */
+  p00_rst18();
+  /* ld hl,0x8BD8 */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  p00_L_1100(); /* page0 */
+  /* ld hl,0x8BBD */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  /* pop af */
+  if (flag_nc()) p00_L_149D(); /* page0 */
+  /* jp 0x21DB - other page/RAM */
+}
+
+// flash page 26 cpu 0x5C92 (offset 0x1C92)
+void p26_L_5C92() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  p00_rst18();
+  /* pop af */
+  /* cp 0x02 */ flag_cmp(a, 0x02);
+  /* jp c,0x24E5 - other page/RAM */
+  if (flag_z()) goto lab_p26_L_5CC4;
+  /* cp 0x04 */ flag_cmp(a, 0x04);
+  if (flag_nz()) goto lab_p26_L_5CAF;
+  p00_L_1037(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_5CD0;
+  a = 0xFF;
+  /* ld (0x8483),a */
+  p00_L_2333(); /* page0 */
+  goto lab_p26_L_5CD3;
+  lab_p26_L_5CAF:
+  if (flag_c()) goto lab_p26_L_5CCA;
+  p00_L_2310(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_5CD4;
+  p00_L_2333(); /* page0 */
+  a = 0xFF;
+  /* ld (0x8483),a */
+  /* jp 0x2357 - other page/RAM */
+  lab_p26_L_5CC4:
+  a = 0x00;
+  p00_L_1682(); /* page0 */
+  p00_rst18();
+  lab_p26_L_5CCA:
+  a = 0xFF;
+  /* ld (0x8478),a */
+  p00_rst18();
+  lab_p26_L_5CD0:
+  p00_L_128A(); /* page0 */
+  lab_p26_L_5CD3:
+  p00_rst18();
+  lab_p26_L_5CD4:
+  /* jp 0x128A - other page/RAM */
+}
+
+// flash page 26 cpu 0x5CD7 (offset 0x1CD7)
+void p26_L_5CD7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1653(); /* page0 */
+  p00_L_14C7(); /* page0 */
+  /* push af */
+  p00_L_2176(); /* page0 */
+  p00_L_1653(); /* page0 */
+  p26_L_55A0();
+  p00_L_231F(); /* page0 */
+  p00_L_18A8(); /* page0 */
+  /* jp nz,0x24DD - other page/RAM */
+  /* pop af */
+  return;
+}
+
+// flash page 26 cpu 0x5CF2 (offset 0x1CF2)
+void p26_L_5CF2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  /* ld hl,0x5CF8 */
+  p00_rst20();
+  return;
+}
+
+// flash page 26 cpu 0x5D47 (offset 0x1D47)
+void p26_L_5D47() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x982A) */
+  /* push hl */
+  /* push af */
+  goto lab_p26_L_5D86;
+  lab_p26_L_5D86:
+  p00_L_0087(); /* page0 */
+  /* pop af */
+  /* push af */
+  p00_L_18A3(); /* page0 */
+  p00_rst18();
+  p00_L_32A9(); /* page0 */
+  lab_p26_L_5D92:
+  p00_L_0189(); /* page0 */
+  /* jp nz,0x2511 - other page/RAM */
+  p00_L_38F1(); /* page0 */
+  /* pop af */
+  /* push af */
+  /* ld hl,0x5DFC */
+  p00_L_25A2(); /* page0 */
+  p26_L_5E0E();
+  p00_L_25C8(); /* page0 */
+  /* set 0,(iy+0x07) */
+  /* ld hl,0x8478 */
+  /* res 5,(hl) */
+  /* bit 5,(iy+0x03) */
+  if (flag_z()) goto lab_p26_L_5DBF;
+  p00_L_233D(); /* page0 */
+  /* res 5,(iy+0x03) */
+  lab_p26_L_5DBF:
+  p00_L_3387(); /* page0 */
+  p00_L_3303(); /* page0 */
+  p00_L_38F1(); /* page0 */
+  p00_L_231F(); /* page0 */
+  /* pop bc */
+  /* push bc */
+  p00_L_018E(); /* page0 */
+  if (flag_nz()) p26_L_5E26();
+  p00_L_3393(); /* page0 */
+  /* ld a,(0x8DA5) */
+  b = a;
+  /* ld a,(0x8E67) */
+  a = a + 1;
+  flag_cmp(a, b);
+  if (flag_nc()) goto lab_p26_L_5DEC;
+  /* ld (0x8E67),a */
+  /* ld hl,(0x9196) */
+  p00_L_340B(); /* page0 */
+  goto lab_p26_L_5D92;
+  lab_p26_L_5DEC:
+  /* pop af */
+  /* res 3,(iy+0x03) */
+  p26_L_4C7F();
+  /* pop hl */
+  /* ld (0x982A),hl */
+  p00_L_34C5(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5D4E (offset 0x1D4E)
+void p26_L_5D4E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x982A) */
+  /* push hl */
+  /* push af */
+  p00_L_3549(); /* page0 */
+  p00_L_1235(); /* page0 */
+  a = 0x32;
+  /* ld (0x847A),a */
+  p00_L_33E1(); /* page0 */
+  p00_L_1229(); /* page0 */
+  a = 0x02;
+  p00_L_3675(); /* page0 */
+  p00_L_15EB(); /* page0 */
+  a = 0x03;
+  p00_L_3675(); /* page0 */
+  p00_L_0E4C(); /* page0 */
+  a = 0x0C;
+  p00_L_3675(); /* page0 */
+  p00_L_15D6(); /* page0 */
+  a = 0x45;
+  /* ld (0x847A),a */
+  a = 0x0D;
+  p00_L_3675(); /* page0 */
+  p00_L_0087(); /* page0 */
+  /* pop af */
+  /* push af */
+  p00_L_18A3(); /* page0 */
+  p00_rst18();
+  p00_L_32A9(); /* page0 */
+  lab_p26_L_5D92:
+  p00_L_0189(); /* page0 */
+  /* jp nz,0x2511 - other page/RAM */
+  p00_L_38F1(); /* page0 */
+  /* pop af */
+  /* push af */
+  /* ld hl,0x5DFC */
+  p00_L_25A2(); /* page0 */
+  p26_L_5E0E();
+  p00_L_25C8(); /* page0 */
+  /* set 0,(iy+0x07) */
+  /* ld hl,0x8478 */
+  /* res 5,(hl) */
+  /* bit 5,(iy+0x03) */
+  if (flag_z()) goto lab_p26_L_5DBF;
+  p00_L_233D(); /* page0 */
+  /* res 5,(iy+0x03) */
+  lab_p26_L_5DBF:
+  p00_L_3387(); /* page0 */
+  p00_L_3303(); /* page0 */
+  p00_L_38F1(); /* page0 */
+  p00_L_231F(); /* page0 */
+  /* pop bc */
+  /* push bc */
+  p00_L_018E(); /* page0 */
+  if (flag_nz()) p26_L_5E26();
+  p00_L_3393(); /* page0 */
+  /* ld a,(0x8DA5) */
+  b = a;
+  /* ld a,(0x8E67) */
+  a = a + 1;
+  flag_cmp(a, b);
+  if (flag_nc()) goto lab_p26_L_5DEC;
+  /* ld (0x8E67),a */
+  /* ld hl,(0x9196) */
+  p00_L_340B(); /* page0 */
+  goto lab_p26_L_5D92;
+  lab_p26_L_5DEC:
+  /* pop af */
+  /* res 3,(iy+0x03) */
+  p26_L_4C7F();
+  /* pop hl */
+  /* ld (0x982A),hl */
+  p00_L_34C5(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5E0E (offset 0x1E0E)
+void p26_L_5E0E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_4B14:
+  p00_rst18();
+  /* ld hl,0x8BBD */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  p00_rst18();
+  /* ld hl,0x8BD8 */
+  p00_rst20();
+  p00_L_0C2A(); /* page0 */
+  goto lab_p26_L_4B30;
+  lab_p26_L_4B30:
+  p26_L_4AF9();
+  /* push af */
+  p00_L_22B3(); /* page0 */
+  p00_L_128A(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_4BAB;
+  /* pop af */
+  p00_L_22CF(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_rst18();
+  p00_L_0C1B(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_rst30();
+  p00_rst08();
+  p00_L_113F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_1179(); /* page0 */
+  p26_L_42DB();
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_rst18();
+  p00_L_22D9(); /* page0 */
+  p26_L_42DB();
+  p00_L_2196(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_38A3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst30();
+  p00_L_392D(); /* page0 */
+  p00_L_2262(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  /* ld de,0x0036 */
+  /* jp 0x21B6 - other page/RAM */
+  lab_p26_L_4BAB:
+  if (flag_nz()) goto lab_p26_L_4BB4;
+  /* pop af */
+  if (flag_z()) goto lab_p26_L_4BBB;
+  /* jp c,0x24C9 - other page/RAM */
+  /* push af */
+  lab_p26_L_4BB4:
+  /* pop af */
+  p00_L_128A(); /* page0 */
+  lab_p26_L_4BB8:
+  goto lab_p26_L_5377;
+  lab_p26_L_4BBB:
+  p00_L_1229(); /* page0 */
+  goto lab_p26_L_4BB8;
+  lab_p26_L_5377:
+  /* ld bc,0x002D */
+  /* jp 0x21AA - other page/RAM */
+  /* cp 0x24 */ flag_cmp(a, 0x24);
+  if (flag_c()) { p26_L_443B(); return; }
+  if (flag_nz()) goto lab_p26_L_5E1B;
+  p00_L_22C7(); /* page0 */
+  p26_L_4766();
+  return;
+  lab_p26_L_5E1B:
+  /* cp 0x26 */ flag_cmp(a, 0x26);
+  if (flag_z()) goto lab_p26_L_4B14;
+  p00_L_22C7(); /* page0 */
+  p26_L_4999();
+  return;
+}
+
+// flash page 26 cpu 0x5E26 (offset 0x1E26)
+void p26_L_5E26() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8A37) */
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_nc()) goto lab_p26_L_5E62;
+  a = b;
+  /* cp 0x26 */ flag_cmp(a, 0x26);
+  if (flag_nz()) goto lab_p26_L_5E4E;
+  /* ld hl,0x8D8F */
+  p00_rst20();
+  p00_L_107E(); /* page0 */
+  if (flag_c()) p00_L_14B0(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  p00_rst08();
+  p00_L_38F1(); /* page0 */
+  p26_L_5E7B();
+  p26_L_5E46();
+  return;
+  lab_p26_L_5E4E:
+  p00_L_15D1(); /* page0 */
+  p26_L_5E7B();
+  p00_L_38F1(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_15D1(); /* page0 */
+  p00_L_0E5C(); /* page0 */
+  goto lab_p26_L_5E64;
+  lab_p26_L_5E62:
+  if (flag_z()) { p26_L_5E7B(); return; }
+  lab_p26_L_5E64:
+  p00_L_107E(); /* page0 */
+  if (flag_z()) goto lab_p26_L_5E6A;
+  if (flag_nc()) return;
+  lab_p26_L_5E6A:
+  p00_L_1276(); /* page0 */
+  p00_L_353D(); /* page0 */
+  p00_rst08();
+  p00_L_38F1(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_356D(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5E46 (offset 0x1E46)
+void p26_L_5E46() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2196(); /* page0 */
+  p00_L_38F1(); /* page0 */
+  goto lab_p26_L_5E64;
+  lab_p26_L_5E64:
+  p00_L_107E(); /* page0 */
+  if (flag_z()) goto lab_p26_L_5E6A;
+  if (flag_nc()) return;
+  lab_p26_L_5E6A:
+  p00_L_1276(); /* page0 */
+  p00_L_353D(); /* page0 */
+  p00_rst08();
+  p00_L_38F1(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_356D(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x5E7B (offset 0x1E7B)
+void p26_L_5E7B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_5E6A:
+  p00_L_1276(); /* page0 */
+  p00_L_353D(); /* page0 */
+  p00_rst08();
+  p00_L_38F1(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_356D(); /* page0 */
+  return;
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_5E6A;
+  return;
+}
+
+// flash page 26 cpu 0x5ED6 (offset 0x1ED6)
+void p26_L_5ED6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_39F9(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* jp c,0x1229 - other page/RAM */
+  /* jp 0x128A - other page/RAM */
+}
+
+// flash page 26 cpu 0x5EE5 (offset 0x1EE5)
+void p26_L_5EE5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  e = a;
+  d = 0x00;
+  /* ld hl,0x5EF0 */
+  /* add hl,de */
+  p00_L_0033(); /* page0 */
+  /* jp (hl) */
+}
+
+// flash page 26 cpu 0x60BA (offset 0x20BA)
+void p26_L_60BA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* bit 0,a */
+  if (flag_nz()) goto lab_p26_L_60C2;
+  a = l;
+  l = h;
+  h = a;
+  lab_p26_L_60C2:
+  /* push hl */
+  h = 0x01;
+  p00_L_1C7B(); /* page0 */
+  /* ld (0x84D7),de */
+  /* pop bc */
+  /* pop af */
+  /* ld (0x84A4),a */
+  /* push bc */
+  lab_p26_L_60D2:
+  /* push bc */
+  p00_L_1287(); /* page0 */
+  /* pop bc */
+  /* pop hl */
+  /* push hl */
+  b = h;
+  lab_p26_L_60DA:
+  /* push bc */
+  /* ld hl,0x84A4 */
+  /* bit 0,(hl) */
+  if (flag_nz()) goto lab_p26_L_60E5;
+  a = b;
+  b = c;
+  c = a;
+  lab_p26_L_60E5:
+  /* push hl */
+  p00_L_3B79(); /* page0 */
+  /* pop hl */
+  /* bit 1,(hl) */
+  if (flag_z()) p00_L_187F(); /* page0 */
+  p00_rst30();
+  p00_rst08();
+  /* pop bc */
+  b = b - 1;
+  if (b != 0) goto lab_p26_L_60DA;
+  /* push bc */
+  b = b + 1;
+  p00_L_3B8B(); /* page0 */
+  /* pop bc */
+  c = c - 1;
+  if (flag_nz()) goto lab_p26_L_60D2;
+  /* pop hl */
+  /* jp 0x1135 - other page/RAM */
+}
+
+// flash page 26 cpu 0x625C (offset 0x225C)
+void p26_L_625C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  /* ld hl,0x8A3A */
+  p00_rst20();
+  p00_L_187F(); /* page0 */
+  goto lab_p26_L_6267;
+  lab_p26_L_6267:
+  p00_L_1884(); /* page0 */
+  /* jp 0x219B - other page/RAM */
+}
+
+// flash page 26 cpu 0x626D (offset 0x226D)
+void p26_L_626D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_6266:
+  p00_rst20();
+  p00_L_1884(); /* page0 */
+  /* jp 0x219B - other page/RAM */
+  p00_rst18();
+  /* ld hl,0x8A3A */
+  p26_L_62A7();
+  /* ld hl,0x8A5E */
+  goto lab_p26_L_6266;
+}
+
+// flash page 26 cpu 0x6279 (offset 0x2279)
+void p26_L_6279() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_6260:
+  p00_rst20();
+  p00_L_187F(); /* page0 */
+  goto lab_p26_L_6267;
+  lab_p26_L_6267:
+  p00_L_1884(); /* page0 */
+  /* jp 0x219B - other page/RAM */
+  p00_rst18();
+  /* ld hl,0x8BBD */
+  p00_rst20();
+  p00_L_187F(); /* page0 */
+  p00_L_1884(); /* page0 */
+  /* ld hl,0x8BD8 */
+  goto lab_p26_L_6260;
+}
+
+// flash page 26 cpu 0x6289 (offset 0x2289)
+void p26_L_6289() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  /* ld hl,0x8BBD */
+  p26_L_62A7();
+  /* ld hl,0x8BD8 */
+  p26_L_62A7();
+  /* ld hl,0x8BB4 */
+  p00_rst20();
+  p00_L_1884(); /* page0 */
+  /* ld hl,0x8BCF */
+  p00_rst20();
+  p00_L_1884(); /* page0 */
+  /* jp 0x219B - other page/RAM */
+}
+
+// flash page 26 cpu 0x62A7 (offset 0x22A7)
+void p26_L_62A7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_11F8(); /* page0 */
+  p00_L_1229(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* jp nc,0x24C9 - other page/RAM */
+  p00_L_1179(); /* page0 */
+  p00_L_187F(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x62BA (offset 0x22BA)
+void p26_L_62BA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1295(); /* page0 */
+  a = 0x26;
+  /* ld (0x8479),a */
+  p00_rst10();
+  if (flag_nc()) p00_L_1F58(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x62D0 (offset 0x22D0)
+void p26_L_62D0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2429(); /* page0 */
+  /* ld (0x84DB),de */
+  /* ld de,0x8D34 */
+  p26_L_62DA();
+  return;
+}
+
+// flash page 26 cpu 0x62DA (offset 0x22DA)
+void p26_L_62DA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x847A */
+  /* jp 0x118B - other page/RAM */
+}
+
+// flash page 26 cpu 0x62E0 (offset 0x22E0)
+void p26_L_62E0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0;
+  /* ld (0x84DC),a */
+  a = a - 1;
+  /* ld (0x8D34),a */
+  return;
+}
+
+// flash page 26 cpu 0x637E (offset 0x237E)
+void p26_L_637E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_62E9:
+  p26_L_71E9();
+  /* pop af */
+  /* push af */
+  /* cp 0x1C */ flag_cmp(a, 0x1C);
+  if (flag_nz()) goto lab_p26_L_62FD;
+  p00_L_2196(); /* page0 */
+  p00_L_218C(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  goto lab_p26_L_6312;
+  lab_p26_L_62FD:
+  p00_L_1725(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_641D;
+  goto lab_p26_L_630D;
+  lab_p26_L_6305:
+  p26_L_71E9();
+  p00_L_1725(); /* page0 */
+  if (flag_z()) goto lab_p26_L_6312;
+  lab_p26_L_630D:
+  p26_L_62D0();
+  goto lab_p26_L_6318;
+  lab_p26_L_6312:
+  p26_L_62E0();
+  p00_L_21E5(); /* page0 */
+  lab_p26_L_6318:
+  p00_L_219B(); /* page0 */
+  p00_L_1037(); /* page0 */
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_nz()) goto lab_p26_L_63D1;
+  p00_L_1641(); /* page0 */
+  lab_p26_L_6326:
+  /* jp z,0x24D5 - other page/RAM */
+  /* cp 0x72 */ flag_cmp(a, 0x72);
+  if (flag_z()) goto lab_p26_L_6326;
+  /* jp z,0x24DD - other page/RAM */
+  p00_L_1725(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_642D;
+  /* ld de,0x8D2F */
+  p26_L_62DA();
+  p00_L_2191(); /* page0 */
+  /* ld a,(0x848E) */
+  a = a & 0x0F;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_nz()) goto lab_p26_L_63D1;
+  /* ld a,(0x848F) */
+  /* cp 0x24 */ flag_cmp(a, 0x24);
+  if (flag_z()) goto lab_p26_L_6326;
+  /* cp 0x72 */ flag_cmp(a, 0x72);
+  if (flag_z()) goto lab_p26_L_6326;
+  /* ld de,0x8D2A */
+  /* ld hl,0x8490 */
+  p00_L_118B(); /* page0 */
+  p00_L_21CC(); /* page0 */
+  p00_L_399F(); /* page0 */
+  /* jp nz,0x24E9 - other page/RAM */
+  p00_L_2182(); /* page0 */
+  /* bit 1,(iy+0x1A) */
+  if (flag_nz()) p00_L_21D1(); /* page0 */
+  goto lab_p26_L_6445;
+  /* set 5,(iy+0x09) */
+  b = 0x00;
+  /* res 1,(iy) */
+  /* res 1,(iy+0x1A) */
+  /* push bc */
+  /* ld hl,0x9817 */
+  /* ld (hl),0x00 */
+  /* push af */
+  /* ld hl,0x8499 */
+  p00_L_1224(); /* page0 */
+  a = 0xFF;
+  /* ld (0x84AF),a */
+  /* pop af */
+  b = a;
+  p00_L_1037(); /* page0 */
+  p00_L_1725(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_63BC;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_nz()) goto lab_p26_L_63BC;
+  /* push bc */
+  p00_L_1171(); /* page0 */
+  p00_L_2176(); /* page0 */
+  /* pop bc */
+  b = b - 1;
+  p00_L_1037(); /* page0 */
+  /* set 1,(iy+0x1A) */
+  lab_p26_L_63BC:
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p26_L_63FF;
+  a = a | a;
+  if (flag_nz()) goto lab_p26_L_63D1;
+  /* push bc */
+  p00_L_1169(); /* page0 */
+  /* pop bc */
+  /* pop af */
+  /* push af */
+  /* push bc */
+  /* cp 0x1C */ flag_cmp(a, 0x1C);
+  if (flag_z()) goto lab_p26_L_63D7;
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  lab_p26_L_63D1:
+  /* jp nz,0x24DD - other page/RAM */
+  p26_L_55A0();
+  lab_p26_L_63D7:
+  p00_L_2176(); /* page0 */
+  /* pop bc */
+  b = b - 1;
+  p00_L_1037(); /* page0 */
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p26_L_63FF;
+  /* pop af */
+  /* cp 0x1C */ flag_cmp(a, 0x1C);
+  if (flag_nz()) goto lab_p26_L_63D1;
+  /* push af */
+  /* push bc */
+  p00_L_1037(); /* page0 */
+  /* jp nz,0x24C9 - other page/RAM */
+  p00_L_10DD(); /* page0 */
+  p00_L_2176(); /* page0 */
+  /* pop bc */
+  b = b - 1;
+  p00_L_1037(); /* page0 */
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_nz()) goto lab_p26_L_63D1;
+  lab_p26_L_63FF:
+  p00_L_1641(); /* page0 */
+  if (flag_z()) goto lab_p26_L_6326;
+  /* cp 0x72 */ flag_cmp(a, 0x72);
+  if (flag_z()) goto lab_p26_L_6326;
+  a = b;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p26_L_6420;
+  /* pop af */
+  /* push af */
+  a = b;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_z()) goto lab_p26_L_62E9;
+  /* jp nc,0x24E5 - other page/RAM */
+  goto lab_p26_L_6305;
+  lab_p26_L_641D:
+  /* jp 0x24E5 - other page/RAM */
+  lab_p26_L_6420:
+  p26_L_71E9();
+  /* pop af */
+  /* push af */
+  p00_L_1725(); /* page0 */
+  if (flag_z()) goto lab_p26_L_641D;
+  p26_L_62E0();
+  lab_p26_L_642D:
+  p00_L_1725(); /* page0 */
+  if (flag_z()) p00_L_21CC(); /* page0 */
+  /* ld hl,0x847A */
+  /* ld de,0x8D2A */
+  p00_L_118B(); /* page0 */
+  p00_L_39A5(); /* page0 */
+  p00_L_1725(); /* page0 */
+  if (flag_z()) p00_L_2182(); /* page0 */
+  lab_p26_L_6445:
+  /* pop af */
+  /* ld (0x8A36),a */
+  /* ld hl,0x62C7 */
+  p00_L_25A2(); /* page0 */
+  p26_L_64B8();
+  p00_L_25C8(); /* page0 */
+  p26_L_62BA();
+  /* ld a,(0x8A36) */
+  /* cp 0x04 */ flag_cmp(a, 0x04);
+  if (flag_nc()) goto lab_p26_L_6479;
+  lab_p26_L_645F:
+  a = 0x16;
+  /* ld hl,0x8AEE */
+  p00_rst20();
+  p00_rst08();
+  /* ld hl,0x8AF7 */
+  p00_rst20();
+  a = 0x16;
+  p00_L_1897(); /* page0 */
+  p00_L_1179(); /* page0 */
+  a = 0x17;
+  p00_L_1897(); /* page0 */
+  goto lab_p26_L_647D;
+  lab_p26_L_6479:
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  if (flag_z()) goto lab_p26_L_645F;
+  lab_p26_L_647D:
+  p26_L_723D();
+  /* set 7,(iy+0x09) */
+  p26_L_6703();
+  /* bit 1,(iy+0x1A) */
+  if (flag_z()) goto lab_p26_L_649A;
+  p00_L_1691(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_38DF(); /* page0 */
+  p00_L_21A7(); /* page0 */
+  lab_p26_L_649A:
+  /* ld a,(0x8A36) */
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  if (flag_nz()) return;
+  /* bit 1,(iy) */
+  /* jp nz,0x2515 - other page/RAM */
+  a = 0x22;
+  p26_L_5EE5();
+  return;
+}
+
+// flash page 26 cpu 0x64AD (offset 0x24AD)
+void p26_L_64AD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  /* ld hl,(0x84AF) */
+  p26_L_6EBC();
+  p00_L_0D1F(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x64B8 (offset 0x24B8)
+void p26_L_64B8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_6ECF();
+  if (flag_z()) goto lab_p26_L_64D0;
+  /* ld hl,(0x84DB) */
+  p00_L_0033(); /* page0 */
+  /* ex de,hl */
+  /* ld hl,(0x84D3) */
+  p00_L_0033(); /* page0 */
+  p00_L_192A(); /* page0 */
+  /* jp nz,0x24E9 - other page/RAM */
+  lab_p26_L_64D0:
+  /* ld hl,(0x84D3) */
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  /* ld a,(0x8A36) */
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_nz()) goto lab_p26_L_64EE;
+  /* res 3,(iy+0x16) */
+  /* res 4,(iy+0x16) */
+  p26_L_7548();
+  p26_L_751D();
+  goto lab_p26_L_78F9;
+  lab_p26_L_64EE:
+  /* cp 0x1C */ flag_cmp(a, 0x1C);
+  if (flag_z()) goto lab_p26_L_6501;
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  if (flag_z()) goto lab_p26_L_6501;
+  if (flag_nc()) goto lab_p26_L_6F52;
+  /* cp 0x09 */ flag_cmp(a, 0x09);
+  if (flag_z()) goto lab_p26_L_6501;
+  /* cp 0x05 */ flag_cmp(a, 0x05);
+  if (flag_nc()) goto lab_p26_L_6503;
+  lab_p26_L_6501:
+  a = 0x04;
+  lab_p26_L_6503:
+  /* sub 0x02 */
+  /* push af */
+  /* ld a,(0x8A36) */
+  /* cp 0x1C */ flag_cmp(a, 0x1C);
+  if (flag_z()) goto lab_p26_L_68F9;
+  /* pop af */
+  /* ld hl,(0x84D5) */
+  /* ld (0x84D7),hl */
+  /* ld hl,(0x84DB) */
+  /* ld (0x84D5),hl */
+  /* res 5,(iy+0x19) */
+  p00_L_1725(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_7450;
+  /* push af */
+  /* push de */
+  /* ld (0x84AF),de */
+  a = 0;
+  /* ld a,(0x8A36) */
+  p00_L_3999(); /* page0 */
+  /* ld hl,(0x84D7) */
+  /* ld (0x84D5),hl */
+  p00_rst18();
+  p00_L_21E0(); /* page0 */
+  p00_L_21D6(); /* page0 */
+  p00_rst18();
+  /* ld de,0x8A3A */
+  /* ld hl,0x8483 */
+  p00_L_1183(); /* page0 */
+  /* ld hl,0x8499 */
+  p00_L_1183(); /* page0 */
+  /* inc hl */
+  /* inc hl */
+  p00_L_1183(); /* page0 */
+  /* ld de,0x8A94 */
+  p00_L_11FD(); /* page0 */
+  /* ld hl,0x84AF */
+  p00_L_1183(); /* page0 */
+  p00_L_1295(); /* page0 */
+  /* pop hl */
+  /* ld (0x84B3),hl */
+  p00_rst18();
+  /* pop af */
+  /* push af */
+  h = a;
+  lab_p26_L_68F9:
+  /* pop af */
+  /* push de */
+  /* ld hl,0x0003 */
+  a = a | a;
+  /* sbc hl,de */
+  /* jp nc,0x24ED - other page/RAM */
+  p00_L_1135(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_L_187F(); /* page0 */
+  p00_L_1251(); /* page0 */
+  /* ld hl,0x8484 */
+  /* ld (hl),0x81 */
+  /* inc hl */
+  /* ld (hl),0x17 */
+  p00_L_107E(); /* page0 */
+  /* jp nc,0x24C9 - other page/RAM */
+  /* bit 1,(iy+0x1A) */
+  if (flag_nz()) p00_L_21D1(); /* page0 */
+  p00_L_21D6(); /* page0 */
+  p00_L_21CC(); /* page0 */
+  /* ld hl,(0x84D3) */
+  /* ld (0x84D7),hl */
+  /* ld hl,(0x84D5) */
+  /* ld (0x84D3),hl */
+  a = 0;
+  /* ld (0x84D6),a */
+  /* pop de */
+  /* push de */
+  /* ld (0x84AF),de */
+  a = 0;
+  /* scf */
+  p00_L_3999(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_rst18();
+  /* ld a,(0x8483) */
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_nz()) goto lab_p26_L_6B8B;
+  p00_L_1276(); /* page0 */
+  /* ld hl,0x0001 */
+  p00_L_3E6D(); /* page0 */
+  lab_p26_L_6B8B:
+  p00_L_1179(); /* page0 */
+  p00_L_1884(); /* page0 */
+  p00_rst18();
+  lab_p26_L_6F52:
+  /* ld hl,(0x84D3) */
+  p00_L_0033(); /* page0 */
+  /* ld de,0x0003 */
+  /* push hl */
+  a = a | a;
+  /* sbc hl,de */
+  /* jp c,0x2515 - other page/RAM */
+  p26_L_6ED4();
+  a = 0x01;
+  /* ld hl,0x0001 */
+  /* pop bc */
+  /* push bc */
+  p00_L_3B2B(); /* page0 */
+  /* push hl */
+  p00_L_3E6D(); /* page0 */
+  p00_rst18();
+  a = 0;
+  /* pop hl */
+  /* pop bc */
+  /* push hl */
+  /* ld hl,0x0001 */
+  p00_L_3B2B(); /* page0 */
+  /* push hl */
+  p00_L_3E6D(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_L_0ED0(); /* page0 */
+  p00_rst18();
+  p26_L_6ED4();
+  p00_L_1229(); /* page0 */
+  a = 0x19;
+  /* ld (0x847A),a */
+  p00_L_0ECC(); /* page0 */
+  p00_rst18();
+  p00_L_2315(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_0C2A(); /* page0 */
+  p00_L_3945(); /* page0 */
+  p00_rst18();
+  /* ld hl,0x71E0 */
+  p00_rst20();
+  p00_L_22F7(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  lab_p26_L_7450:
+  /* res 1,(iy) */
+  /* push de */
+  a = 0;
+  /* scf */
+  p00_L_3999(); /* page0 */
+  p00_L_222C(); /* page0 */
+  /* bit 5,(iy+0x19) */
+  if (flag_nz()) goto lab_p26_L_7475;
+  /* ld hl,0x8483 */
+  /* ld de,0x8A3A */
+  p00_L_1183(); /* page0 */
+  p00_L_11FD(); /* page0 */
+  /* ld hl,0x84A4 */
+  p00_L_1183(); /* page0 */
+  lab_p26_L_7475:
+  p00_L_128A(); /* page0 */
+  /* pop hl */
+  lab_p26_L_7479:
+  /* ld (0x84AF),hl */
+  p00_L_1171(); /* page0 */
+  p00_L_3AFB(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_0D1E(); /* page0 */
+  p26_L_64AD();
+  p00_L_1108(); /* page0 */
+  p00_rst30();
+  /* ld hl,(0x84AF) */
+  /* dec hl */
+  a = h;
+  a = a | l;
+  if (flag_nz()) goto lab_p26_L_7479;
+  p00_L_1171(); /* page0 */
+  /* bit 5,(iy+0x19) */
+  if (flag_nz()) goto lab_p26_L_74B1;
+  /* ld hl,0x8A3A */
+  p00_L_0EC1(); /* page0 */
+  p00_L_3A05(); /* page0 */
+  a = 0x07;
+  lab_p26_L_74B1:
+  /* bit 1,(iy) */
+  if (flag_nz()) goto lab_p26_L_74DD;
+  p00_L_22FC(); /* page0 */
+  p00_L_1251(); /* page0 */
+  lab_p26_L_74DD:
+  /* bit 5,(iy+0x19) */
+  /* jp nz,0x24C9 - other page/RAM */
+  /* ld hl,0x8A43 */
+  lab_p26_L_78F9:
+  p26_L_786E();
+  /* ld de,0x0003 */
+  p00_L_192A(); /* page0 */
+  /* jp c,0x2515 - other page/RAM */
+  /* push hl */
+  p00_rst18();
+  /* pop hl */
+  /* push hl */
+  /* ld de,0x0001 */
+  p00_L_35CD(); /* page0 */
+  p00_L_1271(); /* page0 */
+  /* pop de */
+  /* push de */
+  /* ld hl,0x0001 */
+  p26_L_7A70();
+  /* push hl */
+  /* ld hl,0x0000 */
+  /* ld (0x84B1),hl */
+  p00_L_128A(); /* page0 */
+  p00_rst18();
+  lab_p26_L_7925:
+  p00_L_113A(); /* page0 */
+  p00_L_1221(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_794B;
+  p00_L_113A(); /* page0 */
+  p00_L_233D(); /* page0 */
+  /* ld hl,(0x84AF) */
+  /* ld (0x84B1),hl */
+  /* pop hl */
+  /* pop de */
+  /* push de */
+  p26_L_7A70();
+  /* push hl */
+  goto lab_p26_L_7925;
+  lab_p26_L_794B:
+  /* pop hl */
+  p26_L_7AAE();
+  /* ld (0x84B3),hl */
+  p00_L_1271(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  /* ld (0x84AF),hl */
+  p26_L_7A8C();
+  /* push hl */
+  /* ld hl,0x0000 */
+  /* ld (0x84B1),hl */
+  p00_L_128A(); /* page0 */
+  p00_L_233D(); /* page0 */
+  p00_L_113A(); /* page0 */
+  p00_L_1221(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+}
+
+// flash page 26 cpu 0x6703 (offset 0x2703)
+void p26_L_6703() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* set 6,(iy+0x09) */
+  return;
+}
+
+// flash page 26 cpu 0x68C6 (offset 0x28C6)
+void p26_L_68C6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_L_2262(); /* page0 */
+  /* pop de */
+  p26_L_68CB();
+  return;
+}
+
+// flash page 26 cpu 0x68CB (offset 0x28CB)
+void p26_L_68CB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_L_0ED0(); /* page0 */
+  p00_L_3A05(); /* page0 */
+  /* pop de */
+  p00_L_11FD(); /* page0 */
+  p00_L_2277(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x68DA (offset 0x28DA)
+void p26_L_68DA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_L_0D1E(); /* page0 */
+  /* pop de */
+  /* push de */
+  p00_L_2262(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_rst30();
+  p00_L_15FB(); /* page0 */
+  /* pop de */
+  /* jp 0x11FD - other page/RAM */
+}
+
+// flash page 26 cpu 0x6E90 (offset 0x2E90)
+void p26_L_6E90() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_22C7(); /* page0 */
+  p26_L_6E93();
+  return;
+}
+
+// flash page 26 cpu 0x6E93 (offset 0x2E93)
+void p26_L_6E93() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_0D1F(); /* page0 */
+  p26_L_6E96();
+  return;
+}
+
+// flash page 26 cpu 0x6E96 (offset 0x2E96)
+void p26_L_6E96() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* pop bc */
+  /* pop hl */
+  /* push bc */
+  /* push hl */
+  p00_L_0C20(); /* page0 */
+  /* pop de */
+  p00_L_11FD(); /* page0 */
+  /* pop hl */
+  /* push de */
+  /* jp (hl) */
+}
+
+// flash page 26 cpu 0x6EA4 (offset 0x2EA4)
+void p26_L_6EA4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8A3A */
+  p00_rst20();
+  return;
+}
+
+// flash page 26 cpu 0x6EA9 (offset 0x2EA9)
+void p26_L_6EA9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8A36) */
+  /* cp 0x04 */ flag_cmp(a, 0x04);
+  if (flag_nc()) return;
+  a = a & b;
+  if (flag_z()) return;
+  p00_L_3921(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x6EB5 (offset 0x2EB5)
+void p26_L_6EB5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld bc,(0x84AF) */
+  p26_L_6EB9();
+  return;
+}
+
+// flash page 26 cpu 0x6EB9 (offset 0x2EB9)
+void p26_L_6EB9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_3E67(); /* page0 */
+  p26_L_6EBC();
+  return;
+}
+
+// flash page 26 cpu 0x6EBC (offset 0x2EBC)
+void p26_L_6EBC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p00_L_1229(); /* page0 */
+  p26_L_6ECF();
+  /* pop hl */
+  if (flag_z()) return;
+  /* ld de,(0x84DB) */
+  p00_L_3AF5(); /* page0 */
+  /* jp 0x1873 - other page/RAM */
+}
+
+// flash page 26 cpu 0x6ECF (offset 0x2ECF)
+void p26_L_6ECF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x84DC) */
+  a = a | a;
+  return;
+}
+
+// flash page 26 cpu 0x6ED4 (offset 0x2ED4)
+void p26_L_6ED4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x84D3) */
+  /* ld de,(0x84D5) */
+  /* ld (0x84D3),de */
+  /* ld (0x84D5),hl */
+  return;
+}
+
+// flash page 26 cpu 0x6EE3 (offset 0x2EE3)
+void p26_L_6EE3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_6ED4();
+  p26_L_6EF2();
+  a = 0x0A;
+  p00_L_1897(); /* page0 */
+  a = 0x0B;
+  goto lab_p26_L_6F4B;
+  lab_p26_L_6F4B:
+  p00_L_113A(); /* page0 */
+  p00_L_1897(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x6EF2 (offset 0x2EF2)
+void p26_L_6EF2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x84D3) */
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  /* ld (0x84AF),de */
+  /* scf */
+  /* push af */
+  lab_p26_L_6EFE:
+  /* ld hl,(0x84AF) */
+  p26_L_6EBC();
+  p00_L_14C7(); /* page0 */
+  if (flag_z()) goto lab_p26_L_6F32;
+  p00_L_3AEF(); /* page0 */
+  /* pop af */
+  if (flag_nc()) goto lab_p26_L_6F19;
+  a = 0;
+  /* push af */
+  p00_L_10DD(); /* page0 */
+  p00_L_1171(); /* page0 */
+  goto lab_p26_L_6F32;
+  lab_p26_L_6F19:
+  /* push af */
+  p00_L_1100(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) p00_L_10D4(); /* page0 */
+  p00_L_10F8(); /* page0 */
+  p00_L_113A(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) p00_L_1151(); /* page0 */
+  lab_p26_L_6F32:
+  /* ld hl,(0x84AF) */
+  /* dec hl */
+  /* ld (0x84AF),hl */
+  a = h;
+  a = a | l;
+  if (flag_nz()) goto lab_p26_L_6EFE;
+  /* pop af */
+  /* jp 0x1135 - other page/RAM */
+}
+
+// flash page 26 cpu 0x6F41 (offset 0x2F41)
+void p26_L_6F41() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_6EF2();
+  a = 0x08;
+  p00_L_1897(); /* page0 */
+  a = 0x09;
+  p00_L_113A(); /* page0 */
+  p00_L_1897(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x7186 (offset 0x3186)
+void p26_L_7186() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_22F7(); /* page0 */
+  a = 0;
+  goto lab_p26_L_718E;
+  lab_p26_L_718E:
+  /* push af */
+  p00_rst18();
+  p00_L_3B73(); /* page0 */
+  /* ld hl,0x84B0 */
+  /* inc (hl) */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  /* pop af */
+  /* jp z,0x0C13 - other page/RAM */
+  p00_rst30();
+  return;
+}
+
+// flash page 26 cpu 0x718C (offset 0x318C)
+void p26_L_718C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = a | 0x01;
+  /* push af */
+  p00_rst18();
+  p00_L_3B73(); /* page0 */
+  /* ld hl,0x84B0 */
+  /* inc (hl) */
+  p00_L_0D1F(); /* page0 */
+  p00_L_2196(); /* page0 */
+  /* pop af */
+  /* jp z,0x0C13 - other page/RAM */
+  p00_rst30();
+  return;
+}
+
+// flash page 26 cpu 0x71A3 (offset 0x31A3)
+void p26_L_71A3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_L_22FC(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_28B0(); /* page0 */
+  /* pop de */
+  p26_L_71D0();
+  /* push de */
+  p00_L_2893(); /* page0 */
+  /* pop de */
+  p26_L_71D0();
+  /* push de */
+  p00_L_28FD(); /* page0 */
+  /* pop de */
+  p26_L_71D0();
+  /* push de */
+  p00_L_28E0(); /* page0 */
+  /* pop de */
+  p26_L_71D0();
+  /* push de */
+  p00_L_21A7(); /* page0 */
+  /* pop de */
+  return;
+}
+
+// flash page 26 cpu 0x71D0 (offset 0x31D0)
+void p26_L_71D0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p00_L_22FC(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  p00_L_0C20(); /* page0 */
+  /* pop de */
+  /* jp 0x11FD - other page/RAM */
+}
+
+// flash page 26 cpu 0x71E9 (offset 0x31E9)
+void p26_L_71E9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst18();
+  /* bit 2,(iy+0x1A) */
+  if (flag_z()) p00_L_3E5B(); /* page0 */
+  /* jp 0x219B - other page/RAM */
+}
+
+// flash page 26 cpu 0x71F4 (offset 0x31F4)
+void p26_L_71F4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* add hl,bc */
+  /* push hl */
+  p00_L_1691(); /* page0 */
+  /* pop hl */
+  p00_L_1CA8(); /* page0 */
+  /* inc de */
+  /* inc de */
+  return;
+}
+
+// flash page 26 cpu 0x723D (offset 0x323D)
+void p26_L_723D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_7200:
+  a = 0x03;
+  p26_L_73B0();
+  /* ld bc,0xFFFD */
+  p26_L_71F4();
+  a = 0x18;
+  p26_L_743B();
+  a = 0x83;
+  /* ld (de),a */
+  /* inc de */
+  a = 0x10;
+  /* ld (de),a */
+  /* inc de */
+  a = 0x31;
+  /* ld (de),a */
+  /* inc de */
+  a = 0x70;
+  /* ld (de),a */
+  /* inc de */
+  p26_L_7439();
+  a = 0xBF;
+  /* ld (de),a */
+  /* inc de */
+  a = 0xB0;
+  /* ld (de),a */
+  /* inc de */
+  a = 0x17;
+  p26_L_743B();
+  p26_L_741E();
+  a = 0x11;
+  /* ld (de),a */
+  /* inc de */
+  a = 0x11;
+  /* ld (de),a */
+  goto lab_p26_L_72E2;
+  /* bit 5,(iy+0x09) */
+  if (flag_nz()) return;
+  /* ld a,(0x8A36) */
+  /* cp 0x09 */ flag_cmp(a, 0x09);
+  if (flag_z()) return;
+  /* ld hl,0x73AA */
+  p00_L_25A2(); /* page0 */
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_z()) goto lab_p26_L_7262;
+  /* cp 0x1C */ flag_cmp(a, 0x1C);
+  if (flag_z()) goto lab_p26_L_73CF;
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  if (flag_z()) goto lab_p26_L_7262;
+  if (flag_nc()) goto lab_p26_L_7200;
+  /* cp 0x05 */ flag_cmp(a, 0x05);
+  if (flag_nc()) goto lab_p26_L_736C;
+  lab_p26_L_7262:
+  p26_L_742B();
+  /* push bc */
+  a = 0x17;
+  p26_L_742D();
+  /* pop hl */
+  /* add hl,bc */
+  /* ld bc,0x0002 */
+  /* ld a,(0x8A36) */
+  a = a | a;
+  if (flag_z()) goto lab_p26_L_7284;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_z()) goto lab_p26_L_7284;
+  /* cp 0x04 */ flag_cmp(a, 0x04);
+  if (flag_nc()) goto lab_p26_L_7284;
+  /* inc bc */
+  /* cp 0x02 */ flag_cmp(a, 0x02);
+  if (flag_nz()) goto lab_p26_L_7284;
+  /* inc bc */
+  lab_p26_L_7284:
+  p26_L_71F4();
+  p26_L_7439();
+  /* push de */
+  a = 0x17;
+  p26_L_742D();
+  /* pop de */
+  /* ld a,(0x8A36) */
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  if (flag_z()) goto lab_p26_L_72AC;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  /* push af */
+  if (flag_c()) goto lab_p26_L_72AC;
+  p26_L_741E();
+  /* pop af */
+  if (flag_nz()) goto lab_p26_L_72AC;
+  a = 0xF0;
+  /* ld (de),a */
+  /* inc de */
+  p26_L_7440();
+  goto lab_p26_L_72E2;
+  lab_p26_L_72AC:
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  a = 0x70;
+  if (flag_nz()) goto lab_p26_L_72B4;
+  a = 0x82;
+  lab_p26_L_72B4:
+  /* ld (de),a */
+  /* inc de */
+  p26_L_7440();
+  /* ld a,(0x8A36) */
+  a = a | a;
+  if (flag_nz()) goto lab_p26_L_72C4;
+  lab_p26_L_72BF:
+  p26_L_741E();
+  goto lab_p26_L_72E2;
+  lab_p26_L_72C4:
+  /* cp 0x19 */ flag_cmp(a, 0x19);
+  if (flag_z()) goto lab_p26_L_72BF;
+  /* cp 0x04 */ flag_cmp(a, 0x04);
+  if (flag_nc()) goto lab_p26_L_72E2;
+  a = a - 1;
+  a = 0xBE;
+  if (flag_nz()) goto lab_p26_L_72D3;
+  a = 0xF0;
+  lab_p26_L_72D3:
+  /* ld (de),a */
+  /* inc de */
+  p26_L_741E();
+  /* ld a,(0x8A36) */
+  /* cp 0x02 */ flag_cmp(a, 0x02);
+  if (flag_nz()) goto lab_p26_L_72E2;
+  a = 0x11;
+  /* ld (de),a */
+  lab_p26_L_72E2:
+  p26_L_740A();
+  /* ex de,hl */
+  p00_L_0033(); /* page0 */
+  /* push hl */
+  p26_L_7363();
+  /* pop hl */
+  /* ld (0x84AF),hl */
+  p00_L_1C46(); /* page0 */
+  /* ld hl,0x735D */
+  p00_L_25A2(); /* page0 */
+  p00_L_16A2(); /* page0 */
+  p00_rst10();
+  /* push af */
+  p00_L_128A(); /* page0 */
+  /* pop af */
+  if (flag_c()) p00_L_3321(); /* page0 */
+  p00_L_38F1(); /* page0 */
+  p00_L_2222(); /* page0 */
+  /* ld hl,(0x84AF) */
+  /* push hl */
+  /* ld hl,0x0001 */
+  lab_p26_L_7313:
+  /* push hl */
+  p26_L_740A();
+  /* pop hl */
+  /* push hl */
+  p00_L_3AF5(); /* page0 */
+  p00_L_3321(); /* page0 */
+  p00_L_1691(); /* page0 */
+  p00_L_36D5(); /* page0 */
+  p00_rst08();
+  /* ld hl,0x8D2F */
+  p26_L_740D();
+  /* pop hl */
+  /* push hl */
+  p00_L_3AF5(); /* page0 */
+  p00_L_0C2D(); /* page0 */
+  p00_rst08();
+  /* ld hl,0x7423 */
+  p00_rst20();
+  p00_rst10();
+  /* push de */
+  p00_L_1179(); /* page0 */
+  /* pop de */
+  /* pop hl */
+  /* push hl */
+  p00_L_3B19(); /* page0 */
+  /* pop hl */
+  /* pop de */
+  a = a | a;
+  /* sbc hl,de */
+  if (flag_z()) goto lab_p26_L_7350;
+  /* add hl,de */
+  /* push de */
+  /* inc hl */
+  goto lab_p26_L_7313;
+  lab_p26_L_7350:
+  p00_L_2176(); /* page0 */
+  p00_L_3321(); /* page0 */
+  p00_L_25C8(); /* page0 */
+  p00_L_25C8(); /* page0 */
+  return;
+  lab_p26_L_736C:
+  /* sub 0x02 */
+  p26_L_73B0();
+  /* ld bc,0xFFFA */
+  p26_L_71F4();
+  /* ld a,(0x8A36) */
+  /* sub 0x02 */
+  /* push af */
+  /* ld hl,0x73CE */
+  lab_p26_L_7380:
+  /* push de */
+  /* ld a,(hl) */
+  /* push hl */
+  p26_L_742D();
+  /* pop hl */
+  /* pop de */
+  /* push hl */
+  p26_L_7440();
+  /* pop hl */
+  /* dec hl */
+  /* pop bc */
+  b = b - 1;
+  if (flag_z()) goto lab_p26_L_72E2;
+  p26_L_741E();
+  /* ex de,hl */
+  a = b;
+  a = a - 1;
+  if (flag_z()) goto lab_p26_L_73A3;
+  /* ld (hl),0xF0 */
+  /* inc hl */
+  a = b;
+  /* add a,0x30 */
+  /* ld (hl),a */
+  /* inc hl */
+  lab_p26_L_73A3:
+  /* ld (hl),0x70 */
+  /* inc hl */
+  /* ex de,hl */
+  /* push bc */
+  goto lab_p26_L_7380;
+  lab_p26_L_73CF:
+  a = 0x04;
+  p26_L_73B0();
+  /* ld bc,0xFFF6 */
+  p26_L_71F4();
+  p26_L_7439();
+  /* ex de,hl */
+  /* ld (hl),0x82 */
+  /* inc hl */
+  /* ld (hl),0xC2 */
+  /* inc hl */
+  /* ex de,hl */
+  a = 0x17;
+  p26_L_743B();
+  p26_L_741E();
+  a = 0x70;
+  /* ld (de),a */
+  /* inc de */
+  a = 0x18;
+  p26_L_743B();
+  /* ex de,hl */
+  /* ld (hl),0x11 */
+  /* inc hl */
+  /* ld (hl),0x70 */
+  /* inc hl */
+  /* ex de,hl */
+  a = 0x19;
+  p26_L_743B();
+  goto lab_p26_L_72E2;
+}
+
+// flash page 26 cpu 0x7363 (offset 0x3363)
+void p26_L_7363() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x7423 */
+  p00_rst20();
+  p00_rst10();
+  if (flag_nc()) p00_L_1F58(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x73B0 (offset 0x33B0)
+void p26_L_73B0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x0000 */
+  /* ld de,0x73CE */
+  lab_p26_L_73B6:
+  /* push af */
+  /* push de */
+  /* push hl */
+  /* ld a,(de) */
+  p26_L_742D();
+  /* pop hl */
+  /* add hl,bc */
+  /* ld bc,0x0004 */
+  /* add hl,bc */
+  /* pop de */
+  /* dec de */
+  /* pop af */
+  a = a - 1;
+  if (flag_nz()) goto lab_p26_L_73B6;
+  return;
+}
+
+// flash page 26 cpu 0x740A (offset 0x340A)
+void p26_L_740A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8D2A */
+  p26_L_740D();
+  return;
+}
+
+// flash page 26 cpu 0x740D (offset 0x340D)
+void p26_L_740D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x8479 */
+  a = 0x5D;
+  /* ld (de),a */
+  /* inc de */
+  p00_L_118B(); /* page0 */
+  /* ex de,hl */
+  /* ld (hl),0x00 */
+  p00_L_2429(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x741E (offset 0x341E)
+void p26_L_741E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x58;
+  /* ld (de),a */
+  /* inc de */
+  return;
+}
+
+// flash page 26 cpu 0x742B (offset 0x342B)
+void p26_L_742B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x16;
+  p26_L_742D();
+  return;
+}
+
+// flash page 26 cpu 0x742D (offset 0x342D)
+void p26_L_742D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_18A3(); /* page0 */
+  p00_L_39CF(); /* page0 */
+  a = 0x15;
+  p00_L_32A3(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x7439 (offset 0x3439)
+void p26_L_7439() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x16;
+  p26_L_743B();
+  return;
+}
+
+// flash page 26 cpu 0x743B (offset 0x343B)
+void p26_L_743B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  p26_L_742D();
+  /* pop de */
+  p26_L_7440();
+  return;
+}
+
+// flash page 26 cpu 0x7440 (offset 0x3440)
+void p26_L_7440() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x848E */
+  /* ldir */
+  return;
+}
+
+// flash page 26 cpu 0x751D (offset 0x351D)
+void p26_L_751D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_219B(); /* page0 */
+  a = 0x15;
+  p00_L_1897(); /* page0 */
+  p00_L_219B(); /* page0 */
+  a = 0x14;
+  p00_L_1897(); /* page0 */
+  p00_L_219B(); /* page0 */
+  a = 0x13;
+  p00_L_1897(); /* page0 */
+  p00_L_219B(); /* page0 */
+  a = 0x09;
+  p00_L_1897(); /* page0 */
+  p00_L_219B(); /* page0 */
+  a = 0x08;
+  p00_L_1897(); /* page0 */
+  /* jp 0x21A7 - other page/RAM */
+}
+
+// flash page 26 cpu 0x7548 (offset 0x3548)
+void p26_L_7548() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_786E();
+  /* push hl */
+  /* ld de,0x0001 */
+  p00_L_35CD(); /* page0 */
+  p00_rst18();
+  /* ld bc,0x0001 */
+  p00_L_18BC(); /* page0 */
+  p00_rst18();
+  /* pop bc */
+  /* push bc */
+  p00_L_18BC(); /* page0 */
+  p00_rst18();
+  /* pop hl */
+  /* push hl */
+  /* ld de,0x0001 */
+  p26_L_7799();
+  /* bit 4,(iy+0x16) */
+  if (flag_z()) goto lab_p26_L_7575;
+  /* pop af */
+  p00_L_21A4(); /* page0 */
+  /* jp 0x21AA - other page/RAM */
+  lab_p26_L_7575:
+  /* pop bc */
+  /* push bc */
+  /* ld (0x84B3),bc */
+  /* push de */
+  /* push hl */
+  p00_rst18();
+  p00_L_222C(); /* page0 */
+  p00_L_221D(); /* page0 */
+  p00_L_21D1(); /* page0 */
+  p00_L_2277(); /* page0 */
+  /* bit 1,(iy) */
+  if (flag_nz()) goto lab_p26_L_7651;
+  p26_L_6EB5();
+  p00_rst18();
+  p00_L_22CF(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_rst18();
+  p00_L_16B5(); /* page0 */
+  /* ld hl,0x785D */
+  p00_L_25A2(); /* page0 */
+  /* ld hl,(0x84B3) */
+  /* push hl */
+  /* ld hl,(0x84B1) */
+  /* push hl */
+  /* ld hl,(0x84AF) */
+  /* push hl */
+  p00_L_0BF9(); /* page0 */
+  p00_rst08();
+  p00_L_22CF(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_75D6;
+  p00_L_0C13(); /* page0 */
+  p26_L_7749();
+  /* pop hl */
+  /* push hl */
+  /* ld de,0x0001 */
+  p26_L_7799();
+  p00_L_2393(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p26_L_7749();
+  goto lab_p26_L_75EC;
+  lab_p26_L_75D6:
+  p00_L_14C7(); /* page0 */
+  /* push af */
+  p00_L_292F(); /* page0 */
+  /* pop af */
+  if (flag_z()) goto lab_p26_L_75E9;
+  /* ld hl,(0x84B1) */
+  /* ld de,0x0001 */
+  p26_L_7799();
+  lab_p26_L_75E9:
+  p00_L_2393(); /* page0 */
+  lab_p26_L_75EC:
+  p00_L_22FC(); /* page0 */
+  p00_L_34B3(); /* page0 */
+  p00_L_231F(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_7630;
+  p00_L_0C13(); /* page0 */
+  p00_L_1100(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_1229(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_7628;
+  p00_L_113F(); /* page0 */
+  p26_L_7749();
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  /* push hl */
+  /* push bc */
+  /* push de */
+  p26_L_7799();
+  p00_L_23A4(); /* page0 */
+  p00_L_2315(); /* page0 */
+  p26_L_7749();
+  p00_L_2267(); /* page0 */
+  goto lab_p26_L_764C;
+  lab_p26_L_7628:
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  /* push hl */
+  /* push bc */
+  /* push de */
+  goto lab_p26_L_7646;
+  lab_p26_L_7630:
+  p00_L_22D9(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  p00_L_2928(); /* page0 */
+  /* pop af */
+  if (flag_c()) goto lab_p26_L_7649;
+  if (flag_z()) goto lab_p26_L_7649;
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* inc de */
+  lab_p26_L_7646:
+  p26_L_7799();
+  lab_p26_L_7649:
+  p00_L_23A4(); /* page0 */
+  lab_p26_L_764C:
+  p00_L_25C8(); /* page0 */
+  goto lab_p26_L_76B5;
+  lab_p26_L_7651:
+  /* pop af */
+  /* pop af */
+  /* ld hl,0x0000 */
+  /* ld (0x84B7),hl */
+  /* ld (0x84AF),hl */
+  /* inc hl */
+  /* push hl */
+  p00_L_1271(); /* page0 */
+  lab_p26_L_7661:
+  p00_L_2324(); /* page0 */
+  /* ld hl,0x0FD5 */
+  p00_L_0D19(); /* page0 */
+  p00_rst08();
+  p00_L_113A(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nc()) goto lab_p26_L_76A4;
+  p00_L_1108(); /* page0 */
+  p26_L_7758();
+  /* ld a,(0x84B7) */
+  a = a | a;
+  if (flag_nz()) goto lab_p26_L_7661;
+  p00_L_2324(); /* page0 */
+  /* ld hl,0x0FCC */
+  p00_L_0D19(); /* page0 */
+  p00_L_1108(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  p26_L_7866();
+  /* pop af */
+  if (flag_c()) goto lab_p26_L_769A;
+  if (flag_nz()) goto lab_p26_L_7661;
+  p26_L_778C();
+  lab_p26_L_769A:
+  p00_L_23B3(); /* page0 */
+  a = 0x01;
+  /* ld (0x84B7),a */
+  goto lab_p26_L_7661;
+  lab_p26_L_76A4:
+  /* pop hl */
+  /* push af */
+  p26_L_7866();
+  /* pop af */
+  if (flag_z()) p26_L_778C();
+  p00_L_2389(); /* page0 */
+  /* ld de,0x001B */
+  goto lab_p26_L_76BA;
+  lab_p26_L_76B5:
+  /* pop af */
+  /* pop af */
+  /* ld de,0x002D */
+  lab_p26_L_76BA:
+  p00_L_21B6(); /* page0 */
+  p00_rst08();
+  /* pop bc */
+  /* ld hl,0x0001 */
+  /* ld (0x8478),hl */
+  /* ld (0x847A),bc */
+  /* ld (0x847C),bc */
+  /* push bc */
+  p00_L_23A4(); /* page0 */
+  /* pop bc */
+  /* bit 6,(iy+0x14) */
+  if (flag_z()) return;
+  /* push bc */
+  p00_L_2315(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_1251(); /* page0 */
+  a = 0x15;
+  /* ld (0x8485),a */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_231F(); /* page0 */
+  p00_L_0C13(); /* page0 */
+  p00_L_2196(); /* page0 */
+  p00_L_23B3(); /* page0 */
+  p00_L_22FC(); /* page0 */
+  p00_rst30();
+  p00_rst08();
+  /* pop bc */
+  /* push bc */
+  lab_p26_L_76FD:
+  /* push bc */
+  p00_L_18BC(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* pop bc */
+  if (flag_c()) goto lab_p26_L_7714;
+  if (flag_z()) goto lab_p26_L_7714;
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p26_L_76FD;
+  /* inc bc */
+  /* push bc */
+  p00_L_1179(); /* page0 */
+  /* pop bc */
+  lab_p26_L_7714:
+  /* ld (0x84B1),bc */
+  p00_L_2389(); /* page0 */
+  p00_L_22B3(); /* page0 */
+  /* ld bc,0x0001 */
+  lab_p26_L_7721:
+  /* push bc */
+  p00_L_18BC(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* pop bc */
+  /* ld (0x84AF),bc */
+  /* pop hl */
+  if (flag_nc()) goto lab_p26_L_773D;
+  a = a | a;
+  /* push hl */
+  /* sbc hl,bc */
+  if (flag_z()) goto lab_p26_L_7739;
+  /* inc bc */
+  goto lab_p26_L_7721;
+  lab_p26_L_7739:
+  p00_L_1179(); /* page0 */
+  /* pop hl */
+  lab_p26_L_773D:
+  /* ld (0x84B3),hl */
+  p00_L_23B3(); /* page0 */
+  p00_L_1130(); /* page0 */
+  /* jp 0x23A4 - other page/RAM */
+}
+
+// flash page 26 cpu 0x7749 (offset 0x3749)
+void p26_L_7749() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* pop hl */
+  /* pop bc */
+  /* push bc */
+  /* push hl */
+  p00_L_3E67(); /* page0 */
+  /* ld de,(0x84DB) */
+  p00_L_3B19(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x7758 (offset 0x3758)
+void p26_L_7758() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* pop hl */
+  /* ld (0x84B5),hl */
+  /* pop hl */
+  /* push hl */
+  p26_L_7853();
+  p26_L_7866();
+  p00_L_10DD(); /* page0 */
+  lab_p26_L_7767:
+  /* pop hl */
+  /* pop de */
+  /* push de */
+  /* push hl */
+  p00_L_192A(); /* page0 */
+  if (flag_c()) goto lab_p26_L_7774;
+  lab_p26_L_7770:
+  /* ld hl,(0x84B5) */
+  /* jp (hl) */
+  lab_p26_L_7774:
+  /* pop bc */
+  /* inc bc */
+  /* push bc */
+  p00_L_18BC(); /* page0 */
+  p00_L_10EF(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_7770;
+  p00_L_1108(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  p26_L_7853();
+  goto lab_p26_L_7767;
+}
+
+// flash page 26 cpu 0x778C (offset 0x378C)
+void p26_L_778C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst08();
+  /* ld bc,(0x84AF) */
+  /* inc bc */
+  p00_L_18BC(); /* page0 */
+  p00_rst30();
+  /* jp 0x0D16 - other page/RAM */
+}
+
+// flash page 26 cpu 0x7799 (offset 0x3799)
+void p26_L_7799() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push hl */
+  /* push de */
+  /* dec de */
+  /* ld (0x84AF),de */
+  p00_L_1287(); /* page0 */
+  p00_L_21E0(); /* page0 */
+  lab_p26_L_77A7:
+  /* pop bc */
+  /* push bc */
+  p26_L_6EB9();
+  p00_rst30();
+  p00_rst08();
+  /* pop de */
+  /* pop hl */
+  /* push hl */
+  p00_L_192A(); /* page0 */
+  /* inc de */
+  /* push de */
+  if (flag_nz()) goto lab_p26_L_77A7;
+  /* pop de */
+  p00_rst18();
+  p00_L_1271(); /* page0 */
+  /* bit 1,(iy) */
+  if (flag_nz()) goto lab_p26_L_7809;
+  lab_p26_L_77C3:
+  p26_L_7834();
+  if (flag_c()) goto lab_p26_L_77D1;
+  if (flag_z()) p26_L_7843();
+  /* inc hl */
+  p26_L_7853();
+  goto lab_p26_L_77C3;
+  lab_p26_L_77D1:
+  p00_L_22FC(); /* page0 */
+  p00_L_0C1B(); /* page0 */
+  p00_L_0D16(); /* page0 */
+  p00_L_0BF9(); /* page0 */
+  p00_L_2310(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_nz()) goto lab_p26_L_77E6;
+  /* scf */
+  lab_p26_L_77E6:
+  /* push af */
+  p26_L_7866();
+  /* pop af */
+  if (flag_nc()) goto lab_p26_L_77F9;
+  p00_rst08();
+  /* ld bc,(0x84B1) */
+  p00_L_18BC(); /* page0 */
+  p00_rst30();
+  p00_L_0D16(); /* page0 */
+  lab_p26_L_77F9:
+  p00_L_2191(); /* page0 */
+  p00_L_218C(); /* page0 */
+  /* pop af */
+  /* pop af */
+  /* ld hl,(0x84AF) */
+  /* ld de,(0x84B1) */
+  return;
+  lab_p26_L_7809:
+  /* ld hl,(0x84AF) */
+  /* inc hl */
+  /* push hl */
+  lab_p26_L_780E:
+  p26_L_7834();
+  if (flag_c()) goto lab_p26_L_781A;
+  if (flag_z()) goto lab_p26_L_781A;
+  p26_L_7758();
+  goto lab_p26_L_780E;
+  lab_p26_L_781A:
+  /* pop hl */
+  p00_L_113A(); /* page0 */
+  p00_L_0C18(); /* page0 */
+  p00_rst08();
+  p00_L_22FC(); /* page0 */
+  p00_L_107E(); /* page0 */
+  /* push af */
+  p26_L_7866();
+  /* pop af */
+  if (flag_c()) goto lab_p26_L_77F9;
+  p26_L_778C();
+  goto lab_p26_L_77F9;
+}
+
+// flash page 26 cpu 0x7834 (offset 0x3834)
+void p26_L_7834() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_113A(); /* page0 */
+  p00_L_0C18(); /* page0 */
+  p00_rst08();
+  p00_L_22FC(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) return;
+  if (flag_z()) return;
+  p26_L_7843();
+  return;
+}
+
+// flash page 26 cpu 0x7843 (offset 0x3843)
+void p26_L_7843() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_1108(); /* page0 */
+  p00_L_2357(); /* page0 */
+  /* ld hl,(0x84AF) */
+  /* ld (0x84B1),hl */
+  a = 0;
+  a = a | 0x01;
+  return;
+}
+
+// flash page 26 cpu 0x7853 (offset 0x3853)
+void p26_L_7853() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x84AF),hl */
+  p26_L_6EB5();
+  p00_rst30();
+  /* jp 0x1171 - other page/RAM */
+}
+
+// flash page 26 cpu 0x7866 (offset 0x3866)
+void p26_L_7866() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld bc,(0x84AF) */
+  p00_L_18BC(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x786E (offset 0x386E)
+void p26_L_786E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* res 1,(iy) */
+  a = 0;
+  /* ld bc,0x0000 */
+  lab_p26_L_7876:
+  /* push af */
+  /* push bc */
+  p00_L_127B(); /* page0 */
+  /* ld hl,(0x84D3) */
+  p00_L_0033(); /* page0 */
+  lab_p26_L_7881:
+  /* push hl */
+  p26_L_6EBC();
+  p00_L_14C7(); /* page0 */
+  if (flag_z()) goto lab_p26_L_78AA;
+  p00_L_14E1(); /* page0 */
+  if (flag_z()) goto lab_p26_L_7893;
+  /* set 1,(iy) */
+  lab_p26_L_7893:
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  /* push af */
+  if (flag_nz()) goto lab_p26_L_789D;
+  /* inc bc */
+  /* push bc */
+  goto lab_p26_L_78AB;
+  lab_p26_L_789D:
+  /* dec bc */
+  /* push bc */
+  /* push hl */
+  p00_L_35C7(); /* page0 */
+  p00_L_10F8(); /* page0 */
+  p00_rst30();
+  p00_L_1100(); /* page0 */
+  lab_p26_L_78AA:
+  /* pop hl */
+  lab_p26_L_78AB:
+  /* dec hl */
+  a = h;
+  a = a | l;
+  if (flag_nz()) goto lab_p26_L_7881;
+  /* pop bc */
+  /* pop af */
+  if (flag_nz()) goto lab_p26_L_78E2;
+  /* push bc */
+  /* bit 4,(iy+0x16) */
+  if (flag_nz()) goto lab_p26_L_78EC;
+  p00_L_1295(); /* page0 */
+  a = 0;
+  /* bit 3,(iy+0x16) */
+  if (flag_z()) goto lab_p26_L_78C8;
+  /* ld a,(0x8E63) */
+  lab_p26_L_78C8:
+  /* add a,0x26 */
+  /* ld (0x8479),a */
+  p00_rst10();
+  if (flag_nc()) p00_L_1F58(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  /* add hl,hl */
+  p00_L_1C8F(); /* page0 */
+  lab_p26_L_78D7:
+  /* ld (0x84D9),de */
+  /* pop bc */
+  /* push bc */
+  /* inc bc */
+  a = a | 0x01;
+  goto lab_p26_L_7876;
+  lab_p26_L_78E2:
+  p00_L_113F(); /* page0 */
+  /* pop hl */
+  a = h;
+  a = a | l;
+  /* jp z,0x2515 - other page/RAM */
+  return;
+  lab_p26_L_78EC:
+  /* pop hl */
+  /* push hl */
+  /* add hl,hl */
+  p00_L_1C89(); /* page0 */
+  /* push de */
+  p00_L_21D6(); /* page0 */
+  /* pop de */
+  goto lab_p26_L_78D7;
+}
+
+// flash page 26 cpu 0x7A3E (offset 0x3A3E)
+void p26_L_7A3E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_rst20();
+  p00_L_11F8(); /* page0 */
+  /* push hl */
+  p00_rst30();
+  /* pop hl */
+  /* jp 0x0C20 - other page/RAM */
+}
+
+// flash page 26 cpu 0x7A48 (offset 0x3A48)
+void p26_L_7A48() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* ld hl,(0x84B3) */
+  /* ld de,0x0001 */
+  p26_L_7799();
+  /* pop af */
+  p00_L_1897(); /* page0 */
+  /* jp 0x22E8 - other page/RAM */
+}
+
+// flash page 26 cpu 0x7A59 (offset 0x3A59)
+void p26_L_7A59() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_7A4F:
+  p26_L_7799();
+  /* pop af */
+  p00_L_1897(); /* page0 */
+  /* jp 0x22E8 - other page/RAM */
+  /* push af */
+  /* ld de,(0x84B3) */
+  /* inc de */
+  /* ld hl,(0x84B5) */
+  /* dec hl */
+  goto lab_p26_L_7A4F;
+}
+
+// flash page 26 cpu 0x7A65 (offset 0x3A65)
+void p26_L_7A65() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p26_L_7A4F:
+  p26_L_7799();
+  /* pop af */
+  p00_L_1897(); /* page0 */
+  /* jp 0x22E8 - other page/RAM */
+  /* ld de,(0x84B5) */
+  /* pop bc */
+  /* pop hl */
+  /* push hl */
+  /* push bc */
+  /* push af */
+  goto lab_p26_L_7A4F;
+}
+
+// flash page 26 cpu 0x7A70 (offset 0x3A70)
+void p26_L_7A70() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push hl */
+  p00_L_1108(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  p26_L_7853();
+  /* pop de */
+  /* inc de */
+  /* pop hl */
+  p00_L_192A(); /* page0 */
+  /* ex de,hl */
+  if (flag_c()) return;
+  /* push de */
+  /* push hl */
+  p26_L_7AA2();
+  /* pop hl */
+  /* pop de */
+  if (flag_z()) goto lab_p26_L_7A70;
+  return;
+}
+
+// flash page 26 cpu 0x7A8C (offset 0x3A8C)
+void p26_L_7A8C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p00_L_1108(); /* page0 */
+  /* pop hl */
+  /* push hl */
+  p26_L_7853();
+  /* pop hl */
+  /* dec hl */
+  a = h;
+  a = a | l;
+  if (flag_z()) return;
+  /* push hl */
+  p26_L_7AA2();
+  /* pop hl */
+  if (flag_z()) goto lab_p26_L_7A8C;
+  return;
+}
+
+// flash page 26 cpu 0x7AA2 (offset 0x3AA2)
+void p26_L_7AA2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p26_L_7866();
+  p00_rst08();
+  /* pop bc */
+  p00_L_18BC(); /* page0 */
+  /* jp 0x107E - other page/RAM */
+}
+
+// flash page 26 cpu 0x7AAE (offset 0x3AAE)
+void p26_L_7AAE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x84B1) */
+  a = h;
+  a = a | l;
+  if (flag_z()) goto lab_p26_L_7AD6;
+  p00_L_113A(); /* page0 */
+  p00_L_22F7(); /* page0 */
+  p00_rst30();
+  p00_L_1221(); /* page0 */
+  p00_L_0D1F(); /* page0 */
+  p00_rst18();
+  p00_L_2324(); /* page0 */
+  p00_L_0C18(); /* page0 */
+  p00_rst08();
+  p00_L_219B(); /* page0 */
+  p00_L_107E(); /* page0 */
+  if (flag_c()) goto lab_p26_L_7AD6;
+  /* ld hl,(0x84B1) */
+  if (flag_nz()) return;
+  lab_p26_L_7AD6:
+  /* ld hl,(0x84AF) */
+  return;
+}
+
+// flash page 26 cpu 0x7B45 (offset 0x3B45)
+void p26_L_7B45() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p26_L_7E3E();
+  a = 0x02;
+  /* ld de,0x0101 */
+  p26_L_7BA0();
+  return;
+}
+
+// flash page 26 cpu 0x7B9B (offset 0x3B9B)
+void p26_L_7B9B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x01;
+  /* ld de,0x0000 */
+  p26_L_7BA0();
+  return;
+}
+
+// flash page 26 cpu 0x7BA0 (offset 0x3BA0)
+void p26_L_7BA0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_17CE(); /* page0 */
+  if (flag_z()) goto lab_p26_L_7BA9;
+  /* add a,0x03 */
+  e = a;
+  a = a + 1;
+  lab_p26_L_7BA9:
+  /* ld (0x97A5),a */
+  /* ld (0x844B),de */
+  p26_L_7BB4();
+  return;
+}
+
+// flash page 26 cpu 0x7BB4 (offset 0x3BB4)
+void p26_L_7BB4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push af */
+  /* ld a,(0x97A6) */
+  b = a;
+  lab_p26_L_7BBA:
+  /* ld a,(hl) */
+  /* inc hl */
+  a = a | a;
+  /* scf */
+  if (flag_z()) goto lab_p26_L_7BC9;
+  p00_L_3F9F(); /* page0 */
+  /* ld a,(0x844B) */
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p26_L_7BBA;
+  lab_p26_L_7BC9:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  return;
+}
+
+// flash page 26 cpu 0x7DCB (offset 0x3DCB)
+void p26_str_1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = l;
+  /* ld (hl),d */
+  /* ld (hl),d */
+  l = a;
+  /* ld (hl),d */
+  /* nop */
+  /* ld a,(0x3EBC) */
+  if (flag_nc()) goto lab_p26_L_7DFC;
+  /* push bc */
+  a = 0x30;
+  /* nop */
+  /* ld a,(0x3CBC) */
+  if (flag_nc()) goto lab_p26_L_7E05;
+  /* push bc */
+  a = a + 1;
+  if (flag_nc()) goto lab_p26_L_7DE3;
+  lab_p26_L_7DE3:
+  /* ld a,(0x18BC) */
+  if (flag_nc()) goto lab_p26_L_7E0E;
+  /* push bc */
+  goto lab_p26_L_7E1B;
+  lab_p26_L_7DFC:
+  l = l - 1;
+  a = l;
+  /* inc sp */
+  a = l;
+  /* add hl,sp */
+  a = l;
+  /* ccf */
+  a = l;
+  b = l;
+  lab_p26_L_7E05:
+  a = l;
+  c = e;
+  a = l;
+  d = c;
+  a = l;
+  /* adc a,e */
+  a = l;
+  /* ld (hl),e */
+  a = l;
+  lab_p26_L_7E0E:
+  a = a;
+  a = l;
+  /* ex (sp),hl */
+  a = l;
+  /* pop de */
+  a = l;
+  /* jp c,0x217D - other page/RAM */
+  a = a ^ l;
+  a = l;
+  if (flag_nz()) goto lab_p26_L_7E26;
+  lab_p26_L_7E1B:
+  a = 0x45;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  goto lab_p26_L_7E32;
+  lab_p26_L_7E26:
+  /* ld hl,0x7DCB */
+  a = 0x46;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  lab_p26_L_7E32:
+  a = 0x01;
+  /* ld (0x844C),a */
+  p26_L_7BB4();
+  p00_L_3D1D(); /* page0 */
+  return;
+}
+
+// flash page 26 cpu 0x7E3E (offset 0x3E3E)
+void p26_L_7E3E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8A37) */
+  p26_L_7E41();
+  return;
+}
+
+// flash page 26 cpu 0x7E41 (offset 0x3E41)
+void p26_L_7E41() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = a + a;
+  d = 0x00;
+  e = a;
+  /* add hl,de */
+  /* jp 0x0033 - other page/RAM */
+}

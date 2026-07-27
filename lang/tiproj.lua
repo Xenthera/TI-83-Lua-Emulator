@@ -270,12 +270,25 @@ end
 
 --- Thin manifest for disk projects (no embedded sources).
 function M.manifest_string(doc)
-  return encode({
+  local m = {
     format = FORMAT,
     version = VERSION,
     name = doc.name or "untitled",
     entry = doc.entry or "main.tc",
-  })
+  }
+  if doc.target then
+    m.target = doc.target
+  end
+  if doc.app_name then
+    m.app_name = doc.app_name
+  end
+  if doc.force_pages then
+    m.force_pages = doc.force_pages
+  end
+  if doc.sign ~= nil then
+    m.sign = doc.sign and true or false
+  end
+  return encode(m)
 end
 
 --- Read *.tc from project dir into doc.files (disk wins).
@@ -443,11 +456,27 @@ function M.open(path)
 end
 
 function M.compile_opts(doc, root)
-  return {
+  local opts = {
     root = root,
     files = doc.files,
     entry = doc.entry,
+    name = doc.name,
   }
+  if doc.target then
+    opts.target = doc.target
+  end
+  if doc.app_name then
+    opts.app_name = doc.app_name
+  elseif doc.target == "app" and doc.name then
+    opts.app_name = doc.name
+  end
+  if doc.force_pages then
+    opts.force_pages = doc.force_pages
+  end
+  if doc.sign ~= nil then
+    opts.sign = doc.sign and true or false
+  end
+  return opts
 end
 
 M.dirname = dirname

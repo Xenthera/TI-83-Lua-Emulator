@@ -52,31 +52,39 @@ function Asic:link_lines()
 end
 
 function Asic:tick(cycles)
-  self.lcd:tick(cycles)
+  local lcd = self.lcd
+  if lcd.busy_cycles > 0 then
+    lcd:tick(cycles)
+  end
   self.timer:tick(cycles)
   -- Port 04 bit1 = first timer, bit2 = second timer (WikiTI).
   -- Only latch sources that are enabled; a disabled timer2 pending bit
   -- made the ISR take the wrong branch (BIT 2) and break cursor blink.
-  if self.timer.pending1 then
+  local timer = self.timer
+  if timer.pending1 then
     if band(self.int_mask, 0x02) ~= 0 then
       self.int_status = bor(self.int_status, 0x02)
     else
-      self.timer:ack1()
+      timer:ack1()
     end
   end
-  if self.timer.pending2 then
+  if timer.pending2 then
     if band(self.int_mask, 0x04) ~= 0 then
       self.int_status = bor(self.int_status, 0x04)
     else
-      self.timer:ack2()
+      timer:ack2()
     end
   end
-  -- ON key interrupt is edge-triggered (press latch); cleared via port 03 bit0=0.
-  local on_now = self.keypad:is_on_pressed()
-  if on_now and not self._on_prev then
-    self.int_status = bor(self.int_status, 0x01)
+  -- ON key interrupt is edge-triggered; only recheck when keypad changes.
+  local keypad = self.keypad
+  if keypad.input_dirty then
+    keypad.input_dirty = false
+    local on_now = keypad:is_on_pressed()
+    if on_now and not self._on_prev then
+      self.int_status = bor(self.int_status, 0x01)
+    end
+    self._on_prev = on_now
   end
-  self._on_prev = on_now
 end
 
 function Asic:irq_line()

@@ -195,3 +195,10 @@ end
 function love.resize()
   force_present = true
 end
+
+function love.focus(focused)
+  -- Pick up Cursor/AI/external project edits when returning to the IDE.
+  if focused and ide then
+    ide:poll_project_disk()
+  end
+end

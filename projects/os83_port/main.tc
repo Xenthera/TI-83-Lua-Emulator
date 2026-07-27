@@ -1,0 +1,34 @@
+// Auto-generated TI-OS recovery project (not a bootable ROM).
+// Prefer clean/* APIs; gen/* is mechanical Z80 lift for the rest.
+
+#include "hw.tc"
+#include "clean/stubs.tc"
+#include "clean/mmu.tc"
+#include "clean/lcd.tc"
+#include "clean/key.tc"
+
+#include "gen/page00.tc"
+#include "gen/page01.tc"
+#include "gen/page02.tc"
+#include "gen/page03.tc"
+#include "gen/page04.tc"
+#include "gen/page05.tc"
+#include "gen/page06.tc"
+#include "gen/page07.tc"
+#include "gen/page24.tc"
+#include "gen/page25.tc"
+#include "gen/page26.tc"
+#include "gen/page27.tc"
+#include "gen/page28.tc"
+#include "gen/page29.tc"
+#include "gen/page30.tc"
+#include "gen/page31.tc"
+
+void main() {
+  hw_init_ports();
+  /* Prefer clean APIs: key_scan / lcd_* / mmu_set_bank_* */
+  /* Or enter mechanical boot: p00_rst00_boot(); */
+  while (1) {
+    halt();
+  }
+}

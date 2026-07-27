@@ -1,0 +1,13 @@
+// Tiny-C Flash App proof: clears screen, prints, waits for a key, exits to OS.
+// Build: lua tools/tc_compile.lua --app projects/hello_app/main.tc dist/HELLO.8xk --name HELLO
+// Or open this tiproj in the IDE and Build (target=app).
+
+void main() {
+  os_clr_lcd();
+  os_home_up();
+  os_put_str("HELLO APPS");
+  os_newline();
+  os_put_str("PRESS A KEY");
+  os_get_key();
+  os_exit();
+}

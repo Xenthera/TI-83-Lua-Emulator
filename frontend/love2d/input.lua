@@ -1,6 +1,6 @@
 -- Map Love2D keyboard scancodes -> TI-83 Plus key names.
 -- Letter keys target the physical keys that carry those green ALPHA legends,
--- so Shift (ALPHA) + R presses × and types R.
+-- so Shift (ALPHA) + R presses x and types R.
 
 local MAP = {
   ["return"] = "enter",
@@ -32,7 +32,7 @@ local MAP = {
   ["8"] = "8",
   ["9"] = "9",
 
-  -- A–Z -> keys with matching ALPHA legends (TI-83+ / OS 1.19).
+  -- A-Z -> keys with matching ALPHA legends (TI-83+ / OS 1.19).
   a = "math",
   b = "apps",
   c = "prgm",

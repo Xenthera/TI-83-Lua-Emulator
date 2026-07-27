@@ -1,0 +1,35 @@
+// Forced 2-page Flash App smoke test (tiproj force_pages=2).
+// fat_work lives on page 1; main far-calls it.
+
+byte fat_work(byte n) {
+  byte a;
+  byte b;
+  byte c;
+  a = n;
+  b = 0;
+  c = 0;
+  while (b < 40) {
+    a = a + b;
+    a = a ^ c;
+    a = a + 3;
+    c = c + 1;
+    b = b + 1;
+  }
+  return a;
+}
+
+void main() {
+  byte r;
+  os_clr_lcd();
+  os_home_up();
+  r = fat_work(7);
+  if (r != 0) {
+    os_put_str("MPAGE OK");
+  } else {
+    os_put_str("MPAGE ZERO");
+  }
+  os_newline();
+  os_put_str("KEY=EXIT");
+  os_get_key();
+  os_exit();
+}

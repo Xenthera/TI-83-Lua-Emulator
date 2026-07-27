@@ -1,0 +1,10498 @@
+// Recovered from flash page 29 (mechanical lift)
+// cpu window 0x4000..0x7FFF prefix=p29_
+#include "hw.tc"
+
+void p29_L_4000();
+void p29_L_4022();
+void p29_L_403F();
+void p29_L_407A();
+void p29_L_4083();
+void p29_L_40A6();
+void p29_L_40A9();
+void p29_L_40CC();
+void p29_L_4211();
+void p29_L_4214();
+void p29_L_4228();
+void p29_L_4230();
+void p29_L_4238();
+void p29_L_4243();
+void p29_L_424C();
+void p29_L_4253();
+void p29_L_425E();
+void p29_L_4261();
+void p29_L_4269();
+void p29_L_4274();
+void p29_L_427C();
+void p29_L_427F();
+void p29_L_4287();
+void p29_L_428F();
+void p29_L_429A();
+void p29_L_42A2();
+void p29_L_42AE();
+void p29_L_42D3();
+void p29_L_42DF();
+void p29_L_42ED();
+void p29_L_430E();
+void p29_L_43ED();
+void p29_L_43F6();
+void p29_L_442C();
+void p29_L_4442();
+void p29_L_4490();
+void p29_L_4498();
+void p29_L_44C3();
+void p29_L_4533();
+void p29_L_455C();
+void p29_L_4565();
+void p29_L_4566();
+void p29_L_456D();
+void p29_L_4574();
+void p29_L_4575();
+void p29_L_457C();
+void p29_L_45E4();
+void p29_L_464E();
+void p29_L_468A();
+void p29_L_46C7();
+void p29_L_475F();
+void p29_L_476B();
+void p29_L_47B5();
+void p29_L_47B6();
+void p29_L_47E3();
+void p29_L_484E();
+void p29_L_4873();
+void p29_L_4894();
+void p29_L_4897();
+void p29_L_48B5();
+void p29_L_48BC();
+void p29_L_48DE();
+void p29_L_4926();
+void p29_L_4992();
+void p29_L_49D8();
+void p29_L_4A21();
+void p29_L_4A3F();
+void p29_L_4A5A();
+void p29_L_4AC9();
+void p29_L_4B73();
+void p29_L_4B82();
+void p29_L_4C0C();
+void p29_L_4C73();
+void p29_L_4C8B();
+void p29_L_4CAE();
+void p29_L_4D38();
+void p29_L_4D5E();
+void p29_L_4DCD();
+void p29_L_4E44();
+void p29_L_4E9B();
+void p29_L_4EBD();
+void p29_L_4ECE();
+void p29_L_4F10();
+void p29_L_4F62();
+void p29_L_4F6E();
+void p29_L_4F95();
+void p29_L_4FF9();
+void p29_L_5083();
+void p29_L_508A();
+void p29_L_50A8();
+void p29_L_50C5();
+void p29_L_5124();
+void p29_L_5185();
+void p29_L_519D();
+void p29_L_51C3();
+void p29_L_51DB();
+void p29_L_5217();
+void p29_L_521D();
+void p29_L_522B();
+void p29_L_5231();
+void p29_L_5236();
+void p29_L_523C();
+void p29_L_5242();
+void p29_L_5287();
+void p29_L_529F();
+void p29_L_52D9();
+void p29_L_52F0();
+void p29_L_533B();
+void p29_L_5365();
+void p29_L_536F();
+void p29_L_53B3();
+void p29_L_53E5();
+void p29_L_540C();
+void p29_L_543D();
+void p29_L_54A0();
+void p29_L_5525();
+void p29_L_55CE();
+void p29_L_560B();
+void p29_L_56A0();
+void p29_L_573C();
+void p29_L_5757();
+void p29_L_576D();
+void p29_L_578D();
+void p29_L_57C5();
+void p29_L_597A();
+void p29_L_5980();
+void p29_L_598E();
+void p29_L_59B3();
+void p29_L_5A68();
+void p29_L_5AA5();
+void p29_L_5B4D();
+void p29_L_5C2D();
+void p29_L_5C8E();
+void p29_L_5CFF();
+void p29_L_5D1E();
+void p29_L_5D43();
+void p29_L_5D68();
+void p29_L_5DC7();
+void p29_L_5E0A();
+void p29_L_5E31();
+void p29_L_5E34();
+void p29_L_5E59();
+void p29_L_5E78();
+void p29_L_5E90();
+void p29_L_5EFC();
+void p29_L_5F9F();
+void p29_L_5FDB();
+void p29_L_5FED();
+void p29_L_6006();
+void p29_L_6011();
+void p29_L_6021();
+void p29_L_6067();
+void p29_L_607A();
+void p29_L_60EF();
+void p29_L_6172();
+void p29_L_6177();
+void p29_L_6186();
+void p29_L_6196();
+void p29_L_61A4();
+void p29_L_61BC();
+void p29_L_62B3();
+void p29_L_6388();
+void p29_L_638B();
+void p29_L_6428();
+void p29_L_6503();
+void p29_L_650D();
+void p29_L_651E();
+void p29_L_6523();
+void p29_L_652E();
+void p29_L_6550();
+void p29_L_6559();
+void p29_L_6598();
+void p29_L_65A0();
+void p29_L_6621();
+void p29_L_6626();
+void p29_L_662F();
+void p29_L_66A9();
+void p29_L_673D();
+void p29_L_6769();
+void p29_L_67EC();
+void p29_L_6800();
+void p29_L_6897();
+void p29_L_69D4();
+void p29_L_69E8();
+void p29_L_6A07();
+void p29_L_6B36();
+void p29_L_6B49();
+void p29_L_6B87();
+void p29_L_6BAD();
+void p29_L_6BB0();
+void p29_L_6CB5();
+void p29_L_6CCB();
+void p29_L_6DCD();
+void p29_L_6ECE();
+void p29_L_6ED5();
+void p29_L_6EDB();
+void p29_L_6F54();
+void p29_L_6F82();
+void p29_L_6FAC();
+void p29_L_6FC0();
+void p29_L_6FF9();
+void p29_str_2();
+void p29_str_1();
+void p29_L_7045();
+void p29_L_705E();
+void p29_L_7060();
+void p29_L_70D1();
+void p29_str_3();
+void p29_L_7124();
+void p29_L_717A();
+void p29_L_7182();
+void p29_L_7240();
+void p29_L_733B();
+void p29_L_756F();
+void p29_L_75B8();
+void p29_L_75E1();
+void p29_L_75EC();
+void p29_L_75F5();
+void p29_L_75FD();
+void p29_L_761F();
+void p29_L_762A();
+void p29_L_7634();
+void p29_L_7643();
+void p29_L_764E();
+void p29_L_7656();
+void p29_L_7663();
+void p29_L_7666();
+void p29_L_7700();
+void p29_L_777E();
+void p29_L_780B();
+void p29_L_7865();
+void p29_L_78A3();
+void p29_L_78C2();
+void p29_L_78F5();
+void p29_L_7915();
+void p29_L_7932();
+void p29_L_794D();
+void p29_L_795C();
+void p29_L_7A67();
+void p29_L_7A75();
+void p29_L_7A85();
+void p29_L_7A8D();
+void p29_L_7A96();
+void p29_L_7AB7();
+void p29_L_7AD0();
+void p29_L_7B41();
+void p29_L_7B72();
+void p29_L_7BA4();
+void p29_L_7BAF();
+void p29_L_7BB5();
+void p29_L_7BBA();
+void p29_L_7BCC();
+void p29_L_7BD4();
+void p29_L_7BEA();
+void p29_L_7C64();
+void p29_L_7C96();
+void p29_L_7CA5();
+void p29_L_7CB2();
+void p29_L_7CBB();
+void p29_L_7CCD();
+void p29_L_7CCF();
+void p29_L_7CDA();
+void p29_L_7D67();
+void p29_L_7E40();
+
+// flash page 29 cpu 0x4000 (offset 0x0000)
+void p29_L_4000() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p29_L_6FAC();
+  if (flag_c()) { p29_L_5FDB(); return; }
+  /* push af */
+  p29_L_576D();
+  /* pop af */
+  p29_L_403F();
+  p29_L_5FDB();
+  return;
+}
+
+// flash page 29 cpu 0x4022 (offset 0x0022)
+void p29_L_4022() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p29_L_6FAC();
+  if (flag_c()) { p29_L_5FDB(); return; }
+  p29_L_403F();
+  p29_L_5FDB();
+  return;
+}
+
+// flash page 29 cpu 0x403F (offset 0x003F)
+void p29_L_403F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = a;
+  /* ld hl,0x4000 */
+  os_bcall(0x8051);
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  a = b;
+  if (flag_z()) goto lab_p29_L_4077;
+  p29_L_4A3F();
+  b = c;
+  /* push af */
+  a = c;
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_4078;
+  /* res 6,(iy+0x24) */
+  /* res 7,(iy+0x24) */
+  a = 0;
+  /* ld (0x9C87),a */
+  /* pop af */
+  lab_p29_L_4061:
+  /* set 0,(iy+0x25) */
+  /* push af */
+  /* push bc */
+  /* ld de,0x4000 */
+  b = 0x00;
+  os_bcall(0x80C6);
+  /* pop bc */
+  /* pop af */
+  a = a - 1;
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_4061;
+  /* ld (0x82A4),a */
+  lab_p29_L_4077:
+  return;
+  lab_p29_L_4078:
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x407A (offset 0x007A)
+void p29_L_407A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p29_L_4894();
+  p29_L_457C();
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4083 (offset 0x0083)
+void p29_L_4083() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* push af */
+  lab_p29_L_408A:
+  /* pop af */
+  /* push hl */
+  /* push bc */
+  /* push af */
+  p29_L_6B36();
+  b = a;
+  /* pop af */
+  /* push af */
+  os_bcall(0x8021);
+  /* pop af */
+  /* pop bc */
+  /* pop hl */
+  /* inc hl */
+  /* push af */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p29_L_408A;
+  /* pop af */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x40A6 (offset 0x00A6)
+void p29_L_40A6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  p29_L_40A9();
+  return;
+}
+
+// flash page 29 cpu 0x40A9 (offset 0x00A9)
+void p29_L_40A9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* push af */
+  lab_p29_L_40AD:
+  /* pop af */
+  /* push hl */
+  /* push bc */
+  /* push af */
+  os_bcall(0x8051);
+  b = a;
+  /* pop af */
+  /* push af */
+  /* ld a,(0x8483) */
+  os_bcall(0x8021);
+  /* pop af */
+  /* pop bc */
+  /* pop hl */
+  /* inc hl */
+  /* push af */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p29_L_40AD;
+  /* pop af */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x40CC (offset 0x00CC)
+void p29_L_40CC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x9C20),a */
+  /* push de */
+  /* push bc */
+  /* push hl */
+  p29_L_4894();
+  p29_L_4566();
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_nz()) goto lab_p29_L_40E5;
+  /* ld bc,0x0000 */
+  /* ld (0x84AF),bc */
+  goto lab_p29_L_4105;
+  lab_p29_L_40E5:
+  /* ld bc,0x0001 */
+  /* ld (0x84AF),bc */
+  /* push hl */
+  p29_L_4574();
+  /* add hl,bc */
+  p29_L_4574();
+  /* add hl,bc */
+  /* pop bc */
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  p29_L_4894();
+  /* ld de,0x4000 */
+  /* push de */
+  /* push bc */
+  p29_L_42DF();
+  lab_p29_L_4105:
+  p29_L_4894();
+  os_bcall(0x8060);
+  os_bcall(0x8057);
+  /* push hl */
+  /* push hl */
+  p29_L_4897();
+  /* ex de,hl */
+  /* pop hl */
+  /* inc de */
+  /* inc hl */
+  lab_p29_L_4117:
+  p29_L_4566();
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_415C;
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_417B;
+  /* push hl */
+  /* push bc */
+  /* push hl */
+  p29_L_521D();
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_4131;
+  p29_L_522B();
+  lab_p29_L_4131:
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* sbc hl,bc */
+  if (flag_nc()) goto lab_p29_L_417B;
+  /* pop bc */
+  /* pop hl */
+  /* push hl */
+  /* ld (0x83EE),de */
+  p29_L_4574();
+  /* pop de */
+  /* push de */
+  a = a | a;
+  /* sbc hl,de */
+  a = l;
+  a = a + c;
+  c = a;
+  if (flag_nc()) goto lab_p29_L_414D;
+  b = b + 1;
+  lab_p29_L_414D:
+  /* pop hl */
+  /* ld de,(0x83EE) */
+  p29_L_4083();
+  /* add hl,bc */
+  /* ex de,hl */
+  /* add hl,bc */
+  /* ex de,hl */
+  goto lab_p29_L_4117;
+  lab_p29_L_415C:
+  /* push de */
+  p29_L_4574();
+  /* pop de */
+  /* add hl,bc */
+  p29_L_4566();
+  /* cp 0x02 */ flag_cmp(a, 0x02);
+  if (flag_nz()) goto lab_p29_L_4178;
+  /* push de */
+  /* push hl */
+  p29_L_4574();
+  /* pop de */
+  /* sbc hl,de */
+  /* adc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* ex de,hl */
+  /* pop de */
+  /* add hl,bc */
+  lab_p29_L_4178:
+  goto lab_p29_L_4117;
+  lab_p29_L_417B:
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_41DF;
+  /* ld a,(0x9C20) */
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_41DF;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p29_L_41A4;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_z()) goto lab_p29_L_41B2;
+  /* cp 0x04 */ flag_cmp(a, 0x04);
+  if (flag_z()) goto lab_p29_L_41C0;
+  /* cp 0x05 */ flag_cmp(a, 0x05);
+  if (flag_z()) goto lab_p29_L_41D1;
+  p29_L_427F();
+  p29_L_4211();
+  p29_L_425E();
+  p29_L_4228();
+  goto lab_p29_L_41E2;
+  lab_p29_L_41A4:
+  p29_L_4261();
+  p29_L_4211();
+  p29_L_427C();
+  p29_L_4230();
+  goto lab_p29_L_41E2;
+  lab_p29_L_41B2:
+  p29_L_4214();
+  p29_L_425E();
+  p29_L_427C();
+  p29_L_4238();
+  goto lab_p29_L_41E2;
+  lab_p29_L_41C0:
+  p29_L_4214();
+  p29_L_42A2();
+  p29_L_4269();
+  p29_L_428F();
+  p29_L_4238();
+  goto lab_p29_L_41E2;
+  lab_p29_L_41D1:
+  p29_L_42A2();
+  p29_L_425E();
+  p29_L_428F();
+  p29_L_4211();
+  goto lab_p29_L_41E2;
+  lab_p29_L_41DF:
+  p29_L_427F();
+  lab_p29_L_41E2:
+  p29_L_4894();
+  /* ex de,hl */
+  b = 0x8F;
+  p29_L_456D();
+  /* pop hl */
+  /* ex de,hl */
+  p29_L_4894();
+  /* ex de,hl */
+  /* push de */
+  p29_L_457C();
+  /* pop de */
+  b = 0x00;
+  p29_L_456D();
+  /* ld bc,(0x84AF) */
+  a = c;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_nz()) goto lab_p29_L_420D;
+  p29_L_4894();
+  /* ex de,hl */
+  /* pop bc */
+  /* pop hl */
+  p29_L_42AE();
+  lab_p29_L_420D:
+  /* pop hl */
+  /* pop bc */
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x4211 (offset 0x0211)
+void p29_L_4211() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4243();
+  p29_L_4214();
+  return;
+}
+
+// flash page 29 cpu 0x4214 (offset 0x0214)
+void p29_L_4214() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_522B();
+  /* ld bc,0x0066 */
+  /* ld de,0x82A5 */
+  p29_L_4897();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_7666();
+  return;
+}
+
+// flash page 29 cpu 0x4228 (offset 0x0228)
+void p29_L_4228() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_521D();
+  /* ld bc,0x00E8 */
+  goto lab_p29_L_423E;
+  lab_p29_L_423E:
+  p29_L_4897();
+  goto lab_p29_L_4249;
+  lab_p29_L_4249:
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+}
+
+// flash page 29 cpu 0x4230 (offset 0x0230)
+void p29_L_4230() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5236();
+  /* ld bc,0x00C8 */
+  goto lab_p29_L_423E;
+  lab_p29_L_423E:
+  p29_L_4897();
+  goto lab_p29_L_4249;
+  lab_p29_L_4249:
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+}
+
+// flash page 29 cpu 0x4238 (offset 0x0238)
+void p29_L_4238() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_522B();
+  /* ld bc,0x0066 */
+  p29_L_4897();
+  goto lab_p29_L_4249;
+  lab_p29_L_4249:
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+}
+
+// flash page 29 cpu 0x4243 (offset 0x0243)
+void p29_L_4243() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_522B();
+  /* ld bc,0x0066 */
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+}
+
+// flash page 29 cpu 0x424C (offset 0x024C)
+void p29_L_424C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  p29_L_6B49();
+  return;
+}
+
+// flash page 29 cpu 0x4253 (offset 0x0253)
+void p29_L_4253() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5217();
+  /* ld bc,0x0020 */
+  /* ld de,0x836D */
+  p29_L_424C();
+  return;
+}
+
+// flash page 29 cpu 0x425E (offset 0x025E)
+void p29_L_425E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4274();
+  p29_L_4261();
+  return;
+}
+
+// flash page 29 cpu 0x4261 (offset 0x0261)
+void p29_L_4261() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_421A:
+  /* ld de,0x82A5 */
+  p29_L_4897();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_7666();
+  return;
+  p29_L_5236();
+  /* ld bc,0x00C8 */
+  goto lab_p29_L_421A;
+}
+
+// flash page 29 cpu 0x4269 (offset 0x0269)
+void p29_L_4269() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_421D:
+  p29_L_4897();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_7666();
+  return;
+  p29_L_5236();
+  /* ld bc,0x00C8 */
+  /* ld de,0x8000 */
+  goto lab_p29_L_421D;
+}
+
+// flash page 29 cpu 0x4274 (offset 0x0274)
+void p29_L_4274() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_4249:
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+  p29_L_5236();
+  /* ld bc,0x00C8 */
+  goto lab_p29_L_4249;
+}
+
+// flash page 29 cpu 0x427C (offset 0x027C)
+void p29_L_427C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4287();
+  p29_L_427F();
+  return;
+}
+
+// flash page 29 cpu 0x427F (offset 0x027F)
+void p29_L_427F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_421A:
+  /* ld de,0x82A5 */
+  p29_L_4897();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_7666();
+  return;
+  p29_L_521D();
+  /* ld bc,0x00E8 */
+  goto lab_p29_L_421A;
+}
+
+// flash page 29 cpu 0x4287 (offset 0x0287)
+void p29_L_4287() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_4249:
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+  p29_L_521D();
+  /* ld bc,0x00E8 */
+  goto lab_p29_L_4249;
+}
+
+// flash page 29 cpu 0x428F (offset 0x028F)
+void p29_L_428F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_421A:
+  /* ld de,0x82A5 */
+  p29_L_4897();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_7666();
+  return;
+  p29_L_429A();
+  p29_L_521D();
+  /* ld bc,0x00C8 */
+  goto lab_p29_L_421A;
+}
+
+// flash page 29 cpu 0x429A (offset 0x029A)
+void p29_L_429A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_4249:
+  /* ld de,0x82A5 */
+  p29_L_424C();
+  return;
+  p29_L_521D();
+  /* ld bc,0x00C8 */
+  goto lab_p29_L_4249;
+}
+
+// flash page 29 cpu 0x42A2 (offset 0x02A2)
+void p29_L_42A2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_421D:
+  p29_L_4897();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_7666();
+  return;
+  p29_L_523C();
+  /* ld bc,0x0020 */
+  /* ld de,0x836D */
+  goto lab_p29_L_421D;
+}
+
+// flash page 29 cpu 0x42AE (offset 0x02AE)
+void p29_L_42AE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  /* push de */
+  p29_L_5242();
+  a = a + 1;
+  /* ld de,0x8478 */
+  /* ld bc,0x0001 */
+  p29_L_6B49();
+  /* pop de */
+  /* push de */
+  /* ld hl,0x8478 */
+  p29_L_7700();
+  p29_L_7663();
+  /* pop de */
+  /* pop hl */
+  /* inc hl */
+  /* inc de */
+  /* pop bc */
+  /* dec bc */
+  a = c;
+  a = a | b;
+  if (flag_nz()) goto lab_p29_L_42AE;
+  p29_L_42D3();
+  return;
+}
+
+// flash page 29 cpu 0x42D3 (offset 0x02D3)
+void p29_L_42D3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5242();
+  /* push af */
+  os_bcall(0x8084);
+  /* pop af */
+  p29_L_5287();
+  return;
+}
+
+// flash page 29 cpu 0x42DF (offset 0x02DF)
+void p29_L_42DF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  /* push de */
+  p29_L_42D3();
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  lab_p29_L_42E8:
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* ld de,0x8478 */
+  /* ld bc,0x0001 */
+  p29_L_424C();
+  /* pop de */
+  /* push de */
+  /* ld hl,0x8478 */
+  p29_L_5242();
+  a = a + 1;
+  /* ld bc,0x0001 */
+  os_bcall(0x8087);
+  /* pop de */
+  /* pop hl */
+  /* inc hl */
+  /* inc de */
+  /* pop bc */
+  /* dec bc */
+  a = c;
+  a = a | b;
+  if (flag_nz()) goto lab_p29_L_42E8;
+  return;
+}
+
+// flash page 29 cpu 0x42ED (offset 0x02ED)
+void p29_L_42ED() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_42E8:
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* ld de,0x8478 */
+  a = a + h;
+  /* ld bc,0x0001 */
+  p29_L_424C();
+  /* pop de */
+  /* push de */
+  /* ld hl,0x8478 */
+  p29_L_5242();
+  a = a + 1;
+  /* ld bc,0x0001 */
+  os_bcall(0x8087);
+  /* pop de */
+  /* pop hl */
+  /* inc hl */
+  /* inc de */
+  /* pop bc */
+  /* dec bc */
+  a = c;
+  a = a | b;
+  if (flag_nz()) goto lab_p29_L_42E8;
+  return;
+}
+
+// flash page 29 cpu 0x430E (offset 0x030E)
+void p29_L_430E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push de */
+  a = 0x02;
+  p29_L_40CC();
+  os_bcall(0x802D);
+  /* push hl */
+  os_bcall(0x8057);
+  /* ld de,0x1F18 */
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_4327;
+  /* ld de,0x1DEA */
+  lab_p29_L_4327:
+  /* add hl,de */
+  /* pop de */
+  a = a | a;
+  /* sbc hl,de */
+  if (flag_c()) goto lab_p29_L_433D;
+  /* sbc hl,bc */
+  if (flag_c()) goto lab_p29_L_433D;
+  os_bcall(0x802D);
+  /* pop de */
+  /* ex de,hl */
+  /* pop bc */
+  p29_L_4083();
+  a = 0;
+  return;
+  lab_p29_L_433D:
+  /* pop de */
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x43ED (offset 0x03ED)
+void p29_L_43ED() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4894();
+  os_bcall(0x8060);
+  /* pop af */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x43F6 (offset 0x03F6)
+void p29_L_43F6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  p29_L_5525();
+  if (flag_nz()) goto lab_p29_L_4429;
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  /* add hl,bc */
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  /* ld (0x83E6),a */
+  /* inc hl */
+  /* pop af */
+  os_bcall(0x8051);
+  /* ld (0x83E7),a */
+  /* pop af */
+  os_bcall(0x809F);
+  /* ld hl,0x82A5 */
+  os_bcall(0x80A2);
+  os_bcall(0x80A5);
+  /* ld de,0x83A5 */
+  /* ld hl,0x8478 */
+  os_bcall(0x801E);
+  return;
+  lab_p29_L_4429:
+  /* pop af */
+  a = a | a;
+  return;
+}
+
+// flash page 29 cpu 0x442C (offset 0x042C)
+void p29_L_442C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push af */
+  c = a;
+  /* ld de,0x0400 */
+  os_bcall(0x805D);
+  if (flag_nz()) goto lab_p29_L_4441;
+  /* inc hl */
+  a = c;
+  /* push de */
+  os_bcall(0x805A);
+  /* pop de */
+  /* ex de,hl */
+  /* pop af */
+  /* pop hl */
+  lab_p29_L_4441:
+  return;
+}
+
+// flash page 29 cpu 0x4442 (offset 0x0442)
+void p29_L_4442() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  p29_L_70D1();
+  /* ld de,0x0800 */
+  p29_L_777E();
+  p29_L_4574();
+  /* pop bc */
+  /* pop de */
+  lab_p29_L_4452:
+  /* push de */
+  /* push bc */
+  /* push bc */
+  /* push de */
+  /* ld de,0x0810 */
+  p29_L_7700();
+  os_bcall(0x8030);
+  /* pop de */
+  a = c;
+  /* pop bc */
+  if (flag_nz()) goto lab_p29_L_4489;
+  flag_cmp(a, c);
+  /* push hl */
+  c = a;
+  b = 0x00;
+  /* push bc */
+  if (flag_nz()) goto lab_p29_L_4482;
+  b = c;
+  lab_p29_L_446D:
+  p29_L_7700();
+  p29_L_4C73();
+  if (flag_nz()) goto lab_p29_L_4482;
+  /* inc de */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_446D;
+  /* pop bc */
+  /* pop hl */
+  /* pop bc */
+  /* pop de */
+  a = 0x00;
+  /* bit 7,a */
+  return;
+  lab_p29_L_4482:
+  /* pop bc */
+  /* pop hl */
+  /* add hl,bc */
+  /* pop bc */
+  /* pop de */
+  goto lab_p29_L_4452;
+  lab_p29_L_4489:
+  /* pop bc */
+  /* pop de */
+  a = 0xFF;
+  /* bit 7,a */
+  return;
+}
+
+// flash page 29 cpu 0x4490 (offset 0x0490)
+void p29_L_4490() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  p29_L_4442();
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4498 (offset 0x0498)
+void p29_L_4498() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  p29_L_4894();
+  p29_L_7700();
+  p29_L_4873();
+  p29_L_70D1();
+  if (flag_nz()) goto lab_p29_L_44B8;
+  p29_L_7700();
+  /* push bc */
+  p29_L_4873();
+  /* push bc */
+  /* pop hl */
+  /* pop bc */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_nc()) goto lab_p29_L_44BE;
+  lab_p29_L_44B8:
+  a = 0x00;
+  /* bit 7,a */
+  goto lab_p29_L_44C2;
+  lab_p29_L_44BE:
+  a = 0xFF;
+  /* bit 7,a */
+  lab_p29_L_44C2:
+  return;
+}
+
+// flash page 29 cpu 0x44C3 (offset 0x04C3)
+void p29_L_44C3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4894();
+  p29_L_7700();
+  p29_L_442C();
+  /* push de */
+  /* push bc */
+  /* ld de,0x0A10 */
+  os_bcall(0x8027);
+  /* push de */
+  p29_L_4574();
+  /* pop de */
+  a = c;
+  /* pop bc */
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_44F7;
+  /* ex de,hl */
+  /* pop hl */
+  b = c;
+  lab_p29_L_44E1:
+  /* ex de,hl */
+  p29_L_4566();
+  c = a;
+  /* ex de,hl */
+  p29_L_4566();
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_44F8;
+  b = b - 1;
+  a = b;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_44F8;
+  /* inc hl */
+  /* inc de */
+  goto lab_p29_L_44E1;
+  lab_p29_L_44F7:
+  /* pop bc */
+  lab_p29_L_44F8:
+  return;
+}
+
+// flash page 29 cpu 0x4533 (offset 0x0533)
+void p29_L_4533() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5217();
+  p29_L_4566();
+  /* ld (0x843A),a */
+  /* inc hl */
+  p29_L_4566();
+  /* ld (0x843B),a */
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) return;
+  /* inc hl */
+  p29_L_7700();
+  /* ld bc,0x000B */
+  /* ld de,0x9C9E */
+  p29_L_6B49();
+  /* ld hl,0x9CA8 */
+  a = 0xFE;
+  /* or (hl) */
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 29 cpu 0x455C (offset 0x055C)
+void p29_L_455C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4565();
+  e = a;
+  p29_L_4565();
+  d = a;
+  return;
+}
+
+// flash page 29 cpu 0x4565 (offset 0x0565)
+void p29_L_4565() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* inc hl */
+  p29_L_4566();
+  return;
+}
+
+// flash page 29 cpu 0x4566 (offset 0x0566)
+void p29_L_4566() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  p29_L_6B36();
+  return;
+}
+
+// flash page 29 cpu 0x456D (offset 0x056D)
+void p29_L_456D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  os_bcall(0x8021);
+  return;
+}
+
+// flash page 29 cpu 0x4574 (offset 0x0574)
+void p29_L_4574() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* inc hl */
+  p29_L_4575();
+  return;
+}
+
+// flash page 29 cpu 0x4575 (offset 0x0575)
+void p29_L_4575() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  os_bcall(0x805A);
+  return;
+}
+
+// flash page 29 cpu 0x457C (offset 0x057C)
+void p29_L_457C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  os_bcall(0x8024);
+  return;
+}
+
+// flash page 29 cpu 0x45E4 (offset 0x05E4)
+void p29_L_45E4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push de */
+  /* ld a,(0x843A) */
+  b = a;
+  p29_L_5217();
+  /* ex de,hl */
+  p29_L_456D();
+  /* ld a,(0x843B) */
+  b = a;
+  p29_L_456D();
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_4609;
+  p29_L_7700();
+  /* ld bc,0x000B */
+  /* ld hl,0x9C9E */
+  os_bcall(0x8087);
+  lab_p29_L_4609:
+  p29_L_70D1();
+  if (flag_nz()) goto lab_p29_L_464B;
+  p29_L_464E();
+  p29_L_4574();
+  /* add hl,bc */
+  p29_L_70D1();
+  /* ld de,0x0800 */
+  p29_L_777E();
+  p29_L_4574();
+  lab_p29_L_4621:
+  /* ld de,0x0810 */
+  p29_L_7700();
+  os_bcall(0x8030);
+  if (flag_nz()) goto lab_p29_L_464B;
+  /* push hl */
+  /* push bc */
+  b = c;
+  /* ld (0x8483),bc */
+  b = 0x00;
+  p29_L_7700();
+  /* ld de,0x8484 */
+  os_bcall(0x8054);
+  os_bcall(0x8066);
+  if (flag_nz()) goto lab_p29_L_4646;
+  p29_L_464E();
+  lab_p29_L_4646:
+  /* pop bc */
+  /* pop hl */
+  /* add hl,bc */
+  goto lab_p29_L_4621;
+  lab_p29_L_464B:
+  /* pop de */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x464E (offset 0x064E)
+void p29_L_464E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* push hl */
+  /* push ix */
+  os_bcall(0x8099);
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  lab_p29_L_4660:
+  /* ld de,0x0710 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4683;
+  p29_L_4574();
+  /* push bc */
+  /* push hl */
+  p29_L_7700();
+  /* ld de,0x838F */
+  os_bcall(0x8054);
+  os_bcall(0x80A8);
+  if (flag_z()) goto lab_p29_L_467E;
+  p29_L_51C3();
+  lab_p29_L_467E:
+  /* pop hl */
+  /* pop bc */
+  /* add hl,bc */
+  goto lab_p29_L_4660;
+  lab_p29_L_4683:
+  /* pop ix */
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x468A (offset 0x068A)
+void p29_L_468A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4894();
+  /* push hl */
+  p29_L_4574();
+  /* add hl,bc */
+  p29_L_4574();
+  /* add hl,bc */
+  /* pop bc */
+  /* push bc */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* push bc */
+  /* push hl */
+  /* ld de,0x4000 */
+  p29_L_42DF();
+  /* pop hl */
+  /* push hl */
+  os_bcall(0x8060);
+  /* pop de */
+  /* pop bc */
+  /* ld hl,0x4000 */
+  /* push bc */
+  p29_L_42AE();
+  p29_L_4894();
+  /* pop bc */
+  /* ex de,hl */
+  a = d;
+  /* xor 0x20 */
+  d = a;
+  p29_L_430E();
+  if (flag_z()) return;
+  p29_L_5FDB();
+  /* jp 0x2565 - other page/RAM */
+}
+
+// flash page 29 cpu 0x46C7 (offset 0x06C7)
+void p29_L_46C7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push bc */
+  p29_L_762A();
+  /* ld (0x8483),bc */
+  /* ld de,0x8484 */
+  p29_L_7700();
+  os_bcall(0x8054);
+  os_bcall(0x8066);
+  if (flag_nz()) goto lab_p29_L_4715;
+  /* push hl */
+  /* ld de,0x0100 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4714;
+  p29_L_4574();
+  /* push hl */
+  p29_L_4894();
+  /* ld de,0x0100 */
+  p29_L_777E();
+  p29_L_4574();
+  /* pop de */
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_5CFF();
+  p29_L_5D1E();
+  /* ex de,hl */
+  p29_L_7700();
+  p29_L_5CFF();
+  p29_L_5D43();
+  /* ex de,hl */
+  a = a | a;
+  /* sbc hl,bc */
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_4714:
+  /* pop hl */
+  lab_p29_L_4715:
+  /* pop bc */
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x475F (offset 0x075F)
+void p29_L_475F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  c = c - 1;
+  /* nop */
+  /* sla c */
+  p29_L_7700();
+  /* ld de,0x82A5 */
+  os_bcall(0x8054);
+  p29_L_762A();
+  /* ld (0x838D),bc */
+  /* ld de,0x838E */
+  p29_L_7700();
+  os_bcall(0x8054);
+  p29_L_468A();
+  /* ld bc,(0x838D) */
+  b = 0x00;
+  /* ld (0x8483),bc */
+  /* ld hl,0x838E */
+  /* ld de,0x8484 */
+  /* ldir */
+  os_bcall(0x8066);
+  p29_L_45E4();
+  p29_L_4894();
+  os_bcall(0x8060);
+  p29_L_4926();
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  a = 0;
+  return;
+}
+
+// flash page 29 cpu 0x476B (offset 0x076B)
+void p29_L_476B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = a + b;
+  p29_L_762A();
+  /* ld (0x838D),bc */
+  /* ld de,0x838E */
+  p29_L_7700();
+  os_bcall(0x8054);
+  p29_L_468A();
+  /* ld bc,(0x838D) */
+  b = 0x00;
+  /* ld (0x8483),bc */
+  /* ld hl,0x838E */
+  /* ld de,0x8484 */
+  /* ldir */
+  os_bcall(0x8066);
+  p29_L_45E4();
+  p29_L_4894();
+  os_bcall(0x8060);
+  p29_L_4926();
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  a = 0;
+  return;
+}
+
+// flash page 29 cpu 0x47B5 (offset 0x07B5)
+void p29_L_47B5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0;
+  p29_L_47B6();
+  return;
+}
+
+// flash page 29 cpu 0x47B6 (offset 0x07B6)
+void p29_L_47B6() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* push hl */
+  /* push ix */
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_47D9;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p29_L_47D1;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_nz()) goto lab_p29_L_47D9;
+  p29_L_4243();
+  p29_L_4253();
+  goto lab_p29_L_47DC;
+  lab_p29_L_47D1:
+  p29_L_4274();
+  p29_L_4253();
+  goto lab_p29_L_47DC;
+  lab_p29_L_47D9:
+  p29_L_4287();
+  lab_p29_L_47DC:
+  /* pop ix */
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x47E3 (offset 0x07E3)
+void p29_L_47E3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* push af */
+  p29_L_47B5();
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  /* push hl */
+  p29_L_4894();
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  /* pop de */
+  /* push hl */
+  /* push de */
+  p29_L_762A();
+  /* push hl */
+  /* push bc */
+  p29_L_484E();
+  /* inc ix */
+  /* pop bc */
+  /* pop hl */
+  /* push ix */
+  p29_L_4442();
+  /* add hl,bc */
+  p29_L_7700();
+  /* ld de,0x0810 */
+  os_bcall(0x8030);
+  if (flag_nz()) goto lab_p29_L_4825;
+  p29_L_484E();
+  goto lab_p29_L_483E;
+  lab_p29_L_4825:
+  /* ld hl,0x838D */
+  a = 0xFF;
+  b = 0x05;
+  lab_p29_L_482C:
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_482C;
+  /* ld hl,0x84AF */
+  /* ld (hl),0x01 */
+  os_bcall(0x8069);
+  p29_L_764E();
+  /* push hl */
+  /* pop ix */
+  lab_p29_L_483E:
+  /* push ix */
+  /* pop bc */
+  /* pop ix */
+  /* pop hl */
+  /* pop de */
+  /* push bc */
+  p29_L_4D5E();
+  /* inc ix */
+  goto lab_p29_L_5156;
+  lab_p29_L_5156:
+  /* ld hl,0x82A5 */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  /* add hl,bc */
+  /* pop de */
+  /* push hl */
+  /* sla e */
+  p29_L_521D();
+  /* add hl,de */
+  /* push hl */
+  a = c;
+  a = a - e;
+  if (flag_nc()) goto lab_p29_L_516F;
+  a = e;
+  e = c;
+  a = a - e;
+  lab_p29_L_516F:
+  c = a;
+  /* ld hl,0x00C8 */
+  /* sbc hl,de */
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  a = 0x7E;
+  os_bcall(0x8054);
+  /* pop af */
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x484E (offset 0x084E)
+void p29_L_484E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  d = c;
+  /* set 4,d */
+  e = 0x07;
+  /* ld (0x838D),de */
+  /* ld de,0x838F */
+  p29_L_7700();
+  os_bcall(0x8054);
+  /* ld hl,0x84AF */
+  /* ld (hl),0x01 */
+  os_bcall(0x8069);
+  if (flag_z()) goto lab_p29_L_486C;
+  /* dec ix */
+  lab_p29_L_486C:
+  p29_L_764E();
+  /* push hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x4873 (offset 0x0873)
+void p29_L_4873() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push af */
+  /* push de */
+  /* push af */
+  /* ld de,0x0100 */
+  os_bcall(0x805D);
+  if (flag_nz()) goto lab_p29_L_488F;
+  /* pop af */
+  /* inc hl */
+  os_bcall(0x805A);
+  p29_L_7700();
+  p29_L_5CFF();
+  p29_L_5D43();
+  goto lab_p29_L_4890;
+  lab_p29_L_488F:
+  /* pop af */
+  lab_p29_L_4890:
+  /* pop de */
+  /* pop af */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4894 (offset 0x0894)
+void p29_L_4894() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  os_bcall(0x8057);
+}
+
+// flash page 29 cpu 0x4897 (offset 0x0897)
+void p29_L_4897() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = h;
+  /* xor 0x20 */
+  h = a;
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x48B5 (offset 0x08B5)
+void p29_L_48B5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5231();
+  p29_L_48BC();
+  return;
+}
+
+// flash page 29 cpu 0x48BC (offset 0x08BC)
+void p29_L_48BC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push hl */
+  /* push bc */
+  /* push ix */
+  /* pop hl */
+  /* ld bc,0x00C9 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* jp nc,0x2541 - other page/RAM */
+  /* add hl,bc */
+  /* ld bc,0x0000 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* jp m,0x2541 - other page/RAM */
+  /* pop bc */
+  /* pop hl */
+  goto lab_p29_L_48EB;
+  lab_p29_L_48EB:
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  /* add hl,bc */
+  p29_L_4566();
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  /* scf */
+  if (flag_z()) goto lab_p29_L_4902;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_4902;
+  p29_L_4565();
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  lab_p29_L_4902:
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x48DE (offset 0x08DE)
+void p29_L_48DE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* push hl */
+  /* push de */
+  /* push bc */
+  p29_L_521D();
+  /* ld bc,0x000D */
+  /* add ix,bc */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  /* add hl,bc */
+  p29_L_4566();
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  /* scf */
+  if (flag_z()) goto lab_p29_L_4902;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_4902;
+  p29_L_4565();
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  lab_p29_L_4902:
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x4926 (offset 0x0926)
+void p29_L_4926() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* push ix */
+  a = 0x00;
+  /* ld (0x8670),a */
+  p29_L_4AC9();
+  if (flag_nz()) goto lab_p29_L_4939;
+  p29_L_4B82();
+  lab_p29_L_4939:
+  p29_L_4A5A();
+  /* ld a,(0x8670) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_498B;
+  /* ld hl,0x7037 */
+  a = 0x4D;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  p29_L_7045();
+  p00_L_3CD5(); /* page0 */
+  /* ld hl,0x702B */
+  a = 0x4E;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  p29_L_7045();
+  p00_L_3CD5(); /* page0 */
+  p00_L_0B93(); /* page0 */
+  b = 0x05;
+  lab_p29_L_496C:
+  c = b;
+  b = 0xFF;
+  lab_p29_L_496F:
+  a = 0xFF;
+  lab_p29_L_4971:
+  p00_L_0AC4(); /* page0 */
+  a = a - 1;
+  if (flag_nz()) goto lab_p29_L_4971;
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_496F;
+  b = c;
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_496C;
+  p00_L_0BA2(); /* page0 */
+  p00_L_2E65(); /* page0 */
+  /* ld hl,0x0000 */
+  /* ld (0x844B),hl */
+  p00_L_3D05(); /* page0 */
+  lab_p29_L_498B:
+  /* pop ix */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x4992 (offset 0x0992)
+void p29_L_4992() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* push hl */
+  p29_L_4565();
+  /* push af */
+  a = a & 0xF0;
+  c = a;
+  /* pop af */
+  a = a ^ c;
+  /* ld (0x838D),a */
+  /* inc hl */
+  c = a;
+  b = 0x00;
+  p29_L_7700();
+  /* ld de,0x838E */
+  os_bcall(0x8054);
+  p29_L_6021();
+  if (flag_c()) goto lab_p29_L_49B7;
+  p29_L_403F();
+  lab_p29_L_49B7:
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x49D8 (offset 0x09D8)
+void p29_L_49D8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld hl,0x4000 */
+  /* push af */
+  p29_L_6B36();
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_4A1E;
+  /* pop af */
+  /* push af */
+  /* cp 0x7E */ flag_cmp(a, 0x7E);
+  if (flag_z()) goto lab_p29_L_4A1E;
+  /* cp 0x7F */ flag_cmp(a, 0x7F);
+  if (flag_z()) goto lab_p29_L_4A1E;
+  a = b;
+  /* cp 0x7E */ flag_cmp(a, 0x7E);
+  if (flag_z()) goto lab_p29_L_4A1E;
+  /* cp 0x7F */ flag_cmp(a, 0x7F);
+  if (flag_z()) goto lab_p29_L_4A1E;
+  /* pop af */
+  lab_p29_L_49F8:
+  /* push bc */
+  /* ld bc,0x0100 */
+  /* ld de,0x8000 */
+  /* push hl */
+  /* push de */
+  /* push af */
+  p29_L_6B49();
+  /* pop af */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  /* push af */
+  a = b;
+  /* ld bc,0x0100 */
+  /* ex de,hl */
+  /* push af */
+  p29_L_7666();
+  /* pop af */
+  /* ex de,hl */
+  b = a;
+  a = 0x80;
+  flag_cmp(a, h);
+  if (flag_z()) goto lab_p29_L_4A1E;
+  /* pop af */
+  goto lab_p29_L_49F8;
+  lab_p29_L_4A1E:
+  /* pop af */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4A21 (offset 0x0A21)
+void p29_L_4A21() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  a = 0x08;
+  /* ld hl,0x4000 */
+  lab_p29_L_4A27:
+  /* push af */
+  os_bcall(0x8051);
+  /* cp 0xFE */ flag_cmp(a, 0xFE);
+  if (flag_z()) goto lab_p29_L_4A3C;
+  /* pop af */
+  a = a + 1;
+  p29_L_75E1();
+  if (flag_nz()) goto lab_p29_L_4A27;
+  a = 0xFF;
+  /* bit 7,a */
+  /* pop hl */
+  return;
+  lab_p29_L_4A3C:
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4A3F (offset 0x0A3F)
+void p29_L_4A3F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push af */
+  /* ld hl,0x4000 */
+  /* ld de,0x8080 */
+  a = a | a;
+  os_bcall(0x80AB);
+  c = 0x00;
+  if (flag_nz()) goto lab_p29_L_4A57;
+  /* inc hl */
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  c = a;
+  lab_p29_L_4A57:
+  /* pop af */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4A5A (offset 0x0A5A)
+void p29_L_4A5A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7643();
+  b = c;
+  p29_L_75EC();
+  lab_p29_L_4A61:
+  /* push af */
+  /* ld hl,0x4000 */
+  os_bcall(0x8051);
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_4A77;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_4A77;
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_nz()) goto lab_p29_L_4A77;
+  /* pop af */
+  goto lab_p29_L_4A80;
+  lab_p29_L_4A77:
+  /* pop af */
+  lab_p29_L_4A78:
+  a = a - 1;
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_4A61;
+  return;
+  lab_p29_L_4A7C:
+  /* pop af */
+  /* pop bc */
+  goto lab_p29_L_4A77;
+  lab_p29_L_4A80:
+  /* push af */
+  /* push bc */
+  /* push af */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_4A7C;
+  /* pop af */
+  /* push af */
+  p29_L_5E31();
+  os_bcall(0x80A8);
+  if (flag_nz()) goto lab_p29_L_4AC4;
+  /* pop af */
+  /* push af */
+  p29_L_52D9();
+  if (flag_c()) goto lab_p29_L_4AC4;
+  if (flag_z()) goto lab_p29_L_4AC4;
+  /* pop af */
+  /* push af */
+  b = a;
+  p29_L_75EC();
+  a = a - b;
+  /* ld bc,0x0000 */
+  c = a;
+  /* push bc */
+  /* pop ix */
+  p29_L_48B5();
+  if (flag_c()) goto lab_p29_L_4AC4;
+  if (flag_nz()) goto lab_p29_L_4AC4;
+  /* ld a,(0x8670) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_4ABF;
+  p00_L_2C7F(); /* page0 */
+  a = 0xFF;
+  /* ld (0x8670),a */
+  lab_p29_L_4ABF:
+  /* pop af */
+  /* push af */
+  p29_L_403F();
+  lab_p29_L_4AC4:
+  /* pop af */
+  /* pop bc */
+  /* pop af */
+  goto lab_p29_L_4A78;
+}
+
+// flash page 29 cpu 0x4AC9 (offset 0x0AC9)
+void p29_L_4AC9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_70D1();
+  if (flag_nz()) goto lab_p29_L_4B69;
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  /* ld ix,0x0000 */
+  lab_p29_L_4ADC:
+  /* ld de,0x0710 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4B6E;
+  /* push hl */
+  p29_L_4574();
+  a = c;
+  /* ld (0x838E),a */
+  /* ld de,0x838F */
+  p29_L_424C();
+  os_bcall(0x80A8);
+  /* pop hl */
+  /* push hl */
+  if (flag_z()) goto lab_p29_L_4B5F;
+  /* ld de,0x0740 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4B14;
+  p29_L_7700();
+  p29_L_50C5();
+  if (flag_z()) goto lab_p29_L_4B14;
+  p29_L_536F();
+  p29_L_48DE();
+  if (flag_c()) goto lab_p29_L_4B14;
+  if (flag_z()) goto lab_p29_L_4B20;
+  lab_p29_L_4B14:
+  p29_L_540C();
+  if (flag_z()) goto lab_p29_L_4B5F;
+  /* pop hl */
+  /* push hl */
+  p29_L_4992();
+  goto lab_p29_L_4B5F;
+  lab_p29_L_4B20:
+  /* ld a,(0x8670) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_4B3D;
+  /* pop de */
+  /* push de */
+  /* push hl */
+  p29_L_4B73();
+  p29_L_6021();
+  if (flag_c()) goto lab_p29_L_4B51;
+  /* pop hl */
+  /* pop de */
+  /* push de */
+  p00_L_2C7F(); /* page0 */
+  a = 0xFF;
+  /* ld (0x8670),a */
+  lab_p29_L_4B3D:
+  /* pop de */
+  /* push de */
+  /* push hl */
+  p29_L_4B73();
+  p29_L_6021();
+  if (flag_c()) goto lab_p29_L_4B51;
+  p00_L_2C8B(); /* page0 */
+  p00_L_3CD5(); /* page0 */
+  p29_L_403F();
+  lab_p29_L_4B51:
+  /* pop hl */
+  /* pop de */
+  /* ex de,hl */
+  /* push de */
+  p29_L_4574();
+  /* pop de */
+  /* add hl,bc */
+  /* inc ix */
+  goto lab_p29_L_4ADC;
+  lab_p29_L_4B5F:
+  /* pop hl */
+  p29_L_4574();
+  /* add hl,bc */
+  /* inc ix */
+  goto lab_p29_L_4ADC;
+  lab_p29_L_4B69:
+  a = 0xFF;
+  /* bit 7,a */
+  return;
+  lab_p29_L_4B6E:
+  a = 0x00;
+  /* bit 7,a */
+  return;
+}
+
+// flash page 29 cpu 0x4B73 (offset 0x0B73)
+void p29_L_4B73() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ex de,hl */
+  p29_L_4574();
+  a = c;
+  /* ld (0x838D),a */
+  /* ld de,0x838E */
+  p29_L_424C();
+  return;
+}
+
+// flash page 29 cpu 0x4B82 (offset 0x0B82)
+void p29_L_4B82() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_70D1();
+  /* ld de,0x0800 */
+  p29_L_777E();
+  p29_L_4574();
+  lab_p29_L_4B8E:
+  /* ld de,0x0810 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4C0B;
+  /* push hl */
+  /* ld de,0x0840 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4BC9;
+  p29_L_7700();
+  p29_L_50C5();
+  if (flag_z()) goto lab_p29_L_4BE4;
+  p29_L_536F();
+  p29_L_48DE();
+  if (flag_c()) goto lab_p29_L_4BC9;
+  if (flag_nz()) goto lab_p29_L_4BE4;
+  /* ld a,(0x8670) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_4BC9;
+  p00_L_2C7F(); /* page0 */
+  a = 0xFF;
+  /* ld (0x8670),a */
+  /* pop de */
+  /* push de */
+  p00_L_2C85(); /* page0 */
+  p00_L_3CD5(); /* page0 */
+  lab_p29_L_4BC9:
+  /* pop de */
+  /* ex de,hl */
+  /* push hl */
+  p29_L_4574();
+  /* ld de,0x8484 */
+  /* ld (0x8483),bc */
+  p29_L_7700();
+  os_bcall(0x8054);
+  os_bcall(0x8066);
+  if (flag_nz()) goto lab_p29_L_4BE4;
+  os_bcall(0x802A);
+  lab_p29_L_4BE4:
+  /* pop de */
+  /* ex de,hl */
+  /* push hl */
+  p29_L_4574();
+  /* ld de,0x8484 */
+  /* ld (0x8483),bc */
+  p29_L_7700();
+  os_bcall(0x8054);
+  os_bcall(0x8066);
+  if (flag_nz()) goto lab_p29_L_4C01;
+  /* inc ix */
+  p29_L_4C0C();
+  lab_p29_L_4C01:
+  /* pop hl */
+  p29_L_4574();
+  /* add hl,bc */
+  /* inc ix */
+  goto lab_p29_L_4B8E;
+  lab_p29_L_4C0B:
+  return;
+}
+
+// flash page 29 cpu 0x4C0C (offset 0x0C0C)
+void p29_L_4C0C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  lab_p29_L_4C15:
+  /* ld de,0x0710 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4C70;
+  /* push hl */
+  /* ld de,0x0740 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4C38;
+  p29_L_7700();
+  p29_L_50C5();
+  if (flag_z()) goto lab_p29_L_4C38;
+  p29_L_536F();
+  p29_L_48DE();
+  if (flag_c()) goto lab_p29_L_4C38;
+  if (flag_z()) goto lab_p29_L_4C3B;
+  lab_p29_L_4C38:
+  /* pop hl */
+  goto lab_p29_L_4C68;
+  lab_p29_L_4C3B:
+  /* ld a,(0x8670) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_4C55;
+  /* pop de */
+  /* push de */
+  /* push hl */
+  p29_L_6021();
+  if (flag_c()) goto lab_p29_L_4C66;
+  /* pop hl */
+  /* pop de */
+  /* push de */
+  p00_L_2C7F(); /* page0 */
+  a = 0xFF;
+  /* ld (0x8670),a */
+  lab_p29_L_4C55:
+  /* pop de */
+  /* push de */
+  /* push hl */
+  p29_L_6021();
+  if (flag_c()) goto lab_p29_L_4C66;
+  p00_L_2C8B(); /* page0 */
+  p00_L_3CD5(); /* page0 */
+  p29_L_403F();
+  lab_p29_L_4C66:
+  /* pop hl */
+  /* pop de */
+  lab_p29_L_4C68:
+  p29_L_4574();
+  /* add hl,bc */
+  /* inc ix */
+  goto lab_p29_L_4C15;
+  lab_p29_L_4C70:
+  /* dec ix */
+  return;
+}
+
+// flash page 29 cpu 0x4C73 (offset 0x0C73)
+void p29_L_4C73() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push de */
+  /* push hl */
+  /* push af */
+  os_bcall(0x8051);
+  /* ld (0x8483),a */
+  /* ex de,hl */
+  /* pop af */
+  os_bcall(0x8051);
+  /* ld bc,(0x8483) */
+  flag_cmp(a, c);
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x4C8B (offset 0x0C8B)
+void p29_L_4C8B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push af */
+  p29_L_4F62();
+  p29_L_4D38();
+  p29_L_4CAE();
+  p29_L_521D();
+  /* ld bc,0x000D */
+  /* sla c */
+  p29_L_7700();
+  /* ld de,0x82A5 */
+  os_bcall(0x8054);
+  /* pop af */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4CAE (offset 0x0CAE)
+void p29_L_4CAE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_70D1();
+  if (flag_nz()) goto lab_p29_L_4CF7;
+  /* ld de,0x0800 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4CF7;
+  p29_L_4574();
+  /* push hl */
+  p29_L_4894();
+  /* ld de,0x0800 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4D36;
+  p29_L_4574();
+  /* pop de */
+  /* ex de,hl */
+  /* inc ix */
+  lab_p29_L_4CD2:
+  /* push hl */
+  lab_p29_L_4CD3:
+  p29_L_4F95();
+  if (flag_nz()) goto lab_p29_L_4CDD;
+  p29_L_4F10();
+  goto lab_p29_L_4D1D;
+  lab_p29_L_4CDD:
+  /* push de */
+  /* push ix */
+  /* ld de,0x0810 */
+  p29_L_7700();
+  os_bcall(0x8030);
+  /* add hl,bc */
+  p29_L_705E();
+  /* pop ix */
+  /* pop de */
+  if (flag_nz()) p29_L_4E44();
+  if (flag_nz()) goto lab_p29_L_4D1D;
+  goto lab_p29_L_4CD3;
+  lab_p29_L_4CF7:
+  p29_L_4894();
+  /* ld de,0x0800 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4D35;
+  /* inc ix */
+  p29_L_4574();
+  lab_p29_L_4D07:
+  /* ld de,0x0810 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4D35;
+  /* push hl */
+  /* ex de,hl */
+  p29_L_4E44();
+  /* pop hl */
+  p29_L_4574();
+  /* add hl,bc */
+  /* inc ix */
+  goto lab_p29_L_4D07;
+  lab_p29_L_4D1D:
+  /* pop hl */
+  /* ex de,hl */
+  /* push de */
+  p29_L_7700();
+  /* ld de,0x0810 */
+  os_bcall(0x8030);
+  /* add hl,bc */
+  p29_L_705E();
+  /* pop de */
+  /* inc ix */
+  if (flag_nz()) goto lab_p29_L_4D35;
+  /* ex de,hl */
+  goto lab_p29_L_4CD2;
+  lab_p29_L_4D35:
+  return;
+  lab_p29_L_4D36:
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4D38 (offset 0x0D38)
+void p29_L_4D38() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_70D1();
+  if (flag_nz()) goto lab_p29_L_4D82;
+  /* ld de,0x0700 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4D82;
+  p29_L_4574();
+  /* push hl */
+  p29_L_4894();
+  /* ld de,0x0700 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4DCB;
+  p29_L_4574();
+  /* pop de */
+  /* ex de,hl */
+  /* ld ix,0x000D */
+  p29_L_4D5E();
+  return;
+  lab_p29_L_4D82:
+  /* ld ix,0x000C */
+  p29_L_4894();
+  /* ld de,0x0700 */
+  p29_L_777E();
+  if (flag_nz()) goto lab_p29_L_4DCA;
+  /* inc ix */
+  p29_L_4574();
+  lab_p29_L_4D97:
+  /* ld de,0x0710 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_4DC8;
+  /* push hl */
+  /* ex de,hl */
+  p29_L_4DCD();
+  /* pop hl */
+  p29_L_4574();
+  a = a | a;
+  /* adc hl,bc */
+  /* inc ix */
+  goto lab_p29_L_4D97;
+  lab_p29_L_4DC8:
+  /* dec ix */
+  lab_p29_L_4DCA:
+  return;
+  lab_p29_L_4DCB:
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4D5E (offset 0x0D5E)
+void p29_L_4D5E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  lab_p29_L_4D5F:
+  p29_L_4F6E();
+  if (flag_z()) p29_L_4EBD();
+  if (flag_z()) goto lab_p29_L_4DAF;
+  /* push de */
+  /* push ix */
+  /* ld de,0x0710 */
+  a = 0x7E;
+  os_bcall(0x8030);
+  /* add hl,bc */
+  p29_L_705E();
+  /* pop ix */
+  /* pop de */
+  if (flag_nz()) p29_L_4DCD();
+  if (flag_nz()) goto lab_p29_L_4DAF;
+  goto lab_p29_L_4D5F;
+  lab_p29_L_4D80:
+  goto lab_p29_L_4D5E;
+  lab_p29_L_4DAF:
+  /* pop hl */
+  /* ex de,hl */
+  /* push de */
+  a = 0x7E;
+  /* ld de,0x0710 */
+  os_bcall(0x8030);
+  a = a | a;
+  /* adc hl,bc */
+  p29_L_705E();
+  /* pop de */
+  if (flag_nz()) goto lab_p29_L_4DCA;
+  /* ex de,hl */
+  /* inc ix */
+  goto lab_p29_L_4D80;
+  lab_p29_L_4DCA:
+  return;
+}
+
+// flash page 29 cpu 0x4DCD (offset 0x0DCD)
+void p29_L_4DCD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* push ix */
+  /* res 7,(iy+0x25) */
+  /* ex de,hl */
+  /* push hl */
+  a = 0x7E;
+  /* ld de,0x0740 */
+  os_bcall(0x8030);
+  if (flag_nz()) goto lab_p29_L_4DE6;
+  /* set 7,(iy+0x25) */
+  lab_p29_L_4DE6:
+  /* pop hl */
+  a = 0x7E;
+  /* ld de,0x0760 */
+  os_bcall(0x8030);
+  if (flag_z()) goto lab_p29_L_4E01;
+  /* bit 7,(iy+0x25) */
+  if (flag_z()) goto lab_p29_L_4DFC;
+  /* ld de,0x0000 */
+  goto lab_p29_L_4E27;
+  lab_p29_L_4DFC:
+  /* ld de,0x0080 */
+  goto lab_p29_L_4E27;
+  lab_p29_L_4E01:
+  a = c;
+  a = a | b;
+  a = 0x00;
+  if (flag_z()) goto lab_p29_L_4E0A;
+  p29_L_4566();
+  lab_p29_L_4E0A:
+  /* push af */
+  b = 0x09;
+  a = a - b;
+  if (flag_c()) goto lab_p29_L_4E20;
+  /* pop af */
+  b = 0x08;
+  a = a - b;
+  p29_L_4E9B();
+  d = a;
+  a = 0x08;
+  p29_L_4E9B();
+  e = a;
+  goto lab_p29_L_4E27;
+  lab_p29_L_4E20:
+  d = 0x00;
+  /* pop af */
+  p29_L_4E9B();
+  e = a;
+  lab_p29_L_4E27:
+  /* ld hl,0x82A5 */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  b = 0x00;
+  a = a | a;
+  /* adc hl,bc */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  a = 0xFF;
+  a = a | a;
+  /* res 7,(iy+0x25) */
+  /* pop ix */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x4E44 (offset 0x0E44)
+void p29_L_4E44() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* push ix */
+  /* ex de,hl */
+  a = 0x7E;
+  /* ld de,0x0860 */
+  os_bcall(0x8030);
+  if (flag_z()) goto lab_p29_L_4E5A;
+  /* ld de,0x0080 */
+  goto lab_p29_L_4E80;
+  lab_p29_L_4E5A:
+  a = c;
+  a = a | b;
+  a = 0x00;
+  if (flag_z()) goto lab_p29_L_4E63;
+  p29_L_4566();
+  lab_p29_L_4E63:
+  /* push af */
+  b = 0x09;
+  a = a - b;
+  if (flag_c()) goto lab_p29_L_4E79;
+  /* pop af */
+  b = 0x08;
+  a = a - b;
+  p29_L_4E9B();
+  d = a;
+  a = 0x08;
+  p29_L_4E9B();
+  e = a;
+  goto lab_p29_L_4E80;
+  lab_p29_L_4E79:
+  d = 0x00;
+  /* pop af */
+  p29_L_4E9B();
+  e = a;
+  lab_p29_L_4E80:
+  /* ld hl,0x82A5 */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  b = 0x00;
+  a = a | a;
+  /* adc hl,bc */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  a = 0xFF;
+  /* bit 7,a */
+  /* pop ix */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x4E9B (offset 0x0E9B)
+void p29_L_4E9B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  c = 0x11;
+  a = a - c;
+  if (flag_nc()) goto lab_p29_L_4EB9;
+  a = a | a;
+  /* adc a,c */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_4EB9;
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  if (flag_z()) goto lab_p29_L_4EBB;
+  b = a;
+  b = b - 1;
+  a = 0x02;
+  lab_p29_L_4EB0:
+  /* sla a */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_4EB0;
+  b = 0x01;
+  a = a - b;
+  goto lab_p29_L_4EBB;
+  lab_p29_L_4EB9:
+  a = 0x00;
+  lab_p29_L_4EBB:
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x4EBD (offset 0x0EBD)
+void p29_L_4EBD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  /* push de */
+  /* push ix */
+  /* ld de,0x0710 */
+  p29_L_4ECE();
+  /* pop ix */
+  /* pop de */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x4ECE (offset 0x0ECE)
+void p29_L_4ECE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_705E();
+  p29_L_4574();
+  /* ld de,0x838F */
+  p29_L_424C();
+  /* push hl */
+  /* ld hl,0x84AF */
+  /* ld (hl),0x01 */
+  /* pop hl */
+  os_bcall(0x8069);
+  if (flag_z()) goto lab_p29_L_4EE8;
+  /* dec ix */
+  lab_p29_L_4EE8:
+  p29_L_764E();
+  /* push hl */
+  /* pop ix */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  p29_L_521D();
+  a = a | a;
+  /* adc hl,bc */
+  a = 0x7E;
+  /* ld de,0x82A5 */
+  /* ex de,hl */
+  /* pop bc */
+  /* push bc */
+  /* sla c */
+  b = 0x00;
+  a = a | a;
+  /* adc hl,bc */
+  /* ex de,hl */
+  /* ld bc,0x0002 */
+  p29_L_6B49();
+  return;
+}
+
+// flash page 29 cpu 0x4F10 (offset 0x0F10)
+void p29_L_4F10() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  /* push de */
+  /* push ix */
+  /* ld de,0x0810 */
+  p29_L_4ECE();
+  /* ld bc,(0x838E) */
+  b = 0x00;
+  a = c;
+  /* push af */
+  a = a & 0xF0;
+  c = a;
+  /* pop af */
+  a = a ^ c;
+  c = a;
+  /* ld (0x8483),bc */
+  /* ld hl,0x838F */
+  /* ld de,0x8484 */
+  /* ldir */
+  os_bcall(0x8066);
+  /* pop ix */
+  if (flag_nz()) goto lab_p29_L_4F5E;
+  /* inc ix */
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  lab_p29_L_4F47:
+  p29_L_4EBD();
+  /* inc ix */
+  a = 0x7E;
+  /* ld de,0x0710 */
+  os_bcall(0x8030);
+  a = a | a;
+  /* adc hl,bc */
+  p29_L_705E();
+  if (flag_z()) goto lab_p29_L_4F47;
+  /* dec ix */
+  lab_p29_L_4F5E:
+  /* pop de */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x4F62 (offset 0x0F62)
+void p29_L_4F62() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x82A5 */
+  a = 0xFF;
+  b = 0xE8;
+  lab_p29_L_4F69:
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_4F69;
+  return;
+}
+
+// flash page 29 cpu 0x4F6E (offset 0x0F6E)
+void p29_L_4F6E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push ix */
+  /* push de */
+  a = 0x7E;
+  /* ld de,0x0710 */
+  os_bcall(0x8030);
+  /* pop de */
+  /* push hl */
+  /* push bc */
+  /* ex de,hl */
+  a = 0x7E;
+  /* ld de,0x0710 */
+  os_bcall(0x8030);
+  /* pop de */
+  a = e;
+  /* pop de */
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_4FE9;
+  a = c;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_4FEF;
+  goto lab_p29_L_4FB9;
+  lab_p29_L_4FB9:
+  b = c;
+  lab_p29_L_4FBA:
+  a = 0x7E;
+  p29_L_4C73();
+  if (flag_nz()) goto lab_p29_L_4FE9;
+  /* inc hl */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_4FBA;
+  p29_L_4565();
+  a = a & 0xF0;
+  /* cp 0x10 */ flag_cmp(a, 0x10);
+  if (flag_z()) goto lab_p29_L_4FEF;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_4FEF;
+  /* dec hl */
+  /* inc de */
+  /* push de */
+  p29_L_4574();
+  /* pop de */
+  /* ex de,hl */
+  /* push bc */
+  /* push de */
+  p29_L_4575();
+  /* pop de */
+  /* ex de,hl */
+  a = c;
+  /* pop bc */
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_4FE9;
+  b = c;
+  goto lab_p29_L_4FBA;
+  lab_p29_L_4FE9:
+  a = 0xFF;
+  /* bit 7,a */
+  goto lab_p29_L_4FF3;
+  lab_p29_L_4FEF:
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_4FF3:
+  /* pop ix */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4F95 (offset 0x0F95)
+void p29_L_4F95() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push ix */
+  /* push de */
+  a = 0x7E;
+  /* ld de,0x0810 */
+  os_bcall(0x8030);
+  /* pop de */
+  /* push hl */
+  /* push bc */
+  /* ex de,hl */
+  a = 0x7E;
+  /* ld de,0x0810 */
+  os_bcall(0x8030);
+  /* pop de */
+  a = e;
+  /* pop de */
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_4FE9;
+  a = c;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_4FEF;
+  b = c;
+  lab_p29_L_4FBA:
+  a = 0x7E;
+  p29_L_4C73();
+  if (flag_nz()) goto lab_p29_L_4FE9;
+  /* inc hl */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_4FBA;
+  p29_L_4565();
+  a = a & 0xF0;
+  /* cp 0x10 */ flag_cmp(a, 0x10);
+  if (flag_z()) goto lab_p29_L_4FEF;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_4FEF;
+  /* dec hl */
+  /* inc de */
+  /* push de */
+  p29_L_4574();
+  /* pop de */
+  /* ex de,hl */
+  /* push bc */
+  /* push de */
+  p29_L_4575();
+  /* pop de */
+  /* ex de,hl */
+  a = c;
+  /* pop bc */
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_4FE9;
+  b = c;
+  goto lab_p29_L_4FBA;
+  lab_p29_L_4FE9:
+  a = 0xFF;
+  /* bit 7,a */
+  goto lab_p29_L_4FF3;
+  lab_p29_L_4FEF:
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_4FF3:
+  /* pop ix */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x4FF9 (offset 0x0FF9)
+void p29_L_4FF9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_46C1:
+  p29_L_5FDB();
+  /* jp 0x2565 - other page/RAM */
+  /* push af */
+  /* push de */
+  /* push hl */
+  /* push bc */
+  /* push af */
+  /* push hl */
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop de */
+  a = a | a;
+  /* sbc hl,de */
+  /* push hl */
+  /* pop bc */
+  /* ex de,hl */
+  /* pop af */
+  /* ld de,0x82A5 */
+  /* push bc */
+  os_bcall(0x8054);
+  /* pop bc */
+  a = 0x7E;
+  p29_L_4894();
+  /* push hl */
+  /* push hl */
+  os_bcall(0x8060);
+  /* pop hl */
+  /* ex de,hl */
+  /* ld hl,0x82A5 */
+  a = 0x7E;
+  os_bcall(0x8087);
+  /* ld de,0x0320 */
+  os_bcall(0x8027);
+  if (flag_nz()) goto lab_p29_L_503E;
+  os_bcall(0x802A);
+  lab_p29_L_503E:
+  /* pop hl */
+  /* scf */
+  a = 0x7E;
+  /* push af */
+  /* push af */
+  /* push hl */
+  /* push hl */
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop de */
+  a = a | a;
+  /* sbc hl,de */
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  /* push bc */
+  /* push hl */
+  p29_L_521D();
+  /* ld bc,0x00E8 */
+  a = 0x7E;
+  /* ld de,0x82A5 */
+  os_bcall(0x8054);
+  /* pop de */
+  /* pop bc */
+  a = d;
+  /* xor 0x20 */
+  d = a;
+  p29_L_430E();
+  if (flag_nz()) goto lab_p29_L_46C1;
+  /* pop af */
+  if (flag_c()) p29_L_4926();
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5083 (offset 0x1083)
+void p29_L_5083() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_46C1:
+  p29_L_5FDB();
+  /* jp 0x2565 - other page/RAM */
+  lab_p29_L_503F:
+  /* scf */
+  a = 0x7E;
+  /* push af */
+  /* push af */
+  /* push hl */
+  /* push hl */
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop de */
+  a = a | a;
+  /* sbc hl,de */
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  /* push bc */
+  /* push hl */
+  p29_L_521D();
+  /* ld bc,0x00E8 */
+  a = 0x7E;
+  /* ld de,0x82A5 */
+  os_bcall(0x8054);
+  /* pop de */
+  /* pop bc */
+  a = d;
+  /* xor 0x20 */
+  d = a;
+  p29_L_430E();
+  if (flag_nz()) goto lab_p29_L_46C1;
+  /* pop af */
+  if (flag_c()) p29_L_4926();
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  /* pop af */
+  return;
+  /* push af */
+  /* push de */
+  /* push hl */
+  /* push bc */
+  goto lab_p29_L_503F;
+}
+
+// flash page 29 cpu 0x508A (offset 0x108A)
+void p29_L_508A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_46C1:
+  p29_L_5FDB();
+  /* jp 0x2565 - other page/RAM */
+  lab_p29_L_5040:
+  a = 0x7E;
+  /* push af */
+  /* push af */
+  /* push hl */
+  /* push hl */
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop de */
+  a = a | a;
+  /* sbc hl,de */
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  /* push bc */
+  /* push hl */
+  p29_L_521D();
+  /* ld bc,0x00E8 */
+  a = 0x7E;
+  /* ld de,0x82A5 */
+  os_bcall(0x8054);
+  /* pop de */
+  /* pop bc */
+  a = d;
+  /* xor 0x20 */
+  d = a;
+  p29_L_430E();
+  if (flag_nz()) goto lab_p29_L_46C1;
+  /* pop af */
+  if (flag_c()) p29_L_4926();
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  /* pop af */
+  return;
+  /* push af */
+  /* push de */
+  /* push hl */
+  /* push bc */
+  p29_L_4894();
+  /* ld de,0x0320 */
+  p29_L_777E();
+  /* push hl */
+  /* ld de,0x0320 */
+  os_bcall(0x8027);
+  if (flag_nz()) goto lab_p29_L_50A3;
+  os_bcall(0x802A);
+  lab_p29_L_50A3:
+  /* pop hl */
+  /* scf */
+  /* ccf */
+  goto lab_p29_L_5040;
+}
+
+// flash page 29 cpu 0x50A8 (offset 0x10A8)
+void p29_L_50A8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* push de */
+  p29_L_4894();
+  /* ld de,0x0320 */
+  p29_L_777E();
+  p29_L_4574();
+  a = 0x7E;
+  p29_L_50C5();
+  if (flag_z()) p29_L_508A();
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x50C5 (offset 0x10C5)
+void p29_L_50C5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* push hl */
+  /* push de */
+  /* push af */
+  /* push hl */
+  /* ld de,0x0320 */
+  os_bcall(0x8027);
+  if (flag_nz()) goto lab_p29_L_5119;
+  p29_L_4574();
+  /* ex de,hl */
+  /* pop hl */
+  /* inc hl */
+  /* inc de */
+  /* pop af */
+  b = a;
+  os_bcall(0x8051);
+  /* push af */
+  a = a & 0xF0;
+  c = a;
+  /* pop af */
+  a = a ^ c;
+  /* push af */
+  /* ex de,hl */
+  p29_L_4566();
+  c = a;
+  /* pop af */
+  a = a - c;
+  if (flag_z()) goto lab_p29_L_50F3;
+  if (flag_nc()) goto lab_p29_L_511B;
+  if (flag_c()) goto lab_p29_L_5113;
+  lab_p29_L_50F3:
+  a = b;
+  /* inc de */
+  /* inc hl */
+  b = c;
+  /* ex de,hl */
+  lab_p29_L_50F8:
+  /* push af */
+  os_bcall(0x8051);
+  /* push af */
+  /* ex de,hl */
+  p29_L_4566();
+  c = a;
+  /* pop af */
+  a = a - c;
+  if (flag_z()) goto lab_p29_L_510A;
+  if (flag_nc()) goto lab_p29_L_511A;
+  if (flag_c()) goto lab_p29_L_5112;
+  lab_p29_L_510A:
+  /* pop af */
+  /* inc de */
+  /* inc hl */
+  /* ex de,hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_50F8;
+  goto lab_p29_L_5113;
+  lab_p29_L_5112:
+  /* pop af */
+  lab_p29_L_5113:
+  a = 0xFF;
+  /* bit 7,a */
+  goto lab_p29_L_511F;
+  lab_p29_L_5119:
+  /* pop af */
+  lab_p29_L_511A:
+  /* pop af */
+  lab_p29_L_511B:
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_511F:
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x5124 (offset 0x1124)
+void p29_L_5124() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* push af */
+  p29_L_47B5();
+  p29_L_762A();
+  p29_L_484E();
+  /* inc ix */
+  /* push ix */
+  p29_L_4894();
+  /* ld de,0x0700 */
+  p29_L_777E();
+  p29_L_4574();
+  lab_p29_L_5141:
+  /* ld de,0x0710 */
+  p29_L_705E();
+  if (flag_nz()) goto lab_p29_L_5156;
+  /* ex de,hl */
+  p29_L_4DCD();
+  /* ex de,hl */
+  /* inc ix */
+  p29_L_4574();
+  /* add hl,bc */
+  goto lab_p29_L_5141;
+  lab_p29_L_5156:
+  /* ld hl,0x82A5 */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  /* add hl,bc */
+  /* pop de */
+  /* push hl */
+  /* sla e */
+  p29_L_521D();
+  /* add hl,de */
+  /* push hl */
+  a = c;
+  a = a - e;
+  if (flag_nc()) goto lab_p29_L_516F;
+  a = e;
+  e = c;
+  a = a - e;
+  lab_p29_L_516F:
+  c = a;
+  /* ld hl,0x00C8 */
+  /* sbc hl,de */
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  a = 0x7E;
+  os_bcall(0x8054);
+  /* pop af */
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x5185 (offset 0x1185)
+void p29_L_5185() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  p29_L_521D();
+  /* pop de */
+  /* ex de,hl */
+  a = a | a;
+  /* sbc hl,de */
+  /* ex de,hl */
+  /* ld hl,0x82A5 */
+  /* add hl,de */
+  /* ld a,(0x9C20) */
+  p29_L_47B6();
+  /* pop bc */
+  /* ld (hl),b */
+  return;
+}
+
+// flash page 29 cpu 0x519D (offset 0x119D)
+void p29_L_519D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  p29_L_51DB();
+  p29_L_7BCC();
+  c = a;
+  p29_L_4566();
+  /* push af */
+  a = a | c;
+  b = a;
+  /* pop af */
+  a = a & c;
+  if (flag_nz()) goto lab_p29_L_51BB;
+  p29_L_5185();
+  a = 0x05;
+  p29_L_40CC();
+  goto lab_p29_L_51BF;
+  lab_p29_L_51BB:
+  /* ex de,hl */
+  p29_L_456D();
+  lab_p29_L_51BF:
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x51C3 (offset 0x11C3)
+void p29_L_51C3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  p29_L_51DB();
+  p29_L_7BCC();
+  a = a ^ 0xFF;
+  c = a;
+  p29_L_4566();
+  a = a & c;
+  b = a;
+  /* ex de,hl */
+  p29_L_456D();
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x51DB (offset 0x11DB)
+void p29_L_51DB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push af */
+  b = a;
+  os_bcall(0x80A8);
+  if (flag_nz()) goto lab_p29_L_51ED;
+  p29_L_75EC();
+  a = a - b;
+  a = a + 1;
+  c = a;
+  b = 0x00;
+  goto lab_p29_L_5202;
+  lab_p29_L_51ED:
+  /* push hl */
+  /* ld hl,0x84AF */
+  /* ld (hl),0x00 */
+  /* pop hl */
+  os_bcall(0x8069);
+  /* inc ix */
+  /* push ix */
+  /* pop hl */
+  p29_L_7643();
+  /* add hl,bc */
+  /* push hl */
+  /* pop bc */
+  lab_p29_L_5202:
+  /* push bc */
+  p29_L_5217();
+  /* sra c */
+  /* sra c */
+  /* sra c */
+  a = a | a;
+  /* adc hl,bc */
+  /* pop bc */
+  a = c;
+  a = a & 0x07;
+  c = a;
+  /* pop af */
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x5217 (offset 0x1217)
+void p29_L_5217() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* ld bc,0x1FE0 */
+  goto lab_p29_L_5221;
+  lab_p29_L_5221:
+  /* push ix */
+  os_bcall(0x8057);
+  /* add hl,bc */
+  /* pop ix */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x521D (offset 0x121D)
+void p29_L_521D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* ld bc,0x1F18 */
+  /* push ix */
+  os_bcall(0x8057);
+  /* add hl,bc */
+  /* pop ix */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x522B (offset 0x122B)
+void p29_L_522B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_5221:
+  /* push ix */
+  os_bcall(0x8057);
+  /* add hl,bc */
+  /* pop ix */
+  /* pop bc */
+  return;
+  /* push bc */
+  /* ld bc,0x1DEA */
+  goto lab_p29_L_5221;
+}
+
+// flash page 29 cpu 0x5231 (offset 0x1231)
+void p29_L_5231() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) { p29_L_521D(); return; }
+  p29_L_5236();
+  return;
+}
+
+// flash page 29 cpu 0x5236 (offset 0x1236)
+void p29_L_5236() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_5221:
+  /* push ix */
+  os_bcall(0x8057);
+  /* add hl,bc */
+  /* pop ix */
+  /* pop bc */
+  return;
+  /* push bc */
+  /* ld bc,0x1E50 */
+  goto lab_p29_L_5221;
+}
+
+// flash page 29 cpu 0x523C (offset 0x123C)
+void p29_L_523C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_5221:
+  /* push ix */
+  os_bcall(0x8057);
+  /* add hl,bc */
+  /* pop ix */
+  /* pop bc */
+  return;
+  /* push bc */
+  /* ld bc,0x1FE0 */
+  goto lab_p29_L_5221;
+}
+
+// flash page 29 cpu 0x5242 (offset 0x1242)
+void p29_L_5242() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push ix */
+  /* ld a,(0x8478) */
+  /* push af */
+  a = 0x08;
+  lab_p29_L_524C:
+  /* push af */
+  /* ld hl,0x4000 */
+  os_bcall(0x8051);
+  /* cp 0xFE */ flag_cmp(a, 0xFE);
+  if (flag_z()) goto lab_p29_L_527B;
+  /* pop af */
+  /* add a,0x04 */
+  p29_L_75E1();
+  if (flag_c()) goto lab_p29_L_524C;
+  a = 0x08;
+  lab_p29_L_5261:
+  /* push af */
+  /* ld hl,0x4000 */
+  os_bcall(0x8051);
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_5278;
+  /* pop af */
+  /* add a,0x04 */
+  p29_L_75E1();
+  if (flag_c()) goto lab_p29_L_5261;
+  a = 0x08;
+  goto lab_p29_L_5279;
+  lab_p29_L_5278:
+  /* pop af */
+  lab_p29_L_5279:
+  goto lab_p29_L_527C;
+  lab_p29_L_527B:
+  /* pop af */
+  lab_p29_L_527C:
+  b = a;
+  /* pop af */
+  /* ld (0x8478),a */
+  a = b;
+  /* pop ix */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x5287 (offset 0x1287)
+void p29_L_5287() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  /* push bc */
+  /* push de */
+  b = 0xFE;
+  /* ld de,0x4000 */
+  os_bcall(0x8021);
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x529F (offset 0x129F)
+void p29_L_529F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x82A3),a */
+  /* push hl */
+  /* push hl */
+  /* ld a,(0x82A3) */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  /* pop de */
+  /* sbc hl,de */
+  /* push hl */
+  /* pop bc */
+  p29_L_4894();
+  /* ex de,hl */
+  /* pop hl */
+  lab_p29_L_52C2:
+  /* push bc */
+  /* ld a,(0x82A3) */
+  os_bcall(0x8051);
+  b = a;
+  /* push hl */
+  p29_L_456D();
+  /* pop hl */
+  /* pop bc */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_52D8;
+  /* inc hl */
+  goto lab_p29_L_52C2;
+  lab_p29_L_52D8:
+  return;
+}
+
+// flash page 29 cpu 0x52D9 (offset 0x12D9)
+void p29_L_52D9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x8050 */
+  /* ld hl,0x4000 */
+  /* push af */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_52ED;
+  /* pop af */
+  p29_L_50C5();
+  /* scf */
+  /* ccf */
+  return;
+  lab_p29_L_52ED:
+  /* pop af */
+  /* scf */
+  return;
+}
+
+// flash page 29 cpu 0x52F0 (offset 0x12F0)
+void p29_L_52F0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x8050 */
+  /* push de */
+  goto lab_p29_L_52F7;
+  lab_p29_L_52F7:
+  /* ld hl,0x4000 */
+  /* pop de */
+  /* push af */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_5338;
+  /* pop af */
+  /* ld (0x83EB),a */
+  /* ld a,i */
+  /* di */
+  /* push af */
+  /* ld a,(0x83EB) */
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p29_L_50C5();
+  p29_L_6006();
+  p29_L_5FDB();
+  /* ld (0x83EB),a */
+  /* pop af */
+  if (flag_po()) goto lab_p29_L_532F;
+  /* ei */
+  lab_p29_L_532F:
+  /* ld a,(0x83EB) */
+  p29_L_6011();
+  /* scf */
+  /* ccf */
+  return;
+  lab_p29_L_5338:
+  /* pop af */
+  /* scf */
+  return;
+}
+
+// flash page 29 cpu 0x533B (offset 0x133B)
+void p29_L_533B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_5338:
+  /* pop af */
+  /* scf */
+  return;
+  /* push af */
+  p29_L_6021();
+  if (flag_c()) goto lab_p29_L_5338;
+  /* ld hl,0x4000 */
+  /* ld de,0x0320 */
+  /* pop af */
+  /* push af */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_5338;
+  /* pop af */
+  /* push af */
+  /* push hl */
+  /* inc hl */
+  os_bcall(0x805A);
+  p29_L_50C5();
+  if (flag_nz()) goto lab_p29_L_5362;
+  /* pop hl */
+  /* pop af */
+  /* push af */
+  /* push hl */
+  p29_L_4FF9();
+  lab_p29_L_5362:
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5365 (offset 0x1365)
+void p29_L_5365() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* push hl */
+  /* push de */
+  /* push bc */
+  p29_L_5231();
+  goto lab_p29_L_537C;
+  lab_p29_L_537C:
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  a = a | a;
+  /* adc hl,bc */
+  /* push hl */
+  p29_L_4566();
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_z()) goto lab_p29_L_53AC;
+  /* push af */
+  p29_L_4565();
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  /* pop bc */
+  if (flag_z()) goto lab_p29_L_5399;
+  /* srl a */
+  goto lab_p29_L_539B;
+  lab_p29_L_5399:
+  /* srl b */
+  lab_p29_L_539B:
+  /* pop de */
+  c = a;
+  /* push bc */
+  p29_L_456D();
+  /* pop bc */
+  b = c;
+  p29_L_456D();
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+  lab_p29_L_53AC:
+  /* pop de */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x536F (offset 0x136F)
+void p29_L_536F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* push hl */
+  /* push de */
+  /* push bc */
+  p29_L_521D();
+  /* ld bc,0x000D */
+  /* add ix,bc */
+  /* push ix */
+  /* pop bc */
+  /* sla c */
+  a = a | a;
+  /* adc hl,bc */
+  /* push hl */
+  p29_L_4566();
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_z()) goto lab_p29_L_53AC;
+  /* push af */
+  p29_L_4565();
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  /* pop bc */
+  if (flag_z()) goto lab_p29_L_5399;
+  /* srl a */
+  goto lab_p29_L_539B;
+  lab_p29_L_5399:
+  /* srl b */
+  lab_p29_L_539B:
+  /* pop de */
+  c = a;
+  /* push bc */
+  p29_L_456D();
+  /* pop bc */
+  b = c;
+  p29_L_456D();
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+  lab_p29_L_53AC:
+  /* pop de */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x53B3 (offset 0x13B3)
+void p29_L_53B3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x83EB),a */
+  /* ld a,i */
+  /* di */
+  /* push af */
+  /* ld a,(0x83EB) */
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p29_L_53E5();
+  p29_L_6006();
+  p29_L_5FDB();
+  /* ld (0x83EB),a */
+  /* pop af */
+  if (flag_po()) goto lab_p29_L_53DF;
+  /* ei */
+  lab_p29_L_53DF:
+  /* ld a,(0x83EB) */
+  p29_L_6011();
+  return;
+}
+
+// flash page 29 cpu 0x53E5 (offset 0x13E5)
+void p29_L_53E5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push hl */
+  /* push bc */
+  /* push ix */
+  b = a;
+  os_bcall(0x80A8);
+  if (flag_nz()) goto lab_p29_L_53FA;
+  p29_L_75EC();
+  a = a - b;
+  a = a + 1;
+  c = a;
+  b = 0x00;
+  goto lab_p29_L_541E;
+  lab_p29_L_53FA:
+  /* ld hl,0x84AF */
+  /* ld (hl),0x00 */
+  /* ld a,(0x82A3) */
+  /* push af */
+  os_bcall(0x8069);
+  /* pop af */
+  /* ld (0x82A3),a */
+  goto lab_p29_L_5411;
+  lab_p29_L_5411:
+  /* inc ix */
+  /* push ix */
+  /* pop hl */
+  p29_L_7643();
+  a = a | a;
+  /* adc hl,bc */
+  /* push hl */
+  /* pop bc */
+  lab_p29_L_541E:
+  /* push bc */
+  p29_L_5217();
+  /* sra c */
+  /* sra c */
+  /* sra c */
+  a = a | a;
+  /* adc hl,bc */
+  /* pop bc */
+  a = c;
+  a = a & 0x07;
+  p29_L_7BCC();
+  c = a;
+  p29_L_4566();
+  a = a & c;
+  /* pop ix */
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x540C (offset 0x140C)
+void p29_L_540C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push hl */
+  /* push bc */
+  /* push ix */
+  /* inc ix */
+  /* push ix */
+  /* pop hl */
+  p29_L_7643();
+  a = a | a;
+  /* adc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* push bc */
+  p29_L_5217();
+  /* sra c */
+  /* sra c */
+  /* sra c */
+  a = a | a;
+  /* adc hl,bc */
+  /* pop bc */
+  a = c;
+  a = a & 0x07;
+  p29_L_7BCC();
+  c = a;
+  p29_L_4566();
+  a = a & c;
+  /* pop ix */
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x543D (offset 0x143D)
+void p29_L_543D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  b = a;
+  /* ld de,0x8060 */
+  /* ld hl,0x4000 */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_549D;
+  p29_L_75EC();
+  c = b;
+  a = a - c;
+  /* ld bc,0x0000 */
+  c = a;
+  /* sla c */
+  p29_L_5231();
+  a = a | a;
+  /* adc hl,bc */
+  a = 0x7E;
+  /* ld de,0x8478 */
+  /* ld bc,0x0002 */
+  os_bcall(0x8054);
+  /* ld a,(0x8478) */
+  /* ld bc,0x0000 */
+  lab_p29_L_547D:
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_5486;
+  /* srl a */
+  c = c + 1;
+  goto lab_p29_L_547D;
+  lab_p29_L_5486:
+  /* ld a,(0x8479) */
+  lab_p29_L_5489:
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_5492;
+  /* srl a */
+  c = c + 1;
+  goto lab_p29_L_5489;
+  lab_p29_L_5492:
+  a = c;
+  /* ld (0x8478),a */
+  a = 0x00;
+  /* ld (0x8479),a */
+  /* bit 7,a */
+  lab_p29_L_549D:
+  p29_L_5FDB();
+  return;
+}
+
+// flash page 29 cpu 0x54A0 (offset 0x14A0)
+void p29_L_54A0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = a;
+  /* ld de,0x8050 */
+  /* ld hl,0x4000 */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_54BE;
+  a = b;
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  /* pop af */
+  /* ld de,0x8478 */
+  os_bcall(0x8054);
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_54BE:
+  return;
+}
+
+// flash page 29 cpu 0x5525 (offset 0x1525)
+void p29_L_5525() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* ld hl,0x4000 */
+  /* inc hl */
+  os_bcall(0x8051);
+  p29_L_75FD();
+  if (flag_nz()) goto lab_p29_L_55C8;
+  /* inc hl */
+  /* pop af */
+  p29_L_761F();
+  /* ld bc,0x4000 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push hl */
+  /* push af */
+  /* ld hl,0x4000 */
+  /* ld de,0x8080 */
+  a = a | a;
+  os_bcall(0x8075);
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x805A);
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  a = a - 1;
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_5574;
+  c = a;
+  /* pop af */
+  a = a - c;
+  /* push af */
+  /* ld hl,(0x83A1) */
+  p29_L_57C5();
+  b = c;
+  lab_p29_L_5564:
+  /* push bc */
+  /* ld bc,0x4000 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* pop bc */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_5564;
+  p29_L_57C5();
+  /* ld (0x83A1),hl */
+  lab_p29_L_5574:
+  /* ld hl,(0x83A1) */
+  p29_L_57C5();
+  /* push hl */
+  /* pop bc */
+  /* ld hl,0x4000 */
+  a = a | a;
+  /* adc hl,bc */
+  /* pop af */
+  /* pop bc */
+  a = a | a;
+  /* adc hl,bc */
+  /* push af */
+  lab_p29_L_5588:
+  os_bcall(0x8051);
+  /* cp 0x02 */ flag_cmp(a, 0x02);
+  if (flag_nz()) goto lab_p29_L_55C8;
+  /* pop af */
+  /* push hl */
+  /* push af */
+  /* inc hl */
+  os_bcall(0x8051);
+  a = a & 0xF0;
+  /* cp 0x20 */ flag_cmp(a, 0x20);
+  if (flag_z()) goto lab_p29_L_55A8;
+  /* pop af */
+  /* pop hl */
+  /* push af */
+  /* inc hl */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  goto lab_p29_L_5588;
+  lab_p29_L_55A8:
+  /* pop af */
+  /* push af */
+  os_bcall(0x805A);
+  /* dec hl */
+  /* inc bc */
+  /* ld de,0x82A5 */
+  lab_p29_L_55B2:
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  /* ld (de),a */
+  /* inc hl */
+  /* inc de */
+  /* dec bc */
+  a = c;
+  a = a | b;
+  if (flag_nz()) goto lab_p29_L_55B2;
+  /* pop af */
+  /* pop hl */
+  b = a;
+  a = 0x00;
+  /* bit 7,a */
+  a = b;
+  return;
+  lab_p29_L_55C8:
+  /* pop af */
+  a = 0xFF;
+  /* bit 7,a */
+  return;
+}
+
+// flash page 29 cpu 0x55CE (offset 0x15CE)
+void p29_L_55CE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* inc hl */
+  /* push af */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  lab_p29_L_55D6:
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  /* cp 0x02 */ flag_cmp(a, 0x02);
+  if (flag_nz()) goto lab_p29_L_5609;
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  a = a & 0xF0;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) goto lab_p29_L_55F5;
+  /* pop af */
+  /* push af */
+  os_bcall(0x805A);
+  a = a | a;
+  /* adc hl,bc */
+  goto lab_p29_L_55D6;
+  lab_p29_L_55F5:
+  /* pop af */
+  os_bcall(0x805A);
+  /* dec hl */
+  /* inc bc */
+  /* ld de,0x82A5 */
+  os_bcall(0x8054);
+  b = c;
+  c = 0x00;
+  a = 0x00;
+  /* bit 7,a */
+  return;
+  lab_p29_L_5609:
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x560B (offset 0x160B)
+void p29_L_560B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* push hl */
+  /* push bc */
+  os_bcall(0x807E);
+  if (flag_nz()) goto lab_p29_L_5640;
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  os_bcall(0x8057);
+  a = 0x7E;
+  /* ld de,0x0410 */
+  os_bcall(0x8027);
+  if (flag_nz()) goto lab_p29_L_5640;
+  p29_L_4574();
+  a = 0x7E;
+  /* ld de,0x849E */
+  os_bcall(0x8054);
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_5640:
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  p29_L_5FDB();
+  return;
+}
+
+// flash page 29 cpu 0x56A0 (offset 0x16A0)
+void p29_L_56A0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push hl */
+  /* push de */
+  p00_L_23DE(); /* page0 */
+  /* ex de,hl */
+  /* ld c,(hl) */
+  /* inc hl */
+  /* ld b,(hl) */
+  /* dec hl */
+  /* ex de,hl */
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_56D6;
+  /* ld hl,0x0001 */
+  lab_p29_L_56B3:
+  /* push de */
+  /* push hl */
+  /* push bc */
+  p00_L_3B07(); /* page0 */
+  /* ld de,0x8499 */
+  /* ld hl,0x8485 */
+  b = 0x07;
+  lab_p29_L_56C1:
+  /* ld a,(de) */
+  /* cp (hl) */
+  if (flag_nz()) goto lab_p29_L_56CB;
+  /* inc de */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_56C1;
+  goto lab_p29_L_56DA;
+  lab_p29_L_56CB:
+  /* pop bc */
+  /* pop hl */
+  /* pop de */
+  /* inc hl */
+  /* dec bc */
+  a = c;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_56D6;
+  goto lab_p29_L_56B3;
+  lab_p29_L_56D6:
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  return;
+  lab_p29_L_56DA:
+  a = 0xFF;
+  /* bit 7,a */
+  /* pop bc */
+  /* pop hl */
+  /* pop hl */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x573C (offset 0x173C)
+void p29_L_573C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,(0x83A1) */
+  p29_L_57C5();
+  a = a | a;
+  /* adc hl,bc */
+  p29_L_57C5();
+  /* ld (0x83A1),hl */
+  if (flag_nc()) return;
+  /* ld hl,(0x839F) */
+  h = h + 1;
+  if (flag_nz()) goto lab_p29_L_5753;
+  l = l + 1;
+  lab_p29_L_5753:
+  /* ld (0x839F),hl */
+  return;
+}
+
+// flash page 29 cpu 0x5757 (offset 0x1757)
+void p29_L_5757() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push af */
+  /* inc hl */
+  /* ld a,(hl) */
+  p29_L_75FD();
+  if (flag_nz()) goto lab_p29_L_5768;
+  lab_p29_L_5762:
+  /* inc hl */
+  /* ld a,(hl) */
+  /* ld (de),a */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_5762;
+  lab_p29_L_5768:
+  /* pop af */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x576D (offset 0x176D)
+void p29_L_576D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0x01;
+  p29_L_47B6();
+  b = a;
+  p29_L_75EC();
+  a = a - b;
+  b = 0x00;
+  c = a;
+  /* ld hl,0x82A5 */
+  /* sla c */
+  /* add hl,bc */
+  a = 0xFF;
+  /* ld (hl),a */
+  /* inc hl */
+  /* ld (hl),a */
+  a = 0x01;
+  p29_L_40CC();
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x578D (offset 0x178D)
+void p29_L_578D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* ld a,(0x83A4) */
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_57C3;
+  /* ld hl,(0x83A1) */
+  p29_L_57C5();
+  a = h;
+  a = a | l;
+  if (flag_nz()) goto lab_p29_L_57B2;
+  /* ld hl,(0x839F) */
+  a = h;
+  a = a | l;
+  if (flag_z()) goto lab_p29_L_57C3;
+  p29_L_57C5();
+  /* dec hl */
+  p29_L_57C5();
+  /* ld (0x839F),hl */
+  /* ld hl,0x0000 */
+  lab_p29_L_57B2:
+  /* dec hl */
+  p29_L_57C5();
+  /* ld (0x83A1),hl */
+  /* ld hl,(0x839F) */
+  a = l;
+  a = a | h;
+  if (flag_nz()) goto lab_p29_L_57C3;
+  /* ld hl,(0x83A1) */
+  lab_p29_L_57C3:
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x57C5 (offset 0x17C5)
+void p29_L_57C5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = l;
+  l = h;
+  h = a;
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x597A (offset 0x197A)
+void p29_L_597A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5242();
+  a = a + 1;
+  a = a + 1;
+  return;
+}
+
+// flash page 29 cpu 0x5980 (offset 0x1980)
+void p29_L_5980() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* set 2,(iy+0x16) */
+  a = hw_in(PORT_STATUS);
+  /* bit 0,a */
+  if (flag_nz()) return;
+  /* res 2,(iy+0x16) */
+  return;
+}
+
+// flash page 29 cpu 0x598E (offset 0x198E)
+void p29_L_598E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* ld de,0x847C */
+  b = 0x05;
+  lab_p29_L_5994:
+  p00_L_01AD(); /* page0 */
+  /* add a,0x30 */
+  /* ld (de),a */
+  /* dec de */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_5994;
+  a = 0;
+  /* ld (0x847D),a */
+  /* ex de,hl */
+  a = 0x30;
+  b = 0x04;
+  lab_p29_L_59A6:
+  /* inc hl */
+  /* cp (hl) */
+  if (flag_nz()) goto lab_p29_L_59AE;
+  /* ld (hl),0x20 */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_59A6;
+  lab_p29_L_59AE:
+  /* pop bc */
+  p00_L_3D4D(); /* page0 */
+  return;
+}
+
+// flash page 29 cpu 0x59B3 (offset 0x19B3)
+void p29_L_59B3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* ld de,0x0E10 */
+  os_bcall(0x80B1);
+  /* ld de,0x0018 */
+  os_bcall(0x80B1);
+  /* ld hl,(0x847A) */
+  p29_L_57C5();
+  /* ld de,0x016D */
+  os_bcall(0x804B);
+  /* push de */
+  /* pop hl */
+  /* ld bc,0x07CD */
+  a = a | a;
+  /* adc hl,bc */
+  p29_L_5A68();
+  a = a | a;
+  /* ld hl,(0x847A) */
+  p29_L_57C5();
+  /* sbc hl,bc */
+  p29_L_57C5();
+  /* ld (0x847A),hl */
+  p29_L_57C5();
+  /* ld de,0x016D */
+  os_bcall(0x804B);
+  /* push de */
+  /* pop hl */
+  /* ld bc,0x07CD */
+  a = a | a;
+  /* adc hl,bc */
+  /* push hl */
+  /* ld (0x82A5),hl */
+  a = e;
+  /* ld de,0x016D */
+  os_bcall(0x8045);
+  /* push hl */
+  /* pop bc */
+  /* ld hl,(0x847A) */
+  p29_L_57C5();
+  a = a | a;
+  /* sbc hl,bc */
+  /* ld bc,0x0000 */
+  lab_p29_L_5A10:
+  /* push hl */
+  a = 0x02;
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_5A26;
+  /* ld hl,(0x82A5) */
+  p29_L_5AA5();
+  if (flag_nz()) goto lab_p29_L_5A26;
+  /* ld hl,0x5FD9 */
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  goto lab_p29_L_5A31;
+  lab_p29_L_5A26:
+  a = a | a;
+  /* ld hl,0x5FBF */
+  /* adc hl,bc */
+  /* adc hl,bc */
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  lab_p29_L_5A31:
+  a = a | a;
+  /* pop hl */
+  /* push hl */
+  /* sbc hl,de */
+  if (flag_c()) goto lab_p29_L_5A3C;
+  /* pop hl */
+  /* inc bc */
+  goto lab_p29_L_5A10;
+  lab_p29_L_5A3C:
+  /* pop hl */
+  /* push hl */
+  /* dec bc */
+  a = 0x02;
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_5A54;
+  /* ld hl,(0x82A5) */
+  p29_L_5AA5();
+  if (flag_nz()) goto lab_p29_L_5A54;
+  /* ld hl,0x5FD9 */
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  goto lab_p29_L_5A5F;
+  lab_p29_L_5A54:
+  /* ld hl,0x5FBF */
+  a = a | a;
+  /* adc hl,bc */
+  /* adc hl,bc */
+  /* ld e,(hl) */
+  /* inc hl */
+  /* ld d,(hl) */
+  lab_p29_L_5A5F:
+  /* pop hl */
+  a = a | a;
+  /* sbc hl,de */
+  /* pop de */
+  /* inc hl */
+  /* inc bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5A68 (offset 0x1A68)
+void p29_L_5A68() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  /* push de */
+  /* push hl */
+  /* ld bc,0x07CD */
+  a = a | a;
+  /* sbc hl,bc */
+  /* pop hl */
+  if (flag_c()) return;
+  if (flag_z()) goto lab_p29_L_5A77;
+  /* dec hl */
+  lab_p29_L_5A77:
+  /* push hl */
+  /* ld de,0x0004 */
+  os_bcall(0x804B);
+  /* pop hl */
+  /* push de */
+  /* push hl */
+  /* ld de,0x0064 */
+  os_bcall(0x804B);
+  /* pop hl */
+  /* push de */
+  /* ld de,0x0190 */
+  os_bcall(0x804B);
+  /* pop bc */
+  /* pop hl */
+  /* push de */
+  a = a | a;
+  /* sbc hl,bc */
+  /* pop bc */
+  a = a | a;
+  /* adc hl,bc */
+  /* ld bc,0x01E4 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5AA5 (offset 0x1AA5)
+void p29_L_5AA5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld de,0x0004 */
+  os_bcall(0x804B);
+  a = l;
+  a = a | h;
+  if (flag_nz()) goto lab_p29_L_5ACA;
+  /* pop hl */
+  /* push hl */
+  /* ld de,0x0064 */
+  os_bcall(0x804B);
+  a = l;
+  a = a | h;
+  if (flag_nz()) goto lab_p29_L_5AC6;
+  /* pop hl */
+  /* push hl */
+  /* ld de,0x0190 */
+  os_bcall(0x804B);
+  if (flag_nz()) goto lab_p29_L_5ACA;
+  lab_p29_L_5AC6:
+  a = 0x00;
+  /* bit 7,a */
+  lab_p29_L_5ACA:
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x5B4D (offset 0x1B4D)
+void p29_L_5B4D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push de */
+  p29_L_7656();
+  /* ld hl,0x4003 */
+  /* ld (0x82A3),a */
+  lab_p29_L_5B58:
+  /* push hl */
+  os_bcall(0x8051);
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_z()) goto lab_p29_L_5B67;
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_5BA8;
+  /* pop hl */
+  goto lab_p29_L_5BC2;
+  lab_p29_L_5B67:
+  /* ld a,(0x82A3) */
+  p29_L_442C();
+  /* push bc */
+  /* push de */
+  /* ld hl,0x8483 */
+  /* pop de */
+  /* pop bc */
+  if (flag_nz()) goto lab_p29_L_5BC2;
+  b = c;
+  lab_p29_L_5B77:
+  /* ld a,(hl) */
+  c = a;
+  /* ex de,hl */
+  /* ld a,(0x82A3) */
+  os_bcall(0x8051);
+  /* ex de,hl */
+  flag_cmp(a, c);
+  if (flag_nz()) goto lab_p29_L_5B8E;
+  /* inc de */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_5B77;
+  /* pop hl */
+  /* ld a,(0x82A3) */
+  goto lab_p29_L_5BC6;
+  lab_p29_L_5B8E:
+  /* pop hl */
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  /* push de */
+  os_bcall(0x805A);
+  /* pop de */
+  a = a | a;
+  /* adc hl,bc */
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  /* push de */
+  os_bcall(0x805A);
+  /* pop de */
+  /* adc hl,bc */
+  goto lab_p29_L_5B58;
+  lab_p29_L_5BA8:
+  /* pop hl */
+  /* ld a,(0x82A3) */
+  a = a + 1;
+  /* ld (0x82A3),a */
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_5BB9;
+  /* cp 0x6C */ flag_cmp(a, 0x6C);
+  goto lab_p29_L_5BBB;
+  lab_p29_L_5BB9:
+  /* cp 0x18 */ flag_cmp(a, 0x18);
+  lab_p29_L_5BBB:
+  if (flag_z()) goto lab_p29_L_5BC2;
+  /* ld hl,0x4000 */
+  goto lab_p29_L_5B58;
+  lab_p29_L_5BC2:
+  /* scf */
+  /* ccf */
+  goto lab_p29_L_5BC7;
+  lab_p29_L_5BC6:
+  /* scf */
+  lab_p29_L_5BC7:
+  /* pop de */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x5C2D (offset 0x1C2D)
+void p29_L_5C2D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x4000 */
+  /* ld de,0x8090 */
+  os_bcall(0x8075);
+  return;
+}
+
+// flash page 29 cpu 0x5C8E (offset 0x1C8E)
+void p29_L_5C8E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(ix) */
+  /* push af */
+  a = a & 0xF0;
+  /* srl a */
+  /* srl a */
+  /* srl a */
+  /* srl a */
+  b = 0x02;
+  lab_p29_L_5C9E:
+  /* push af */
+  /* sub 0x0A */
+  if (flag_c()) goto lab_p29_L_5CB2;
+  /* pop af */
+  /* add a,0x37 */
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  a = b;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_5CC1;
+  /* pop af */
+  a = a & 0x0F;
+  goto lab_p29_L_5C9E;
+  lab_p29_L_5CB2:
+  /* pop af */
+  /* add a,0x30 */
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  a = b;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_5CC1;
+  /* pop af */
+  a = a & 0x0F;
+  goto lab_p29_L_5C9E;
+  lab_p29_L_5CC1:
+  a = 0x00;
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 29 cpu 0x5CFF (offset 0x1CFF)
+void p29_L_5CFF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* push de */
+  /* push af */
+  a = c;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_5D18;
+  /* ld de,0x83A5 */
+  lab_p29_L_5D0B:
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  /* ld (de),a */
+  /* inc de */
+  /* inc hl */
+  /* dec bc */
+  a = c;
+  a = a | b;
+  if (flag_nz()) goto lab_p29_L_5D0B;
+  lab_p29_L_5D18:
+  /* pop af */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5D1E (offset 0x1D1E)
+void p29_L_5D1E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push de */
+  /* push af */
+  b = a;
+  a = 0x00;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_5D3D;
+  a = b;
+  /* ld de,0x83A5 */
+  b = c;
+  /* ld hl,0x0000 */
+  /* ld a,(de) */
+  l = a;
+  b = b - 1;
+  a = b;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_5D3F;
+  /* inc de */
+  a = l;
+  h = a;
+  /* ld a,(de) */
+  h = a;
+  goto lab_p29_L_5D3F;
+  lab_p29_L_5D3D:
+  h = a;
+  l = a;
+  lab_p29_L_5D3F:
+  /* pop af */
+  /* pop de */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x5D43 (offset 0x1D43)
+void p29_L_5D43() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push af */
+  b = a;
+  a = 0x00;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_5D62;
+  a = b;
+  /* ld hl,0x83A5 */
+  e = c;
+  /* ld bc,0x0000 */
+  /* ld a,(hl) */
+  c = a;
+  e = e - 1;
+  a = e;
+  a = a | e;
+  if (flag_z()) goto lab_p29_L_5D64;
+  /* inc hl */
+  a = c;
+  b = a;
+  /* ld a,(hl) */
+  c = a;
+  goto lab_p29_L_5D64;
+  lab_p29_L_5D62:
+  b = a;
+  c = a;
+  lab_p29_L_5D64:
+  /* pop af */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x5D68 (offset 0x1D68)
+void p29_L_5D68() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  p29_L_6800();
+  e = b;
+  d = 0x00;
+  /* push de */
+  b = b + 1;
+  c = 0x00;
+  a = 0x08;
+  lab_p29_L_5D76:
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_5DC2;
+  if (flag_nc()) goto lab_p29_L_5DC0;
+  /* push bc */
+  /* ld hl,0x4000 */
+  /* push af */
+  p29_L_6B36();
+  /* cp 0xFE */ flag_cmp(a, 0xFE);
+  if (flag_nz()) goto lab_p29_L_5D8D;
+  /* pop af */
+  /* add a,0x04 */
+  lab_p29_L_5D8A:
+  /* pop bc */
+  goto lab_p29_L_5D76;
+  lab_p29_L_5D8D:
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_5D9F;
+  /* pop af */
+  /* pop bc */
+  /* pop de */
+  /* push af */
+  a = c;
+  a = a + d;
+  d = a;
+  /* pop af */
+  /* push de */
+  c = 0x00;
+  /* push bc */
+  /* push af */
+  /* inc hl */
+  lab_p29_L_5D9F:
+  /* pop af */
+  c = 0xFF;
+  p29_L_6769();
+  /* ld bc,0x4000 */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_nz()) goto lab_p29_L_5DB0;
+  /* pop bc */
+  c = c + 1;
+  /* push bc */
+  lab_p29_L_5DB0:
+  a = a + 1;
+  /* pop bc */
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_5DC2;
+  /* push bc */
+  p29_L_67EC();
+  if (flag_z()) goto lab_p29_L_5D8A;
+  /* pop bc */
+  c = c + 1;
+  /* push bc */
+  goto lab_p29_L_5DB0;
+  lab_p29_L_5DC0:
+  a = 0;
+  c = a;
+  lab_p29_L_5DC2:
+  b = c;
+  /* pop de */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5DC7 (offset 0x1DC7)
+void p29_L_5DC7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_5D68();
+  c = e;
+  /* push bc */
+  /* push de */
+  a = 0x01;
+  /* ld hl,0x8000 */
+  /* ld de,0x8080 */
+  os_bcall(0x8075);
+  /* inc hl */
+  a = 0x01;
+  os_bcall(0x805A);
+  /* ld a,(hl) */
+  /* pop de */
+  e = d;
+  d = a;
+  /* pop bc */
+  a = a - b;
+  return;
+}
+
+// flash page 29 cpu 0x5E0A (offset 0x1E0A)
+void p29_L_5E0A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x83A3) */
+  b = a;
+  c = 0x00;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_5E23;
+  /* ld hl,0x8000 */
+  lab_p29_L_5E16:
+  /* push bc */
+  /* push hl */
+  /* ld bc,0x0001 */
+  os_bcall(0x8090);
+  /* pop hl */
+  /* inc hl */
+  /* pop bc */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_5E16;
+  lab_p29_L_5E23:
+  a = 0x00;
+  /* ld (0x83A3),a */
+  return;
+}
+
+// flash page 29 cpu 0x5E31 (offset 0x1E31)
+void p29_L_5E31() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x4000 */
+  p29_L_5E34();
+  return;
+}
+
+// flash page 29 cpu 0x5E34 (offset 0x1E34)
+void p29_L_5E34() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_5E29:
+  a = 0x0C;
+  p00_L_2C49(); /* page0 */
+  /* jp 0x2565 - other page/RAM */
+  /* push af */
+  /* ld de,0x8010 */
+  /* push af */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_5E29;
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x805A);
+  /* ld de,0x838D */
+  a = 0x07;
+  /* ld (de),a */
+  /* ld de,0x838F */
+  /* ld (0x838E),bc */
+  /* pop af */
+  os_bcall(0x8054);
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5E59 (offset 0x1E59)
+void p29_L_5E59() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_5E29:
+  a = 0x0C;
+  p00_L_2C49(); /* page0 */
+  /* jp 0x2565 - other page/RAM */
+  /* push af */
+  /* ld de,0x8010 */
+  /* push af */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_5E29;
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x805A);
+  /* ld de,0x838E */
+  /* ld (0x838D),bc */
+  /* pop af */
+  os_bcall(0x8054);
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5E78 (offset 0x1E78)
+void p29_L_5E78() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = a;
+  p29_L_75EC();
+  a = a - b;
+  b = 0x00;
+  c = a;
+  /* push bc */
+  /* pop ix */
+  p29_L_48B5();
+  if (flag_c()) goto lab_p29_L_5E8F;
+  if (flag_z()) goto lab_p29_L_5E8F;
+  /* push af */
+  p29_L_5365();
+  /* pop af */
+  lab_p29_L_5E8F:
+  return;
+}
+
+// flash page 29 cpu 0x5E90 (offset 0x1E90)
+void p29_L_5E90() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push af */
+  a = 0x01;
+  a = a | a;
+  /* ld hl,0x8000 */
+  /* ld de,0x8060 */
+  os_bcall(0x8075);
+  if (flag_z()) goto lab_p29_L_5EB5;
+  /* ld hl,0x8000 */
+  /* ld de,0x8050 */
+  os_bcall(0x8075);
+  if (flag_z()) goto lab_p29_L_5EB0;
+  /* ld de,0x0080 */
+  goto lab_p29_L_5EDD;
+  lab_p29_L_5EB0:
+  /* ld de,0x0000 */
+  goto lab_p29_L_5EDD;
+  lab_p29_L_5EB5:
+  /* inc hl */
+  a = 0x01;
+  os_bcall(0x805A);
+  a = 0x01;
+  os_bcall(0x8051);
+  /* push af */
+  b = 0x09;
+  a = a - b;
+  if (flag_c()) goto lab_p29_L_5ED6;
+  /* pop af */
+  b = 0x08;
+  a = a - b;
+  p29_L_4E9B();
+  d = a;
+  a = 0x08;
+  p29_L_4E9B();
+  e = a;
+  goto lab_p29_L_5EDD;
+  lab_p29_L_5ED6:
+  d = 0x00;
+  /* pop af */
+  p29_L_4E9B();
+  e = a;
+  lab_p29_L_5EDD:
+  /* pop af */
+  b = a;
+  p29_L_75EC();
+  a = a - b;
+  /* ld bc,0x0000 */
+  c = a;
+  p29_L_5231();
+  /* sla c */
+  /* add hl,bc */
+  b = e;
+  /* ex de,hl */
+  /* push hl */
+  p29_L_456D();
+  /* pop hl */
+  /* ex de,hl */
+  b = d;
+  /* ex de,hl */
+  p29_L_456D();
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5EFC (offset 0x1EFC)
+void p29_L_5EFC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* push hl */
+  /* pop de */
+  b = a;
+  c = 0x08;
+  a = a - c;
+  if (flag_c()) goto lab_p29_L_5F25;
+  p29_L_75EC();
+  a = a + 1;
+  c = a;
+  a = b;
+  a = a - c;
+  if (flag_nc()) goto lab_p29_L_5F25;
+  /* ld bc,0x4000 */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_c()) goto lab_p29_L_5F25;
+  /* push de */
+  /* pop hl */
+  a = a | a;
+  /* ld bc,0x8000 */
+  /* sbc hl,bc */
+  if (flag_nc()) goto lab_p29_L_5F25;
+  a = a | a;
+  goto lab_p29_L_5F26;
+  lab_p29_L_5F25:
+  /* scf */
+  lab_p29_L_5F26:
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x5F9F (offset 0x1F9F)
+void p29_L_5F9F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld a,(hl) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_5FBD;
+  /* push hl */
+  /* ld d,(hl) */
+  /* inc hl */
+  /* ld e,(hl) */
+  /* push de */
+  os_bcall(0x80C3);
+  /* push de */
+  /* pop bc */
+  /* pop de */
+  /* ex de,hl */
+  h = b;
+  a = l;
+  a = a & 0x0F;
+  a = a | a;
+  /* adc a,c */
+  l = a;
+  /* ex de,hl */
+  /* pop hl */
+  /* ld (hl),e */
+  /* inc hl */
+  /* ld (hl),d */
+  lab_p29_L_5FBD:
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x5FDB (offset 0x1FDB)
+void p29_L_5FDB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  a = 0;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  a = a | a;
+  /* jp nz,0x0000 - other page/RAM */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x5FED (offset 0x1FED)
+void p29_L_5FED() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x83EB),a */
+  /* ld a,i */
+  /* di */
+  /* push af */
+  /* ld a,(0x83EB) */
+  p29_L_5FDB();
+  /* ld (0x83EB),a */
+  /* pop af */
+  if (flag_po()) goto lab_p29_L_6002;
+  /* ei */
+  lab_p29_L_6002:
+  /* ld a,(0x83EB) */
+  return;
+}
+
+// flash page 29 cpu 0x6006 (offset 0x2006)
+void p29_L_6006() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push af */
+  /* pop bc */
+  a = c;
+  /* ld (0x83EA),a */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6011 (offset 0x2011)
+void p29_L_6011() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x83EC),a */
+  /* push bc */
+  b = a;
+  /* ld a,(0x83EA) */
+  c = a;
+  /* push bc */
+  /* pop af */
+  /* pop bc */
+  /* ld a,(0x83EC) */
+  return;
+}
+
+// flash page 29 cpu 0x6021 (offset 0x2021)
+void p29_L_6021() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_75F5();
+  lab_p29_L_6024:
+  /* ld a,(0x838D) */
+  c = a;
+  b = 0x00;
+  /* ld hl,0x838E */
+  /* ld de,0x8000 */
+  /* ld (de),a */
+  /* inc de */
+  /* ldir */
+  p29_L_607A();
+  /* push af */
+  /* ld a,(0x8000) */
+  c = a;
+  b = 0x00;
+  /* ld hl,0x8001 */
+  /* ld de,0x838D */
+  /* ld (de),a */
+  /* inc de */
+  /* ldir */
+  /* pop af */
+  if (flag_c()) return;
+  p29_L_6067();
+  if (flag_nz()) goto lab_p29_L_6053;
+  a = a | a;
+  p29_L_61A4();
+  return;
+  lab_p29_L_6053:
+  /* push af */
+  /* ld a,(0x8000) */
+  c = a;
+  b = 0x00;
+  /* ld hl,0x8001 */
+  /* ld de,0x838D */
+  /* ld (de),a */
+  /* inc de */
+  /* ldir */
+  /* pop af */
+  goto lab_p29_L_6024;
+}
+
+// flash page 29 cpu 0x6067 (offset 0x2067)
+void p29_L_6067() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x8483 */
+  /* ld hl,0x838D */
+  /* ld a,(de) */
+  /* ld c,(hl) */
+  flag_cmp(a, c);
+  if (flag_nz()) return;
+  b = c;
+  lab_p29_L_6072:
+  /* inc hl */
+  /* inc de */
+  /* ld a,(de) */
+  /* cp (hl) */
+  if (flag_nz()) return;
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_6072;
+  return;
+}
+
+// flash page 29 cpu 0x607A (offset 0x207A)
+void p29_L_607A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x82A3 */
+  /* ld a,(de) */
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_60E4;
+  a = a - 1;
+  /* ld (de),a */
+  /* cp 0x07 */ flag_cmp(a, 0x07);
+  if (flag_nz()) goto lab_p29_L_608A;
+  /* scf */
+  goto lab_p29_L_60E4;
+  lab_p29_L_608A:
+  /* ld a,(0x82A3) */
+  /* ld hl,0x4000 */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_607A;
+  /* ld de,0x8010 */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_607A;
+  /* ld a,(0x82A3) */
+  /* inc hl */
+  os_bcall(0x805A);
+  /* ld a,(0x82A3) */
+  os_bcall(0x8051);
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_607A;
+  a = a + 1;
+  if (flag_z()) goto lab_p29_L_607A;
+  /* ld a,(0x82A3) */
+  /* push hl */
+  /* push bc */
+  p29_L_5E31();
+  p29_L_53E5();
+  if (flag_z()) goto lab_p29_L_60C2;
+  /* pop bc */
+  /* pop hl */
+  goto lab_p29_L_607A;
+  lab_p29_L_60C2:
+  p00_L_129A(); /* page0 */
+  /* pop bc */
+  /* pop hl */
+  a = b;
+  a = a | a;
+  if (flag_nz()) goto lab_p29_L_60D2;
+  a = 0;
+  a = c;
+  e = 0x09;
+  a = a - e;
+  if (flag_c()) goto lab_p29_L_60D5;
+  lab_p29_L_60D2:
+  /* ld bc,0x0008 */
+  lab_p29_L_60D5:
+  a = c;
+  /* ld (0x8483),a */
+  /* ld a,(0x82A3) */
+  /* ld de,0x8484 */
+  os_bcall(0x8054);
+  /* scf */
+  /* ccf */
+  lab_p29_L_60E4:
+  return;
+}
+
+// flash page 29 cpu 0x60EF (offset 0x20EF)
+void p29_L_60EF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* nop */
+  /* ld de,0x3AF5 */
+  a = a + a;
+  /* sbc a,h */
+  /* cp 0x69 */ flag_cmp(a, 0x69);
+  if (flag_nz()) p29_L_7BA4();
+  p29_L_75F5();
+  /* pop af */
+  lab_p29_L_60FE:
+  /* push af */
+  p29_L_6388();
+  /* pop hl */
+  a = h;
+  if (flag_c()) goto lab_p29_L_6140;
+  /* push af */
+  /* ld a,(0x9C87) */
+  /* cp 0x69 */ flag_cmp(a, 0x69);
+  /* ld a,(0x82A3) */
+  if (flag_nz()) p29_L_7BAF();
+  /* pop af */
+  p29_L_6172();
+  if (flag_c()) goto lab_p29_L_612E;
+  /* bit 3,c */
+  if (flag_nz()) goto lab_p29_L_60FE;
+  /* pop bc */
+  b = b + 1;
+  /* push bc */
+  /* bit 0,a */
+  if (flag_nz()) goto lab_p29_L_60FE;
+  /* bit 1,a */
+  if (flag_z()) goto lab_p29_L_6163;
+  p29_L_6177();
+  if (flag_c()) goto lab_p29_L_6165;
+  goto lab_p29_L_60FE;
+  lab_p29_L_612E:
+  /* pop bc */
+  c = c + 1;
+  /* push bc */
+  /* bit 0,a */
+  if (flag_z()) goto lab_p29_L_60FE;
+  /* bit 1,a */
+  if (flag_z()) goto lab_p29_L_6163;
+  p29_L_6177();
+  if (flag_c()) goto lab_p29_L_60FE;
+  goto lab_p29_L_6165;
+  lab_p29_L_6140:
+  p00_L_113F(); /* page0 */
+  /* res 0,a */
+  /* sub 0x02 */
+  /* pop bc */
+  /* push af */
+  /* ld a,(0x8497) */
+  d = a;
+  a = 0;
+  /* ld (0x8497),a */
+  /* ld (0x8481),a */
+  /* ld a,(0x9C87) */
+  /* cp 0x01 */ flag_cmp(a, 0x01);
+  a = 0x69;
+  if (flag_nz()) goto lab_p29_L_615E;
+  a = 0;
+  lab_p29_L_615E:
+  /* ld (0x9C87),a */
+  /* pop af */
+  return;
+  lab_p29_L_6163:
+  /* set 1,a */
+  lab_p29_L_6165:
+  p00_L_11D8(); /* page0 */
+  /* push af */
+  /* ld a,(0x82A3) */
+  /* ld (0x8497),a */
+  /* pop af */
+  goto lab_p29_L_60FE;
+}
+
+// flash page 29 cpu 0x6172 (offset 0x2172)
+void p29_L_6172() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x8480 */
+  goto lab_p29_L_617A;
+  lab_p29_L_617A:
+  /* push af */
+  /* ld hl,0x848B */
+  b = 0x08;
+  p00_L_3E3D(); /* page0 */
+  /* pop hl */
+  a = h;
+  return;
+}
+
+// flash page 29 cpu 0x6177 (offset 0x2177)
+void p29_L_6177() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x8496 */
+  /* push af */
+  /* ld hl,0x848B */
+  b = 0x08;
+  p00_L_3E3D(); /* page0 */
+  /* pop hl */
+  a = h;
+  return;
+}
+
+// flash page 29 cpu 0x6186 (offset 0x2186)
+void p29_L_6186() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_75F5();
+  lab_p29_L_6189:
+  p29_L_638B();
+  if (flag_c()) return;
+  p29_L_6172();
+  /* bit 3,c */
+  if (flag_z()) goto lab_p29_L_6189;
+  p29_L_61A4();
+  return;
+}
+
+// flash page 29 cpu 0x6196 (offset 0x2196)
+void p29_L_6196() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_75F5();
+  lab_p29_L_6199:
+  p29_L_6388();
+  if (flag_c()) return;
+  p29_L_6172();
+  /* bit 3,c */
+  if (flag_z()) goto lab_p29_L_6199;
+  p29_L_61A4();
+  return;
+}
+
+// flash page 29 cpu 0x61A4 (offset 0x21A4)
+void p29_L_61A4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x82A3) */
+  a = a | a;
+  /* push bc */
+  /* ld de,0x8070 */
+  /* ld hl,0x4000 */
+  /* push af */
+  os_bcall(0x8075);
+  /* pop af */
+  /* inc hl */
+  /* push af */
+  os_bcall(0x805A);
+  /* pop af */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x61BC (offset 0x21BC)
+void p29_L_61BC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_2D2D(); /* page0 */
+  /* res 1,(iy+0x05) */
+  /* push af */
+  p00_L_3CFF(); /* page0 */
+  /* pop af */
+  /* push af */
+  /* ld hl,0x4000 */
+  /* ld de,0x8040 */
+  os_bcall(0x8075);
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x805A);
+  /* pop af */
+  /* push af */
+  p29_L_5CFF();
+  /* ld hl,0x83A5 */
+  a = a | a;
+  /* adc hl,bc */
+  /* ld (hl),0x00 */
+  a = 0x24;
+  a = a - c;
+  l = a;
+  h = 0x05;
+  /* ld (0x86D7),hl */
+  /* ld hl,0x83A5 */
+  p00_L_3D4D(); /* page0 */
+  /* bit 1,(iy+0x35) */
+  if (flag_z()) goto lab_p29_L_6201;
+  a = 0x50;
+  p00_L_3C45(); /* page0 */
+  if (flag_z()) goto lab_p29_L_620C;
+  lab_p29_L_6201:
+  /* ld hl,0x636F */
+  /* ld de,0x82A5 */
+  /* ld bc,0x0019 */
+  /* ldir */
+  lab_p29_L_620C:
+  /* ld hl,0x82A5 */
+  p29_L_62B3();
+  /* ld hl,0x2750 */
+  p29_L_62B3();
+  /* pop af */
+  /* push af */
+  p29_L_54A0();
+  if (flag_nz()) goto lab_p29_L_6270;
+  /* pop af */
+  /* push af */
+  p29_L_52F0();
+  if (flag_z()) goto lab_p29_L_6237;
+  /* ld hl,0x270B */
+  a = 0x51;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  p29_L_62B3();
+  goto lab_p29_L_6246;
+  lab_p29_L_6237:
+  /* ld hl,0x26F8 */
+  a = 0x52;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  p29_L_62B3();
+  lab_p29_L_6246:
+  /* pop af */
+  /* push af */
+  p29_L_54A0();
+  p29_L_59B3();
+  /* push de */
+  /* push hl */
+  /* push bc */
+  /* pop hl */
+  p29_L_598E();
+  /* ld a,(0x6385) */
+  p00_L_3D47(); /* page0 */
+  /* pop hl */
+  p29_L_598E();
+  /* ld a,(0x6385) */
+  p00_L_3D47(); /* page0 */
+  /* pop hl */
+  p29_L_598E();
+  /* pop af */
+  /* push af */
+  p29_L_52F0();
+  if (flag_z()) goto lab_p29_L_629B;
+  lab_p29_L_6270:
+  /* pop af */
+  /* push af */
+  p29_L_543D();
+  if (flag_nz()) goto lab_p29_L_629B;
+  /* ld hl,0x2719 */
+  a = 0x53;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  p29_L_62B3();
+  /* ld a,(0x8478) */
+  /* ld hl,0x8478 */
+  p29_L_650D();
+  /* ld a,(0x8478) */
+  p00_L_3D47(); /* page0 */
+  /* ld a,(0x8479) */
+  p00_L_3D47(); /* page0 */
+  lab_p29_L_629B:
+  /* pop af */
+  /* ld hl,0x273D */
+  a = 0x54;
+  /* bit 1,(iy+0x35) */
+  if (flag_nz()) p00_L_3C45(); /* page0 */
+  p29_L_62B3();
+  /* ei */
+  p00_L_3F21(); /* page0 */
+  p00_L_3837(); /* page0 */
+  return;
+}
+
+// flash page 29 cpu 0x62B3 (offset 0x22B3)
+void p29_L_62B3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  p00_L_0033(); /* page0 */
+  /* ld (0x86D7),hl */
+  /* pop hl */
+  /* inc hl */
+  /* inc hl */
+  p00_L_3D4D(); /* page0 */
+  return;
+}
+
+// flash page 29 cpu 0x6388 (offset 0x2388)
+void p29_L_6388() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* scf */
+  goto lab_p29_L_638D;
+  lab_p29_L_638D:
+  /* push af */
+  lab_p29_L_638E:
+  /* ld de,0x82A3 */
+  /* ld a,(de) */
+  a = a - 1;
+  /* ld (de),a */
+  /* cp 0x07 */ flag_cmp(a, 0x07);
+  if (flag_nz()) goto lab_p29_L_639B;
+  /* pop af */
+  /* scf */
+  return;
+  lab_p29_L_639B:
+  /* ld a,(0x9C87) */
+  /* cp 0x69 */ flag_cmp(a, 0x69);
+  if (flag_nz()) goto lab_p29_L_63C8;
+  /* ld a,(0x82A3) */
+  p29_L_7BB5();
+  if (flag_z()) goto lab_p29_L_638E;
+  /* ld a,(0x82A3) */
+  /* ld hl,0x4000 */
+  /* ld de,0x8040 */
+  os_bcall(0x8075);
+  if (flag_z()) goto lab_p29_L_63BF;
+  a = 0x01;
+  /* ld (0x9C87),a */
+  goto lab_p29_L_638E;
+  lab_p29_L_63BF:
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  os_bcall(0x805A);
+  goto lab_p29_L_6407;
+  lab_p29_L_63C8:
+  /* ld a,(de) */
+  /* ld hl,0x4000 */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_638E;
+  /* ld de,0x8040 */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_638E;
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  /* push af */
+  os_bcall(0x805A);
+  /* pop af */
+  os_bcall(0x8051);
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_638E;
+  a = a + 1;
+  if (flag_z()) goto lab_p29_L_638E;
+  /* ld a,(0x82A3) */
+  /* push hl */
+  /* push bc */
+  p29_L_5E31();
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  /* push af */
+  /* ld a,(0x82A3) */
+  if (flag_nc()) goto lab_p29_L_6402;
+  p29_L_53B3();
+  goto lab_p29_L_6405;
+  lab_p29_L_6402:
+  p29_L_53E5();
+  lab_p29_L_6405:
+  if (flag_nz()) goto lab_p29_L_638E;
+  lab_p29_L_6407:
+  /* pop af */
+  /* push hl */
+  /* push bc */
+  p00_L_129A(); /* page0 */
+  /* pop bc */
+  /* pop hl */
+  a = b;
+  a = a | a;
+  if (flag_nz()) goto lab_p29_L_6419;
+  a = c;
+  e = 0x09;
+  a = a - e;
+  if (flag_c()) goto lab_p29_L_641C;
+  lab_p29_L_6419:
+  /* ld bc,0x0008 */
+  lab_p29_L_641C:
+  /* ld de,0x8484 */
+  /* ld a,(0x82A3) */
+  os_bcall(0x8054);
+  /* scf */
+  /* ccf */
+  return;
+}
+
+// flash page 29 cpu 0x638B (offset 0x238B)
+void p29_L_638B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* scf */
+  /* ccf */
+  /* push af */
+  lab_p29_L_638E:
+  /* ld de,0x82A3 */
+  /* ld a,(de) */
+  a = a - 1;
+  /* ld (de),a */
+  /* cp 0x07 */ flag_cmp(a, 0x07);
+  if (flag_nz()) goto lab_p29_L_639B;
+  /* pop af */
+  /* scf */
+  return;
+  lab_p29_L_639B:
+  /* ld a,(0x9C87) */
+  /* cp 0x69 */ flag_cmp(a, 0x69);
+  if (flag_nz()) goto lab_p29_L_63C8;
+  /* ld a,(0x82A3) */
+  p29_L_7BB5();
+  if (flag_z()) goto lab_p29_L_638E;
+  /* ld a,(0x82A3) */
+  /* ld hl,0x4000 */
+  /* ld de,0x8040 */
+  os_bcall(0x8075);
+  if (flag_z()) goto lab_p29_L_63BF;
+  a = 0x01;
+  /* ld (0x9C87),a */
+  goto lab_p29_L_638E;
+  lab_p29_L_63BF:
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  os_bcall(0x805A);
+  goto lab_p29_L_6407;
+  lab_p29_L_63C8:
+  /* ld a,(de) */
+  /* ld hl,0x4000 */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_638E;
+  /* ld de,0x8040 */
+  a = a | a;
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_638E;
+  /* inc hl */
+  /* ld a,(0x82A3) */
+  /* push af */
+  os_bcall(0x805A);
+  /* pop af */
+  os_bcall(0x8051);
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_638E;
+  a = a + 1;
+  if (flag_z()) goto lab_p29_L_638E;
+  /* ld a,(0x82A3) */
+  /* push hl */
+  /* push bc */
+  p29_L_5E31();
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  /* push af */
+  /* ld a,(0x82A3) */
+  if (flag_nc()) goto lab_p29_L_6402;
+  p29_L_53B3();
+  goto lab_p29_L_6405;
+  lab_p29_L_6402:
+  p29_L_53E5();
+  lab_p29_L_6405:
+  if (flag_nz()) goto lab_p29_L_638E;
+  lab_p29_L_6407:
+  /* pop af */
+  /* push hl */
+  /* push bc */
+  p00_L_129A(); /* page0 */
+  /* pop bc */
+  /* pop hl */
+  a = b;
+  a = a | a;
+  if (flag_nz()) goto lab_p29_L_6419;
+  a = c;
+  e = 0x09;
+  a = a - e;
+  if (flag_c()) goto lab_p29_L_641C;
+  lab_p29_L_6419:
+  /* ld bc,0x0008 */
+  lab_p29_L_641C:
+  /* ld de,0x8484 */
+  /* ld a,(0x82A3) */
+  os_bcall(0x8054);
+  /* scf */
+  /* ccf */
+  return;
+}
+
+// flash page 29 cpu 0x6428 (offset 0x2428)
+void p29_L_6428() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  p29_L_6186();
+  if (flag_c()) goto lab_p29_L_6468;
+  /* ld (0x8433),a */
+  p29_L_7CB2();
+  if (flag_z()) goto lab_p29_L_6462;
+  p29_L_7124();
+  if (flag_z()) goto lab_p29_L_644E;
+  p00_L_10DD(); /* page0 */
+  a = 0x14;
+  /* ld (0x8499),a */
+  p00_rst18();
+  p29_L_5FDB();
+  p00_L_2C67(); /* page0 */
+  goto lab_p29_L_646B;
+  lab_p29_L_644E:
+  /* ld de,0x0005 */
+  a = 0x02;
+  /* ld (0x867E),a */
+  p00_L_2C4F(); /* page0 */
+  p00_L_2C6D(); /* page0 */
+  /* ld a,(0x8432) */
+  a = a | a;
+  if (flag_nz()) goto lab_p29_L_6468;
+  lab_p29_L_6462:
+  /* ld a,(0x8433) */
+  p29_L_403F();
+  lab_p29_L_6468:
+  p29_L_5FDB();
+  lab_p29_L_646B:
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6503 (offset 0x2503)
+void p29_L_6503() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = d;
+  a = a | a;
+  if (flag_nz()) goto lab_p29_L_650A;
+  p29_L_651E();
+  lab_p29_L_650A:
+  a = 0;
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 29 cpu 0x650D (offset 0x250D)
+void p29_L_650D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_32E5(); /* page0 */
+  p29_L_6523();
+  if (flag_z()) goto lab_p29_L_6519;
+  /* add a,0x30 */
+  /* ld (hl),a */
+  /* inc hl */
+  lab_p29_L_6519:
+  a = b;
+  p29_L_6523();
+  if (flag_z()) return;
+  p29_L_651E();
+  return;
+}
+
+// flash page 29 cpu 0x651E (offset 0x251E)
+void p29_L_651E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* add a,0x30 */
+  /* ld (hl),a */
+  /* inc hl */
+  return;
+}
+
+// flash page 29 cpu 0x6523 (offset 0x2523)
+void p29_L_6523() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_6529;
+  d = 0x01;
+  return;
+  lab_p29_L_6529:
+  e = a;
+  a = d;
+  a = a | a;
+  a = e;
+  return;
+}
+
+// flash page 29 cpu 0x652E (offset 0x252E)
+void p29_L_652E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* ld hl,(0x83A1) */
+  p29_L_57C5();
+  a = a | a;
+  /* adc hl,de */
+  p29_L_57C5();
+  /* ld (0x83A1),hl */
+  if (flag_nc()) goto lab_p29_L_654C;
+  /* ld hl,(0x839F) */
+  h = h + 1;
+  if (flag_nz()) goto lab_p29_L_6549;
+  l = l + 1;
+  lab_p29_L_6549:
+  /* ld (0x839F),hl */
+  lab_p29_L_654C:
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6550 (offset 0x2550)
+void p29_L_6550() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push de */
+  /* ld de,0x0001 */
+  p29_L_6559();
+  /* pop de */
+  return;
+}
+
+// flash page 29 cpu 0x6559 (offset 0x2559)
+void p29_L_6559() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* push de */
+  /* ex de,hl */
+  /* ld de,0x4000 */
+  os_bcall(0x804B);
+  /* ld a,(0x986B) */
+  a = a + e;
+  /* ld (0x986B),a */
+  a = e;
+  /* ld de,0x4000 */
+  os_bcall(0x8045);
+  /* push hl */
+  /* pop bc */
+  /* pop hl */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* ld hl,(0x986C) */
+  a = a | a;
+  /* adc hl,bc */
+  /* bit 7,h */
+  if (flag_z()) goto lab_p29_L_6591;
+  /* ld a,(0x986B) */
+  a = a + 1;
+  /* ld (0x986B),a */
+  /* ld bc,0x4000 */
+  a = a | a;
+  /* sbc hl,bc */
+  lab_p29_L_6591:
+  /* ld (0x986C),hl */
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6598 (offset 0x2598)
+void p29_L_6598() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* ld hl,0x986B */
+  goto lab_p29_L_65A6;
+  lab_p29_L_65A6:
+  a = 0;
+  b = 0x04;
+  lab_p29_L_65A9:
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_65A9;
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x65A0 (offset 0x25A0)
+void p29_L_65A0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* ld hl,0x839F */
+  a = 0;
+  b = 0x04;
+  lab_p29_L_65A9:
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_65A9;
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6621 (offset 0x2621)
+void p29_L_6621() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x839F */
+  goto lab_p29_L_6629;
+  lab_p29_L_6629:
+  /* ld bc,0x0004 */
+  /* ldir */
+  return;
+}
+
+// flash page 29 cpu 0x6626 (offset 0x2626)
+void p29_L_6626() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x839F */
+  /* ld bc,0x0004 */
+  /* ldir */
+  return;
+}
+
+// flash page 29 cpu 0x662F (offset 0x262F)
+void p29_L_662F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_6800();
+  b = b + 1;
+  a = 0x08;
+  /* ld de,0x0000 */
+  lab_p29_L_6638:
+  p29_L_7BD4();
+  flag_cmp(a, b);
+  if (flag_nc()) return;
+  /* ld hl,0x4000 */
+  /* push af */
+  p29_L_6B36();
+  /* cp 0xFE */ flag_cmp(a, 0xFE);
+  if (flag_z()) goto lab_p29_L_6664;
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_nz()) goto lab_p29_L_665C;
+  /* pop af */
+  /* push af */
+  p29_L_673D();
+  p29_L_652E();
+  /* ld de,0x0001 */
+  p29_L_652E();
+  goto lab_p29_L_6664;
+  lab_p29_L_665C:
+  /* cp 0xF0 */ flag_cmp(a, 0xF0);
+  if (flag_z()) goto lab_p29_L_6669;
+  /* pop af */
+  a = a + 1;
+  goto lab_p29_L_6638;
+  lab_p29_L_6664:
+  /* pop af */
+  /* add a,0x04 */
+  goto lab_p29_L_6638;
+  lab_p29_L_6669:
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  lab_p29_L_666C:
+  /* push af */
+  /* push hl */
+  c = 0xF0;
+  /* push bc */
+  p29_L_6769();
+  /* push bc */
+  /* pop de */
+  /* pop bc */
+  if (flag_z()) goto lab_p29_L_6696;
+  /* inc sp */
+  /* inc sp */
+  /* inc sp */
+  /* inc sp */
+  /* ld (0x986B),a */
+  /* ld (0x986C),hl */
+  /* inc de */
+  /* inc de */
+  /* inc de */
+  /* push de */
+  p29_L_6559();
+  /* pop de */
+  p29_L_652E();
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  goto lab_p29_L_666C;
+  lab_p29_L_6696:
+  /* pop hl */
+  /* pop af */
+  c = 0xFF;
+  /* push bc */
+  p29_L_6769();
+  /* pop bc */
+  if (flag_z()) goto lab_p29_L_66A7;
+  p29_L_673D();
+  p29_L_652E();
+  lab_p29_L_66A7:
+  goto lab_p29_L_6664;
+}
+
+// flash page 29 cpu 0x66A9 (offset 0x26A9)
+void p29_L_66A9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* push hl */
+  /* ld bc,(0x9869) */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_c()) goto lab_p29_L_66BB;
+  a = a | a;
+  /* adc hl,bc */
+  /* ld (0x9869),hl */
+  lab_p29_L_66BB:
+  /* pop hl */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x673D (offset 0x273D)
+void p29_L_673D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push af */
+  /* push hl */
+  /* pop de */
+  /* ld hl,0x7FFF */
+  a = a | a;
+  /* sbc hl,de */
+  lab_p29_L_6748:
+  /* ex de,hl */
+  a = a + 1;
+  p29_L_67EC();
+  if (flag_z()) goto lab_p29_L_6765;
+  flag_cmp(a, b);
+  if (flag_nc()) goto lab_p29_L_6765;
+  /* ld hl,0x4000 */
+  /* push af */
+  p29_L_6B36();
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_nz()) goto lab_p29_L_6764;
+  /* ld hl,0x4000 */
+  /* add hl,de */
+  /* pop af */
+  goto lab_p29_L_6748;
+  lab_p29_L_6764:
+  /* pop af */
+  lab_p29_L_6765:
+  /* pop af */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6769 (offset 0x2769)
+void p29_L_6769() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_6598();
+  /* ld (0x986B),a */
+  /* ld (0x986C),hl */
+  /* push bc */
+  /* push hl */
+  /* push af */
+  a = a | 0x03;
+  b = 0x15;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_6780;
+  b = 0x69;
+  lab_p29_L_6780:
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_6784;
+  a = b;
+  lab_p29_L_6784:
+  /* ld (0x8390),a */
+  /* pop af */
+  /* pop hl */
+  /* pop bc */
+  lab_p29_L_678A:
+  /* push bc */
+  /* ld a,(0x986B) */
+  p29_L_6B36();
+  flag_cmp(a, c);
+  if (flag_z()) goto lab_p29_L_67C8;
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_z()) goto lab_p29_L_67C2;
+  /* ld (0x986C),hl */
+  p29_L_6550();
+  /* ld a,(0x986B) */
+  p29_L_6B36();
+  e = a;
+  p29_L_6550();
+  /* ld a,(0x986B) */
+  p29_L_6B36();
+  d = a;
+  /* inc de */
+  p29_L_6559();
+  /* ld a,(0x8390) */
+  b = a;
+  /* ld a,(0x986B) */
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_67BF;
+  if (flag_nz()) goto lab_p29_L_67C2;
+  lab_p29_L_67BF:
+  /* pop bc */
+  goto lab_p29_L_678A;
+  lab_p29_L_67C2:
+  a = 0;
+  /* ld a,(0x986B) */
+  /* pop bc */
+  return;
+  lab_p29_L_67C8:
+  /* pop bc */
+  /* ld a,(0x986B) */
+  /* push af */
+  /* push hl */
+  /* ld (0x986C),hl */
+  p29_L_6550();
+  /* ld a,(0x986B) */
+  p29_L_6B36();
+  c = a;
+  /* ld a,(0x986B) */
+  p29_L_6550();
+  /* ld a,(0x986B) */
+  p29_L_6B36();
+  b = a;
+  /* pop hl */
+  /* pop af */
+  a = a | a;
+  return;
+}
+
+// flash page 29 cpu 0x67EC (offset 0x27EC)
+void p29_L_67EC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  b = a;
+  a = a & 0x03;
+  a = b;
+  if (flag_z()) goto lab_p29_L_67FE;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_67FC;
+  /* cp 0x6A */ flag_cmp(a, 0x6A);
+  goto lab_p29_L_67FE;
+  lab_p29_L_67FC:
+  /* cp 0x16 */ flag_cmp(a, 0x16);
+  lab_p29_L_67FE:
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x6800 (offset 0x2800)
+void p29_L_6800() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  /* push de */
+  p29_L_75EC();
+  /* ld hl,0x4000 */
+  lab_p29_L_6809:
+  /* push af */
+  p29_L_6B36();
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_z()) goto lab_p29_L_6815;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_6827;
+  lab_p29_L_6815:
+  /* pop af */
+  /* push af */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_6827;
+  p29_L_4A3F();
+  a = c;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_6827;
+  /* pop af */
+  a = a - c;
+  goto lab_p29_L_6809;
+  lab_p29_L_6827:
+  /* pop af */
+  b = a;
+  /* pop de */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6897 (offset 0x2897)
+void p29_L_6897() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* res 7,(iy+0x24) */
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  /* ld a,(0x83EE) */
+  /* ld hl,(0x83EF) */
+  p29_L_69D4();
+  if (flag_nz()) goto lab_p29_L_68D2;
+  b = 0xF0;
+  /* ld a,(0x83EE) */
+  /* ld de,(0x83EF) */
+  p29_L_6F82();
+  /* jp c,0x2541 - other page/RAM */
+  os_bcall(0x8021);
+  /* ld hl,(0x83EF) */
+  /* inc hl */
+  /* ld (0x83EF),hl */
+  goto lab_p29_L_68D6;
+  lab_p29_L_68D2:
+  /* ld de,(0x83EF) */
+  lab_p29_L_68D6:
+  b = 0xFE;
+  /* ld a,(0x83EE) */
+  /* ld (0x8404),a */
+  /* ld (0x8402),de */
+  p29_L_6F82();
+  /* jp c,0x2541 - other page/RAM */
+  os_bcall(0x8021);
+  /* ld a,(0x83EE) */
+  /* ld de,(0x8402) */
+  /* ld (0x986B),a */
+  /* ld (0x986C),de */
+  p29_L_6550();
+  /* ld a,(0x986B) */
+  /* ld de,(0x986C) */
+  /* ld hl,0x83F9 */
+  /* ld bc,0x0002 */
+  p29_L_6F54();
+  /* jp c,0x2541 - other page/RAM */
+  os_bcall(0x8087);
+  /* ld de,0x0002 */
+  p29_L_6559();
+  /* ld a,(0x8404) */
+  /* ld (0x83EE),a */
+  /* ld de,(0x986C) */
+  /* ld hl,(0x83F1) */
+  p00_L_2EDD(); /* page0 */
+  /* ld a,(0x986B) */
+  /* ld (0x83EE),a */
+  /* ld hl,(0x83F1) */
+  /* ld bc,(0x83F5) */
+  /* push de */
+  /* ld de,0x8478 */
+  b = c;
+  lab_p29_L_693A:
+  /* ld a,(hl) */
+  /* ld (de),a */
+  /* inc de */
+  /* dec hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_693A;
+  /* pop de */
+  /* ld a,(0x83EE) */
+  /* ld bc,(0x83F5) */
+  /* ld hl,0x8478 */
+  /* res 7,(hl) */
+  /* ld (0x986C),de */
+  /* ld (0x986B),a */
+  p29_L_6F54();
+  /* jp c,0x2541 - other page/RAM */
+  os_bcall(0x8087);
+  /* ld de,(0x83F5) */
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld (0x83EE),a */
+  /* ld de,(0x986C) */
+  /* ld (0x83FB),de */
+  /* bit 3,(iy+0x26) */
+  /* res 3,(iy+0x26) */
+  if (flag_nz()) goto lab_p29_L_69D1;
+  /* ld a,(0x83EE) */
+  /* ld hl,(0x83F3) */
+  /* bit 5,(iy+0x26) */
+  /* ld bc,0x0002 */
+  if (flag_nz()) goto lab_p29_L_698F;
+  /* ld bc,(0x83F7) */
+  lab_p29_L_698F:
+  /* ld (0x986C),de */
+  /* ld (0x986B),a */
+  p29_L_6F54();
+  /* jp c,0x2541 - other page/RAM */
+  p29_L_7666();
+  /* bit 5,(iy+0x26) */
+  /* ld de,0x0002 */
+  if (flag_nz()) goto lab_p29_L_69AC;
+  /* ld de,(0x83F7) */
+  lab_p29_L_69AC:
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld (0x83EE),a */
+  /* ld de,(0x986C) */
+  /* bit 2,(iy+0x26) */
+  if (flag_nz()) goto lab_p29_L_69D1;
+  /* ld de,(0x8402) */
+  b = 0xFC;
+  /* ld a,(0x8404) */
+  p29_L_6F82();
+  /* jp c,0x2541 - other page/RAM */
+  os_bcall(0x8021);
+  lab_p29_L_69D1:
+  p29_L_5FDB();
+  return;
+}
+
+// flash page 29 cpu 0x69D4 (offset 0x29D4)
+void p29_L_69D4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld bc,0x4000 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* pop hl */
+  if (flag_z()) goto lab_p29_L_69DF;
+  if (flag_nc()) return;
+  lab_p29_L_69DF:
+  b = a;
+  a = a & 0x03;
+  a = b;
+  return;
+}
+
+// flash page 29 cpu 0x69E8 (offset 0x29E8)
+void p29_L_69E8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_6A07();
+  /* push af */
+  /* push hl */
+  /* push af */
+  p29_L_6B36();
+  e = a;
+  /* pop af */
+  /* inc hl */
+  p00_L_23FC(); /* page0 */
+  if (flag_nc()) goto lab_p29_L_69FA;
+  a = a + 1;
+  lab_p29_L_69FA:
+  p29_L_6B36();
+  d = a;
+  /* push de */
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6A07 (offset 0x2A07)
+void p29_L_6A07() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* inc hl */
+  /* inc hl */
+  /* inc hl */
+  p00_L_23FC(); /* page0 */
+  if (flag_nc()) goto lab_p29_L_6A10;
+  a = a + 1;
+  lab_p29_L_6A10:
+  /* push af */
+  p29_L_6B36();
+  a = a & 0x1F;
+  a = a | a;
+  p00_L_23F6(); /* page0 */
+  if (flag_nc()) goto lab_p29_L_6A21;
+  d = a;
+  /* pop af */
+  a = a + 1;
+  /* push af */
+  a = d;
+  lab_p29_L_6A21:
+  /* ld de,0x0003 */
+  p00_L_17B3(); /* page0 */
+  if (flag_z()) goto lab_p29_L_6A3D;
+  p00_L_1830(); /* page0 */
+  if (flag_z()) goto lab_p29_L_6A3D;
+  /* pop af */
+  /* ld (0x986B),a */
+  p29_L_6B36();
+  /* cp 0x5D */ flag_cmp(a, 0x5D);
+  /* ld a,(0x986B) */
+  if (flag_nz()) goto lab_p29_L_6A45;
+  /* push af */
+  lab_p29_L_6A3D:
+  /* pop af */
+  /* push af */
+  p29_L_6B36();
+  e = a;
+  /* pop af */
+  e = e + 1;
+  lab_p29_L_6A45:
+  /* ld (0x986B),a */
+  /* ld (0x986C),hl */
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  return;
+}
+
+// flash page 29 cpu 0x6B36 (offset 0x2B36)
+void p29_L_6B36() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* ld bc,0x0001 */
+  /* ld de,0x9867 */
+  p29_L_6B49();
+  /* ld a,(0x9867) */
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6B49 (offset 0x2B49)
+void p29_L_6B49() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_24A9(); /* page0 */
+  if (flag_z()) goto lab_p29_L_6B50;
+  a = a & 0x1F;
+  lab_p29_L_6B50:
+  /* push ix */
+  /* ld ix,0x6B5C */
+  p29_L_6B87();
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x6B87 (offset 0x2B87)
+void p29_L_6B87() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_6BB0();
+  /* push bc */
+  /* push de */
+  /* push hl */
+  /* push ix */
+  /* pop hl */
+  /* ld c,(hl) */
+  /* inc hl */
+  /* ld b,(hl) */
+  /* inc hl */
+  /* ld de,0x8100 */
+  /* push de */
+  /* ldir */
+  /* pop ix */
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  p29_L_6BAD();
+  /* push af */
+  /* ld a,(0x82A2) */
+  /* bit 2,a */
+  if (flag_z()) goto lab_p29_L_6BAB;
+  /* ei */
+  lab_p29_L_6BAB:
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6BAD (offset 0x2BAD)
+void p29_L_6BAD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* jp 0x8100 - other page/RAM */
+}
+
+// flash page 29 cpu 0x6BB0 (offset 0x2BB0)
+void p29_L_6BB0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push bc */
+  /* ld a,i */
+  /* push af */
+  /* di */
+  /* pop bc */
+  a = c;
+  /* ld (0x82A2),a */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x6CB5 (offset 0x2CB5)
+void p29_L_6CB5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8697 */
+  p00_L_24A9(); /* page0 */
+  if (flag_z()) goto lab_p29_L_6CC4;
+  c = a;
+  b = 0x00;
+  /* add hl,bc */
+  /* set 7,(hl) */
+  return;
+  lab_p29_L_6CC4:
+  b = a;
+  p00_L_2DB1(); /* page0 */
+  /* or (hl) */
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 29 cpu 0x6CCB (offset 0x2CCB)
+void p29_L_6CCB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld (0x986B),a */
+  /* ld (0x986C),hl */
+  /* ld de,0x0003 */
+  p29_L_6559();
+  p00_L_1295(); /* page0 */
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  p29_L_6B36();
+  /* ld (0x8478),a */
+  p00_L_23F6(); /* page0 */
+  if (flag_nc()) goto lab_p29_L_6CF2;
+  /* ld a,(0x986B) */
+  a = a + 1;
+  /* ld (0x986B),a */
+  lab_p29_L_6CF2:
+  /* ld (0x986C),hl */
+  /* ld a,(0x8478) */
+  b = 0x03;
+  p00_L_17B3(); /* page0 */
+  if (flag_z()) goto lab_p29_L_6D11;
+  p00_L_1830(); /* page0 */
+  if (flag_z()) goto lab_p29_L_6D11;
+  /* ld a,(0x986B) */
+  p29_L_6B36();
+  /* cp 0x5D */ flag_cmp(a, 0x5D);
+  /* ld a,(0x986B) */
+  if (flag_nz()) goto lab_p29_L_6D21;
+  lab_p29_L_6D11:
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  p29_L_6B36();
+  b = a;
+  /* ld a,(0x986B) */
+  p29_L_6550();
+  lab_p29_L_6D21:
+  /* ld de,0x8479 */
+  lab_p29_L_6D24:
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  /* push bc */
+  p29_L_6B36();
+  /* pop bc */
+  /* ld (de),a */
+  /* inc de */
+  p29_L_6550();
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_6D24;
+  return;
+}
+
+// flash page 29 cpu 0x6DCD (offset 0x2DCD)
+void p29_L_6DCD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* jp p,0x3A83 - other page/RAM */
+  /* xor 0x83 */
+  /* ld hl,(0x83EF) */
+  /* ld (0x986B),a */
+  /* ld (0x986C),hl */
+  /* ld de,0x83FD */
+  /* ld bc,0x0003 */
+  p29_L_6B49();
+  /* ld de,0x0006 */
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  /* ld (0x83EE),a */
+  /* ld (0x83EF),hl */
+  /* ld a,(0x83F1) */
+  /* ld de,(0x83F2) */
+  /* ld (0x986B),a */
+  /* ld (0x986C),de */
+  /* ld hl,0x83FD */
+  /* ld bc,0x0003 */
+  os_bcall(0x8087);
+  /* ld de,0x0003 */
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld de,(0x986C) */
+  /* ld hl,0x8402 */
+  /* ld bc,0x0003 */
+  os_bcall(0x8087);
+  /* ld de,0x0003 */
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld de,(0x986C) */
+  /* ld (0x83F1),a */
+  /* ld (0x83F2),de */
+  /* pop hl */
+  /* ld bc,0x0006 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  lab_p29_L_6E40:
+  /* ld hl,0x0000 */
+  /* ld (0x83F4),hl */
+  /* ld de,0x8000 */
+  lab_p29_L_6E49:
+  /* push bc */
+  /* ld a,(0x83EE) */
+  b = a;
+  /* ld hl,(0x83EF) */
+  p00_L_01E3(); /* page0 */
+  a = c;
+  /* ld (de),a */
+  /* inc de */
+  /* inc hl */
+  /* bit 7,h */
+  if (flag_z()) goto lab_p29_L_6E60;
+  b = b + 1;
+  /* ld hl,0x4000 */
+  lab_p29_L_6E60:
+  p29_L_6ECE();
+  a = b;
+  /* ld (0x83EE),a */
+  /* ld (0x83EF),hl */
+  /* pop bc */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_6EA7;
+  p29_L_6ED5();
+  if (flag_z()) goto lab_p29_L_6E77;
+  goto lab_p29_L_6E49;
+  lab_p29_L_6E77:
+  /* push bc */
+  /* ld hl,0x8000 */
+  /* ld de,(0x83F2) */
+  /* ld a,(0x83F1) */
+  /* ld (0x986C),de */
+  /* ld (0x986B),a */
+  /* ld bc,(0x83F4) */
+  os_bcall(0x8087);
+  /* ld de,(0x83F4) */
+  p29_L_6559();
+  /* ld a,(0x986B) */
+  /* ld hl,(0x986C) */
+  /* ld (0x83F1),a */
+  /* ld (0x83F2),hl */
+  /* pop bc */
+  goto lab_p29_L_6E40;
+  lab_p29_L_6EA7:
+  /* ld hl,0x8000 */
+  /* ld de,(0x83F2) */
+  /* ld a,(0x83F1) */
+  /* ld bc,(0x83F4) */
+  os_bcall(0x8087);
+  /* ld a,(0x8404) */
+  /* ld de,(0x8402) */
+  b = 0xFC;
+  os_bcall(0x8021);
+  /* pop af */
+  /* ld (0x8478),a */
+  /* pop af */
+  /* pop de */
+  /* pop hl */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x6ECE (offset 0x2ECE)
+void p29_L_6ECE() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld hl,0x83F4 */
+  /* inc (hl) */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6ED5 (offset 0x2ED5)
+void p29_L_6ED5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x83F4) */
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  return;
+}
+
+// flash page 29 cpu 0x6EDB (offset 0x2EDB)
+void p29_L_6EDB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_75EC();
+  lab_p29_L_6EDE:
+  p29_L_7BD4();
+  p29_L_6800();
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_6F53;
+  if (flag_z()) goto lab_p29_L_6F53;
+  /* ld hl,0x4000 */
+  /* push af */
+  p29_L_6B36();
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_6F0A;
+  /* pop af */
+  /* push af */
+  p29_L_4A3F();
+  a = c;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_6F52;
+  b = c;
+  /* ld de,0x4000 */
+  lab_p29_L_6F01:
+  p29_L_652E();
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_6F01;
+  lab_p29_L_6F06:
+  /* pop af */
+  a = a - c;
+  goto lab_p29_L_6EDE;
+  lab_p29_L_6F0A:
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_nz()) goto lab_p29_L_6F52;
+  /* pop af */
+  /* push af */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_6F52;
+  /* pop af */
+  /* push af */
+  p29_L_5E34();
+  p29_L_53E5();
+  if (flag_z()) goto lab_p29_L_6F43;
+  /* pop af */
+  /* push af */
+  p29_L_4A3F();
+  a = c;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_6F52;
+  b = c;
+  lab_p29_L_6F29:
+  /* pop af */
+  /* push af */
+  /* push bc */
+  /* ld de,0x4000 */
+  b = 0x00;
+  os_bcall(0x8021);
+  /* ld de,0x4000 */
+  p29_L_652E();
+  /* pop bc */
+  b = b - 1;
+  if (flag_z()) goto lab_p29_L_6F4E;
+  /* pop af */
+  a = a - 1;
+  /* push af */
+  goto lab_p29_L_6F29;
+  lab_p29_L_6F43:
+  /* pop af */
+  /* push af */
+  p29_L_4A3F();
+  a = c;
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_6F52;
+  goto lab_p29_L_6F06;
+  lab_p29_L_6F4E:
+  /* pop af */
+  a = a - 1;
+  goto lab_p29_L_6EDE;
+  lab_p29_L_6F52:
+  /* pop af */
+  lab_p29_L_6F53:
+  return;
+}
+
+// flash page 29 cpu 0x6F54 (offset 0x2F54)
+void p29_L_6F54() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_c()) goto lab_p29_L_6F7D;
+  /* push af */
+  /* ld a,(0x8478) */
+  /* push af */
+  p29_L_6800();
+  /* pop af */
+  /* ld (0x8478),a */
+  /* pop af */
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_6F6E;
+  if (flag_nc()) goto lab_p29_L_6F7D;
+  lab_p29_L_6F6E:
+  /* ld bc,0x4000 */
+  /* sbc hl,bc */
+  if (flag_c()) goto lab_p29_L_6F7D;
+  /* ex de,hl */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_c()) goto lab_p29_L_6F7D;
+  goto lab_p29_L_6F7E;
+  lab_p29_L_6F7D:
+  /* scf */
+  lab_p29_L_6F7E:
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6F82 (offset 0x2F82)
+void p29_L_6F82() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_c()) goto lab_p29_L_6FA7;
+  /* push af */
+  /* ld a,(0x8478) */
+  /* push af */
+  p29_L_6800();
+  /* pop af */
+  /* ld (0x8478),a */
+  /* pop af */
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_6F9C;
+  if (flag_nc()) goto lab_p29_L_6FA7;
+  lab_p29_L_6F9C:
+  /* ld bc,0x4000 */
+  /* ex de,hl */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_c()) goto lab_p29_L_6FA7;
+  goto lab_p29_L_6FA8;
+  lab_p29_L_6FA7:
+  /* scf */
+  lab_p29_L_6FA8:
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6FAC (offset 0x2FAC)
+void p29_L_6FAC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  p29_L_75E1();
+  if (flag_nc()) goto lab_p29_L_6FBD;
+  p29_L_6800();
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_6FBA;
+  a = a | a;
+  lab_p29_L_6FBA:
+  /* pop bc */
+  /* pop hl */
+  return;
+  lab_p29_L_6FBD:
+  /* scf */
+  goto lab_p29_L_6FBA;
+}
+
+// flash page 29 cpu 0x6FC0 (offset 0x2FC0)
+void p29_L_6FC0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* ld hl,0x4000 */
+  /* ld de,0x80C0 */
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_6FF4;
+  /* inc hl */
+  /* ld a,(0x843E) */
+  os_bcall(0x805A);
+  /* ld a,(0x843E) */
+  p29_L_5CFF();
+  p00_L_01C8(); /* page0 */
+  b = a;
+  /* ld a,(0x83A5) */
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_6FE9;
+  if (flag_c()) goto lab_p29_L_6FF4;
+  goto lab_p29_L_6FF5;
+  lab_p29_L_6FE9:
+  p00_L_01C8(); /* page0 */
+  /* ld a,(0x83A6) */
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_6FF4;
+  if (flag_nc()) goto lab_p29_L_6FF5;
+  lab_p29_L_6FF4:
+  a = 0;
+  lab_p29_L_6FF5:
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x6FF9 (offset 0x2FF9)
+void p29_L_6FF9() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push de */
+  /* bit 5,(iy+0x24) */
+  if (flag_nz()) goto lab_p29_L_701F;
+  /* ld a,(0x843E) */
+  /* ld hl,0x4000 */
+  /* ld de,0x80A0 */
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_7024;
+  /* inc hl */
+  /* ld a,(0x843E) */
+  os_bcall(0x805A);
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_7024;
+  /* ld a,(hl) */
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_7024;
+  lab_p29_L_701F:
+  p00_L_0BB1(); /* page0 */
+  goto lab_p29_L_7027;
+  lab_p29_L_7024:
+  p00_L_0B8D(); /* page0 */
+  lab_p29_L_7027:
+  /* pop de */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x702B (offset 0x302B)
+void p29_str_2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = h;
+  h = l;
+  l = h;
+  h = l;
+  /* ld (hl),h */
+  l = c;
+  /* ld l,(hl) */
+  h = a;
+  l = 0x2E;
+  l = 0x00;
+  p29_str_1();
+  return;
+}
+
+// flash page 29 cpu 0x7037 (offset 0x3037)
+void p29_str_1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  c = b;
+  h = c;
+  halt();
+  h = l;
+  if (flag_nz()) goto lab_p29_L_7082;
+  a = b;
+  /* ld (hl),b */
+  l = c;
+  /* ld (hl),d */
+  h = l;
+  h = h;
+  l = 0x00;
+  p29_L_7045();
+  return;
+  lab_p29_L_7062:
+  /* push af */
+  os_bcall(0x8051);
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p29_L_709E;
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  a = a & 0xF0;
+  flag_cmp(a, e);
+  if (flag_nz()) goto lab_p29_L_7078;
+  /* pop af */
+  /* dec hl */
+  goto lab_p29_L_70A2;
+  lab_p29_L_7078:
+  /* pop af */
+  /* push af */
+  /* push de */
+  os_bcall(0x805A);
+  /* pop de */
+  /* add hl,bc */
+  /* ld (0x83EE),hl */
+  lab_p29_L_7082:
+  a = a + e;
+  /* pop af */
+  /* push af */
+  /* push hl */
+  /* inc hl */
+  os_bcall(0x8051);
+  a = a & 0xF0;
+  flag_cmp(a, e);
+  if (flag_z()) goto lab_p29_L_7093;
+  /* cp 0x10 */ flag_cmp(a, 0x10);
+  if (flag_z()) goto lab_p29_L_7097;
+  lab_p29_L_7093:
+  /* pop hl */
+  /* pop af */
+  goto lab_p29_L_7062;
+  lab_p29_L_7097:
+  /* pop hl */
+  /* ld hl,(0x83EE) */
+  a = 0x01;
+  a = a | a;
+  lab_p29_L_709E:
+  /* pop bc */
+  /* pop ix */
+  return;
+  lab_p29_L_70A2:
+  a = 0x00;
+  /* bit 7,a */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x7045 (offset 0x3045)
+void p29_L_7045() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push af */
+  /* ld a,(0x97A6) */
+  b = a;
+  lab_p29_L_704B:
+  /* ld a,(hl) */
+  /* inc hl */
+  a = a | a;
+  /* scf */
+  if (flag_z()) goto lab_p29_L_705A;
+  p00_L_3F9F(); /* page0 */
+  /* ld a,(0x844B) */
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_704B;
+  lab_p29_L_705A:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x705E (offset 0x305E)
+void p29_L_705E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x7E;
+  p29_L_7060();
+  return;
+}
+
+// flash page 29 cpu 0x7060 (offset 0x3060)
+void p29_L_7060() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  lab_p29_L_7062:
+  /* push af */
+  os_bcall(0x8051);
+  flag_cmp(a, d);
+  if (flag_nz()) goto lab_p29_L_709E;
+  /* inc hl */
+  /* pop af */
+  /* push af */
+  os_bcall(0x8051);
+  a = a & 0xF0;
+  flag_cmp(a, e);
+  if (flag_nz()) goto lab_p29_L_7078;
+  /* pop af */
+  /* dec hl */
+  goto lab_p29_L_70A2;
+  lab_p29_L_7078:
+  /* pop af */
+  /* push af */
+  /* push de */
+  os_bcall(0x805A);
+  /* pop de */
+  /* add hl,bc */
+  /* ld (0x83EE),hl */
+  /* pop af */
+  /* push af */
+  /* push hl */
+  /* inc hl */
+  os_bcall(0x8051);
+  a = a & 0xF0;
+  flag_cmp(a, e);
+  if (flag_z()) goto lab_p29_L_7093;
+  /* cp 0x10 */ flag_cmp(a, 0x10);
+  if (flag_z()) goto lab_p29_L_7097;
+  lab_p29_L_7093:
+  /* pop hl */
+  /* pop af */
+  goto lab_p29_L_7062;
+  lab_p29_L_7097:
+  /* pop hl */
+  /* ld hl,(0x83EE) */
+  a = 0x01;
+  a = a | a;
+  lab_p29_L_709E:
+  /* pop bc */
+  /* pop ix */
+  return;
+  lab_p29_L_70A2:
+  a = 0x00;
+  /* bit 7,a */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x70D1 (offset 0x30D1)
+void p29_L_70D1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x0300 */
+  os_bcall(0x8027);
+  return;
+}
+
+// flash page 29 cpu 0x70D8 (offset 0x30D8)
+void p29_str_3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = e;
+  h = l;
+  /* ld (hl),d */
+  /* ld (hl),h */
+  l = 0x20;
+  d = d;
+  h = l;
+  halt();
+  l = c;
+  /* ld (hl),e */
+  l = c;
+  l = a;
+  /* ld l,(hl) */
+  if (flag_nz()) goto lab_p29_L_710B;
+  /* nop */
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p29_L_70D1();
+  if (flag_nz()) { p29_L_5FDB(); return; }
+  /* push hl */
+  /* ld hl,0x70D8 */
+  /* ld de,0x8478 */
+  /* ld bc,0x0012 */
+  lab_p29_L_710A:
+  /* ld a,(hl) */
+  lab_p29_L_710B:
+  /* ld (de),a */
+  /* inc hl */
+  /* inc de */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_710A;
+  /* ld hl,0x8478 */
+  p00_L_3D4D(); /* page0 */
+  a = 0x7E;
+  /* pop hl */
+  p29_L_4873();
+  /* push bc */
+  /* pop hl */
+  p29_L_598E();
+  p29_L_5FDB();
+  return;
+}
+
+// flash page 29 cpu 0x7124 (offset 0x3124)
+void p29_L_7124() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x8674) */
+  /* cp 0x23 */ flag_cmp(a, 0x23);
+  return;
+}
+
+// flash page 29 cpu 0x717A (offset 0x317A)
+void p29_L_717A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x8000 */
+  /* ld de,0x81AF */
+  goto lab_p29_L_7188;
+  lab_p29_L_7188:
+  /* ld bc,0x0080 */
+  /* ldir */
+  return;
+}
+
+// flash page 29 cpu 0x7182 (offset 0x3182)
+void p29_L_7182() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld hl,0x81AF */
+  /* ld de,0x8000 */
+  /* ld bc,0x0080 */
+  /* ldir */
+  return;
+}
+
+// flash page 29 cpu 0x7240 (offset 0x3240)
+void p29_L_7240() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_7150:
+  p29_L_5FDB();
+  p29_L_7124();
+  /* push af */
+  if (flag_z()) goto lab_p29_L_715C;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_715C:
+  /* pop af */
+  /* push af */
+  if (flag_z()) goto lab_p29_L_7166;
+  /* ld hl,0x2C79 */
+  p00_L_25A2(); /* page0 */
+  lab_p29_L_7166:
+  p00_L_3D2F(); /* page0 */
+  a = 0x0B;
+  p00_L_2C49(); /* page0 */
+  /* pop af */
+  if (flag_z()) goto lab_p29_L_7174;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_7174:
+  p00_L_3D05(); /* page0 */
+  /* jp 0x2541 - other page/RAM */
+  /* push ix */
+  /* push af */
+  /* ld (0x82A4),a */
+  a = 0;
+  /* ld (0x8672),a */
+  /* ex de,hl */
+  /* ld (0x843B),de */
+  /* push bc */
+  p00_L_2C61(); /* page0 */
+  /* pop bc */
+  /* ld hl,0x8670 */
+  /* ld a,(0x8675) */
+  /* cp 0x15 */ flag_cmp(a, 0x15);
+  if (flag_nz()) goto lab_p29_L_733F;
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  /* ld hl,(0x8676) */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_nz()) goto lab_p29_L_733F;
+  /* res 6,(iy+0x24) */
+  /* res 7,(iy+0x24) */
+  a = 0;
+  /* ld (0x9C87),a */
+  /* ld bc,(0x8676) */
+  /* ld de,0x0000 */
+  /* ld (0x8678),de */
+  a = c;
+  a = a | b;
+  if (flag_z()) goto lab_p29_L_7363;
+  /* ld hl,0x8000 */
+  /* ld (0x8439),bc */
+  lab_p29_L_729C:
+  p00_L_171E(); /* page0 */
+  if (flag_z()) goto lab_p29_L_7345;
+  /* jp 0x2565 - other page/RAM */
+  lab_p29_L_72D2:
+  p29_L_733B();
+  p29_L_5FDB();
+  p29_L_7124();
+  /* push af */
+  if (flag_z()) goto lab_p29_L_72E1;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_72E1:
+  /* pop af */
+  /* push af */
+  if (flag_z()) goto lab_p29_L_72EB;
+  /* ld hl,0x2C79 */
+  p00_L_25A2(); /* page0 */
+  lab_p29_L_72EB:
+  p00_L_3D2F(); /* page0 */
+  a = 0x07;
+  p00_L_2C49(); /* page0 */
+  /* pop af */
+  if (flag_z()) goto lab_p29_L_72F9;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_72F9:
+  p00_L_2C55(); /* page0 */
+  p00_L_3D05(); /* page0 */
+  /* jp 0x2539 - other page/RAM */
+  lab_p29_L_7302:
+  p29_L_733B();
+  p29_L_5FDB();
+  p29_L_7124();
+  /* push af */
+  if (flag_z()) goto lab_p29_L_7311;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_7311:
+  /* pop af */
+  /* push af */
+  if (flag_z()) goto lab_p29_L_731B;
+  /* ld hl,0x2C79 */
+  p00_L_25A2(); /* page0 */
+  lab_p29_L_731B:
+  p00_L_3D2F(); /* page0 */
+  a = 0x09;
+  p00_L_2C49(); /* page0 */
+  /* pop af */
+  if (flag_z()) goto lab_p29_L_7329;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_7329:
+  p00_L_3D05(); /* page0 */
+  /* jp 0x253D - other page/RAM */
+  lab_p29_L_7336:
+  h = 0x36;
+  /* jp 0x2C73 - other page/RAM */
+  lab_p29_L_733F:
+  p29_L_5FDB();
+  /* jp 0x2565 - other page/RAM */
+  lab_p29_L_7345:
+  /* push bc */
+  p00_L_3F81(); /* page0 */
+  /* ld (hl),a */
+  p29_L_7CA5();
+  /* inc hl */
+  /* ex de,hl */
+  b = 0x00;
+  /* ld hl,(0x8678) */
+  /* add hl,bc */
+  /* ld (0x8678),hl */
+  /* ex de,hl */
+  p29_L_7CBB();
+  /* pop bc */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p29_L_729C;
+  lab_p29_L_7363:
+  p00_L_3F81(); /* page0 */
+  /* push af */
+  p00_L_3F81(); /* page0 */
+  b = a;
+  /* pop af */
+  c = a;
+  a = hw_in(PORT_STATUS);
+  a = a & 0x80;
+  if (flag_z()) goto lab_p29_L_738A;
+  a = hw_in(PORT_SE_STATUS);
+  a = a & 0x01;
+  if (flag_z()) goto lab_p29_L_738A;
+  a = 0;
+  hw_out(PORT_SE_STATUS, a);
+  /* ld de,0x00FE */
+  lab_p29_L_737F:
+  /* dec de */
+  a = d;
+  a = a | e;
+  if (flag_nz()) goto lab_p29_L_737F;
+  a = 0x01;
+  hw_out(PORT_SE_STATUS, a);
+  goto lab_p29_L_7392;
+  lab_p29_L_738A:
+  /* ld de,0x0100 */
+  lab_p29_L_738D:
+  /* dec de */
+  a = d;
+  a = a | e;
+  if (flag_nz()) goto lab_p29_L_738D;
+  lab_p29_L_7392:
+  /* ld hl,(0x8678) */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_nz()) goto lab_p29_L_75A5;
+  p29_L_5E0A();
+  /* ld a,(0x822F) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_74BC;
+  /* ld de,(0x843B) */
+  /* push de */
+  os_bcall(0x8063);
+  /* pop de */
+  /* ld (0x843B),de */
+  if (flag_nz()) goto lab_p29_L_72D2;
+  a = 0x01;
+  /* ld de,0x8050 */
+  p29_L_7060();
+  if (flag_nz()) goto lab_p29_L_73C6;
+  p29_L_50C5();
+  if (flag_nz()) goto lab_p29_L_7302;
+  lab_p29_L_73C6:
+  p29_L_75B8();
+  /* ld a,(0x8432) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_75B4;
+  /* di */
+  /* ld hl,(0x844B) */
+  /* push hl */
+  p00_L_3CD5(); /* page0 */
+  /* ld a,(0x8670) */
+  /* push af */
+  p29_L_717A();
+  /* res 2,(iy+0x25) */
+  p00_L_0AFB(); /* page0 */
+  /* jp z,0x24FD - other page/RAM */
+  a = 0x00;
+  b = 0x00;
+  p00_L_2EB9(); /* page0 */
+  p29_L_7182();
+  /* pop af */
+  lab_p29_L_74BC:
+  /* push de */
+  p29_L_7CB2();
+  if (flag_nz()) goto lab_p29_L_74F0;
+  /* ld a,(0x82A4) */
+  p29_L_7CCF();
+  p29_L_4566();
+  /* cp 0xFE */ flag_cmp(a, 0xFE);
+  if (flag_nz()) goto lab_p29_L_74ED;
+  p29_L_4565();
+  /* cp 0xBF */ flag_cmp(a, 0xBF);
+  if (flag_nz()) goto lab_p29_L_74ED;
+  p29_L_4565();
+  b = a;
+  /* ld a,(0x82A4) */
+  flag_cmp(a, b);
+  if (flag_z()) goto lab_p29_L_74F0;
+  if (flag_nc()) goto lab_p29_L_74ED;
+  p29_L_4565();
+  b = a;
+  /* ld a,(0x82A4) */
+  b = b + 1;
+  flag_cmp(a, b);
+  if (flag_nc()) goto lab_p29_L_74F0;
+  lab_p29_L_74ED:
+  goto lab_p29_L_7150;
+  lab_p29_L_74F0:
+  /* ld bc,(0x8439) */
+  /* ld hl,0x8000 */
+  /* ld de,(0x843B) */
+  /* ld a,(0x82A4) */
+  /* bit 7,d */
+  if (flag_nz()) goto lab_p29_L_7150;
+  /* bit 6,d */
+  if (flag_z()) goto lab_p29_L_7150;
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_c()) goto lab_p29_L_7150;
+  p29_L_75E1();
+  if (flag_nc()) goto lab_p29_L_7150;
+  p29_L_756F();
+  os_bcall(0x8087);
+  p29_L_7CB2();
+  if (flag_z()) goto lab_p29_L_752A;
+  p29_L_5FDB();
+  p00_L_3F1B(); /* page0 */
+  lab_p29_L_7524:
+  /* pop de */
+  /* pop af */
+  /* pop ix */
+  a = 0;
+  return;
+  lab_p29_L_752A:
+  /* ld a,(0x822F) */
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_7535;
+  p29_L_5FDB();
+  goto lab_p29_L_7524;
+  lab_p29_L_7535:
+  p29_L_7CCF();
+  /* pop de */
+  /* push hl */
+  /* push de */
+  b = 0x04;
+  p29_L_4566();
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  lab_p29_L_75A5:
+  /* ld hl,(0x8439) */
+  /* push hl */
+  h = 0x5A;
+  p00_L_2C5B(); /* page0 */
+  goto lab_p29_L_7336;
+  lab_p29_L_75B4:
+  /* pop af */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x733B (offset 0x333B)
+void p29_L_733B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7CB2();
+  if (flag_nz()) return;
+  p29_L_5FDB();
+  /* jp 0x2565 - other page/RAM */
+}
+
+// flash page 29 cpu 0x756F (offset 0x356F)
+void p29_L_756F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  h = d;
+  l = e;
+  /* dec hl */
+  /* add hl,bc */
+  /* bit 7,h */
+  if (flag_z()) goto lab_p29_L_75A1;
+  /* ld hl,0x8000 */
+  /* ld de,(0x843B) */
+  a = a | a;
+  /* sbc hl,de */
+  b = h;
+  c = l;
+  /* ld hl,0x8000 */
+  /* push bc */
+  os_bcall(0x8087);
+  /* pop bc */
+  /* ld a,(0x82A4) */
+  a = a - 1;
+  /* ld hl,(0x8439) */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push bc */
+  b = h;
+  c = l;
+  /* pop de */
+  /* ld hl,0x8000 */
+  /* add hl,de */
+  /* ld de,0x4000 */
+  return;
+  lab_p29_L_75A1:
+  /* ld hl,0x8000 */
+  return;
+}
+
+// flash page 29 cpu 0x75B8 (offset 0x35B8)
+void p29_L_75B8() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_732F:
+  p29_L_733B();
+  p00_L_2C49(); /* page0 */
+  return;
+  lab_p29_L_75B1:
+  goto lab_p29_L_732F;
+  p00_L_1295(); /* page0 */
+  a = 0x01;
+  a = a | a;
+  /* ld hl,0x8000 */
+  /* ld de,0x8040 */
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_75B1;
+  /* inc hl */
+  a = 0x01;
+  os_bcall(0x805A);
+  /* ld de,0x8479 */
+  /* ldir */
+  /* ld a,(0x82A4) */
+  /* push af */
+  p29_L_6428();
+  /* pop af */
+  /* ld (0x82A4),a */
+  return;
+}
+
+// flash page 29 cpu 0x75E1 (offset 0x35E1)
+void p29_L_75E1() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_75E9;
+  /* cp 0x6A */ flag_cmp(a, 0x6A);
+  return;
+  lab_p29_L_75E9:
+  /* cp 0x16 */ flag_cmp(a, 0x16);
+  return;
+}
+
+// flash page 29 cpu 0x75EC (offset 0x35EC)
+void p29_L_75EC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x15;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) return;
+  a = 0x69;
+  return;
+}
+
+// flash page 29 cpu 0x75F5 (offset 0x35F5)
+void p29_L_75F5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_75EC();
+  a = a + 1;
+  /* ld (0x82A3),a */
+  return;
+}
+
+// flash page 29 cpu 0x75FD (offset 0x35FD)
+void p29_L_75FD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld de,0x839F */
+  a = a & 0x0F;
+  /* cp 0x0F */ flag_cmp(a, 0x0F);
+  if (flag_nz()) goto lab_p29_L_7609;
+  b = 0x04;
+  return;
+  lab_p29_L_7609:
+  /* cp 0x0E */ flag_cmp(a, 0x0E);
+  if (flag_nz()) goto lab_p29_L_7612;
+  b = 0x02;
+  a = 0;
+  goto lab_p29_L_761A;
+  lab_p29_L_7612:
+  /* cp 0x0D */ flag_cmp(a, 0x0D);
+  if (flag_nz()) return;
+  b = 0x01;
+  a = 0;
+  /* ld (de),a */
+  /* inc de */
+  lab_p29_L_761A:
+  /* ld (de),a */
+  /* inc de */
+  /* ld (de),a */
+  /* inc de */
+  return;
+}
+
+// flash page 29 cpu 0x761F (offset 0x361F)
+void p29_L_761F() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  p29_L_6B36();
+  /* ld (de),a */
+  /* inc de */
+  /* inc hl */
+  /* pop af */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_761F;
+  return;
+}
+
+// flash page 29 cpu 0x762A (offset 0x362A)
+void p29_L_762A() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7634();
+  /* ld de,0x0610 */
+  os_bcall(0x8030);
+  return;
+}
+
+// flash page 29 cpu 0x7634 (offset 0x3634)
+void p29_L_7634() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_4894();
+  /* ld de,0x0600 */
+  p29_L_777E();
+  p29_L_4574();
+  a = 0x7E;
+  return;
+}
+
+// flash page 29 cpu 0x7643 (offset 0x3643)
+void p29_L_7643() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld bc,0x000D */
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) return;
+  /* ld bc,0x0061 */
+  return;
+}
+
+// flash page 29 cpu 0x764E (offset 0x364E)
+void p29_L_764E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* pop hl */
+  /* ld bc,0x000D */
+  /* add hl,bc */
+  return;
+}
+
+// flash page 29 cpu 0x7656 (offset 0x3656)
+void p29_L_7656() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0x16;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) return;
+  a = 0x6A;
+  return;
+}
+
+// flash page 29 cpu 0x7663 (offset 0x3663)
+void p29_L_7663() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld bc,0x0001 */
+  p29_L_7666();
+  return;
+}
+
+// flash page 29 cpu 0x7666 (offset 0x3666)
+void p29_L_7666() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* res 1,(iy+0x25) */
+  p00_L_24A9(); /* page0 */
+  if (flag_z()) goto lab_p29_L_7671;
+  a = a & 0x1F;
+  lab_p29_L_7671:
+  /* push ix */
+  /* ld ix,0x767D */
+  p29_L_6B87();
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x7700 (offset 0x3700)
+void p29_L_7700() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = hw_in(PORT_STATUS);
+  a = a & 0x80;
+  a = 0x1E;
+  if (flag_z()) return;
+  a = 0x7E;
+  return;
+}
+
+// flash page 29 cpu 0x777E (offset 0x377E)
+void p29_L_777E() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7700();
+  os_bcall(0x805D);
+  return;
+}
+
+// flash page 29 cpu 0x780B (offset 0x380B)
+void p29_L_780B() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  return;
+}
+
+// flash page 29 cpu 0x7865 (offset 0x3865)
+void p29_L_7865() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* ld a,(0x8439) */
+  /* ld de,0x8000 */
+  /* ld bc,0x0100 */
+  os_bcall(0x8054);
+  /* pop bc */
+  /* ld hl,0x0100 */
+  a = a | a;
+  /* sbc hl,bc */
+  if (flag_nc()) goto lab_p29_L_7882;
+  /* push bc */
+  /* ld bc,0x0100 */
+  goto lab_p29_L_7883;
+  lab_p29_L_7882:
+  /* push bc */
+  lab_p29_L_7883:
+  /* ld hl,0x8000 */
+  os_bcall(0x8090);
+  /* ex de,hl */
+  /* pop hl */
+  /* ld bc,0x0100 */
+  a = a | a;
+  /* sbc hl,bc */
+  /* push hl */
+  /* pop bc */
+  /* ex de,hl */
+  if (flag_z()) goto lab_p29_L_78A1;
+  if (flag_c()) goto lab_p29_L_78A1;
+  /* pop hl */
+  /* push bc */
+  /* ld de,0x0100 */
+  /* add hl,de */
+  /* pop bc */
+  goto lab_p29_L_7865;
+  lab_p29_L_78A1:
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x78A3 (offset 0x38A3)
+void p29_L_78A3() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push hl */
+  /* push bc */
+  b = 0x08;
+  lab_p29_L_78A8:
+  c = a;
+  a = a ^ e;
+  /* rr d */
+  /* rr e */
+  a = a & 0x01;
+  if (flag_z()) goto lab_p29_L_78BA;
+  a = 0x08;
+  a = a ^ e;
+  e = a;
+  a = 0x84;
+  a = a ^ d;
+  d = a;
+  lab_p29_L_78BA:
+  a = c;
+  /* rra */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_78A8;
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x78C2 (offset 0x38C2)
+void p29_L_78C2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push af */
+  /* ld de,0xFFFF */
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_78F1;
+  lab_p29_L_78CC:
+  /* ld a,(hl) */
+  /* inc hl */
+  /* push af */
+  /* push hl */
+  /* push bc */
+  b = 0x08;
+  lab_p29_L_78D3:
+  c = a;
+  a = a ^ e;
+  /* rr d */
+  /* rr e */
+  a = a & 0x01;
+  if (flag_z()) goto lab_p29_L_78E5;
+  a = 0x08;
+  a = a ^ e;
+  e = a;
+  a = 0x84;
+  a = a ^ d;
+  d = a;
+  lab_p29_L_78E5:
+  a = c;
+  /* rra */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_78D3;
+  /* pop bc */
+  /* pop hl */
+  /* pop af */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p29_L_78CC;
+  lab_p29_L_78F1:
+  /* pop af */
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x78F5 (offset 0x38F5)
+void p29_L_78F5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* ld hl,0x790F */
+  p00_L_0059(); /* page0 */
+  p00_L_3F81(); /* page0 */
+  l = a;
+  p00_L_005C(); /* page0 */
+  /* bit 4,(iy+0x09) */
+  if (flag_nz()) goto lab_p29_L_790F;
+  a = 0;
+  a = l;
+  goto lab_p29_L_7911;
+  lab_p29_L_790F:
+  a = a | 0xFF;
+  lab_p29_L_7911:
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x7915 (offset 0x3915)
+void p29_L_7915() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push af */
+  /* ld de,0x0000 */
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_792D;
+  lab_p29_L_791F:
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_792D;
+  /* ld (hl),a */
+  /* inc hl */
+  /* inc de */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p29_L_791F;
+  a = 0;
+  lab_p29_L_792D:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x7932 (offset 0x3932)
+void p29_L_7932() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  /* push af */
+  p00_L_24A9(); /* page0 */
+  if (flag_z()) goto lab_p29_L_7945;
+  a = link_in(); /* stub */
+  a = a & 0x03;
+  if (flag_z()) goto lab_p29_L_7949;
+  /* cp 0x03 */ flag_cmp(a, 0x03);
+  if (flag_z()) goto lab_p29_L_7949;
+  goto lab_p29_L_7949;
+  lab_p29_L_7945:
+  a = hw_in(0x09);
+  a = a & 0x58;
+  lab_p29_L_7949:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x794D (offset 0x394D)
+void p29_L_794D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  lab_p29_L_794E:
+  p29_L_7932();
+  if (flag_z()) goto lab_p29_L_795A;
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_795A;
+  goto lab_p29_L_794E;
+  lab_p29_L_795A:
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x795C (offset 0x395C)
+void p29_L_795C() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* ld ix,0x0000 */
+  /* add ix,sp */
+  /* push hl */
+  /* push de */
+  /* push af */
+  /* push af */
+  /* push af */
+  /* ld de,0xFFFF */
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  p29_L_78A3();
+  h = a;
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  p29_L_78A3();
+  l = a;
+  /* ld (ix-0x07),ixh */
+  /* ld (ix-0x08),ixl */
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  p29_L_78A3();
+  h = a;
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  p29_L_78A3();
+  l = a;
+  /* ld (ix-0x05),ixh */
+  /* ld (ix-0x06),ixl */
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  h = a;
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  l = a;
+  a = a & a;
+  /* sbc hl,de */
+  if (flag_nz()) goto lab_p29_L_79F0;
+  /* ld d,(ix-0x05) */
+  /* ld e,(ix-0x06) */
+  a = d;
+  a = a | e;
+  if (flag_z()) goto lab_p29_L_79F5;
+  /* ld ixh,(ix-0x03) */
+  /* ld ixl,(ix-0x04) */
+  a = a & a;
+  /* sbc hl,de */
+  if (flag_c()) goto lab_p29_L_79F0;
+  /* ld ixh,(ix-0x01) */
+  /* ld ixl,(ix-0x02) */
+  /* ld b,(ix-0x05) */
+  /* ld c,(ix-0x06) */
+  p29_L_7915();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  p29_L_78C2();
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  h = a;
+  p29_L_78F5();
+  if (flag_nz()) goto lab_p29_L_79F0;
+  l = a;
+  a = a & a;
+  /* sbc hl,de */
+  if (flag_nz()) goto lab_p29_L_79F0;
+  a = 0;
+  goto lab_p29_L_79F5;
+  lab_p29_L_79F0:
+  p29_L_794D();
+  a = a | 0xFF;
+  lab_p29_L_79F5:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x7A67 (offset 0x3A67)
+void p29_L_7A67() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* ld hl,0x0000 */
+  /* ld de,0x0000 */
+  p29_L_7AD0();
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x7A75 (offset 0x3A75)
+void p29_L_7A75() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  b = 0x01;
+  p29_L_7A67();
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x7A85 (offset 0x3A85)
+void p29_L_7A85() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  b = 0x04;
+  p29_L_7A67();
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x7A8D (offset 0x3A8D)
+void p29_L_7A8D() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* bit 4,(iy+0x09) */
+  /* res 4,(iy+0x09) */
+  return;
+}
+
+// flash page 29 cpu 0x7A96 (offset 0x3A96)
+void p29_L_7A96() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push af */
+  /* ld hl,0x7AAF */
+  p00_L_0059(); /* page0 */
+  p00_L_3F87(); /* page0 */
+  p00_L_005C(); /* page0 */
+  /* bit 4,(iy+0x09) */
+  if (flag_nz()) goto lab_p29_L_7AAF;
+  a = 0;
+  goto lab_p29_L_7AB1;
+  lab_p29_L_7AAF:
+  a = a | 0xFF;
+  lab_p29_L_7AB1:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x7AB7 (offset 0x3AB7)
+void p29_L_7AB7() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* push bc */
+  /* push af */
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_7ACB;
+  lab_p29_L_7ABE:
+  /* ld a,(hl) */
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7ACB;
+  /* inc hl */
+  /* dec bc */
+  a = b;
+  a = a | c;
+  if (flag_nz()) goto lab_p29_L_7ABE;
+  a = 0;
+  lab_p29_L_7ACB:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x7AD0 (offset 0x3AD0)
+void p29_L_7AD0() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push ix */
+  /* ld ix,0x0000 */
+  /* add ix,sp */
+  /* push hl */
+  /* push de */
+  /* push bc */
+  /* push af */
+  /* ld de,0xFFFF */
+  a = 0x5B;
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = b;
+  p29_L_78A3();
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = c;
+  p29_L_78A3();
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  /* ld b,(ix-0x03) */
+  /* ld c,(ix-0x04) */
+  a = b;
+  p29_L_78A3();
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = c;
+  p29_L_78A3();
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = d;
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = e;
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = b;
+  a = a | c;
+  if (flag_z()) goto lab_p29_L_7B34;
+  p29_L_78C2();
+  p29_L_7AB7();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = d;
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  a = e;
+  p29_L_7A96();
+  if (flag_nz()) goto lab_p29_L_7B37;
+  lab_p29_L_7B34:
+  a = 0;
+  goto lab_p29_L_7B39;
+  lab_p29_L_7B37:
+  a = a | 0xFF;
+  lab_p29_L_7B39:
+  /* pop bc */
+  a = b;
+  /* pop bc */
+  /* pop de */
+  /* pop hl */
+  /* pop ix */
+  return;
+}
+
+// flash page 29 cpu 0x7B41 (offset 0x3B41)
+void p29_L_7B41() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_732F:
+  p29_L_733B();
+  p00_L_2C49(); /* page0 */
+  return;
+  lab_p29_L_75B1:
+  goto lab_p29_L_732F;
+  p00_L_1295(); /* page0 */
+  a = 0x01;
+  a = a | a;
+  /* ld hl,0x8000 */
+  /* ld de,0x8040 */
+  os_bcall(0x8075);
+  if (flag_nz()) goto lab_p29_L_75B1;
+  /* inc hl */
+  a = 0x01;
+  os_bcall(0x805A);
+  /* ld de,0x8479 */
+  /* ldir */
+  /* ld hl,(0x82A3) */
+  /* push hl */
+  p29_L_6186();
+  if (flag_c()) goto lab_p29_L_7B6D;
+  /* ld (0x8433),a */
+  p29_L_403F();
+  lab_p29_L_7B6D:
+  /* pop hl */
+  /* ld (0x82A3),hl */
+  return;
+}
+
+// flash page 29 cpu 0x7B72 (offset 0x3B72)
+void p29_L_7B72() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_75EC();
+  lab_p29_L_7B75:
+  /* ld hl,0x4000 */
+  /* push af */
+  p29_L_6B36();
+  /* cp 0x80 */ flag_cmp(a, 0x80);
+  if (flag_z()) goto lab_p29_L_7B84;
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_nz()) goto lab_p29_L_7B9C;
+  lab_p29_L_7B84:
+  /* pop af */
+  p00_L_3E31(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_7B9A;
+  p29_L_4A3F();
+  b = a;
+  a = c;
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_7B98;
+  a = b;
+  a = a - c;
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_nc()) goto lab_p29_L_7B75;
+  lab_p29_L_7B98:
+  a = 0;
+  return;
+  lab_p29_L_7B9A:
+  flag_cmp(a, a);
+  return;
+  lab_p29_L_7B9C:
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  /* pop bc */
+  a = b;
+  if (flag_nz()) goto lab_p29_L_7B9A;
+  a = a | a;
+  return;
+}
+
+// flash page 29 cpu 0x7BA4 (offset 0x3BA4)
+void p29_L_7BA4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = 0;
+  b = 0x0E;
+  /* ld hl,0x9C88 */
+  lab_p29_L_7BAA:
+  /* ld (hl),a */
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_7BAA;
+  return;
+}
+
+// flash page 29 cpu 0x7BAF (offset 0x3BAF)
+void p29_L_7BAF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7BBA();
+  /* or (hl) */
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 29 cpu 0x7BB5 (offset 0x3BB5)
+void p29_L_7BB5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p29_L_7BBA();
+  /* and (hl) */
+  return;
+}
+
+// flash page 29 cpu 0x7BBA (offset 0x3BBA)
+void p29_L_7BBA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* sub 0x08 */
+  /* ld hl,0x9C88 */
+  c = a;
+  b = 0x00;
+  /* sra c */
+  /* sra c */
+  /* sra c */
+  /* add hl,bc */
+  a = a & 0x07;
+  c = a;
+  p29_L_7BCC();
+  return;
+}
+
+// flash page 29 cpu 0x7BCC (offset 0x3BCC)
+void p29_L_7BCC() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  b = c;
+  a = 0x80;
+  b = b + 1;
+  lab_p29_L_7BD0:
+  /* rlca */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_7BD0;
+  return;
+}
+
+// flash page 29 cpu 0x7BD4 (offset 0x3BD4)
+void p29_L_7BD4() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* bit 0,(iy+0x12) */
+  if (flag_z()) return;
+  /* push af */
+  /* push bc */
+  /* push de */
+  /* push hl */
+  a = 0x01;
+  /* ld (0x8476),a */
+  p00_L_01BF(); /* page0 */
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  /* pop af */
+  return;
+}
+
+// flash page 29 cpu 0x7BEA (offset 0x3BEA)
+void p29_L_7BEA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  lab_p29_L_72A5:
+  p29_L_733B();
+  p29_L_5FDB();
+  p29_L_7124();
+  /* push af */
+  if (flag_z()) goto lab_p29_L_72B4;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_72B4:
+  /* pop af */
+  /* push af */
+  if (flag_z()) goto lab_p29_L_72BE;
+  /* ld hl,0x2C79 */
+  p00_L_25A2(); /* page0 */
+  lab_p29_L_72BE:
+  p00_L_3D2F(); /* page0 */
+  a = 0x01;
+  p00_L_2C49(); /* page0 */
+  /* pop af */
+  if (flag_z()) goto lab_p29_L_72CC;
+  p00_L_25C8(); /* page0 */
+  lab_p29_L_72CC:
+  p00_L_3D05(); /* page0 */
+  /* jp 0x24F5 - other page/RAM */
+  /* ld (0x82A4),a */
+  /* ld (0x82A3),a */
+  /* ld (0x8434),a */
+  p29_L_5DC7();
+  if (flag_c()) return;
+  if (flag_z()) return;
+  a = e;
+  a = a | a;
+  if (flag_z()) goto lab_p29_L_72A5;
+  a = 0x06;
+  p00_L_2EB9(); /* page0 */
+  if (flag_z()) goto lab_p29_L_72A5;
+  p29_L_7182();
+  /* ld a,(0x8434) */
+  p29_L_5DC7();
+  return;
+}
+
+// flash page 29 cpu 0x7C64 (offset 0x3C64)
+void p29_L_7C64() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld hl,0x8689 */
+  /* bit 7,(hl) */
+  /* pop hl */
+  return;
+}
+
+// flash page 29 cpu 0x7C96 (offset 0x3C96)
+void p29_L_7C96() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  p00_L_24A9(); /* page0 */
+  if (flag_nz()) goto lab_p29_L_7CA0;
+  a = a & 0x7F;
+  /* cp 0x6A */ flag_cmp(a, 0x6A);
+  return;
+  lab_p29_L_7CA0:
+  a = a & 0x1F;
+  /* cp 0x16 */ flag_cmp(a, 0x16);
+  return;
+}
+
+// flash page 29 cpu 0x7CA5 (offset 0x3CA5)
+void p29_L_7CA5() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x83A4) */
+  a = a | a;
+  if (flag_z()) return;
+  /* ld a,(0x83A3) */
+  a = a + 1;
+  /* ld (0x83A3),a */
+  return;
+}
+
+// flash page 29 cpu 0x7CB2 (offset 0x3CB2)
+void p29_L_7CB2() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push bc */
+  b = a;
+  /* ld a,(0x8672) */
+  a = a + 1;
+  a = b;
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x7CBB (offset 0x3CBB)
+void p29_L_7CBB() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x822F) */
+  /* cp 0x00 */ flag_cmp(a, 0x00);
+  if (flag_z()) return;
+  /* push hl */
+  p29_L_578D();
+  a = l;
+  a = a | h;
+  /* pop hl */
+  if (flag_nz()) return;
+  a = 0x00;
+  /* ld (0x83A4),a */
+  return;
+}
+
+// flash page 29 cpu 0x7CCD (offset 0x3CCD)
+void p29_L_7CCD() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  a = a + e;
+  return;
+}
+
+// flash page 29 cpu 0x7CCF (offset 0x3CCF)
+void p29_L_7CCF() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  os_bcall(0x8057);
+  p29_L_4897();
+  /* ld de,0x1DE2 */
+  /* add hl,de */
+  return;
+}
+
+// flash page 29 cpu 0x7CDA (offset 0x3CDA)
+void p29_L_7CDA() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push af */
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p00_L_2ECB(); /* page0 */
+  p29_L_7CCF();
+  /* push hl */
+  b = 0x08;
+  lab_p29_L_7CF5:
+  p29_L_4566();
+  /* cp 0xFF */ flag_cmp(a, 0xFF);
+  if (flag_nz()) goto lab_p29_L_7D01;
+  /* inc hl */
+  b = b - 1;
+  if (b != 0) goto lab_p29_L_7CF5;
+  goto lab_p29_L_7D04;
+  lab_p29_L_7D01:
+  p29_L_407A();
+  lab_p29_L_7D04:
+  /* ld hl,0x7FFE */
+  /* ld (0x8479),hl */
+  /* ld a,(0x83EE) */
+  /* ld (0x847B),a */
+  /* ld hl,(0x83EF) */
+  p29_L_69D4();
+  if (flag_nz()) goto lab_p29_L_7D19;
+  /* inc hl */
+  lab_p29_L_7D19:
+  /* inc hl */
+  /* inc hl */
+  /* inc hl */
+  /* ld de,(0x83F5) */
+  /* add hl,de */
+  /* ld (0x847C),hl */
+  /* ld (0x84DB),hl */
+  /* ld de,(0x83F7) */
+  /* bit 7,d */
+  if (flag_z()) goto lab_p29_L_7D33;
+  a = a + 1;
+  a = a + 1;
+  /* res 7,d */
+  lab_p29_L_7D33:
+  /* bit 6,d */
+  if (flag_z()) goto lab_p29_L_7D3A;
+  a = a + 1;
+  /* res 6,d */
+  lab_p29_L_7D3A:
+  /* add hl,de */
+  /* bit 7,h */
+  if (flag_z()) goto lab_p29_L_7D44;
+  a = a + 1;
+  /* res 7,h */
+  /* set 6,h */
+  lab_p29_L_7D44:
+  /* ld (0x847E),a */
+  /* ld (0x847F),hl */
+  /* ld bc,0x0008 */
+  /* ld hl,0x8479 */
+  p29_L_7700();
+  /* pop de */
+  os_bcall(0x8087);
+  p29_L_5FDB();
+  /* set 3,(iy+0x26) */
+  p29_L_6897();
+  /* pop af */
+  /* ld hl,(0x83F1) */
+  /* ld (hl),a */
+  return;
+}
+
+// flash page 29 cpu 0x7D67 (offset 0x3D67)
+void p29_L_7D67() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* ld a,(0x9834) */
+  a = a | a;
+  if (flag_z()) return;
+  /* push bc */
+  /* push de */
+  /* push hl */
+  c = a;
+  a = 0;
+  /* ld (0x9834),a */
+  /* ld hl,0x983A */
+  /* ld (0x9836),hl */
+  /* ld de,(0x84DB) */
+  /* ld a,(0x83EE) */
+  /* push de */
+  /* ld (0x83EB),a */
+  /* ld a,i */
+  /* di */
+  /* push af */
+  /* ld a,(0x83EB) */
+  /* push af */
+  a = 0x01;
+  /* nop */
+  /* di */
+  /* nop */
+  /* nop */
+  /* im 1 */
+  /* di */
+  hw_out(0x14, a);
+  /* di */
+  p00_L_01F8(); /* page0 */
+  /* pop af */
+  p29_L_7C96();
+  if (flag_nc()) goto lab_p29_L_7E0D;
+  /* cp 0x08 */ flag_cmp(a, 0x08);
+  if (flag_c()) goto lab_p29_L_7E0D;
+  p29_L_7CCF();
+  p29_L_4566();
+  /* cp 0xFE */ flag_cmp(a, 0xFE);
+  if (flag_nz()) goto lab_p29_L_7E0D;
+  p29_L_4565();
+  /* cp 0x7F */ flag_cmp(a, 0x7F);
+  if (flag_nz()) goto lab_p29_L_7E0D;
+  p29_L_4565();
+  b = a;
+  /* ld a,(0x83EE) */
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_7E0D;
+  if (flag_nz()) goto lab_p29_L_7DD3;
+  p29_L_455C();
+  /* push hl */
+  /* ld hl,(0x84DB) */
+  p00_L_192A(); /* page0 */
+  /* ex de,hl */
+  /* pop hl */
+  if (flag_c()) goto lab_p29_L_7E0D;
+  goto lab_p29_L_7DD9;
+  lab_p29_L_7DD3:
+  /* ld de,(0x84DB) */
+  /* inc hl */
+  /* inc hl */
+  lab_p29_L_7DD9:
+  /* ld a,(0x83EE) */
+  b = 0x00;
+  /* ex de,hl */
+  /* add hl,bc */
+  p00_L_23FC(); /* page0 */
+  if (flag_nc()) goto lab_p29_L_7DE6;
+  a = a + 1;
+  lab_p29_L_7DE6:
+  b = a;
+  /* ex de,hl */
+  p29_L_4565();
+  flag_cmp(a, b);
+  if (flag_c()) goto lab_p29_L_7E0D;
+  if (flag_nz()) goto lab_p29_L_7DFC;
+  /* push de */
+  p29_L_455C();
+  /* pop hl */
+  /* dec hl */
+  p00_L_192A(); /* page0 */
+  /* ex de,hl */
+  if (flag_nc()) goto lab_p29_L_7E0D;
+  lab_p29_L_7DFC:
+  /* ld de,(0x84DB) */
+  /* ld hl,0x983A */
+  b = 0x00;
+  /* ld a,(0x83EE) */
+  os_bcall(0x80C9);
+  goto lab_p29_L_7E0E;
+  lab_p29_L_7E0D:
+  /* nop */
+  lab_p29_L_7E0E:
+  p29_L_5FDB();
+  /* ld (0x83EB),a */
+  /* pop af */
+  if (flag_po()) goto lab_p29_L_7E19;
+  /* ei */
+  lab_p29_L_7E19:
+  /* ld a,(0x83EB) */
+  /* ld (0x84DB),de */
+  /* pop hl */
+  a = a | a;
+  /* sbc hl,de */
+  if (flag_c()) goto lab_p29_L_7E2D;
+  /* ld a,(0x83EE) */
+  a = a + 1;
+  /* ld (0x83EE),a */
+  lab_p29_L_7E2D:
+  /* pop hl */
+  /* pop de */
+  /* pop bc */
+  return;
+}
+
+// flash page 29 cpu 0x7E40 (offset 0x3E40)
+void p29_L_7E40() {
+  byte a;
+  byte b;
+  byte c;
+  byte d;
+  byte e;
+  byte h;
+  byte l;
+  /* push hl */
+  /* ld hl,(0x9836) */
+  /* ld (hl),a */
+  /* inc hl */
+  /* ld (0x9836),hl */
+  /* pop hl */
+  /* ld a,(0x9834) */
+  a = a + 1;
+  /* ld (0x9834),a */
+  /* cp 0x10 */ flag_cmp(a, 0x10);
+  if (flag_z()) p29_L_7D67();
+  return;
+}

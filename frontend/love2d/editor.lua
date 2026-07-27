@@ -29,7 +29,7 @@ local TC_KW = {
 }
 local TC_TYPES = { void = true, byte = true, word = true }
 local TC_NATIVE = {
-  lcd_init = true, lcd_clear = true, draw_string = true, draw_pixel = true,
+  lcd_init = true, lcd_clear = true, draw_string = true, draw_pixel = true, clear_pixel = true,
   key_scan = true, key_wait = true, key_down = true,
   poke = true, peek = true, fmul = true, halt = true,
 }

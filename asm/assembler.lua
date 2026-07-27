@@ -85,6 +85,39 @@ local function u16(n)
   return n
 end
 
+--- Parse (ix), (iy+0x12), (iy-3) -> xy ("ix"|"iy"), disp u8; or nil.
+local function parse_idx_mem(tok, symbols, passno)
+  local inner = tok:match("^%((.+)%)$")
+  if not inner then return nil end
+  inner = trim(inner)
+  local low = inner:lower()
+  local xy
+  if low:sub(1, 2) == "ix" then xy = "ix"
+  elseif low:sub(1, 2) == "iy" then xy = "iy"
+  else return nil end
+  local rest = trim(inner:sub(3))
+  if rest == "" then return xy, 0 end
+  local sign, numstr = rest:match("^([+-])%s*(.+)$")
+  if not sign then return nil end
+  local n, e = parse_number(numstr, symbols, passno)
+  if n == nil then return nil, e end
+  if sign == "-" then n = -n end
+  return xy, u8(n)
+end
+
+local function xy_prefix(xy)
+  return xy == "ix" and 0xDD or 0xFD
+end
+
+local function xy_half(tok)
+  tok = tok:lower()
+  if tok == "ixh" then return "ix", 4 end
+  if tok == "ixl" then return "ix", 5 end
+  if tok == "iyh" then return "iy", 4 end
+  if tok == "iyl" then return "iy", 5 end
+  return nil
+end
+
 local function split_args(s)
   local args, cur, depth, in_str = {}, "", 0, false
   for i = 1, #s do
@@ -129,11 +162,57 @@ local function assemble_file(path, opts)
   opts = opts or {}
   local root = opts.root or "."
   local symbols = opts.symbols or {}
+  local symbol_pages = opts.symbol_pages or {}
   local blobs = opts.blobs or {} -- name -> array of bytes (0-255)
   local max_size = opts.max_size or 0x4000
-  local out = {}
-  for i = 0, max_size - 1 do
-    out[i] = 0
+  -- addr_base: assemble at absolute orgs (e.g. 0x4000 for Flash Apps) while
+  -- storing a 0-based page image of length max_size.
+  local addr_base = opts.addr_base or 0
+  local multipage = opts.multipage == true
+  local pages_raw = {} -- page_index -> raw byte table
+  local page_sizes = {} -- page_index -> high-water size
+  local cur_page = 0
+  local used_page_dir = false
+
+  local function ensure_page(p)
+    if not pages_raw[p] then
+      local raw = {}
+      for i = 0, max_size - 1 do
+        raw[i] = 0
+      end
+      pages_raw[p] = raw
+      page_sizes[p] = 0
+    end
+    return pages_raw[p]
+  end
+
+  ensure_page(0)
+  local raw = pages_raw[0]
+
+  local out = setmetatable({}, {
+    __index = function(_, pc)
+      local idx = pc - addr_base
+      if idx < 0 or idx >= max_size then
+        return 0
+      end
+      return raw[idx]
+    end,
+    __newindex = function(_, pc, v)
+      local idx = pc - addr_base
+      if idx < 0 or idx >= max_size then
+        error(string.format("address 0x%04X outside page image [0x%04X..0x%04X) (page %d)",
+          pc, addr_base, addr_base + max_size, cur_page))
+      end
+      raw[idx] = v
+      if idx + 1 > (page_sizes[cur_page] or 0) then
+        page_sizes[cur_page] = idx + 1
+      end
+    end,
+  })
+
+  local function switch_page(p)
+    cur_page = p
+    raw = ensure_page(p)
   end
 
   local function read_lines(file, seen)
@@ -183,6 +262,7 @@ local function assemble_file(path, opts)
         if label then
           if passno == 1 then
             symbols[label] = pc
+            symbol_pages[label] = cur_page
           end
           s = trim(rest or "")
         end
@@ -194,7 +274,7 @@ local function assemble_file(path, opts)
             dir, darg = s:match("^(%w+)%s+(.*)$")
             local upper = dir and dir:upper()
             if upper == "ORG" or upper == "EQU" or upper == "DB" or upper == "DW"
-              or upper == "DS" or upper == "BLOB" then
+              or upper == "DS" or upper == "BLOB" or upper == "PAGE" then
               dir = upper:lower()
             else
               dir = nil
@@ -204,7 +284,21 @@ local function assemble_file(path, opts)
             darg = trim(darg or "")
           end
 
-          if dir == "org" then
+          if dir == "page" then
+            local n, e = parse_number(trim(darg), symbols, passno)
+            if n == nil then error(item.file .. ":" .. item.line .. ": " .. e) end
+            if n < 0 or n > 31 then
+              error(item.file .. ":" .. item.line .. ": page out of range")
+            end
+            used_page_dir = true
+            multipage = true
+            switch_page(n)
+            pc = addr_base
+            if addr_base == 0 then
+              pc = 0x4000
+              addr_base = 0x4000
+            end
+          elseif dir == "org" then
             local n, e = parse_number(trim(darg), symbols, passno)
             if n == nil then error(item.file .. ":" .. item.line .. ": " .. e) end
             pc = u16(n)
@@ -266,6 +360,10 @@ local function assemble_file(path, opts)
             end
             pc = new_pc
           end
+        end
+        local sz = pc - addr_base
+        if sz > (page_sizes[cur_page] or 0) then
+          page_sizes[cur_page] = sz
         end
       end
     end
@@ -337,15 +435,23 @@ local function assemble_file(path, opts)
       if a == "de" and b == "hl" then return put(0xEB)
       elseif a == "af" and b == "af'" then return put(0x08)
       elseif a == "(sp)" and b == "hl" then return put(0xE3)
+      elseif a == "(sp)" and b == "ix" then return put(0xDD, 0xE3)
+      elseif a == "(sp)" and b == "iy" then return put(0xFD, 0xE3)
       else error("unsupported EX") end
     elseif mnem == "push" then
       need(1)
-      local r = RP2[args[1]:lower()]
+      local t = args[1]:lower()
+      if t == "ix" then return put(0xDD, 0xE5) end
+      if t == "iy" then return put(0xFD, 0xE5) end
+      local r = RP2[t]
       if not r then error("PUSH rp") end
       return put(0xC5 + r * 16)
     elseif mnem == "pop" then
       need(1)
-      local r = RP2[args[1]:lower()]
+      local t = args[1]:lower()
+      if t == "ix" then return put(0xDD, 0xE1) end
+      if t == "iy" then return put(0xFD, 0xE1) end
+      local r = RP2[t]
       if not r then error("POP rp") end
       return put(0xC1 + r * 16)
     elseif mnem == "djnz" then
@@ -361,7 +467,10 @@ local function assemble_file(path, opts)
       return put(0x20 + cc * 8, disp(args[2]))
     elseif mnem == "jp" then
       if #args == 1 then
-        if args[1]:lower() == "(hl)" then return put(0xE9) end
+        local t = args[1]:lower()
+        if t == "(hl)" then return put(0xE9) end
+        if t == "(ix)" then return put(0xDD, 0xE9) end
+        if t == "(iy)" then return put(0xFD, 0xE9) end
         local n = imm16(args[1])
         return put(0xC3, n % 256, math.floor(n / 256))
       end
@@ -388,6 +497,11 @@ local function assemble_file(path, opts)
       need(2)
       local p, r = args[1], args[2]:lower()
       local pl = p:lower()
+      if pl == "(c)" then
+        if r == "0" then return put(0xED, 0x71) end
+        if not is_reg8(r) or r == "(hl)" then error("OUT (c),r") end
+        return put(0xED, 0x41 + REG8[r] * 8)
+      end
       if pl:match("^%(%d") or pl:match("^%(%$") or pl:match("^%(0x") or pl:match("^%([%w_]+%)$") then
         local inner = p:match("^%((.+)%)$")
         if r ~= "a" then error("OUT (n),A") end
@@ -395,8 +509,18 @@ local function assemble_file(path, opts)
       end
       error("OUT form")
     elseif mnem == "in" then
+      need(1)
+      -- bare "in (c)" (ED 70)
+      if #args == 1 and args[1]:lower() == "(c)" then
+        return put(0xED, 0x70)
+      end
       need(2)
       local r, p = args[1]:lower(), args[2]
+      local pl = p:lower()
+      if pl == "(c)" then
+        if not is_reg8(r) or r == "(hl)" then error("IN r,(c)") end
+        return put(0xED, 0x40 + REG8[r] * 8)
+      end
       if r == "a" then
         local inner = p:match("^%((.+)%)$")
         return put(0xDB, imm8(inner))
@@ -405,12 +529,24 @@ local function assemble_file(path, opts)
     elseif mnem == "inc" then
       need(1)
       local t = args[1]:lower()
+      if t == "ix" then return put(0xDD, 0x23) end
+      if t == "iy" then return put(0xFD, 0x23) end
+      local hx, hi = xy_half(t)
+      if hx then return put(xy_prefix(hx), 0x04 + hi * 8) end
+      local xy, d = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0x34, d) end
       if RP[t] then return put(0x03 + RP[t] * 16) end
       if is_reg8(t) then return put(0x04 + REG8[t] * 8) end
       error("INC")
     elseif mnem == "dec" then
       need(1)
       local t = args[1]:lower()
+      if t == "ix" then return put(0xDD, 0x2B) end
+      if t == "iy" then return put(0xFD, 0x2B) end
+      local hx, hi = xy_half(t)
+      if hx then return put(xy_prefix(hx), 0x05 + hi * 8) end
+      local xy, d = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0x35, d) end
       if RP[t] then return put(0x0B + RP[t] * 16) end
       if is_reg8(t) then return put(0x05 + REG8[t] * 8) end
       error("DEC")
@@ -418,6 +554,10 @@ local function assemble_file(path, opts)
       need(2)
       local d, s = args[1]:lower(), args[2]
       if d == "a" then
+        local xy, disp = parse_idx_mem(s, symbols, passno)
+        if xy then return put(xy_prefix(xy), 0x86, disp) end
+        local hx, hi = xy_half(s)
+        if hx then return put(xy_prefix(hx), 0x80 + hi) end
         local sl = s:lower()
         if is_reg8(sl) then return put(0x80 + REG8[sl]) end
         return put(0xC6, imm8(s))
@@ -425,6 +565,14 @@ local function assemble_file(path, opts)
         local r = RP[s:lower()]
         if not r then error("ADD HL,rp") end
         return put(0x09 + r * 16)
+      elseif d == "ix" or d == "iy" then
+        local sl = s:lower()
+        local pref = xy_prefix(d)
+        if sl == "bc" then return put(pref, 0x09) end
+        if sl == "de" then return put(pref, 0x19) end
+        if sl == d then return put(pref, 0x29) end
+        if sl == "sp" then return put(pref, 0x39) end
+        error("ADD IX/IY,rp")
       end
       error("ADD")
     elseif mnem == "adc" then
@@ -436,11 +584,19 @@ local function assemble_file(path, opts)
         return put(0xED, 0x4A + r * 16)
       end
       if d ~= "a" then error("ADC A,") end
+      local xy, disp = parse_idx_mem(args[2], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0x8E, disp) end
+      local hx, hi = xy_half(args[2])
+      if hx then return put(xy_prefix(hx), 0x88 + hi) end
       local sl = args[2]:lower()
       if is_reg8(sl) then return put(0x88 + REG8[sl]) end
       return put(0xCE, imm8(args[2]))
     elseif mnem == "sub" then
       need(1)
+      local xy, disp = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0x96, disp) end
+      local hx, hi = xy_half(args[1])
+      if hx then return put(xy_prefix(hx), 0x90 + hi) end
       local sl = args[1]:lower()
       if is_reg8(sl) then return put(0x90 + REG8[sl]) end
       return put(0xD6, imm8(args[1]))
@@ -453,9 +609,15 @@ local function assemble_file(path, opts)
         return put(0xED, 0x42 + r * 16)
       end
       if d ~= "a" then error("SBC A,") end
+      local xy, disp = parse_idx_mem(args[2], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0x9E, disp) end
+      local hx, hi = xy_half(args[2])
+      if hx then return put(xy_prefix(hx), 0x98 + hi) end
       local sl = args[2]:lower()
       if is_reg8(sl) then return put(0x98 + REG8[sl]) end
       return put(0xDE, imm8(args[2]))
+    elseif mnem == "daa" then
+      return put(0x27)
     elseif mnem == "cpl" then
       return put(0x2F)
     elseif mnem == "scf" then
@@ -464,6 +626,42 @@ local function assemble_file(path, opts)
       return put(0x3F)
     elseif mnem == "neg" then
       return put(0xED, 0x44)
+    elseif mnem == "rld" then
+      return put(0xED, 0x6F)
+    elseif mnem == "rrd" then
+      return put(0xED, 0x67)
+    elseif mnem == "ldi" then
+      return put(0xED, 0xA0)
+    elseif mnem == "ldd" then
+      return put(0xED, 0xA8)
+    elseif mnem == "ldir" then
+      return put(0xED, 0xB0)
+    elseif mnem == "lddr" then
+      return put(0xED, 0xB8)
+    elseif mnem == "cpi" then
+      return put(0xED, 0xA1)
+    elseif mnem == "cpd" then
+      return put(0xED, 0xA9)
+    elseif mnem == "cpir" then
+      return put(0xED, 0xB1)
+    elseif mnem == "cpdr" then
+      return put(0xED, 0xB9)
+    elseif mnem == "ini" then
+      return put(0xED, 0xA2)
+    elseif mnem == "ind" then
+      return put(0xED, 0xAA)
+    elseif mnem == "inir" then
+      return put(0xED, 0xB2)
+    elseif mnem == "indr" then
+      return put(0xED, 0xBA)
+    elseif mnem == "outi" then
+      return put(0xED, 0xA3)
+    elseif mnem == "outd" then
+      return put(0xED, 0xAB)
+    elseif mnem == "otir" then
+      return put(0xED, 0xB3)
+    elseif mnem == "otdr" then
+      return put(0xED, 0xBB)
     elseif mnem == "rlca" then
       return put(0x07)
     elseif mnem == "rrca" then
@@ -472,38 +670,58 @@ local function assemble_file(path, opts)
       return put(0x17)
     elseif mnem == "rra" then
       return put(0x1F)
-    elseif mnem == "sla" or mnem == "sra" or mnem == "srl"
+    elseif mnem == "sla" or mnem == "sra" or mnem == "srl" or mnem == "sll"
         or mnem == "rlc" or mnem == "rrc" or mnem == "rl" or mnem == "rr" then
       need(1)
+      local y = ({ rlc = 0, rrc = 1, rl = 2, rr = 3, sla = 4, sra = 5, sll = 6, srl = 7 })[mnem]
+      local xy, disp = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0xCB, disp, y * 8 + 6) end
       local r = REG8[args[1]:lower()]
       if r == nil then error(mnem .. " r") end
-      local y = ({ rlc = 0, rrc = 1, rl = 2, rr = 3, sla = 4, sra = 5, srl = 7 })[mnem]
       return put(0xCB, y * 8 + r)
     elseif mnem == "bit" or mnem == "res" or mnem == "set" then
       need(2)
       local b = imm8(args[1])
       if b > 7 then error(mnem .. " bit 0-7") end
+      local base = ({ bit = 0x40, res = 0x80, set = 0xC0 })[mnem]
+      local xy, disp = parse_idx_mem(args[2], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0xCB, disp, base + b * 8 + 6) end
       local r = REG8[args[2]:lower()]
       if r == nil then error(mnem .. " r") end
-      local ybase = ({ bit = 4, res = 8, set = 12 })[mnem]
-      return put(0xCB, (ybase + b) * 8 + r)
+      return put(0xCB, base + b * 8 + r)
     elseif mnem == "and" then
       need(1)
+      local xy, disp = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0xA6, disp) end
+      local hx, hi = xy_half(args[1])
+      if hx then return put(xy_prefix(hx), 0xA0 + hi) end
       local sl = args[1]:lower()
       if is_reg8(sl) then return put(0xA0 + REG8[sl]) end
       return put(0xE6, imm8(args[1]))
     elseif mnem == "xor" then
       need(1)
+      local xy, disp = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0xAE, disp) end
+      local hx, hi = xy_half(args[1])
+      if hx then return put(xy_prefix(hx), 0xA8 + hi) end
       local sl = args[1]:lower()
       if is_reg8(sl) then return put(0xA8 + REG8[sl]) end
       return put(0xEE, imm8(args[1]))
     elseif mnem == "or" then
       need(1)
+      local xy, disp = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0xB6, disp) end
+      local hx, hi = xy_half(args[1])
+      if hx then return put(xy_prefix(hx), 0xB0 + hi) end
       local sl = args[1]:lower()
       if is_reg8(sl) then return put(0xB0 + REG8[sl]) end
       return put(0xF6, imm8(args[1]))
     elseif mnem == "cp" then
       need(1)
+      local xy, disp = parse_idx_mem(args[1], symbols, passno)
+      if xy then return put(xy_prefix(xy), 0xBE, disp) end
+      local hx, hi = xy_half(args[1])
+      if hx then return put(xy_prefix(hx), 0xB8 + hi) end
       local sl = args[1]:lower()
       if is_reg8(sl) then return put(0xB8 + REG8[sl]) end
       return put(0xFE, imm8(args[1]))
@@ -512,6 +730,59 @@ local function assemble_file(path, opts)
       local d, s = args[1], args[2]
       local dl, sl = d:lower(), s:lower()
 
+      -- LD xy,nn / LD (nn),xy / LD xy,(nn)
+      if dl == "ix" or dl == "iy" then
+        local pref = xy_prefix(dl)
+        local sm = s:match("^%((.+)%)$")
+        if sm and not parse_idx_mem(s, symbols, passno) then
+          local n = imm16(sm)
+          return put(pref, 0x2A, n % 256, math.floor(n / 256))
+        end
+        local n = imm16(s)
+        return put(pref, 0x21, n % 256, math.floor(n / 256))
+      end
+      local dm_xy = d:match("^%((.+)%)$")
+      if dm_xy and (sl == "ix" or sl == "iy") then
+        local n = imm16(dm_xy)
+        return put(xy_prefix(sl), 0x22, n % 256, math.floor(n / 256))
+      end
+      if dl == "sp" and (sl == "ix" or sl == "iy") then
+        return put(xy_prefix(sl), 0xF9)
+      end
+
+      -- LD r,(xy+d) / LD (xy+d),r / LD (xy+d),n
+      local dxy, ddisp = parse_idx_mem(d, symbols, passno)
+      local sxy, sdisp = parse_idx_mem(s, symbols, passno)
+      if dxy then
+        if is_reg8(sl) then return put(xy_prefix(dxy), 0x70 + REG8[sl], ddisp) end
+        return put(xy_prefix(dxy), 0x36, ddisp, imm8(s))
+      end
+      if sxy and is_reg8(dl) then
+        return put(xy_prefix(sxy), 0x46 + REG8[dl] * 8, sdisp)
+      end
+
+      -- Half registers ixh/ixl/iyh/iyl
+      local dhx, dhi = xy_half(dl)
+      local shx, shi = xy_half(sl)
+      if dhx and shx and dhx == shx then
+        return put(xy_prefix(dhx), 0x40 + dhi * 8 + shi)
+      end
+      if dhx and is_reg8(sl) and REG8[sl] ~= 6 then
+        return put(xy_prefix(dhx), 0x40 + dhi * 8 + REG8[sl])
+      end
+      if shx and is_reg8(dl) and REG8[dl] ~= 6 then
+        return put(xy_prefix(shx), 0x40 + REG8[dl] * 8 + shi)
+      end
+      if dhx then
+        return put(xy_prefix(dhx), 0x06 + dhi * 8, imm8(s))
+      end
+
+      -- LD I/R (must precede LD r,n - "r"/"i" are not imm symbols)
+      if dl == "i" and sl == "a" then return put(0xED, 0x47) end
+      if dl == "r" and sl == "a" then return put(0xED, 0x4F) end
+      if dl == "a" and sl == "i" then return put(0xED, 0x57) end
+      if dl == "a" and sl == "r" then return put(0xED, 0x5F) end
+
       -- LD r,r / LD r,n / LD r,(HL)
       if is_reg8(dl) then
         if is_reg8(sl) then return put(0x40 + REG8[dl] * 8 + REG8[sl]) end
@@ -519,7 +790,6 @@ local function assemble_file(path, opts)
         if sl == "(de)" and dl == "a" then return put(0x1A) end
         local m = s:match("^%((.+)%)$")
         if m and dl == "a" and not is_reg8("(" .. m:lower() .. ")") then
-          -- could be (nn) or (HL) already handled
           if m:lower() ~= "hl" and m:lower() ~= "bc" and m:lower() ~= "de" then
             local n = imm16(m)
             return put(0x3A, n % 256, math.floor(n / 256))
@@ -536,11 +806,8 @@ local function assemble_file(path, opts)
       if dl == "(bc)" and sl == "a" then return put(0x02) end
       if dl == "(de)" and sl == "a" then return put(0x12) end
 
-      -- LD (nn),A/HL/DE/BC and LD HL/DE/BC,(nn) before LD rp,nn
-      -- (otherwise "ld hl,(0xC087)" is misread as LD HL,imm).
-      -- Use original-case insides so EQU labels like MUL_A resolve.
       local dm = d:match("^%((.+)%)$")
-      if dm and (sl == "a" or sl == "hl" or sl == "de" or sl == "bc") then
+      if dm and (sl == "a" or sl == "hl" or sl == "de" or sl == "bc" or sl == "sp") then
         local n = imm16(dm)
         if sl == "a" then
           return put(0x32, n % 256, math.floor(n / 256))
@@ -548,29 +815,34 @@ local function assemble_file(path, opts)
           return put(0x22, n % 256, math.floor(n / 256))
         elseif sl == "de" then
           return put(0xED, 0x53, n % 256, math.floor(n / 256))
-        else
+        elseif sl == "bc" then
           return put(0xED, 0x43, n % 256, math.floor(n / 256))
+        else
+          return put(0xED, 0x73, n % 256, math.floor(n / 256))
         end
       end
       local sm = s:match("^%((.+)%)$")
-      if sm and (dl == "hl" or dl == "de" or dl == "bc") then
+      if sm and (dl == "hl" or dl == "de" or dl == "bc" or dl == "sp") then
         local n = imm16(sm)
         if dl == "hl" then
           return put(0x2A, n % 256, math.floor(n / 256))
         elseif dl == "de" then
           return put(0xED, 0x5B, n % 256, math.floor(n / 256))
-        else
+        elseif dl == "bc" then
           return put(0xED, 0x4B, n % 256, math.floor(n / 256))
+        else
+          return put(0xED, 0x7B, n % 256, math.floor(n / 256))
         end
       end
 
-      -- LD rp,nn
+      if dl == "sp" and sl == "hl" then return put(0xF9) end
+      if dl == "sp" and sl == "ix" then return put(0xDD, 0xF9) end
+      if dl == "sp" and sl == "iy" then return put(0xFD, 0xF9) end
+
       if RP[dl] then
         local n = imm16(s)
         return put(0x01 + RP[dl] * 16, n % 256, math.floor(n / 256))
       end
-
-      if dl == "sp" and sl == "hl" then return put(0xF9) end
 
       error("unsupported LD " .. d .. "," .. s)
     else
@@ -580,11 +852,49 @@ local function assemble_file(path, opts)
 
   pass(1)
   local end_pc = pass(2)
-  return {
-    bytes = out,
-    size = end_pc,
+  local size = end_pc - addr_base
+  if size < 0 then
+    size = 0
+  end
+  if size > max_size then
+    size = max_size
+  end
+  -- Prefer high-water mark from writes when using page directive.
+  if used_page_dir and page_sizes[cur_page] and page_sizes[cur_page] > size then
+    size = page_sizes[cur_page]
+  end
+
+  local result = {
+    bytes = pages_raw[0] or raw,
+    size = page_sizes[0] or size,
+    end_pc = end_pc,
+    addr_base = addr_base,
     symbols = symbols,
+    symbol_pages = symbol_pages,
+    multipage = multipage or used_page_dir,
   }
+
+  if result.multipage then
+    local pages = {}
+    local max_p = 0
+    for p, _ in pairs(pages_raw) do
+      if p > max_p then max_p = p end
+    end
+    for p = 0, max_p do
+      local pr = pages_raw[p]
+      if pr then
+        local psz = page_sizes[p] or 0
+        pages[p] = { bytes = pr, size = psz }
+      end
+    end
+    result.pages = pages
+    result.n_pages = max_p + 1
+    -- Legacy flat fields describe page 0.
+    result.bytes = pages[0] and pages[0].bytes or result.bytes
+    result.size = pages[0] and pages[0].size or result.size
+  end
+
+  return result
 end
 
 function Assembler.assemble_file(path, opts)

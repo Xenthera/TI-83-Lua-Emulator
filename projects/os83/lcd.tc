@@ -1,0 +1,30 @@
+// LCD helpers - lifted from page0.
+// Inventory:
+//   lcd_busy_wait @ 0x0AAE - poll port 0x02 bit 1; preserve AF
+//   lcd_write_cmd @ 0x0AB7 - always sends command 0x02 (does not preserve A)
+//   lcd_cmd_07    @ 0x1813 - push AF; send 0x07; pop AF
+//   lcd_cmd_05    @ 0x181D - push AF; send 0x05; pop AF
+
+void lcd_busy_wait_tc() osabi saveaf {
+  while ((in_port(0x02) & 0x02) == 0) {
+  }
+}
+
+// Shared: cmd in A (osabi), wait, out to LCD command port.
+void lcd_send_cmd_tc(byte cmd) osabi {
+  while ((in_port(0x02) & 0x02) == 0) {
+  }
+  out_port(0x10, cmd);
+}
+
+void lcd_write_cmd_tc() osabi {
+  lcd_send_cmd_tc(0x02);
+}
+
+void lcd_cmd_07_tc() osabi saveaf {
+  lcd_send_cmd_tc(0x07);
+}
+
+void lcd_cmd_05_tc() osabi saveaf {
+  lcd_send_cmd_tc(0x05);
+}

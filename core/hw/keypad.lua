@@ -75,6 +75,8 @@ function Keypad.new()
   end
   self.group_mask = 0xFF
   self.on_pressed = false
+  -- ASIC polls ON edge only when this is set (avoids per-instruction checks).
+  self.input_dirty = true
   return self
 end
 
@@ -84,6 +86,7 @@ function Keypad:reset()
   end
   self.group_mask = 0xFF
   self.on_pressed = false
+  self.input_dirty = true
 end
 
 function Keypad:set_key(name, down)
@@ -95,6 +98,7 @@ function Keypad:set_key(name, down)
     self.on_pressed = not not down
   end
   self.keys[info.group][info.bit] = not not down
+  self.input_dirty = true
   return true
 end
 
@@ -106,6 +110,7 @@ function Keypad:set_key_matrix(group, bitn, down)
   if group == 5 and bitn == 0 then
     self.on_pressed = not not down
   end
+  self.input_dirty = true
 end
 
 function Keypad:write_group(value)

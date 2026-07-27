@@ -1,14 +1,16 @@
 #!/usr/bin/env luajit
 -- Boot ti83plus.rom through soft power-off + ON wake; report LCD state.
--- Use LuaJIT — PUC Lua is ~20-50x slower for long OS bring-up.
+-- Use LuaJIT - PUC Lua is ~20-50x slower for long OS bring-up.
 
 local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]boot_os_smoke%.lua$") or "."
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 io.stdout:setvbuf("no")
 
+local rom_path = (arg and arg[1]) or (ROOT .. "/rom/ti83plus.rom")
 local Machine = require("core.machine")
 local m = Machine.new()
-assert(m:load_rom_file(ROOT .. "/rom/ti83plus.rom"), "missing rom/ti83plus.rom")
+assert(m:load_rom_file(rom_path), "missing ROM: " .. rom_path)
+print("ROM " .. rom_path)
 m:reset()
 
 local function fb_nz()

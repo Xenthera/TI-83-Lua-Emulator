@@ -1,0 +1,52 @@
+// Host stubs for recovery (link / bcall / flags / banking).
+
+byte link_in() {
+  return 0xFF;
+}
+
+void link_out(byte v) {
+}
+
+void link_io_stub() {
+}
+
+void os_bcall(word id) {
+}
+
+void os_banked_call(word cpu_addr) {
+}
+
+byte flag_z() {
+  return 0;
+}
+
+byte flag_nz() {
+  return 1;
+}
+
+byte flag_c() {
+  return 0;
+}
+
+byte flag_nc() {
+  return 1;
+}
+
+byte flag_pe() {
+  return 0;
+}
+
+byte flag_po() {
+  return 1;
+}
+
+byte flag_p() {
+  return 1;
+}
+
+byte flag_m() {
+  return 0;
+}
+
+void flag_cmp(byte left, byte right) {
+}

@@ -1,0 +1,15 @@
+// TI-83+ OS lift - page0 hybrid entry.
+// Lifted leaves live in mmu.tc / lcd.tc and are linked over stock page0
+// by tools/os_hybrid_page0.lua (not a standalone Tiny-C demo).
+
+#include "boot.tc"
+#include "mmu.tc"
+#include "lcd.tc"
+#include "key.tc"
+
+// Standalone Build (non-hybrid) just parks the CPU.
+void main() {
+  while (1) {
+    halt();
+  }
+}

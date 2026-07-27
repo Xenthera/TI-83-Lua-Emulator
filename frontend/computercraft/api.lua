@@ -1,20 +1,28 @@
 -- ComputerCraft-facing API (bundle entry point).
 --
 --   local ti83 = dofile("ti83_cc.lua")
---   local lcd = peripheral.wrap("left")
---   local pad = peripheral.wrap("right")
---   ...
---   ti83.run({ lcd = "left", pad = "right", rom = "ti83plus.rom" })
+--   ti83.run({
+--     rom = "ti83plus.rom",
+--     loadapp = { "MyApp.8xk" },
+--     loadprog = { "HELLO.8xp" },
+--   })
+--
+-- Shell:
+--   test --help
+--   test --loadapp MyApp.8xk --loadprog HELLO.8xp
 
 local Machine = require("core.machine")
+local Eightxk = require("core.util.eightxk")
+local Eightxp = require("core.util.eightxp")
 local CC = require("frontend.computercraft.cc")
 local LcdView = require("frontend.computercraft.lcd_view")
 local KeypadView = require("frontend.computercraft.keypad_view")
 local Host = require("frontend.computercraft.host")
+local Args = require("frontend.computercraft.args")
 
 local api = {}
 
-api.VERSION = "0.2.0"
+api.VERSION = "0.5.0"
 api.LCD_WIDTH = 96
 api.LCD_HEIGHT = 64
 
@@ -22,6 +30,17 @@ api.CC = CC
 api.Machine = Machine
 api.LcdView = LcdView
 api.KeypadView = KeypadView
+api.Eightxk = Eightxk
+api.Eightxp = Eightxp
+api.new_lcd_painter = LcdView.new_painter
+api.parse_args = Args.parse
+api.usage_text = Args.usage_text
+api.inject_8xk = Eightxk.inject
+api.inject_8xk_many = Eightxk.inject_many
+api.inject_8xp = Eightxp.inject
+api.inject_8xp_many = Eightxp.inject_many
+api.inject_8xg = Eightxp.inject_file
+api.parse_ti_vars = Eightxp.parse_vars
 
 function api.new_machine()
   return Machine.new()

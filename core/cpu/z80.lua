@@ -77,26 +77,31 @@ function Z80:iyl() return band(self.iy, 0xFF) end
 function Z80:set_iyh(v) self.iy = bor(lshift(u8(v), 8), band(self.iy, 0xFF)) end
 function Z80:set_iyl(v) self.iy = bor(band(self.iy, 0xFF00), u8(v)) end
 
-function Z80:read8(addr) return self.bus.read(u16(addr)) end
-function Z80:write8(addr, v) self.bus.write(u16(addr), u8(v)) end
+function Z80:read8(addr) return self.bus.read(band(addr, 0xFFFF)) end
+function Z80:write8(addr, v) self.bus.write(band(addr, 0xFFFF), band(v, 0xFF)) end
 function Z80:read16(addr)
-  local lo = self:read8(addr)
-  local hi = self:read8(u16(addr + 1))
+  addr = band(addr, 0xFFFF)
+  local lo = self.bus.read(addr)
+  local hi = self.bus.read(band(addr + 1, 0xFFFF))
   return pair(hi, lo)
 end
 function Z80:write16(addr, v)
-  self:write8(addr, band(v, 0xFF))
-  self:write8(u16(addr + 1), rshift(v, 8))
+  addr = band(addr, 0xFFFF)
+  self.bus.write(addr, band(v, 0xFF))
+  self.bus.write(band(addr + 1, 0xFFFF), band(rshift(v, 8), 0xFF))
 end
 
 function Z80:fetch8()
-  local v = self:read8(self.pc)
-  self.pc = u16(self.pc + 1)
+  local pc = self.pc
+  local v = self.bus.read(pc)
+  self.pc = band(pc + 1, 0xFFFF)
   return v
 end
 function Z80:fetch16()
-  local lo = self:fetch8()
-  local hi = self:fetch8()
+  local pc = self.pc
+  local lo = self.bus.read(pc)
+  local hi = self.bus.read(band(pc + 1, 0xFFFF))
+  self.pc = band(pc + 2, 0xFFFF)
   return pair(hi, lo)
 end
 function Z80:fetch_disp()
@@ -505,12 +510,10 @@ local opcodes = require("core.cpu.opcodes")
 
 function Z80:step()
   -- EI enables IFF immediately but suppresses IRQ for one instruction.
-  local allow_irq = not self.ei_delay
   if self.ei_delay then
     self.ei_delay = false
-  end
-
-  if allow_irq then
+  elseif self.iff1 then
+    -- Hot path: skip irq_pending() callback when interrupts are disabled.
     local irq_cyc = self:accept_interrupt()
     if irq_cyc > 0 then
       self.cycles = self.cycles + irq_cyc
@@ -519,12 +522,15 @@ function Z80:step()
   end
 
   if self.halted then
-    self:inc_r()
+    -- Still need R bump + 4T; IRQ wake checked above when iff1.
+    local r = self.r
+    self.r = bor(band(r, 0x80), band(band(r, 0x7F) + 1, 0x7F))
     self.cycles = self.cycles + 4
     return 4
   end
 
-  self:inc_r()
+  local r = self.r
+  self.r = bor(band(r, 0x80), band(band(r, 0x7F) + 1, 0x7F))
   local op = self:fetch8()
   local cyc = opcodes.exec(self, op)
   self.cycles = self.cycles + cyc

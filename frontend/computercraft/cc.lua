@@ -36,6 +36,11 @@ function M.wrap_monitor(spec, label)
   if type(spec) ~= "string" then
     error(label .. ": expected peripheral side string or wrapped monitor")
   end
+  if spec:sub(1, 1) == "-" then
+    error(label .. ": '" .. spec .. "' looks like a CLI flag, not a monitor.\n"
+      .. "  Use: test --loadapp MyApp.8xk\n"
+      .. "  Re-copy dist/test.lua if this persists.")
+  end
   if not peripheral.isPresent(spec) then
     error(label .. ": no peripheral on '" .. spec .. "'")
   end
@@ -50,12 +55,107 @@ function M.wrap_monitor(spec, label)
   return mon, spec
 end
 
+-- Computer-adjacent sides (vs wired-modem network names like "monitor_0").
+local SIDE_NAMES = {
+  left = true, right = true, top = true, bottom = true, front = true, back = true,
+}
+
+function M.is_side_name(name)
+  return SIDE_NAMES[tostring(name or "")] == true
+end
+
+--- True if two peripheral names refer to the same physical monitor.
+-- Probes cursor position (restored after) so a modem name + adjacent side collapse
+-- without a visible text-scale flicker.
+function M.monitors_same(name_a, name_b)
+  name_a, name_b = tostring(name_a or ""), tostring(name_b or "")
+  if name_a == "" or name_b == "" then
+    return false
+  end
+  if name_a == name_b then
+    return true
+  end
+  if not M.is_monitor(name_a) or not M.is_monitor(name_b) then
+    return false
+  end
+  local a = peripheral.wrap(name_a)
+  local b = peripheral.wrap(name_b)
+  if not a or not b then
+    return false
+  end
+  if a == b then
+    return true
+  end
+  if type(a.getCursorPos) ~= "function" or type(b.getCursorPos) ~= "function"
+      or type(a.setCursorPos) ~= "function" or type(a.getSize) ~= "function" then
+    return false
+  end
+  local ok0, x0, y0 = pcall(a.getCursorPos)
+  if not ok0 or type(x0) ~= "number" or type(y0) ~= "number" then
+    return false
+  end
+  local ok_sz, w, h = pcall(a.getSize)
+  if not ok_sz or type(w) ~= "number" or type(h) ~= "number" or w < 1 or h < 1 then
+    return false
+  end
+  local px = (x0 == w) and 1 or w
+  local py = (y0 == h) and 1 or h
+  if not pcall(a.setCursorPos, px, py) then
+    return false
+  end
+  local ok1, x1, y1 = pcall(b.getCursorPos)
+  pcall(a.setCursorPos, x0, y0)
+  return ok1 and x1 == px and y1 == py
+end
+
+--- Canonical peripheral name for a monitor: modem/network name beats a side.
+function M.canonical_monitor_name(name, names)
+  name = tostring(name or "")
+  if name == "" or not M.is_monitor(name) then
+    return nil
+  end
+  names = names or peripheral.getNames()
+  if M.is_side_name(name) then
+    for _, other in ipairs(names) do
+      if other ~= name and not M.is_side_name(other)
+          and peripheral.getType(other) == "monitor"
+          and M.monitors_same(name, other) then
+        return other
+      end
+    end
+  end
+  return name
+end
+
+--- Name to use as a view id when this peripheral attaches.
+-- Returns nil when `name` is a side alias of a modem monitor (caller should ignore).
+function M.prefer_monitor_name(name, names)
+  local canonical = M.canonical_monitor_name(name, names)
+  if not canonical then
+    return nil
+  end
+  if M.is_side_name(name) and canonical ~= name then
+    return nil
+  end
+  return canonical
+end
+
 --- Find attached monitors. Returns list of { side=, mon= }.
+-- Dedupes adjacent-side + modem aliases of the same block (modem name wins).
 function M.find_monitors()
+  local names = peripheral.getNames()
   local out = {}
-  for _, side in ipairs(peripheral.getNames()) do
-    if peripheral.getType(side) == "monitor" then
-      out[#out + 1] = { side = side, mon = peripheral.wrap(side) }
+  local seen = {}
+  for _, name in ipairs(names) do
+    if peripheral.getType(name) == "monitor" then
+      local preferred = M.canonical_monitor_name(name, names)
+      if preferred and not seen[preferred] then
+        seen[preferred] = true
+        local mon = peripheral.wrap(preferred)
+        if mon then
+          out[#out + 1] = { side = preferred, mon = mon }
+        end
+      end
     end
   end
   return out

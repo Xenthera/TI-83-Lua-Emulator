@@ -1,0 +1,28 @@
+// Softkey bar aligned to TI-83+ graph keys F1-F4 (5 columns across 96px).
+// Uses tinyfont.tc draw_str for labels.
+//
+// TI-OS GetKey: Y= 0x49, WINDOW 0x48, ZOOM 0x2E, TRACE 0x5A, ENTER 0x05
+
+byte SK_Y;
+byte SK_H;
+byte SK_W;
+
+void softkeys_init() {
+  SK_Y = 55;
+  SK_H = 8;
+  SK_W = 18; // fits 4-glyph labels (1px pad + 4*4)
+}
+
+byte softkey_x(byte slot) {
+  return slot * 19 + 1;
+}
+
+void draw_softkey(byte slot, byte on, word label) {
+  byte x;
+  if (on == 0) {
+    return;
+  }
+  x = softkey_x(slot);
+  draw_rect(x, SK_Y, SK_W, SK_H);
+  draw_str(x + 1, SK_Y + 2, label);
+}

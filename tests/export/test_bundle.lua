@@ -27,12 +27,12 @@ return function(ok)
 
   local written = {}
   local function mock_mon(w, h)
-    -- CC peripheral.wrap binds methods — called without self.
     return {
       getSize = function() return w, h end,
       setCursorPos = function(x, y) written.x, written.y = x, y end,
       blit = function(text, fg, bg)
         written.blits = (written.blits or 0) + 1
+        written.last_bg = bg
       end,
       setBackgroundColor = function() end,
       setTextColor = function() end,
@@ -52,7 +52,7 @@ return function(ok)
   local small = mock_mon(32, 16)
   api.setup_lcd(small)
   ok("setup sets scale 0.5", written.scale == 0.5)
-  local ok_paint, lay = api.paint_lcd(small, fb, true)
+  local ok_paint = api.paint_lcd(small, fb, true)
   ok("small monitor rejected", ok_paint == false)
   ok("too-small message", type(written.text) == "string"
     and written.text:find("monitor too small", 1, true)
@@ -61,11 +61,25 @@ return function(ok)
 
   written = {}
   local big = mock_mon(100, 70)
-  local ok_big, lay2 = api.paint_lcd(big, fb, true)
+  local painter = api.new_lcd_painter(big, {})
+  local lay = painter:setup()
+  ok("painter layout ok", lay.ok == true)
+  written.blits = 0
+  local ok_big, lay2, n = painter:paint(fb, true)
   ok("large monitor accepted", ok_big == true)
-  ok("centered x", lay2.x0 == 3, tostring(lay2 and lay2.x0)) -- floor((100-96)/2)+1 = 3
-  ok("centered y", lay2.y0 == 4, tostring(lay2 and lay2.y0)) -- floor((70-64)/2)+1 = 4
-  ok("painted full height", written.blits == 70)
+  ok("centered x", lay2.x0 == 3, tostring(lay2 and lay2.x0))
+  ok("centered y", lay2.y0 == 4, tostring(lay2 and lay2.y0))
+  ok("first paint blits 64 LCD rows", n == 64 and written.blits == 64,
+    tostring(n) .. "/" .. tostring(written.blits))
+
+  written.blits = 0
+  local _, _, n2 = painter:paint(fb, true)
+  ok("unchanged frame skips blits", n2 == 0 and written.blits == 0, tostring(n2))
+
+  fb[0] = 0x0F
+  written.blits = 0
+  local _, _, n3 = painter:paint(fb, true)
+  ok("dirty row blits once", n3 == 1 and written.blits == 1, tostring(n3))
 
   local pad = api.KeypadView.new(mock_mon(32, 16), { side = "right" })
   pad:draw()

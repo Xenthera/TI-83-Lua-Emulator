@@ -12,7 +12,7 @@ local COLOR_BG = { 0.52, 0.58, 0.48, 1 }
 local COLOR_ON = { 0.12, 0.18, 0.12, 1 }
 local COLOR_BEZEL = { 0.62, 0.66, 0.58, 1 }
 
--- Sub-pixel inset per side → ~0.5px total gap (smaller than a full screen px).
+-- Sub-pixel inset per side -> ~0.5px total gap (smaller than a full screen px).
 local PIXEL_INSET = 0.25
 
 local function bit_test(byte, bitn)
@@ -20,7 +20,7 @@ local function bit_test(byte, bitn)
   return math.floor(byte / mask) % 2 == 1
 end
 
---- Integer pixel cell size that fits a glass rect of size (dw × dh).
+--- Integer pixel cell size that fits a glass rect of size (dw x dh).
 function Render.cell_for(dw, dh)
   local cell = math.min(math.floor(dw / Lcd.WIDTH), math.floor(dh / Lcd.HEIGHT))
   return math.max(2, cell)

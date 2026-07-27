@@ -66,11 +66,10 @@ function Lcd:reset()
 end
 
 function Lcd:tick(cycles)
-  if self.busy_cycles > 0 then
-    self.busy_cycles = self.busy_cycles - cycles
-    if self.busy_cycles < 0 then
-      self.busy_cycles = 0
-    end
+  local busy = self.busy_cycles
+  if busy > 0 then
+    busy = busy - cycles
+    self.busy_cycles = busy > 0 and busy or 0
   end
 end
 
@@ -212,7 +211,7 @@ function Lcd:command(cmd)
     self.inc_col = true
     self.inc_up = true
   elseif cmd >= 0x08 and cmd <= 0x1F then
-    -- power / mirror / test — ignore
+    -- power / mirror / test - ignore
   elseif cmd >= 0x20 and cmd <= 0x3F then
     self.x = band(cmd, 0x1F)
     -- pointer change leaves read_reg stale (dummy read required)
@@ -261,12 +260,15 @@ function Lcd:is_display_on()
 end
 
 -- Visible 96x64 as 12 bytes/row (MSB leftmost), with Z scroll.
-function Lcd:framebuffer()
-  local out = {}
+-- Writes into `out` when provided (0-based indices) to avoid realloc on hot paths.
+function Lcd:framebuffer(out)
+  out = out or {}
   for row = 0, HEIGHT - 1 do
     local src_row = band(row + self.z, 0x3F)
+    local dst = row * BYTES_PER_ROW
+    local src = src_row * INT_BPR
     for col = 0, BYTES_PER_ROW - 1 do
-      out[row * BYTES_PER_ROW + col] = self.fb[src_row * INT_BPR + col]
+      out[dst + col] = self.fb[src + col]
     end
   end
   return out

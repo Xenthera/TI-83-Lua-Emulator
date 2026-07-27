@@ -1,0 +1,10 @@
+// Boot / RST vector notes (page0 inventory).
+// rst00_boot @ 0x0000 - power-on: check port 0x02, jp into OS init
+// rst28_bcall @ 0x0028 - OS bcall dispatcher (uses mmu_set_bankA_2)
+// rst38_isr @ 0x0038 - interrupt service
+//
+// Full boot lift is deferred; hybrid keeps these as original asm.
+
+void boot_placeholder() {
+  // Intentionally empty - real bring-up stays in page0 asm for now.
+}
