@@ -1048,16 +1048,12 @@ function Ide:hit_button(mx, my)
   return nil
 end
 
---- Soft power-off HALT then hold ON to wake TI-OS.
+--- Soft power-off HALT then hold ON to wake TI-OS (stops early at homescreen VAT).
 function Ide:_wake_os(machine)
-  machine:run_cycles(5 * 1000 * 1000)
   if machine.cpu.halted then
     self:log("OS at power-off HALT - holding ON to wake ...")
   end
-  machine:set_key("on", true)
-  machine:run_cycles(3 * 1000 * 1000)
-  machine:set_key("on", false)
-  machine:run_cycles(20 * 1000 * 1000)
+  machine:wake_os({ slice = 1000000 })
   -- Do NOT CloseEditBuf here: boot leaves editOpen over the free-RAM gap so
   -- the homescreen entry line can grow. Releasing it causes ERR:MEMORY on
   -- Enter. .8xp inject calls Eightxp.release_homescreen_edit itself.
@@ -1179,7 +1175,12 @@ function Ide:build(machine, on_loaded)
     local app_name = info.name or proj
     local xk_path = self.root .. "/dist/" .. tostring(app_name) .. ".8xk"
     do
-      os.execute(string.format('mkdir -p "%s/dist"', self.root))
+      local dist = (self.root .. "/dist"):gsub("/", "\\")
+      if package.config:sub(1, 1) == "\\" then
+        os.execute(string.format('mkdir "%s" 2>nul', dist))
+      else
+        os.execute(string.format('mkdir -p "%s/dist"', self.root))
+      end
       local wf = assert(io.open(xk_path, "wb"))
       wf:write(rom)
       wf:close()
@@ -1616,10 +1617,10 @@ function Ide:save()
 end
 
 function Ide:open()
-  local path = Dialog.choose_open_tiproj()
+  local path = Dialog.choose_open_tiproj(self.root .. "/projects")
   if not path then
-    path = self.root .. "/projects/shapes"
-    self:log("No dialog - opening " .. path)
+    self:log("Open cancelled")
+    return
   end
   self:load_project(path)
 end

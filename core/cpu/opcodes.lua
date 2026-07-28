@@ -196,9 +196,15 @@ local function exec_ed(cpu)
         return 14
       end
     elseif z == 6 then
-      if y == 0 or y == 1 then cpu.im = 0
-      elseif y == 2 or y == 3 then cpu.im = 1
-      else cpu.im = 2 end
+      -- IM 0/1/2 (including undocumented aliases)
+      -- ED46/4E/66/6E → IM 0; ED56/76 → IM 1; ED5E/7E → IM 2
+      if y == 0 or y == 1 or y == 4 or y == 5 then
+        cpu.im = 0
+      elseif y == 2 or y == 6 then
+        cpu.im = 1
+      else -- y == 3 (ED5E) or y == 7 (ED7E)
+        cpu.im = 2
+      end
       return 8
     elseif z == 7 then
       if y == 0 then -- LD I,A

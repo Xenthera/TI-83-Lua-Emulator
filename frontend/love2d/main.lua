@@ -183,9 +183,9 @@ function love.keypressed(key)
 end
 
 function love.keyreleased(key)
-  if ide.focus == "lcd" then
-    Input.apply(machine, key, false)
-  end
+  -- Always release: if focus left the LCD while a key was held, dropping the
+  -- release left that matrix key stuck (breaks zDoom CLEAR's exact match).
+  Input.apply(machine, key, false)
 end
 
 function love.wheelmoved(x, y)
@@ -197,6 +197,9 @@ function love.resize()
 end
 
 function love.focus(focused)
+  if not focused and machine then
+    Input.release_all(machine)
+  end
   -- Pick up Cursor/AI/external project edits when returning to the IDE.
   if focused and ide then
     ide:poll_project_disk()

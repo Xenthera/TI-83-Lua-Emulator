@@ -25,7 +25,8 @@ void main() {
   end
 
   if not rs then
-    ok("appsign rabbitsign present", false, "run tools/install_rabbitsign.sh")
+    ok("appsign rabbitsign present", false,
+      "run tools/install_rabbitsign.sh or tools/install_rabbitsign.ps1")
     return
   end
 

@@ -43,9 +43,10 @@ function Machine.new()
 
   self.rom_loaded = false
   self.total_cycles = 0
-  -- Short UI taps can press+release between emu frames; keep keys down for a
-  -- minimum emulated time so GetCSC/GetKey can see them (~1 frame at 6 MHz).
-  self.min_key_hold_cycles = math.floor(CPU_HZ / 60)
+  -- Short on-screen keypad taps can finish before a game's key poll.
+  -- zDoom (and similar) only sample input every ~6-10 timer IRQs (~25-85ms),
+  -- so a 1-frame hold (~16ms) is often missed. Keep taps down ~100ms.
+  self.min_key_hold_cycles = math.floor(CPU_HZ / 10)
   -- TI power-on from HALT needs ON held ~0.5M+ cycles; a frame is too short
   -- and the calc silently returns to the power-off HALT.
   self.min_on_hold_cycles = math.floor(CPU_HZ / 2)
@@ -122,6 +123,59 @@ function Machine:run_cycles(budget)
   self.total_cycles = self.total_cycles + ran
   self:_release_due_keys()
   return ran
+end
+
+--- After reset: reach soft power-off, hold ON, then run until homescreen VAT is up.
+-- opts.yield = optional fn called between slices (ComputerCraft).
+-- opts.slice = cycles per slice (default 500k; larger = fewer yields on CC).
+-- Returns true if Eightxp.vat_ready within the post-ON budget.
+function Machine:wake_os(opts)
+  opts = opts or {}
+  local Eightxp = require("core.util.eightxp")
+  local yield = opts.yield
+  local slice = tonumber(opts.slice) or 500000
+  if slice < 50000 then
+    slice = 50000
+  end
+
+  local function pump(max_cycles, pred)
+    local left = max_cycles
+    while left > 0 do
+      if pred and pred() then
+        return true
+      end
+      local n = left
+      if n > slice then
+        n = slice
+      end
+      self:run_cycles(n)
+      left = left - n
+      if yield then
+        yield()
+      end
+    end
+    return pred and pred() or false
+  end
+
+  -- Soft power-off HALT is usually well under 5M cycles.
+  pump(5 * 1000 * 1000, function()
+    return self.cpu.halted
+  end)
+
+  self:set_key("on", true)
+  local hold = self.min_on_hold_cycles or math.floor(CPU_HZ / 2)
+  if hold < 3000000 then
+    hold = 3000000
+  end
+  pump(hold, nil)
+  self:set_key("on", false)
+
+  -- Cap 20M, but stop as soon as the OS VAT looks homescreen-ready.
+  local ready = pump(20 * 1000 * 1000, function()
+    return Eightxp.vat_ready(self.mmu)
+  end)
+  self.lcd._dirty = true
+  return ready
 end
 
 function Machine:set_key(name, down)

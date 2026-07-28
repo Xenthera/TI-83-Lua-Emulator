@@ -6,7 +6,8 @@ local MAP = {
   ["return"] = "enter",
   kpenter = "enter",
   backspace = "del",
-  delete = "del",
+  delete = "clear", -- PC Delete → TI CLEAR (Escape is MODE)
+  ["end"] = "clear",
   escape = "mode",
   up = "up",
   down = "down",
@@ -91,6 +92,17 @@ function Input.apply(machine, key, down)
     return true
   end
   return false
+end
+
+--- Release every mapped host key (focus change / window blur).
+function Input.release_all(machine)
+  local seen = {}
+  for _, name in pairs(MAP) do
+    if not seen[name] then
+      seen[name] = true
+      machine:set_key(name, false)
+    end
+  end
 end
 
 return Input

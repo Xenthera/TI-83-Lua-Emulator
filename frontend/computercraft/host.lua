@@ -684,26 +684,21 @@ function M.run(opts)
   end
 
   --- After cold-reset, hold ON like Love2D so TI-OS reaches the homescreen.
+  --- Stops early once VAT looks ready (avoids a fixed 28M-cycle crawl on CC).
   local function wake_os_after_reset()
     release_held()
-    local function pump(n)
-      local left = n
-      while left > 0 do
-        local slice = math.min(left, cycles_per_tick)
-        machine:run_cycles(slice)
-        left = left - slice
-        cc_yield()
-      end
+    -- Larger slices than the live tick: fewer yields while still pumping.
+    local slice = cycles_per_tick * 5
+    if slice < 500000 then
+      slice = 500000
     end
-    pump(5 * 1000 * 1000)
-    machine:set_key("on", true)
-    local hold = on_hold_cycles
-    if hold < 3000000 then
-      hold = 3000000
+    if slice > 2000000 then
+      slice = 2000000
     end
-    pump(hold)
-    machine:set_key("on", false)
-    pump(20 * 1000 * 1000)
+    machine:wake_os({
+      yield = cc_yield,
+      slice = slice,
+    })
     -- Leave boot editOpen intact so homescreen Enter works; inject paths
     -- call Eightxp.release_homescreen_edit when they need the free gap.
     machine.lcd._dirty = true

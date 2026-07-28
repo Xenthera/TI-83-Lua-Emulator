@@ -3,6 +3,10 @@
 
 local M = {}
 
+local function is_windows()
+  return package.config:sub(1, 1) == "\\"
+end
+
 local function is_executable(path)
   if type(path) ~= "string" or path == "" then return false end
   local f = io.open(path, "rb")
@@ -12,7 +16,13 @@ local function is_executable(path)
 end
 
 local function which(cmd)
-  local h = io.popen('command -v "' .. cmd .. '" 2>/dev/null')
+  local probe
+  if is_windows() then
+    probe = 'where "' .. cmd .. '" 2>nul'
+  else
+    probe = 'command -v "' .. cmd .. '" 2>/dev/null'
+  end
+  local h = io.popen(probe)
   if not h then return nil end
   local line = h:read("*l")
   h:close()
@@ -22,8 +32,15 @@ local function which(cmd)
   return nil
 end
 
+local function install_hint()
+  if is_windows() then
+    return "Run: powershell -ExecutionPolicy Bypass -File tools\\install_rabbitsign.ps1"
+  end
+  return "Run: sh tools/install_rabbitsign.sh"
+end
+
 --- Locate the rabbitsign binary.
--- Search order: opts.rabbitsign, $RABBITSIGN, tools/bin/rabbitsign, PATH.
+-- Search order: opts.rabbitsign, $RABBITSIGN, tools/bin/rabbitsign(.exe), PATH.
 function M.find_rabbitsign(root, opts)
   opts = opts or {}
   if type(opts.rabbitsign) == "string" and is_executable(opts.rabbitsign) then
@@ -35,13 +52,13 @@ function M.find_rabbitsign(root, opts)
   end
   root = root or "."
   local candidates = {
-    root .. "/tools/bin/rabbitsign",
     root .. "/tools/bin/rabbitsign.exe",
+    root .. "/tools/bin/rabbitsign",
   }
   for _, p in ipairs(candidates) do
     if is_executable(p) then return p end
   end
-  return which("rabbitsign")
+  return which("rabbitsign") or which("rabbitsign.exe")
 end
 
 --- Optional on-disk key (builtin 0104 works without this).
@@ -58,7 +75,20 @@ function M.find_key(root, key_id)
 end
 
 local function shell_quote(s)
-  return "'" .. tostring(s):gsub("'", "'\\''") .. "'"
+  s = tostring(s)
+  if is_windows() then
+    return '"' .. s:gsub('"', '""') .. '"'
+  end
+  return "'" .. s:gsub("'", "'\\''") .. "'"
+end
+
+local function ensure_dir(path)
+  if is_windows() then
+    local win = path:gsub("/", "\\")
+    os.execute("mkdir " .. shell_quote(win) .. " 2>nul")
+  else
+    os.execute("mkdir -p " .. shell_quote(path))
+  end
 end
 
 local function run(cmd)
@@ -124,7 +154,7 @@ function M.sign_bytes(xk_bytes, opts)
   if not rs then
     return nil,
       "rabbitsign not found (needed to sign apps for real calculators). "
-        .. "Run: sh tools/install_rabbitsign.sh"
+        .. install_hint()
   end
 
   local hex, herr = intel_hex_from_app(xk_bytes)
@@ -136,7 +166,7 @@ function M.sign_bytes(xk_bytes, opts)
   local key_file = opts.key_file or M.find_key(root, key_id)
 
   local tmp_dir = root .. "/dist"
-  os.execute(string.format("mkdir -p %s", shell_quote(tmp_dir)))
+  ensure_dir(tmp_dir)
   local in_path = tmp_dir .. "/.appsign_in.hex"
   local out_path = tmp_dir .. "/.appsign_out.8xk"
 

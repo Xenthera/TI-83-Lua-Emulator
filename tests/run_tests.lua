@@ -25,6 +25,7 @@ dofile(ROOT .. "/tests/hw/test_keypad.lua")(ok)
 
 print("== MMU tests ==")
 dofile(ROOT .. "/tests/cpu/test_mmu.lua")(ok)
+dofile(ROOT .. "/tests/cpu/test_flash.lua")(ok)
 
 print("== Assembler tests ==")
 dofile(ROOT .. "/tests/asm/test_assembler.lua")(ok)

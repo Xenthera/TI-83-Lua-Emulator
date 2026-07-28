@@ -261,7 +261,8 @@ local LANG_NOTES = {
       .. "Programs larger than 16KB are auto-split across archive pages "
       .. "(up to 14 x 16KB = 224KB) with far-call bank switching. "
       .. "For a real calculator, leave Sign on (tiproj sign:true / --sign); "
-      .. "builds use RabbitSign with free key 0104. Run tools/install_rabbitsign.sh once.",
+      .. "builds use RabbitSign with free key 0104. Install once via "
+      .. "tools/install_rabbitsign.sh (Unix) or tools/install_rabbitsign.ps1 (Windows).",
   },
 }
 

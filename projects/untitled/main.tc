@@ -1,0 +1,7 @@
+// Tiny-C
+void main() {
+  lcd_init();
+  lcd_clear();
+  draw_string(0, 0, "HI");
+  while (1) { halt(); }
+}

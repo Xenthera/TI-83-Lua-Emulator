@@ -198,6 +198,10 @@ local function read_file(path)
   return s
 end
 
+local function is_windows()
+  return package.config:sub(1, 1) == "\\"
+end
+
 local function write_file(path, body)
   local f, err = io.open(path, "w")
   if not f then return nil, err end
@@ -208,16 +212,26 @@ local function write_file(path, body)
 end
 
 local function ensure_dir(path)
-  -- best-effort; mkdir -p via os.execute
-  os.execute(string.format('mkdir -p "%s"', path:gsub('"', '\\"')))
+  if is_windows() then
+    local win = path:gsub("/", "\\"):gsub('"', "")
+    os.execute(string.format('mkdir "%s" 2>nul', win))
+  else
+    os.execute(string.format('mkdir -p "%s"', path:gsub('"', '\\"')))
+  end
 end
 
 local function list_tc_files(dir)
   local names = {}
-  local cmd = string.format('ls -1 "%s" 2>/dev/null', dir:gsub('"', '\\"'))
-  local p = io.popen(cmd)
+  local p
+  if is_windows() then
+    local win = dir:gsub("/", "\\"):gsub('"', "")
+    p = io.popen(string.format('dir /b "%s\\*.tc" 2>nul', win))
+  else
+    p = io.popen(string.format('ls -1 "%s" 2>/dev/null', dir:gsub('"', '\\"')))
+  end
   if not p then return names end
-  for line in p:lines() do
+  for raw in p:lines() do
+    local line = raw:gsub("\r", "")
     if line:match("%.tc$") then
       names[#names + 1] = line
     end

@@ -123,7 +123,37 @@ function Mmu:reset()
   self.bankB_is_ram = false
   self.mem_mode = 0
   self.flash_unlocked = false
+  if self.flash.reset_cmd then
+    self.flash:reset_cmd()
+  end
   self:_rebuild_map()
+end
+
+--- If `addr` maps to flash, return page, offset; else nil.
+function Mmu:_flash_at(addr)
+  local off = band(addr, 0x3FFF)
+  local region = band(addr, 0xC000)
+  if region == 0x0000 then
+    return self.page_boot, off
+  elseif region == 0x4000 then
+    if self.bankA_is_ram then return nil end
+    if self.mem_mode == 1 then
+      return band(self.page_bankA, 0x1E), off
+    end
+    return self.page_bankA, off
+  elseif region == 0x8000 then
+    if self.mem_mode == 0 then
+      if self.bankB_is_ram then return nil end
+      return self.page_bankB, off
+    end
+    if self.bankA_is_ram then return nil end
+    return self.page_bankA, off
+  else
+    -- C000-FFFF: RAM0 in mode 0; Bank B in mode 1
+    if self.mem_mode == 0 then return nil end
+    if self.bankB_is_ram then return nil end
+    return self.page_bankB, off
+  end
 end
 
 function Mmu:set_mem_mode(mode)
@@ -157,6 +187,13 @@ function Mmu:set_boot_page(page)
 end
 
 function Mmu:read(addr)
+  local flash = self.flash
+  if flash.override_reads then
+    local page, off = self:_flash_at(addr)
+    if page then
+      return flash:cmd_read(page, off)
+    end
+  end
   local off = band(addr, 0x3FFF)
   local region = band(addr, 0xC000)
   if region == 0x0000 then
@@ -175,19 +212,36 @@ function Mmu:write(addr, value)
   local off = band(addr, 0x3FFF)
   local region = band(addr, 0xC000)
   if region == 0x0000 then
-    -- Flash page (boot): ignore unless unlocked (still a no-op today).
+    if self.flash_unlocked then
+      self.flash:write(self.page_boot, off, value)
+    end
     return
   elseif region == 0x4000 then
     if self.w1_ok then
       self.w1_arr[self.w1_base + off] = value
+    elseif self.flash_unlocked then
+      local page = self:_flash_at(addr)
+      if page then
+        self.flash:write(page, off, value)
+      end
     end
   elseif region == 0x8000 then
     if self.w2_ok then
       self.w2_arr[self.w2_base + off] = value
+    elseif self.flash_unlocked then
+      local page = self:_flash_at(addr)
+      if page then
+        self.flash:write(page, off, value)
+      end
     end
   else
     if self.w3_ok then
       self.w3_arr[self.w3_base + off] = value
+    elseif self.flash_unlocked then
+      local page = self:_flash_at(addr)
+      if page then
+        self.flash:write(page, off, value)
+      end
     end
   end
 end

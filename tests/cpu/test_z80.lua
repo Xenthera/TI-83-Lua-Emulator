@@ -129,4 +129,40 @@ return function(ok)
     cpu:step()
   end
   ok("im1 irq", cpu:a() == 0xAA)
+
+  -- IM2 interrupt (ED5E). Regression: ED5E was wrongly decoded as IM 1.
+  for i = 0, 65535 do mem[i] = 0 end
+  irq = false
+  load(string.char(
+    0x3E, 0x99,       -- LD A,$99
+    0xED, 0x47,       -- LD I,A
+    0xED, 0x5E,       -- IM 2
+    0xFB,             -- EI
+    0x00,             -- NOP
+    0x76              -- HALT
+  ))
+  -- 257-byte vector table at $9900 filled with $9A → ISR at $9A9A
+  for a = 0x9900, 0x9A00 do
+    mem[a] = 0x9A
+  end
+  mem[0x9A9A] = 0x3E -- LD A,$BB
+  mem[0x9A9B] = 0xBB
+  mem[0x9A9C] = 0xC9 -- RET
+  b = bus()
+  b.irq_pending = function() return irq end
+  b.ack_irq = function() irq = false end
+  cpu = Z80.new(b)
+  cpu:step() -- LD A,$99
+  cpu:step() -- LD I,A
+  cpu:step() -- IM 2
+  ok("im2 mode set", cpu.im == 2)
+  cpu:step() -- EI
+  irq = true
+  cpu:step() -- NOP (delay)
+  cpu:step() -- IRQ → $9A9A
+  for _ = 1, 20 do
+    if cpu:a() == 0xBB then break end
+    cpu:step()
+  end
+  ok("im2 irq", cpu:a() == 0xBB and cpu.im == 2)
 end

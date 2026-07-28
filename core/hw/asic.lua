@@ -188,7 +188,12 @@ function Asic:out_port(port, value)
     self.lcd:data_write(value)
   elseif port == 0x14 then
     self.flash_port = value
-    self.mmu.flash_unlocked = band(value, 0x01) ~= 0
+    local unlocked = band(value, 0x01) ~= 0
+    self.mmu.flash_unlocked = unlocked
+    -- Locking aborts any in-progress AMD command sequence.
+    if not unlocked and self.mmu.flash.reset_cmd then
+      self.mmu.flash:reset_cmd()
+    end
   end
 end
 
