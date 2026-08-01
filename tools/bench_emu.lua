@@ -5,8 +5,8 @@
 local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]bench_emu%.lua$") or "."
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
-local Machine = require("core.machine")
-local bitmod = require("core.util.bit")
+local Machine = require("machines.ti83plus.machine")
+local bitmod = require("framework.util.bit")
 
 local seconds = tonumber(arg[1]) or 1.5
 local mode = arg[2] or "busy" -- busy | rom

@@ -1,507 +1,168 @@
-// Tiny-C 2048 Flash App — arrow keys slide tiles.
-// GetKey: Down=1 Left=2 Right=3 Up=4; 2nd+MODE=Quit; CLEAR=new game.
-// Rendering: tinyfont + erase_rect dirty cells (same approach as blackjack).
+// Tiny-C Dense DFS Backtracker Maze — 96x64 Display
+// RAM optimized: removed neighbors[] array via reservoir sampling.
 
 #include <stdlib/gfx.tc>
 #include <stdlib/rand.tc>
-#include "tinyfont.tc"
 
-// board[i] = exponent: 0 empty, 1→2, 2→4, … 11→2048
-byte board[16];
-byte prev[16];
-byte line[4];
-word score;
-word best;
-byte won;
-byte over;
-byte ui_ready;
+byte bit_mask[8] = {1,2,4,8,16,32,64,128};
+byte visited[146];
 
-byte GRID_X;
-byte GRID_Y;
-byte CELL_W;
-byte CELL_H;
+byte stack[256];
+word stack_ptr;
 
-void quit_if(byte k) {
-  if (k == 64) {
-    os_exit();
-  }
-}
+word cur_cell;
+byte cur_x;
+byte cur_y;
 
-word tile_val(byte e) {
-  word v;
-  byte i;
-  if (e == 0) {
-    return 0;
-  }
-  v = 1;
-  i = 0;
-  while (i < e) {
-    v = v + v;
-    i = i + 1;
-  }
-  return v;
-}
+byte n_count;
+byte dir;
 
-byte cell_at(byte r, byte c) {
-  byte i;
-  i = r + r;
-  i = i + i;
-  i = i + c;
-  return board[i];
-}
+word next_cell;
+byte next_x;
+byte next_y;
 
-void cell_set(byte r, byte c, byte v) {
-  byte i;
-  i = r + r;
-  i = i + i;
-  i = i + c;
-  board[i] = v;
-}
+word delay_w;
+word clear_i;
 
-byte count_empty() {
-  byte i;
-  byte n;
-  n = 0;
-  i = 0;
-  while (i < 16) {
-    if (board[i] == 0) {
-      n = n + 1;
-    }
-    i = i + 1;
-  }
-  return n;
-}
-
-byte can_merge_any() {
-  byte r;
-  byte c;
-  byte v;
-  r = 0;
-  while (r < 4) {
-    c = 0;
-    while (c < 4) {
-      v = cell_at(r, c);
-      if (v != 0) {
-        if (c < 3) {
-          if (cell_at(r, c + 1) == v) {
-            return 1;
-          }
-        }
-        if (r < 3) {
-          if (cell_at(r + 1, c) == v) {
-            return 1;
-          }
-        }
-      }
-      c = c + 1;
-    }
-    r = r + 1;
+byte is_visited(word cell) {
+  if ((visited[cell / 8] & bit_mask[cell % 8]) != 0) {
+    return 1;
   }
   return 0;
 }
 
-void check_over() {
-  if (count_empty() != 0) {
-    over = 0;
-    return;
-  }
-  if (can_merge_any() != 0) {
-    over = 0;
-    return;
-  }
-  over = 1;
+void mark_visited(word cell) {
+  visited[cell / 8] = visited[cell / 8] | bit_mask[cell % 8];
 }
 
-void spawn_tile() {
-  byte empties;
-  byte pick;
-  byte i;
-  byte e;
-  empties = count_empty();
-  if (empties == 0) {
-    return;
-  }
-  pick = rand_range(empties);
-  i = 0;
-  while (i < 16) {
-    if (board[i] == 0) {
-      if (pick == 0) {
-        // ~90% twos, ~10% fours
-        if (rand_range(10) == 0) {
-          e = 2;
-        } else {
-          e = 1;
-        }
-        board[i] = e;
-        return;
-      }
-      pick = pick - 1;
-    }
-    i = i + 1;
+void clear_visited() {
+  clear_i = 0;
+  while (clear_i < 146) {
+    visited[clear_i] = 0;
+    clear_i = clear_i + 1;
   }
 }
 
-void board_clear() {
-  byte i;
-  i = 0;
-  while (i < 16) {
-    board[i] = 0;
-    prev[i] = 255;
-    i = i + 1;
+void delay(word counts) {
+  delay_w = 0;
+  while (delay_w < counts) {
+    delay_w = delay_w + 1;
   }
 }
 
-void new_game() {
-  board_clear();
-  score = 0;
-  won = 0;
-  over = 0;
-  srand_auto();
-  spawn_tile();
-  spawn_tile();
-  ui_ready = 0;
-}
+void do_backtrack() {
+  dir = stack[stack_ptr - 1];
+  stack_ptr = stack_ptr - 1;
 
-// Compact + merge line[0..3] toward index 0. Returns 1 if anything changed.
-byte slide_line() {
-  byte i;
-  byte j;
-  byte moved;
-  byte a;
-  byte b;
-  moved = 0;
-  // pack non-zero left
-  j = 0;
-  i = 0;
-  while (i < 4) {
-    if (line[i] != 0) {
-      if (j != i) {
-        line[j] = line[i];
-        line[i] = 0;
-        moved = 1;
-      }
-      j = j + 1;
-    }
-    i = i + 1;
-  }
-  // merge once
-  i = 0;
-  while (i < 3) {
-    a = line[i];
-    b = line[i + 1];
-    if ((a != 0) & (a == b)) {
-      line[i] = a + 1;
-      line[i + 1] = 0;
-      score = score + tile_val(a + 1);
-      if ((a + 1) >= 11) {
-        won = 1;
-      }
-      moved = 1;
-      i = i + 2;
-    } else {
-      i = i + 1;
-    }
-  }
-  // pack again
-  j = 0;
-  i = 0;
-  while (i < 4) {
-    if (line[i] != 0) {
-      if (j != i) {
-        line[j] = line[i];
-        line[i] = 0;
-        moved = 1;
-      }
-      j = j + 1;
-    }
-    i = i + 1;
-  }
-  return moved;
-}
-
-void reverse_line() {
-  byte t;
-  t = line[0];
-  line[0] = line[3];
-  line[3] = t;
-  t = line[1];
-  line[1] = line[2];
-  line[2] = t;
-}
-
-void load_row(byte r) {
-  line[0] = cell_at(r, 0);
-  line[1] = cell_at(r, 1);
-  line[2] = cell_at(r, 2);
-  line[3] = cell_at(r, 3);
-}
-
-void store_row(byte r) {
-  cell_set(r, 0, line[0]);
-  cell_set(r, 1, line[1]);
-  cell_set(r, 2, line[2]);
-  cell_set(r, 3, line[3]);
-}
-
-void load_col(byte c) {
-  line[0] = cell_at(0, c);
-  line[1] = cell_at(1, c);
-  line[2] = cell_at(2, c);
-  line[3] = cell_at(3, c);
-}
-
-void store_col(byte c) {
-  cell_set(0, c, line[0]);
-  cell_set(1, c, line[1]);
-  cell_set(2, c, line[2]);
-  cell_set(3, c, line[3]);
-}
-
-// Pack tiles toward the left edge of the screen (column 0).
-byte move_left() {
-  byte r;
-  byte moved;
-  moved = 0;
-  r = 0;
-  while (r < 4) {
-    load_row(r);
-    if (slide_line() != 0) {
-      moved = 1;
-    }
-    store_row(r);
-    r = r + 1;
-  }
-  return moved;
-}
-
-// Pack tiles toward the right edge (column 3).
-byte move_right() {
-  byte r;
-  byte moved;
-  moved = 0;
-  r = 0;
-  while (r < 4) {
-    load_row(r);
-    reverse_line();
-    if (slide_line() != 0) {
-      moved = 1;
-    }
-    reverse_line();
-    store_row(r);
-    r = r + 1;
-  }
-  return moved;
-}
-
-// Pack tiles toward the top edge (row 0).
-byte move_up() {
-  byte c;
-  byte moved;
-  moved = 0;
-  c = 0;
-  while (c < 4) {
-    load_col(c);
-    if (slide_line() != 0) {
-      moved = 1;
-    }
-    store_col(c);
-    c = c + 1;
-  }
-  return moved;
-}
-
-// Pack tiles toward the bottom edge (row 3).
-byte move_down() {
-  byte c;
-  byte moved;
-  moved = 0;
-  c = 0;
-  while (c < 4) {
-    load_col(c);
-    reverse_line();
-    if (slide_line() != 0) {
-      moved = 1;
-    }
-    reverse_line();
-    store_col(c);
-    c = c + 1;
-  }
-  return moved;
-}
-
-// GetKey codes measured on this emu/OS (not the textbook table):
-//   1=Right  2=Left  3=Up  4=Down
-// (Docs say 1=Down 2=Left 3=Right 4=Up; keypad matrix stays WikiTI-correct
-// so TI-OS menus keep working.)
-byte try_move_key(byte k) {
-  if (k == 1) {
-    return move_right();
-  }
-  if (k == 2) {
-    return move_left();
-  }
-  if (k == 3) {
-    return move_up();
-  }
-  if (k == 4) {
-    return move_down();
-  }
-  return 0;
-}
-
-byte cell_x(byte c) {
-  return GRID_X + c * (CELL_W + 1);
-}
-
-byte cell_y(byte r) {
-  return GRID_Y + r * (CELL_H + 1);
-}
-
-byte digits_of(word n) {
-  if (n >= 1000) {
-    return 4;
-  }
-  if (n >= 100) {
-    return 3;
-  }
-  if (n >= 10) {
-    return 2;
-  }
-  return 1;
-}
-
-void paint_cell(byte r, byte c) {
-  byte x;
-  byte y;
-  byte e;
-  word v;
-  byte digs;
-  byte tx;
-  x = cell_x(c);
-  y = cell_y(r);
-  e = cell_at(r, c);
-  erase_rect(x, y, CELL_W, CELL_H);
-  draw_rect(x, y, CELL_W, CELL_H);
-  if (e == 0) {
-    return;
-  }
-  v = tile_val(e);
-  digs = digits_of(v);
-  tx = x + (CELL_W - digs * 4) / 2;
-  if (tx <= x) {
-    tx = x + 1;
-  }
-  draw_u16(tx, y + 3, v);
-}
-
-void paint_header() {
-  erase_rect(0, 0, 96, 7);
-  draw_str(1, 1, "2048");
-  draw_str(28, 1, "S");
-  draw_u16(36, 1, score);
-  draw_str(64, 1, "B");
-  draw_u16(72, 1, best);
-}
-
-void paint_footer() {
-  erase_rect(0, 56, 96, 8);
-  if (over != 0) {
-    draw_str(1, 57, "OVER CLR=NEW");
-  } else {
-    if (won != 0) {
-      draw_str(1, 57, "2048! ARROWS");
-    } else {
-      draw_str(1, 57, "ARROWS CLR=NEW");
-    }
-  }
-}
-
-void paint_grid_full() {
-  byte r;
-  byte c;
-  byte i;
-  r = 0;
-  while (r < 4) {
-    c = 0;
-    while (c < 4) {
-      paint_cell(r, c);
-      c = c + 1;
-    }
-    r = r + 1;
-  }
-  i = 0;
-  while (i < 16) {
-    prev[i] = board[i];
-    i = i + 1;
-  }
-}
-
-void paint_grid_dirty() {
-  byte r;
-  byte c;
-  byte i;
-  i = 0;
-  r = 0;
-  while (r < 4) {
-    c = 0;
-    while (c < 4) {
-      if (board[i] != prev[i]) {
-        paint_cell(r, c);
-        prev[i] = board[i];
-      }
-      i = i + 1;
-      c = c + 1;
-    }
-    r = r + 1;
-  }
-}
-
-void paint(byte force) {
-  if ((force != 0) | (ui_ready == 0)) {
-    lcd_clear();
-    paint_header();
-    paint_grid_full();
-    paint_footer();
-    ui_ready = 1;
-    return;
-  }
-  paint_header();
-  paint_grid_dirty();
-  paint_footer();
+  if (dir == 0) { cur_y = cur_y + 1; cur_cell = cur_cell + 43; }
+  if (dir == 1) { cur_x = cur_x - 1; cur_cell = cur_cell - 1; }
+  if (dir == 2) { cur_y = cur_y - 1; cur_cell = cur_cell - 43; }
+  if (dir == 3) { cur_x = cur_x + 1; cur_cell = cur_cell + 1; }
 }
 
 void main() {
-  byte k;
-  byte moved;
   lcd_init();
-  GRID_X = 2;
-  GRID_Y = 8;
-  CELL_W = 22;
-  CELL_H = 11;
-  best = 0;
-  new_game();
-  paint(1);
+
   while (1) {
-    k = os_get_key();
-    quit_if(k);
-    // CLEAR → new game
-    if (k == 9) {
-      new_game();
-      paint(1);
-    } else {
-      if ((k >= 1) & (k <= 4)) {
-        if (over == 0) {
-          moved = try_move_key(k);
-          if (moved != 0) {
-            spawn_tile();
-            if (score > best) {
-              best = score;
-            }
-            check_over();
-            paint(0);
+    lcd_clear();
+    srand_auto();
+    clear_visited();
+
+    cur_x = rand_range(43);
+    cur_y = rand_range(27);
+    cur_cell = (cur_y * 43) + cur_x;
+
+    mark_visited(cur_cell);
+    stack_ptr = 0;
+
+    draw_rect(5 + (cur_x * 2), 5 + (cur_y * 2), 1, 1);
+
+    while (1) {
+       n_count = 0;
+
+      if (cur_y > 0) {
+        if (is_visited(cur_cell - 43) == 0) {
+          n_count = n_count + 1;
+          if (rand_range(n_count) == 0) {
+            dir = 0;
           }
         }
       }
+
+      if (cur_x < 42) {
+        if (is_visited(cur_cell + 1) == 0) {
+          n_count = n_count + 1;
+          if (rand_range(n_count) == 0) {
+            dir = 1;
+          }
+        }
+      }
+
+      if (cur_y < 26) {
+        if (is_visited(cur_cell + 43) == 0) {
+          n_count = n_count + 1;
+          if (rand_range(n_count) == 0) {
+            dir = 2;
+          }
+        }
+      }
+
+      if (cur_x > 0) {
+        if (is_visited(cur_cell - 1) == 0) {
+          n_count = n_count + 1;
+          if (rand_range(n_count) == 0) {
+            dir = 3;
+          }
+        }
+      }
+
+      if (n_count > 0 & stack_ptr < 600) {
+
+        if (dir == 0) {
+          next_x = cur_x;
+          next_y = cur_y - 1;
+          next_cell = cur_cell - 43;
+        }
+
+        if (dir == 1) {
+          next_x = cur_x + 1;
+          next_y = cur_y;
+          next_cell = cur_cell + 1;
+        }
+
+        if (dir == 2) {
+          next_x = cur_x;
+          next_y = cur_y + 1;
+          next_cell = cur_cell + 43;
+        }
+
+        if (dir == 3) {
+          next_x = cur_x - 1;
+          next_y = cur_y;
+          next_cell = cur_cell - 1;
+        }
+
+        mark_visited(next_cell);
+
+        draw_rect(5 + (cur_x + next_x), 5 + (cur_y + next_y), 1, 1);
+        draw_rect(5 + (next_x * 2), 5 + (next_y * 2), 1, 1);
+
+        stack[stack_ptr] = dir;
+        stack_ptr = stack_ptr + 1;
+
+        cur_x = next_x;
+        cur_y = next_y;
+        cur_cell = next_cell;
+
+      } else {
+        if (stack_ptr > 0) {
+          do_backtrack();
+        } else {
+          break;
+        }
+      }
     }
+
+    delay(10000);
   }
 }

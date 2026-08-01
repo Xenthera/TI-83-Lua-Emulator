@@ -1,7 +1,7 @@
 return function(ok)
-  local Flash = require("core.mem.flash")
-  local Ram = require("core.mem.ram")
-  local Mmu = require("core.mem.mmu")
+  local Flash = require("machines.ti83plus.mem.flash")
+  local Ram = require("machines.ti83plus.mem.ram")
+  local Mmu = require("machines.ti83plus.mem.mmu")
 
   local flash = Flash.new()
   for i = 0, flash.SIZE - 1 do flash.bytes[i] = 0 end

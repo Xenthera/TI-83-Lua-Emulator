@@ -1,8 +1,8 @@
 return function(ok)
   local Compiler = require("lang.compiler")
   local Assembler = require("asm.assembler")
-  local Machine = require("core.machine")
-  local romutil = require("core.util.rom")
+  local Machine = require("machines.ti83plus.machine")
+  local romutil = require("machines.ti83plus.util.rom")
 
   local src = [[
 void main() {

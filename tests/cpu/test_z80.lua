@@ -1,5 +1,5 @@
 return function(ok)
-  local Z80 = require("core.cpu.z80")
+  local Z80 = require("cpus.z80.z80")
 
   local mem = {}
   for i = 0, 65535 do mem[i] = 0 end

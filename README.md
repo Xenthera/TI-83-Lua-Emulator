@@ -1,17 +1,18 @@
-# TI-83 Plus Emulator (Lua)
+# TI Calculator Emulators (Lua)
 
-Pure-Lua TI-83 Plus emulator with a modular display backend. The first frontend is [LOVE](https://love2d.org/) (Love2D); the `core/` package has no engine dependencies so rendering can be ported later.
+Pure-Lua TI-83 Plus / TI-84 Plus / TI-89 Titanium / TI-92 Plus emulators with modular frontends ([LOVE](https://love2d.org/), ComputerCraft). Machine code lives under `machines/` / `cpus/` with no engine dependencies.
 
 ## Layout
 
-- `core/` - Z80, MMU/flash/RAM, ASIC ports, T6A04 LCD, keypad, timer, `Machine` API
-- `asm/` - simple Z80 assembler, 8x8 font, host text reference, LCD/text libs, screen tests
-- `frontend/love2d/` - Love2D window, nearest-neighbor LCD present, keyboard -> key matrix
-- `frontend/computercraft/` - monitor LCD + second-monitor keypad API (bundleable)
-- `rom/` - generated test images + optional real 512KB TI dump (not shipped)
-- `tests/` - unit tests (no Love2D required)
-- `tools/` - bring-up, pipeline build/verify, `bundle.lua` / `export_computercraft.lua`
-- `dist/` - generated single-file exports (optional build output)
+- `machines/` - TI-83+, TI-84+, TI-89, TI-92+ machine packages (MMU, LCD, keypad, ROM helpers)
+- `cpus/` - Z80 and m68k CPU cores
+- `framework/` - shared path helpers, bit util, machine manager, savestate, debugger
+- `frontends/love2d/` - Love2D mini IDE + LCD presenters
+- `frontends/computercraft/` - CC advanced-monitor / GPU / WebSocket clients
+- `bridge/` - LuaJIT WebSocket host (remote emu for CC thin clients)
+- `asm/`, `lang/`, `stdlib/`, `projects/` - assembler, Tiny-C, demos
+- `rom/` - local ROM dumps (not shipped)
+- `tests/`, `tools/`, `dist/` - tests, export/pipeline scripts, generated bundles
 
 ## Tiny-C (`tc`) -> Z80
 
@@ -53,8 +54,10 @@ Runtime libs: `asm/lib/lcd.asm`, `asm/lib/text.asm`, `asm/lib/gfx.asm`, `asm/fon
 ## Run (Love2D mini IDE)
 
 ```bash
-love frontend/love2d
+love frontends/love2d
 ```
+
+Toolbar switches **TI-83+**, **TI-84+**, **TI-89 Titanium**, and **TI-92 Plus** (QWERTY / 240×128). Place `rom/ti84plus.rom` (1MB) for 84+, or `rom/ti92plus.rom` / `.9xu` for 92+.
 
 The frontend is a small IDE:
 
@@ -76,7 +79,7 @@ lua tests/run_tests.lua          # unit tests + full pipeline
 ## Machine API
 
 ```lua
-local Machine = require("core.machine")
+local Machine = require("machines.ti83plus.machine")
 local m = Machine.new()
 m:load_rom_file("rom/pipeline.rom")
 m:reset()
@@ -86,23 +89,26 @@ local fb = m:framebuffer() -- 96x64, 12 bytes/row, MSB leftmost
 
 ## ComputerCraft export (single-file bundle)
 
-The modular tree under `core/` and `frontend/computercraft/` stays the source of truth.
+The modular tree under `machines/`, `cpus/`, and `frontends/computercraft/` is the source of truth.
 A build step flattens it into one Lua file via `package.preload` (same `require` names):
 
 ```bash
 lua tools/export_computercraft.lua
-# -> dist/ti83_cc.lua  (+ dist/ti83_run.lua launcher)
+# -> dist/ti83_cc.lua  (+ dist/test.lua copy)
+
+lua tools/export_computercraft_ti89.lua
+# -> dist/ti89_cc.lua
 ```
 
 Or bundle any entry module:
 
 ```bash
-lua tools/bundle.lua -o dist/core_only.lua core.machine
+lua tools/bundle.lua -o dist/machine_only.lua machines.ti83plus.machine
 ```
 
-### Wiring monitors
+### Wiring monitors (TI-83+)
 
-Copy `dist/ti83_cc.lua` (and optionally `ti83_run.lua`) plus a 512KB ROM onto a CC computer. Attach **two advanced monitors** (LCD + keypad).
+Copy `dist/ti83_cc.lua` (or `dist/test.lua`) plus a 512KB ROM onto a CC computer. Attach **two advanced monitors** (LCD + keypad).
 
 ```lua
 local ti83 = dofile("ti83_cc.lua")
@@ -145,8 +151,51 @@ while true do
 end
 ```
 
-`frontend/love2d/` is not included in the CC bundle (no Love dependency).
+`frontends/love2d/` is not included in the CC bundle (no Love dependency).
+
+### Remote emu (LuaJIT + WebSocket)
+
+Emulation can run on the PC; CC only paints and sends keys. Existing in-CC
+bundles are unchanged.
+
+```bat
+REM 1) PC host (LuaJIT FFI sockets — no LuaSocket install needed)
+bridge\run.cmd --machine ti89 --rom rom\ti89titanium.rom --port 8765
+
+REM 2) Export thin clients
+tools\export_computercraft_ti89_gpu_ws.cmd
+tools\export_computercraft_ti89_ws.cmd
+tools\export_computercraft_ti83_ws.cmd
+```
+
+| Dist | Role |
+|------|------|
+| `ti89_gpu_cc_ws.lua` | Tom's GPU face, remote CPU |
+| `ti89_cc_ws.lua` | Advanced monitors, remote CPU |
+| `ti83_cc_ws.lua` | Advanced monitors, remote CPU |
+
+```
+ti89_gpu_cc_ws --url ws://127.0.0.1:8765
+```
+
+### TI-89 Titanium on ComputerCraft
+
+```bash
+lua tools/export_computercraft_ti89.lua
+# -> dist/ti89_cc.lua
+```
+
+Copy `dist/ti89_cc.lua` plus `ti89.rom` / `ti89titanium.rom` onto a CC computer. LCD needs about **80×34** cells at text scale 0.5 (2×3 sixtels; same pixels as 160×100, ~⅓ the old monitor wall). `.8xk` / `.8xp` install is TI-83+ only.
+
+```lua
+local ti89 = dofile("ti89_cc.lua")
+ti89.run({
+  rom = "ti89titanium.rom",  -- or ti89.rom
+  lcd = "left",
+  pad = "right",
+})
+```
 
 ## Real TI ROM (legal)
 
-Supply a dump from a calculator you own: **524288 bytes** at `rom/ti83plus.rom`. Not redistributed here.
+Supply a dump from a calculator you own. TI-83+: **524288 bytes** at `rom/ti83plus.rom`. TI-89: AMS / TIFL OS image at `rom/ti89.rom` (or `ti89titanium.rom`). Not redistributed here.

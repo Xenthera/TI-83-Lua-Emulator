@@ -66,7 +66,7 @@ local function parse_pages(spec, max_page, banked_by_page)
 end
 
 local function ensure_dir(path)
-  os.execute(string.format('mkdir -p "%s"', path:gsub('"', '\\"')))
+  require("framework.path").ensure_dir(path)
 end
 
 local function slice_page(data, page)

@@ -1,7 +1,7 @@
 return function(ok)
   local AppLink = require("lang.app_link")
-  local BuildSvc = require("frontend.love2d.buildsvc")
-  local Eightxk = require("core.util.eightxk")
+  local BuildSvc = require("frontends.love2d.buildsvc")
+  local Eightxk = require("machines.ti83plus.util.eightxk")
   local Tiproj = require("lang.tiproj")
 
   local src = [[

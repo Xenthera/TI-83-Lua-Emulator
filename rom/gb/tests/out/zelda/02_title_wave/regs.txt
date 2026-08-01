@@ -1,0 +1,10 @@
+frame=1380 tag=02_title_wave
+LCDC=C7 STAT=45 SCY=00 SCX=00 LY=8F LYC=00
+BGP=00 OBP0=00 OBP1=E0 WY=80 WX=07
+mode=3 line_cycles=148 _line=143
+IE=03 IF=E0 IME=true
+rom_bank=12 ram_bank=0 mbc=1 mode=0
+PC=03D1 SP=DFFF
+LCDC.4 tile unsigned=false  LCDC.3 map9C00=false  LCDC.0 bg=true  LCDC.5 win=false  LCDC.1 obj=true
+vram_hash=6CDFCEF7 map9800_hash=44E7A978 map9C00_hash=97899B2E oam_hash=15049F68 fb_hash=6567550F
+scx_bands=0-47:00 48-85:92 86-143:00

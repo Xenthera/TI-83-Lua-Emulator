@@ -1,0 +1,108 @@
+Game Boy validation report
+2026-07-31 19:34:28Z
+
+acid2          DUMPED   dmg-acid2 | checksum=CA93167C ppm=rom/gb/tests/out/dmg-acid2.ppm lcdc=F3
+mooneye-root   FAIL     add_sp_e_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     call_cc_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     call_cc_timing2.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     call_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     call_timing2.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   PASS     di_timing-GS.gb | PASS
+mooneye-root   PASS     div_timing.gb | PASS
+mooneye-root   PASS     ei_sequence.gb | PASS
+mooneye-root   PASS     ei_timing.gb | PASS
+mooneye-root   PASS     halt_ime0_ei.gb | PASS
+mooneye-root   PASS     halt_ime0_nointr_timing.gb | PASS
+mooneye-root   PASS     halt_ime1_timing.gb | PASS
+mooneye-root   PASS     halt_ime1_timing2-GS.gb | PASS
+mooneye-root   PASS     if_ie_registers.gb | PASS
+mooneye-root   PASS     intr_timing.gb | PASS
+mooneye-root   FAIL     jp_cc_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     jp_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     ld_hl_sp_e_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     oam_dma_restart.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     oam_dma_start.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     oam_dma_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   PASS     pop_timing.gb | PASS
+mooneye-root   FAIL     push_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     rapid_di_ei.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     ret_cc_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     ret_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   PASS     reti_intr_timing.gb | PASS
+mooneye-root   FAIL     reti_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-root   FAIL     rst_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     hblank_ly_scx_timing-GS.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    PASS     intr_1_2_timing-GS.gb | PASS
+mooneye-ppu    FAIL     intr_2_0_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     intr_2_mode0_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     intr_2_mode0_timing_sprites.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     intr_2_mode3_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     intr_2_oam_ok_timing.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     lcdon_timing-GS.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     lcdon_write_timing-GS.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     stat_irq_blocking.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    FAIL     stat_lyc_onoff.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-ppu    PASS     vblank_stat_intr-GS.gb | PASS
+mooneye-oam    PASS     basic.gb | PASS
+mooneye-oam    FAIL     reg_read.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-oam    FAIL     sources-GS.gb | FAIL regs B=0C C=D9 D=00 E=D8 H=D3 L=27
+mooneye-bits   PASS     mem_oam.gb | PASS
+mooneye-bits   PASS     reg_f.gb | PASS
+mooneye-bits   FAIL     unused_hwio-GS.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-timer  FAIL     div_write.gb | FAIL regs B=C7 C=E6 D=00 E=D8 H=01 L=4D
+mooneye-timer  PASS     rapid_toggle.gb | PASS
+mooneye-timer  PASS     tim00.gb | PASS
+mooneye-timer  PASS     tim00_div_trigger.gb | PASS
+mooneye-timer  PASS     tim01.gb | PASS
+mooneye-timer  PASS     tim01_div_trigger.gb | PASS
+mooneye-timer  PASS     tim10.gb | PASS
+mooneye-timer  PASS     tim10_div_trigger.gb | PASS
+mooneye-timer  PASS     tim11.gb | PASS
+mooneye-timer  PASS     tim11_div_trigger.gb | PASS
+mooneye-timer  FAIL     tima_reload.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-timer  FAIL     tima_write_reloading.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-timer  FAIL     tma_write_reloading.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-intr   FAIL     ie_push.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-mbc1   FAIL     bits_bank1.gb | FAIL regs B=00 C=04 D=01 E=EA H=7F L=0C
+mooneye-mbc1   PASS     bits_bank2.gb | PASS
+mooneye-mbc1   FAIL     bits_mode.gb | FAIL regs B=00 C=04 D=02 E=58 H=A0 L=0C
+mooneye-mbc1   FAIL     bits_ramg.gb | FAIL regs B=00 C=09 D=01 E=F1 H=A0 L=08
+mooneye-mbc1   FAIL     multicart_rom_8Mb.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-mbc1   PASS     ram_256kb.gb | PASS
+mooneye-mbc1   FAIL     ram_64kb.gb | FAIL regs B=42 C=42 D=42 E=42 H=42 L=42
+mooneye-mbc1   PASS     rom_16Mb.gb | PASS
+mooneye-mbc1   PASS     rom_1Mb.gb | PASS
+mooneye-mbc1   PASS     rom_2Mb.gb | PASS
+mooneye-mbc1   PASS     rom_4Mb.gb | PASS
+mooneye-mbc1   PASS     rom_512kb.gb | PASS
+mooneye-mbc1   PASS     rom_8Mb.gb | PASS
+mooneye-boot   PASS     boot_regs-dmgABC | PASS
+blargg-cpu     PASS     01-special.gb | serial="01-specialPassed" FAIL regs B=95 C=60 D=72 E=75 H=99 L=50
+blargg-cpu     PASS     02-interrupts.gb | serial="02-interruptsPassed" FAIL regs B=00 C=00 D=C7 E=BA H=DF L=FC
+blargg-cpu     PASS     03-op sp,hl.gb | serial="03-op sp,hlPassed" FAIL regs B=B4 C=F0 D=FF E=FF H=C6 L=13
+blargg-cpu     PASS     04-op r,imm.gb | serial="04-op r,immPassed" FAIL regs B=FF C=F0 D=DE E=F4 H=C6 L=2B
+blargg-cpu     PASS     05-op rp.gb | serial="05-op rpPassed" FAIL regs B=B4 C=F0 D=FF E=FF H=C6 L=16
+blargg-cpu     PASS     06-ld r,r.gb | serial="06-ld r,rPassed" FAIL regs B=34 C=56 D=DE E=F4 H=C6 L=B8
+blargg-cpu     PASS     07-jr,jp,call,ret,rst.gb | serial="07-jr,jp,call,ret,rstPassed" FAIL regs B=12 C=00 D=DE E=FB H=C6 L=52
+blargg-cpu     PASS     08-misc instrs.gb | serial="08-misc instrsPassed" FAIL regs B=56 C=91 D=57 E=9B H=C6 L=34
+blargg-cpu     PASS     09-op r,r.gb | serial="09-op r,rPassed" FAIL regs B=FF C=F0 D=01 E=0F H=C7 L=8D
+blargg-cpu     PASS     10-bit ops.gb | serial="10-bit opsPassed" FAIL regs B=FF C=F0 D=01 E=02 H=C7 L=F3
+blargg-cpu     PASS     11-op a,(hl).gb | serial="11-op a,(hl)Passed" FAIL regs B=40 C=F0 D=DE E=F5 H=C6 L=94
+blargg-mem     PASS     01-read_timing.gb | serial="01-read_timingPassed" FAIL regs B=03 C=AB D=7F E=A0 H=C3 L=44
+blargg-mem     PASS     02-write_timing.gb | serial="02-write_timingPassed" FAIL regs B=04 C=FF D=FF E=05 H=C3 L=08
+blargg-mem     PASS     03-modify_timing.gb | serial="03-modify_timingPassed" FAIL regs B=04 C=FF D=03 E=04 H=C3 L=4E
+blargg-oam     UNKNOWN  1-lcd_sync.gb | serial="" FAIL regs B=00 C=FF D=C8 E=84 H=C1 L=04
+blargg-oam     UNKNOWN  2-causes.gb | serial="" FAIL regs B=00 C=FF D=FE E=01 H=C0 L=A8
+blargg-oam     UNKNOWN  3-non_causes.gb | serial="" FAIL regs B=00 C=01 D=FE E=01 H=FE L=A0
+blargg-oam     UNKNOWN  4-scanline_timing.gb | serial="" FAIL regs B=00 C=FF D=FE E=01 H=C0 L=F6
+blargg-oam     UNKNOWN  5-timing_bug.gb | serial="" FAIL regs B=00 C=FF D=FE E=01 H=C0 L=BE
+blargg-oam     UNKNOWN  6-timing_no_bug.gb | serial="" FAIL regs B=84 C=4B D=0E E=67 H=FE L=A0
+blargg-oam     UNKNOWN  7-timing_effect.gb | serial="" FAIL regs B=82 C=86 D=D1 E=83 H=C2 L=49
+blargg-oam     UNKNOWN  8-instr_effect.gb | serial="" FAIL regs B=10 C=F3 D=D9 E=95 H=C0 L=AF
+blargg-misc    UNKNOWN  halt_bug.gb | serial="" FAIL regs B=4D C=6F D=9F E=59 H=90 L=00
+
+SUMMARY
+DUMPED: 1
+FAIL: 40
+PASS: 49
+UNKNOWN: 9

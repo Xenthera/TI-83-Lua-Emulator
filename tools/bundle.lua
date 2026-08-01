@@ -2,8 +2,8 @@
 -- Bundle Lua modules into one file via package.preload (keeps require() names).
 --
 -- Usage:
---   lua tools/bundle.lua -o dist/ti83_cc.lua frontend.computercraft.api
---   lua tools/bundle.lua -o out.lua --root . core.machine
+--   lua tools/bundle.lua -o dist/ti83_cc.lua frontends.computercraft.api
+--   lua tools/bundle.lua -o out.lua --root . machines.ti83plus.machine
 --
 -- Options:
 --   -o PATH           output file (required)
@@ -207,21 +207,65 @@ local function __is_main_program()
   end
   if not src_name or src_name == "" then
     -- Fallback: treat as main when the running program looks like our bundle.
-    return run_name == "ti83_cc" or run_name == "test"
+    return run_name == "ti83_cc" or run_name == "ti89_cc"
+      or run_name == "ti89_gpu_cc" or run_name == "ti83_cc_ws"
+      or run_name == "ti84_cc_ws" or run_name == "ti89_cc_ws"
+      or run_name == "ti92_cc_ws" or run_name == "gb_cc_ws"
+      or run_name == "ti89_gpu_cc_ws" or run_name == "gb_gpu_cc_ws"
+      or run_name == "ti84_cc" or run_name == "ti92_cc"
+      or run_name == "gb_cc" or run_name == "gb_gpu_cc" or run_name == "test"
   end
   return src_name == run_name
 end
 
 if __is_main_program() then
-  print("TI-83 bundle: starting...")
+  local label = "TI-83 bundle: starting..."
+  if __api.MACHINE_ID == "ti89" then
+    label = "TI-89 Titanium bundle: starting..."
+  elseif __api.MACHINE_ID == "ti89_gpu" then
+    label = "TI-89 Titanium GPU bundle: starting..."
+  elseif __api.MACHINE_ID == "ti89_gpu_ws" then
+    label = "TI-89 Titanium GPU (WebSocket): starting..."
+  elseif __api.MACHINE_ID == "ti89_ws" then
+    label = "TI-89 Titanium (WebSocket): starting..."
+  elseif __api.MACHINE_ID == "ti83_ws" then
+    label = "TI-83+ (WebSocket): starting..."
+  elseif __api.MACHINE_ID == "ti84_ws" then
+    label = "TI-84+ (WebSocket): starting..."
+  elseif __api.MACHINE_ID == "ti92_ws" then
+    label = "TI-92 Plus (WebSocket): starting..."
+  elseif __api.MACHINE_ID == "gameboy_ws" then
+    label = "Game Boy (WebSocket): starting..."
+  elseif __api.MACHINE_ID == "ti84plus" then
+    label = "TI-84+ bundle: starting..."
+  elseif __api.MACHINE_ID == "ti92plus" then
+    label = "TI-92 Plus bundle: starting..."
+  elseif __api.MACHINE_ID == "gameboy" then
+    label = "Game Boy bundle: starting..."
+  end
+  print(label)
   if type(__api.run) ~= "function" then
     print("ERROR: API missing .run - bundle is corrupt?")
-  else
-    -- Host parses argv (so --loadapp is never used as a monitor side).
-    __api.run({
-      args = __bundle_args,
-      fps = 30,
-    })
+    error("API missing .run", 0)
+  end
+  -- Host parses argv (so --loadapp is never used as a monitor side).
+  -- Propagate failures: shell.run must see error() so the launcher can
+  -- report them instead of "Returned from …".
+  local ran, rerr = __api.run({
+    args = __bundle_args,
+    fps = 30,
+    profile = __api.Profile,
+  })
+  if ran == nil then
+    local msg = tostring(rerr or "run failed")
+    print("")
+    print("ERROR: " .. msg)
+    print("")
+    print("Press any key to continue...")
+    if type(os) == "table" and type(os.pullEvent) == "function" then
+      pcall(os.pullEvent, "key")
+    end
+    error(msg, 0)
   end
 end
 

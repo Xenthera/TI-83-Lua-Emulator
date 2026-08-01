@@ -1,0 +1,17 @@
+Zelda LA beach→title state comparison
+
+beach: lcdc=C7 scx=00 scy=00 lyc=20 ie=01 bank=12 vram=DEBD9F0B
+  bands=0-143:00
+title_wave: lcdc=C7 scx=00 scy=00 lyc=00 ie=03 bank=12 vram=6CDFCEF7
+  bands=0-47:00 48-85:92 86-143:00
+wave_late: lcdc=C7 scx=B9 scy=00 lyc=00 ie=03 bank=12 vram=3BA9232E
+  bands=0-47:84 48-85:7E 86-103:FD 104-142:B9 143-143:B8
+pre_hunt: lcdc=C7 scx=BA scy=00 lyc=00 ie=03 bank=12 vram=4A045420
+  bands=0-47:85 48-85:7F 86-103:FD 104-143:BA
+post_ie_clear: lcdc=C7 scx=A0 scy=00 lyc=30 ie=01 bank=12 vram=BD9D8026
+  bands=0-143:A0
+
+Interpretation guide:
+1) If vram hash changes across wave→freeze while LCDC tile mode stable → graphics load / banking / CPU path
+2) If vram hash identical but scx bands collapse → STAT/LYC/IE timing (render inputs wrong)
+3) If LCDC.4 flips unexpectedly → tile addressing mode bug or game state corruption

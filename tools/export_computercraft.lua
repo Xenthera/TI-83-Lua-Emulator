@@ -22,12 +22,13 @@ end
 
 local dir = out:match("^(.*)[/\\][^/\\]+$")
 if dir and dir ~= "" then
-  os.execute(string.format('mkdir -p "%s"', dir))
+  package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
+  require("framework.path").ensure_dir(dir)
 end
 
 local cmd = string.format(
-  'lua "%s/tools/bundle.lua" -o "%s" --root "%s" --entry frontend.computercraft.api '
-    .. "frontend.computercraft.api",
+  'lua "%s/tools/bundle.lua" -o "%s" --root "%s" --entry frontends.computercraft.api '
+    .. "frontends.computercraft.api",
   ROOT, out, ROOT
 )
 local ok = os.execute(cmd)

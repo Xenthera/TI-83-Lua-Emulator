@@ -7,7 +7,7 @@ package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 io.stdout:setvbuf("no")
 
 local rom_path = (arg and arg[1]) or (ROOT .. "/rom/ti83plus.rom")
-local Machine = require("core.machine")
+local Machine = require("machines.ti83plus.machine")
 local m = Machine.new()
 assert(m:load_rom_file(rom_path), "missing ROM: " .. rom_path)
 print("ROM " .. rom_path)

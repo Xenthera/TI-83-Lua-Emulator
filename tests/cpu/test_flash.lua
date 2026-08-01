@@ -1,7 +1,7 @@
 return function(ok)
-  local Flash = require("core.mem.flash")
-  local Ram = require("core.mem.ram")
-  local Mmu = require("core.mem.mmu")
+  local Flash = require("machines.ti83plus.mem.flash")
+  local Ram = require("machines.ti83plus.mem.ram")
+  local Mmu = require("machines.ti83plus.mem.mmu")
 
   local function unlock(mmu)
     mmu.flash_unlocked = true

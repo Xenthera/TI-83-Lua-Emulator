@@ -1,5 +1,5 @@
 return function(ok)
-  local Keypad = require("core.hw.keypad")
+  local Keypad = require("machines.ti83plus.hw.keypad")
   local kp = Keypad.new()
 
   kp:write_group(0xFF)

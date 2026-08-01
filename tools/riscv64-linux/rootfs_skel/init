@@ -1,0 +1,19 @@
+#!/bin/sh
+# Minimal BusyBox init for the Retro Studio RV64 board.
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export HOME=/root
+export TERM=linux
+
+mount -t proc proc /proc 2>/dev/null
+mount -t sysfs sysfs /sys 2>/dev/null
+mount -t devtmpfs devtmpfs /dev 2>/dev/null || mkdir -p /dev
+mkdir -p /tmp /root
+mount -t tmpfs tmpfs /tmp 2>/dev/null
+
+echo
+echo "=== Retro RV64 / BusyBox ==="
+uname -a 2>/dev/null
+echo "console: ttyS0 @ 0x10000000"
+echo
+
+exec /bin/sh

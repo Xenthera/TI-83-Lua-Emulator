@@ -5,7 +5,7 @@ local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]tc_compile%.lua$") or "."
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
 local Compiler = require("lang.compiler")
-local BuildSvc = require("frontend.love2d.buildsvc")
+local BuildSvc = require("frontends.love2d.buildsvc")
 
 local function usage()
   io.stderr:write([[
@@ -75,7 +75,8 @@ if app then
   end
   local dir = out:match("^(.*)[/\\][^/\\]+$")
   if dir and dir ~= "" then
-    os.execute(string.format('mkdir -p "%s"', dir))
+    package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
+    require("framework.path").ensure_dir(dir)
   end
   local wf = assert(io.open(out, "wb"))
   wf:write(xk)

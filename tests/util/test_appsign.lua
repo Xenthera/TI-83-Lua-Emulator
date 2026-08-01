@@ -1,6 +1,6 @@
 return function(ok)
-  local AppSign = require("core.util.appsign")
-  local BuildSvc = require("frontend.love2d.buildsvc")
+  local AppSign = require("machines.ti83plus.util.appsign")
+  local BuildSvc = require("frontends.love2d.buildsvc")
 
   local rs = AppSign.find_rabbitsign(".")
   ok("appsign find or skip", true) -- always pass; presence checked below

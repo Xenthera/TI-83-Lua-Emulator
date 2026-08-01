@@ -1,9 +1,9 @@
 return function(ok)
   local ROOT = "."
   local out = "dist/_test_bundle.lua"
-  os.execute("mkdir -p dist")
+  require("framework.path").ensure_dir("dist")
   local cmd = string.format(
-    "lua tools/bundle.lua -o %s --root %s frontend.computercraft.api",
+    "lua tools/bundle.lua -o %s --root %s frontends.computercraft.api",
     out, ROOT
   )
   local ok_run = os.execute(cmd)
@@ -56,7 +56,7 @@ return function(ok)
   ok("small monitor rejected", ok_paint == false)
   ok("too-small message", type(written.text) == "string"
     and written.text:find("monitor too small", 1, true)
-    and written.text:find("96x64", 1, true),
+    and written.text:find("48x22", 1, true),
     tostring(written.text))
 
   written = {}
@@ -67,9 +67,10 @@ return function(ok)
   written.blits = 0
   local ok_big, lay2, n = painter:paint(fb, true)
   ok("large monitor accepted", ok_big == true)
-  ok("centered x", lay2.x0 == 3, tostring(lay2 and lay2.x0))
-  ok("centered y", lay2.y0 == 4, tostring(lay2 and lay2.y0))
-  ok("first paint blits 64 LCD rows", n == 64 and written.blits == 64,
+  -- NEED 48x22 centered in 100x70 → x0=27, y0=25
+  ok("centered x", lay2.x0 == 27, tostring(lay2 and lay2.x0))
+  ok("centered y", lay2.y0 == 25, tostring(lay2 and lay2.y0))
+  ok("first paint blits 22 sixtel rows", n == 22 and written.blits == 22,
     tostring(n) .. "/" .. tostring(written.blits))
 
   written.blits = 0
@@ -84,7 +85,11 @@ return function(ok)
   local pad = api.KeypadView.new(mock_mon(32, 16), { side = "right" })
   pad:draw()
   ok("keypad side stored", pad.side == "right")
-  local key = pad:on_touch("right", 1, 1)
+  -- Y= key occupies columns starting at x0>=2 on a 32x16 layout (gutter).
+  local yequ = pad.buttons[1]
+  local hx = yequ and yequ.x0 or 2
+  local hy = yequ and yequ.y0 or 1
+  local key = pad:on_touch("right", hx, hy)
   ok("keypad on_touch", key == "yequ", tostring(key))
-  ok("keypad ignores other side", pad:on_touch("left", 1, 1) == nil)
+  ok("keypad ignores other side", pad:on_touch("left", hx, hy) == nil)
 end

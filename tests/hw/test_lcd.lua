@@ -1,7 +1,7 @@
 return function(ok)
-  local bit = require("core.util.bit")
+  local bit = require("framework.util.bit")
   local band, bor = bit.band, bit.bor
-  local Lcd = require("core.hw.lcd")
+  local Lcd = require("machines.ti83plus.hw.lcd")
   local lcd = Lcd.new()
 
   lcd:command(0x03)

@@ -1,11 +1,15 @@
 rom/*
 !rom/.gitkeep
 !rom/README.md
+!rom/gb/
+!rom/gb/.gitkeep
+saves/*
+!saves/.gitkeep
 asm/generated/*
 !asm/generated/.gitkeep
 dist/*
 !dist/.gitkeep
-*.bin
+*.binhttps://education.ti.com/html/eguides/discontinued/graphing/EN/TI-89-TI-92Plus-Guidebook_EN.pdf
 .DS_Store
 *.love
 rom/love-debug.log
@@ -15,3 +19,13 @@ ti83_prefs_test.tmp
 # Platform-specific RabbitSign binaries (install_rabbitsign.sh / .ps1)
 tools/bin/*
 !tools/bin/.gitkeep
+tools/luajit/
+
+# Ad-hoc debug probes (never commit)
+/tmp_*.lua
+/tools/tmp_*
+/tools/tmp_*.c
+
+# Windows "mkdir -p" artifact
+/-p/
+rom

@@ -6,7 +6,7 @@ package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
 local Builder = require("tools.build_pipeline_rom")
 local textref = require("asm.textref")
-local Machine = require("core.machine")
+local Machine = require("machines.ti83plus.machine")
 
 local function fb_preview(fb, rows)
   for r = 0, (rows or 8) - 1 do

@@ -1,6 +1,6 @@
 return function(ok)
-  local Eightxk = require("core.util.eightxk")
-  local Args = require("frontend.computercraft.args")
+  local Eightxk = require("machines.ti83plus.util.eightxk")
+  local Args = require("frontends.computercraft.args")
 
   local app = Eightxk.make_synthetic({ name = "DEMO", pages = 1, base_page = 0x15 })
   ok("synthetic starts with TIFL", app:sub(1, 8) == "**TIFL**")
@@ -115,7 +115,7 @@ return function(ok)
   local hex2, err2 = Eightxk.extract_hex(huge)
   ok("bogus TIFL size still extracts", hex2 ~= nil and hex2:sub(1, 1) == ":", tostring(err2))
 
-  local Eightxp = require("core.util.eightxp")
+  local Eightxp = require("machines.ti83plus.util.eightxp")
   local xp = Eightxp.make_synthetic({ name = "DEMO" })
   local parsed_xp, xerr = Eightxp.parse(xp)
   ok("parse synthetic 8xp", parsed_xp ~= nil, tostring(xerr))
@@ -205,7 +205,7 @@ return function(ok)
     ok("inject_flash wrote header", flash[off] == 0x80)
   end
 
-  local Gui = require("frontend.computercraft.control_gui")
+  local Gui = require("frontends.computercraft.control_gui")
   ok("program_dir is string", type(Gui.program_dir()) == "string")
   local wrapped = Gui.wrap_text(
     "VAT not ready yet - wait until the homescreen is up, then retry",
@@ -222,8 +222,8 @@ return function(ok)
   ok("role cycle mem->off", Gui.next_role("mem") == "off")
   ok("role cycle off->lcd", Gui.next_role("off") == "lcd")
 
-  local Prefs = require("frontend.computercraft.prefs")
-  local tmp = os.tmpname()
+  local Prefs = require("frontends.computercraft.prefs")
+  local tmp = (os.getenv("TEMP") or os.getenv("TMP") or ".") .. "/ti83_prefs_sample.tmp"
   -- Prefs.path uses program dir; exercise save/load via explicit filename by
   -- writing through save_monitors after stubbing path - use load on a hand file.
   local sample = "monitor left lcd\nmonitor right mem\n# comment\nmonitor top off\n"

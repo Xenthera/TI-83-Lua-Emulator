@@ -922,8 +922,8 @@ function Disasm.load_map_file(path)
   local f, err = io.open(path, "r")
   if not f then return nil, err end
   local symbols = {}
-  for line in f:lines() do
-    line = line:match("^([^;]*)") or line
+  for raw in f:lines() do
+    local line = raw:match("^([^;]*)") or raw
     line = line:gsub("^%s+", ""):gsub("%s+$", "")
     if line ~= "" then
       local n, a = line:match("^([%w_%.]+)%s+[Dd]?%s*(0x%x+)$")

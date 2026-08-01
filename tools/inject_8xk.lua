@@ -15,7 +15,7 @@ end
 local ROOT = detect_root()
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
-local Eightxk = require("core.util.eightxk")
+local Eightxk = require("machines.ti83plus.util.eightxk")
 
 local function usage()
   io.stderr:write([[

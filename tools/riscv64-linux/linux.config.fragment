@@ -1,0 +1,50 @@
+# Minimal fragment for Retro Studio RV64 (OpenSBI + ns16550 + BusyBox initramfs).
+# Applied on top of ARCH=riscv defconfig. No compressed ISA (emulator has no C).
+
+# --- ISA / MMU (match OpenSBI + board.dts) ---
+CONFIG_ARCH_RV64I=y
+CONFIG_RISCV_ISA_A=y
+# CONFIG_RISCV_ISA_C is not set
+CONFIG_MMU=y
+
+# --- Boot / early console ---
+CONFIG_OF=y
+CONFIG_OF_EARLY_FLATTREE=y
+CONFIG_SERIAL_EARLYCON=y
+CONFIG_SERIAL_EARLYCON_RISCV_SBI=y
+CONFIG_RISCV_SBI=y
+CONFIG_RISCV_SBI_V01=y
+
+# --- UART (DTB serial0 @ 0x10000000) ---
+CONFIG_TTY=y
+CONFIG_SERIAL_8250=y
+CONFIG_SERIAL_8250_CONSOLE=y
+CONFIG_SERIAL_8250_NR_UARTS=4
+CONFIG_SERIAL_8250_RUNTIME_UARTS=4
+CONFIG_SERIAL_OF_PLATFORM=y
+CONFIG_SERIAL_8250_DW=y
+
+# --- Initramfs / rootfs ---
+CONFIG_BLK_DEV_INITRD=y
+CONFIG_RD_GZIP=y
+CONFIG_DEVTMPFS=y
+CONFIG_DEVTMPFS_MOUNT=y
+CONFIG_TMPFS=y
+CONFIG_PROC_FS=y
+CONFIG_SYSFS=y
+CONFIG_BINFMT_ELF=y
+CONFIG_BINFMT_SCRIPT=y
+
+# Keep the Image small-ish for the 64MiB board.
+# CONFIG_MODULES is not set
+# CONFIG_VIRTUALIZATION is not set
+# CONFIG_DRM is not set
+# CONFIG_SOUND is not set
+# CONFIG_USB_SUPPORT is not set
+# CONFIG_WIRELESS is not set
+# CONFIG_WLAN is not set
+# CONFIG_NETFILTER is not set
+# CONFIG_BPF_SYSCALL is not set
+# CONFIG_DEBUG_INFO_BTF is not set
+# CONFIG_DEBUG_INFO is not set
+# CONFIG_KGDB is not set

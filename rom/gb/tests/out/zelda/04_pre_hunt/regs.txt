@@ -1,0 +1,10 @@
+frame=2281 tag=04_pre_hunt
+LCDC=C7 STAT=45 SCY=00 SCX=BA LY=8F LYC=00
+BGP=C9 OBP0=1C OBP1=E0 WY=80 WX=07
+mode=3 line_cycles=148 _line=143
+IE=03 IF=E0 IME=true
+rom_bank=12 ram_bank=0 mbc=1 mode=0
+PC=03D1 SP=DFFF
+LCDC.4 tile unsigned=false  LCDC.3 map9C00=false  LCDC.0 bg=true  LCDC.5 win=false  LCDC.1 obj=true
+vram_hash=4A045420 map9800_hash=5F6C1ED4 map9C00_hash=97899B2E oam_hash=A66CB052 fb_hash=0FBB5E88
+scx_bands=0-47:85 48-85:7F 86-103:FD 104-143:BA

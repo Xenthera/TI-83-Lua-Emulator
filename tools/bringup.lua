@@ -4,7 +4,7 @@
 local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]bringup%.lua$") or "."
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
-local Machine = require("core.machine")
+local Machine = require("machines.ti83plus.machine")
 
 -- Prefer a real TI dump if present; otherwise build/use synthetic bring-up ROM.
 local function ensure_synth()

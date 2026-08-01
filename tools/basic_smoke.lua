@@ -6,7 +6,7 @@
 local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]basic_smoke%.lua$") or "."
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
-local Machine = require("core.machine")
+local Machine = require("machines.ti83plus.machine")
 
 local function ensure_synth()
   local path = ROOT .. "/rom/synth.rom"
