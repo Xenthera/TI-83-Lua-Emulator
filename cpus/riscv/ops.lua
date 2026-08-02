@@ -282,9 +282,9 @@ function Ops.execute(cpu, d)
     end
     wrote = result ~= nil
   elseif opcode == OP_MISC_MEM then
-    -- FENCE / FENCE.I — nop for now
+    -- FENCE / FENCE.I - nop for now
   elseif opcode == OP_AMO then
-    -- Single-hart: AMOs are load → modify → store; LR/SC always succeed.
+    -- Single-hart: AMOs are load -> modify -> store; LR/SC always succeed.
     local addr = cpu:get_x(rs1)
     local src = cpu:get_x(rs2)
     local funct5 = band(rshift(d.insn, 27), 0x1F)
@@ -401,10 +401,10 @@ function Ops.execute(cpu, d)
           U64.assign(cpu.pc, npc)
           return 1
         end
-      elseif imm == 0x105 then -- WFI — stall like 68k STOP until an IRQ
+      elseif imm == 0x105 then -- WFI - stall like 68k STOP until an IRQ
         cpu.waiting = true
       elseif band(rshift(d.insn, 25), 0x7F) == 9 then
-        -- SFENCE.VMA — no TLB cache yet; walk is always fresh
+        -- SFENCE.VMA - no TLB cache yet; walk is always fresh
       else
         cpu.illegal = true
       end

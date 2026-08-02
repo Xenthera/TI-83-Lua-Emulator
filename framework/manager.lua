@@ -84,5 +84,8 @@ end)
 Manager.register("gameboy", function()
   return require("machines.gameboy.machine").new()
 end)
+Manager.register("nes", function()
+  return require("machines.nes.machine").new()
+end)
 
 return Manager

@@ -1,5 +1,5 @@
 -- Generic MMIO bus: devices register (base, size) ranges.
--- CPU never hardcodes peripherals — only read/write through the bus.
+-- CPU never hardcodes peripherals - only read/write through the bus.
 --
 -- First matching region wins (register higher-priority devices first).
 -- Overlaps are intentional for cases like halt sitting next to UART.

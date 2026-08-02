@@ -1,4 +1,4 @@
--- Host keyboard → TI-92 Plus QWERTY matrix names.
+-- Host keyboard -> TI-92 Plus QWERTY matrix names.
 
 local M = {}
 
@@ -42,7 +42,7 @@ for i = 0, 9 do
   MAP["kp" .. i] = tostring(i)
 end
 
--- Letter keys → lowercase matrix names (a–z).
+-- Letter keys -> lowercase matrix names (a-z).
 for c = string.byte("a"), string.byte("z") do
   local ch = string.char(c)
   MAP[ch] = ch

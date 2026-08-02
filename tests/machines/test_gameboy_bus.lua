@@ -78,7 +78,7 @@ return function(ok)
   m.irq:request(0x04)
   ok("irq pending", m.irq:pending() == 0x04)
 
-  -- Cartridge SRAM sidecar (.sav / rom_data) — ROM file stays read-only.
+  -- Cartridge SRAM sidecar (.sav / rom_data) - ROM file stays read-only.
   ok("save path beside rom", Machine.save_path_for("rom/gb/foo.gb") == "rom/gb/foo.sav")
   ok("save path save_dir", Machine.save_path_for("foo.gb", { save_dir = "saves/gameboy" })
     == "saves/gameboy/foo.sav")

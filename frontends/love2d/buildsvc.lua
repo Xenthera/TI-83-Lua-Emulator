@@ -13,7 +13,7 @@ local PAGE = 0x4000
 local M = {}
 
 -- Love2D caches require(); without this, IDE builds keep stale lang.* after edits
--- (e.g. new natives like clear_pixel → "unknown function").
+-- (e.g. new natives like clear_pixel -> "unknown function").
 local function reload_lang_modules()
   for name in pairs(package.loaded) do
     if type(name) == "string" and (name:match("^lang%.") or name == "machines.ti83plus.util.appsign") then

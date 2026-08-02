@@ -1,4 +1,4 @@
-// Tiny-C Dense DFS Backtracker Maze — 96x64 Display
+// Tiny-C Dense DFS Backtracker Maze - 96x64 Display
 // RAM optimized: removed neighbors[] array via reservoir sampling.
 
 #include <stdlib/gfx.tc>

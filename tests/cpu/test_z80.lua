@@ -141,7 +141,7 @@ return function(ok)
     0x00,             -- NOP
     0x76              -- HALT
   ))
-  -- 257-byte vector table at $9900 filled with $9A → ISR at $9A9A
+  -- 257-byte vector table at $9900 filled with $9A -> ISR at $9A9A
   for a = 0x9900, 0x9A00 do
     mem[a] = 0x9A
   end
@@ -159,7 +159,7 @@ return function(ok)
   cpu:step() -- EI
   irq = true
   cpu:step() -- NOP (delay)
-  cpu:step() -- IRQ → $9A9A
+  cpu:step() -- IRQ -> $9A9A
   for _ = 1, 20 do
     if cpu:a() == 0xBB then break end
     cpu:step()

@@ -46,7 +46,7 @@ return function(ok)
   m.asic:out_port(0x20, 0x00)
   ok("cpu 6MHz", m.asic:effective_cpu_hz() == 6000000)
 
-  -- RTC set → latch → run
+  -- RTC set -> latch -> run
   m.asic:out_port(0x41, 0x10)
   m.asic:out_port(0x42, 0x00)
   m.asic:out_port(0x43, 0x00)

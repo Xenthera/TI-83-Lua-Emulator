@@ -35,7 +35,7 @@ function M.connect(url, opts)
       return true
     end,
     --- Non-throwing receive. Returns msg | nil, err
-    -- err is "timeout", "closed", or decode error — never confuses timeout with closed.
+    -- err is "timeout", "closed", or decode error - never confuses timeout with closed.
     receive = function(self, timeout)
       local ok, data, binary_or_err = pcall(function()
         return self.ws.receive(timeout)

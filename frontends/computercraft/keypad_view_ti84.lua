@@ -1,4 +1,4 @@
--- TI-84 Plus keypad for ComputerCraft — Love/retail color coding.
+-- TI-84 Plus keypad for ComputerCraft - Love/retail color coding.
 -- Light graph row, APPS black+purple, dark fn, white nums/arrows/+-*/ENTER,
 -- blue 2nd, green ALPHA.
 

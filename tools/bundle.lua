@@ -2,8 +2,8 @@
 -- Bundle Lua modules into one file via package.preload (keeps require() names).
 --
 -- Usage:
---   lua tools/bundle.lua -o dist/ti83_cc.lua frontends.computercraft.api
---   lua tools/bundle.lua -o out.lua --root . machines.ti83plus.machine
+--   lua tools/bundle.lua - o dist/ti83_cc.lua frontends.computercraft.api
+--   lua tools/bundle.lua - o out.lua --root . machines.ti83plus.machine
 --
 -- Options:
 --   -o PATH           output file (required)
@@ -16,7 +16,7 @@ package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
 local function usage()
   io.stderr:write([[
-Usage: lua tools/bundle.lua -o OUT.lua [--root DIR] [--entry MOD] MOD [MOD...]
+Usage: lua tools/bundle.lua - o OUT.lua [--root DIR] [--entry MOD] MOD [MOD...]
 ]])
   os.exit(1)
 end
@@ -250,7 +250,7 @@ if __is_main_program() then
   end
   -- Host parses argv (so --loadapp is never used as a monitor side).
   -- Propagate failures: shell.run must see error() so the launcher can
-  -- report them instead of "Returned from …".
+  -- report them instead of "Returned from ...".
   local ran, rerr = __api.run({
     args = __bundle_args,
     fps = 30,

@@ -8,7 +8,7 @@ return function(ok)
   local bit = require("framework.util.bit")
   local band, bor, lshift = bit.band, bit.bor, bit.lshift
 
-  -- framework bit.bor only reliably takes 5 args — nest ORs.
+  -- framework bit.bor only reliably takes 5 args - nest ORs.
   local function bor2(a, b) return bor(a, b) end
   local function bor3(a, b, c) return bor(bor(a, b), c) end
   local function bor4(a, b, c, d) return bor(bor(a, b), bor(c, d)) end
@@ -250,12 +250,12 @@ return function(ok)
     ok("mul 6*7", cpu:get_x(3).lo == 42)
   end
 
-  -- Zicsr + trap: csrw mtvec; ecall → handler; mret back
-  -- Why: this is the heartbeat of SBI/Linux — ecall leaves U/S/M for firmware.
+  -- Zicsr + trap: csrw mtvec; ecall -> handler; mret back
+  -- Why: this is the heartbeat of SBI/Linux - ecall leaves U/S/M for firmware.
   do
     local mem = {}
     local Csr = require("cpus.riscv.csr")
-    -- 0: lui x1,0; addi x1,x1,0x100 → x1=0x100 (handler)
+    -- 0: lui x1,0; addi x1,x1,0x100 -> x1=0x100 (handler)
     put32(mem, 0, enc_u(0, 1, 0x37))
     put32(mem, 4, enc_i(0x100, 1, 0, 1, 0x13))
     -- 8: csrrw x0, mtvec(0x305), x1
@@ -267,8 +267,8 @@ return function(ok)
     put32(mem, 12, 0x00000073)
     -- 16: addi x5,x0,1  (after mret)
     put32(mem, 16, enc_i(1, 0, 0, 5, 0x13))
-    -- handler @ 0x100: mark x6=7; save mcause→x8; mepc+=4; mret
-    -- (mepc points at ecall — firmware must skip it or you loop forever)
+    -- handler @ 0x100: mark x6=7; save mcause->x8; mepc+=4; mret
+    -- (mepc points at ecall - firmware must skip it or you loop forever)
     put32(mem, 0x100, enc_i(7, 0, 0, 6, 0x13))
     put32(mem, 0x104, bor( -- csrrs x8, mcause, x0
       bor(lshift(0x342, 20), lshift(0, 15)),
@@ -311,7 +311,7 @@ return function(ok)
     ok("csrr mtvec", cpu:get_x(2).lo == 0x200)
   end
 
-  -- S-mode: mret with MPP=S drops privilege; ecall from S → M (SBI path)
+  -- S-mode: mret with MPP=S drops privilege; ecall from S -> M (SBI path)
   do
     local Csr = require("cpus.riscv.csr")
     local mem = {}
@@ -328,11 +328,11 @@ return function(ok)
     -- mepc = 0x80 (S entry)
     put32(mem, 8, enc_i(0x80, 0, 0, 1, 0x13))
     put32(mem, 12, csrrw(0, 0x341, 1))
-    -- mstatus.MPP = S (0x800). Cannot addi 0x800 — 12-bit imm sign-extends!
+    -- mstatus.MPP = S (0x800). Cannot addi 0x800 - 12-bit imm sign-extends!
     put32(mem, 16, enc_i(1, 0, 0, 1, 0x13))       -- addi x1,x0,1
-    put32(mem, 20, enc_i(11, 1, 1, 1, 0x13))      -- slli x1,x1,11 → 0x800
+    put32(mem, 20, enc_i(11, 1, 1, 1, 0x13))      -- slli x1,x1,11 -> 0x800
     put32(mem, 24, csrrs(0, 0x300, 1))
-    put32(mem, 28, 0x30200073) -- mret → S @ 0x80
+    put32(mem, 28, 0x30200073) -- mret -> S @ 0x80
     -- S code @0x80: ecall (should trap to M, cause 9)
     put32(mem, 0x80, 0x00000073)
     -- M handler @0x200: addi x10,x0,99; csrrs x11,mcause,x0
@@ -379,7 +379,7 @@ return function(ok)
     put32(mem, 20, enc_i(11, 1, 1, 1, 0x13))
     put32(mem, 24, csrrs(0, 0x300, 1))
     put32(mem, 28, 0x30200073)
-    -- S @0x80: lui x1, 6; lw x2, 0(x1)  → load VA 0x6000
+    -- S @0x80: lui x1, 6; lw x2, 0(x1)  -> load VA 0x6000
     put32(mem, 0x80, enc_u(6, 1, 0x37))
     put32(mem, 0x84, enc_i(0, 1, 2, 2, 0x03)) -- lw x2,0(x1)
     put32(mem, 0x88, 0x00000073) -- ecall to stop in M
@@ -401,7 +401,7 @@ return function(ok)
     m.cpu.csr.mie = U64.from_u32(lshift(1, Csr.INT_M_TIMER))
     m.clint.mtime = U64.from_u32(10)
     m.clint.mtimecmp = U64.from_u32(20)
-    -- ROM: infinite nop loop via jal 0 (self) at 0 — actually jal to self
+    -- ROM: infinite nop loop via jal 0 (self) at 0 - actually jal to self
     local prog = {}
     put32(prog, 0, enc_j(0, 0)) -- jal x0, 0 tight loop
     put32(prog, 0x100, enc_i(55, 0, 0, 9, 0x13)) -- handler: addi x9,x0,55

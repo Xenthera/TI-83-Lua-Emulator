@@ -8,7 +8,7 @@ local P = {
   Machine = require("machines.ti92plus.machine"),
   LcdView = require("frontends.computercraft.lcd_view_ti92"),
   KeypadView = require("frontends.computercraft.keypad_view_ti92"),
-  -- LCD is physically inside the keypad — one monitor shows the whole face.
+  -- LCD is physically inside the keypad - one monitor shows the whole face.
   FaceView = require("frontends.computercraft.face_view_ti92"),
   combined_face = true,
   role_cycle = { "face", "mem", "off" },

@@ -1,4 +1,4 @@
--- RV64 console LCD presenter: 320x200 mono → one GPU texture (not per-pixel rects).
+-- RV64 console LCD presenter: 320x200 mono -> one GPU texture (not per-pixel rects).
 --
 -- Old path drew love.graphics.rectangle per lit pixel (~64k calls) and killed FPS.
 -- New path: upload ImageData only when the framebuffer is dirty, then one draw().

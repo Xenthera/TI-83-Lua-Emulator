@@ -1,4 +1,4 @@
--- Game Boy DMG LCD for ComputerCraft: 160×144 shades 0–3 via pixelbox.
+-- Game Boy DMG LCD for ComputerCraft: 160×144 shades 0-3 via pixelbox.
 -- Palette: white, lightGray, gray, black.
 
 local CC = require("frontends.computercraft.cc")

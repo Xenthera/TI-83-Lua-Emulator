@@ -2,7 +2,7 @@
 -- Install TI-83+ Flash Apps (.8xk) into a 512KB ROM archive (offline TI-Link).
 --
 --   lua tools/inject_8xk.lua rom/ti83plus.rom app.8xk [-o rom/ti83plus_apps.rom]
---   lua tools/inject_8xk.lua rom/ti83plus.rom a.8xk b.8xk -o out.rom
+--   lua tools/inject_8xk.lua rom/ti83plus.rom a.8xk b.8xk - o out.rom
 
 local function detect_root()
   if arg and arg[0] then

@@ -20,6 +20,7 @@ local Lcd89 = require("machines.ti89.hw.lcd")
 local Lcd92 = require("machines.ti92plus.hw.lcd")
 local LcdRV64 = require("machines.riscv64.hw.lcd")
 local LcdGB = require("machines.gameboy.hw.ppu")
+local LcdNES = require("machines.nes.hw.ppu")
 local Eightxk = require("machines.ti83plus.util.eightxk")
 local Eightxp = require("machines.ti83plus.util.eightxp")
 
@@ -44,6 +45,9 @@ function Ide:_lcd_module()
   end
   if self.machine_id == "gameboy" then
     return LcdGB
+  end
+  if self.machine_id == "nes" then
+    return LcdNES
   end
   return Lcd83
 end
@@ -78,13 +82,18 @@ function Ide:_make_keypad(id)
     return KeypadTI84.new({ layout = layout })
   elseif id == "riscv64" then
     return KeypadRV64.new({ layout = layout })
-  elseif id == "gameboy" then
+  elseif id == "gameboy" or id == "nes" then
+    -- Same 8-button layout (A/B/Start/Select + D-pad).
+    -- Prefer gameboy scene metrics if a dedicated nes layout is missing.
+    if id == "nes" and (not layout or not layout.scene) then
+      layout = self:_load_keypad_layout("gameboy") or layout
+    end
     return KeypadGB.new({ layout = layout })
   end
   return KeypadUI.new({ layout = layout })
 end
 
---- Place LCD + keypad from a scene layout (design units → pixels).
+--- Place LCD + keypad from a scene layout (design units -> pixels).
 function Ide:_layout_from_scene(cr, avail_w, avail_h)
   local doc = self.keypad_layout
   if not doc or not doc.scene or not doc.lcd or not doc.panel then
@@ -141,7 +150,7 @@ function Ide:open_panel_editor()
     end,
   })
   self.running = false
-  self:log("Panel editor — drag keys, resize handles, edit legends, Save writes ui/keypads/")
+  self:log("Panel editor - drag keys, resize handles, edit legends, Save writes ui/keypads/")
 end
 
 function Ide:reload_keypad_from_disk()
@@ -197,7 +206,7 @@ function Ide:_layout_calculator_face()
   local face_w, screen_h, gap, keys_h, total_h, lcd_w
 
   if is_ti89 then
-    -- Keypad sets face width; LCD is narrower — F1 left edge to F5 right edge.
+    -- Keypad sets face width; LCD is narrower - F1 left edge to F5 right edge.
     local function stack_for_w(w)
       local kh = w * key_aspect
       local lw = KeypadTI89.fkey_band_width(w, kh)
@@ -245,7 +254,7 @@ function Ide:_layout_calculator_face()
   end
 
   -- TI-89: shell margin + brand strip above the LCD, both proportional to face width.
-  -- Shell extends outside the key/LCD stack — include it in the height budget.
+  -- Shell extends outside the key/LCD stack - include it in the height budget.
   local shell = 0
   local brand_gap = 0
   if is_ti89 then
@@ -395,6 +404,17 @@ function Ide:rom_open_profile()
       default_dir = root .. "/rom/gb",
       button = ".gb",
     }
+  elseif id == "nes" then
+    return {
+      title = "Load NES ROM",
+      prompt = "Load NES cart (.nes)",
+      filter_win = "NES ROMs (*.nes)|*.nes;*.NES|All files (*.*)|*.*",
+      filter_zenity = "NES ROMs | *.nes *.NES",
+      mac_types = '{"nes","NES","public.data"}',
+      default_ext = "nes",
+      default_dir = root .. "/rom/nes",
+      button = ".nes",
+    }
   elseif id == "riscv64" then
     return {
       title = "Load RV64 firmware",
@@ -472,7 +492,8 @@ end
 --- Switch calculator chrome (keypad + layout metrics). Does not create the machine.
 function Ide:set_machine_ui(id)
   if id ~= "ti83plus" and id ~= "ti84plus" and id ~= "ti89"
-      and id ~= "ti92plus" and id ~= "riscv64" and id ~= "gameboy" then
+      and id ~= "ti92plus" and id ~= "riscv64" and id ~= "gameboy"
+      and id ~= "nes" then
     return
   end
   if self.machine_id == id then
@@ -1224,6 +1245,7 @@ function Ide:layout(ww, wh)
     { "mach_92", "TI-92+", mid == "ti92plus" and "seg_on" or "seg" },
     { "mach_rv", "RV64", mid == "riscv64" and "seg_on" or "seg" },
     { "mach_gb", "GB", mid == "gameboy" and "seg_on" or "seg" },
+    { "mach_nes", "NES", mid == "nes" and "seg_on" or "seg" },
   })
   calc_x = add_group("Run", m.row1_btn_y, m.row1_label_y, calc_x, {
     { "play", self.running and "Pause" or "Play" },
@@ -1556,7 +1578,7 @@ function Ide:build(machine, on_loaded)
       if package.config:sub(1, 1) == "\\" then
         os.execute(string.format('mkdir "%s" 2>nul', dist))
       else
-        os.execute(string.format('mkdir -p "%s/dist"', self.root))
+        os.execute(string.format('mkdir - p "%s/dist"', self.root))
       end
       local wf = assert(io.open(xk_path, "wb"))
       wf:write(rom)
@@ -1598,7 +1620,7 @@ function Ide:build(machine, on_loaded)
     local pages = info.n_pages or 1
     local page_sz = info.page_bytes or 16384
     self:log(string.format(
-      "Build OK (Flash App %s%s) — %d bytes code across %d page%s (%d bytes/page) -> %s  injected page %s  display=%s fb_nz=%d  APPS menu",
+      "Build OK (Flash App %s%s) - %d bytes code across %d page%s (%d bytes/page) -> %s  injected page %s  display=%s fb_nz=%d  APPS menu",
       app_name, (info.signed and ", signed 0104" or ", unsigned"),
       code, pages, pages == 1 and "" or "s", page_sz,
       xk_path, page and string.format("%02X", page) or "?",
@@ -1686,11 +1708,17 @@ function Ide:load_rom(machine, on_loaded)
       sav = "  save=" .. tostring(machine.save_path)
     elseif machine.cart and machine.cart.has_save_ram and machine.cart:has_save_ram()
         and machine.save_path then
-      sav = "  save→" .. tostring(machine.save_path)
+      sav = "  save->" .. tostring(machine.save_path)
     end
     self:log(string.format(
       "Cart loaded  %s%s%s",
       base, (title ~= "" and (" (" .. title .. ")") or ""), sav
+    ))
+  elseif mid == "nes" then
+    local mapper = machine.cart and machine.cart.mapper
+    self:log(string.format(
+      "NES cart loaded  %s%s",
+      base, mapper and (" (mapper " .. tostring(mapper) .. ")") or ""
     ))
   elseif mid == "riscv64" then
     self:log(string.format("Firmware loaded  %s  PC=%X", base, machine:pc()))
@@ -2152,13 +2180,18 @@ function Ide:mousepressed(mx, my, machine, on_loaded)
       self.on_select_machine("gameboy")
     end
     return true
+  elseif id == "mach_nes" then
+    if self.on_select_machine then
+      self.on_select_machine("nes")
+    end
+    return true
   elseif id == "panel" then
     if self.machine_id == "riscv64" then
       self:log("RV64 has no keypad panel (console LCD only)")
       return true
     end
-    if self.machine_id == "gameboy" then
-      self:log("Game Boy uses a fixed on-screen pad (no panel editor)")
+    if self.machine_id == "gameboy" or self.machine_id == "nes" then
+      self:log("This machine uses a fixed on-screen pad (no panel editor)")
       return true
     end
     self:open_panel_editor()
@@ -2684,7 +2717,8 @@ function Ide:draw()
       status = proj .. " [" .. tgt_s .. "]  " .. (self.status or "")
     else
       local names = {
-        ti89 = "TI-89", ti92plus = "TI-92+", riscv64 = "RV64", gameboy = "Game Boy",
+        ti89 = "TI-89", ti92plus = "TI-92+", riscv64 = "RV64",
+        gameboy = "Game Boy", nes = "NES",
       }
       local mid = self.machine_id or "?"
       status = (names[mid] or mid) .. "  " .. (self.status or "")

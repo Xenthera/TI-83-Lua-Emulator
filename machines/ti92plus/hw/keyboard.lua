@@ -1,5 +1,5 @@
 -- TI-92 / TI-92+ / V200 QWERTY key matrix (ticalc.org kbd89.txt / FargoII).
--- $600018 is a 16-bit row mask (1 = row not scanned); bits 0–9 used.
+-- $600018 is a 16-bit row mask (1 = row not scanned); bits 0-9 used.
 -- $60001B returns COLUMNS (0 = key down on an unmasked row).
 -- ON is outside the matrix (AI6 via $60001A), same ASIC family as TI-89.
 
@@ -9,14 +9,14 @@ local band, bnot, lshift = bit.band, bit.bnot, bit.lshift
 -- Col bit numbers match hardware: Bit0 = rightmost column in the docs table.
 -- Source matrix (Row × Col Bit7..Bit0):
 --  0: down right up left hand shift diamond 2nd
---  1: 3 2 1 F8 W S Z —
---  2: 6 5 4 F3 E D X —
+--  1: 3 2 1 F8 W S Z -
+--  2: 6 5 4 F3 E D X -
 --  3: 9 8 7 F7 R F C STO
 --  4: , ) ( F2 T G V space
 --  5: TAN COS SIN F6 Y H B /
 --  6: P ENTER2 LN F1 U J N ^
 --  7: * APPS CLEAR F5 I K M =
---  8: — ESC MODE + O L theta ←
+--  8: - ESC MODE + O L theta ←
 --  9: (−) . 0 F4 Q A ENTER1 -
 local KEY_MAP = {
   -- Row 0

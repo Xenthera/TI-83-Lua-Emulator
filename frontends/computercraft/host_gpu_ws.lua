@@ -1,4 +1,4 @@
--- Tom's GPU face — thin WebSocket client (no local emu).
+-- Tom's GPU face - thin WebSocket client (no local emu).
 -- Profile supplies Face / LcdView / KeypadView / Args / remote_machine.
 
 local CC = require("frontends.computercraft.cc")
@@ -242,7 +242,7 @@ function M.run(opts)
   local held_until = 0
   local HOLD_UI_MS = 120
   local ws_url = machine.url
-  -- Steady ~15 fps — GPU shade paint is heavy; bursts feel worse than a lower rate.
+  -- Steady ~15 fps - GPU shade paint is heavy; bursts feel worse than a lower rate.
   local paint_ms = 66
   local last_paint = now_ms()
   local tick = os.startTimer(0.05)

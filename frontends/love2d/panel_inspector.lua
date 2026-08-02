@@ -4,7 +4,7 @@
 local Inspector = {}
 Inspector.__index = Inspector
 
--- Sentinel for multi-selection when field values differ (draw as "—").
+-- Sentinel for multi-selection when field values differ (draw as "-").
 Inspector.MIXED = {}
 
 function Inspector.is_mixed(v)
@@ -16,7 +16,7 @@ local LABEL_W = 96
 local GAP = 4
 local ARROW_W = 14
 local SWATCH_W = 22
-local MIXED_TEXT = "—"
+local MIXED_TEXT = "-"
 
 local COL = {
   bg = { 0.16, 0.17, 0.19 },

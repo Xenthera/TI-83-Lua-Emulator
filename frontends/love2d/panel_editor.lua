@@ -446,7 +446,7 @@ function PanelEditor:do_redo()
 end
 
 function PanelEditor:layout(ww, wh)
-  -- Ide:draw calls this every frame — avoid rebuilding the inspector schema
+  -- Ide:draw calls this every frame - avoid rebuilding the inspector schema
   -- (that clears focus, dropdowns, and the color picker).
   local size_changed = self.ww ~= ww or self.wh ~= wh
   self.ww, self.wh = ww, wh
@@ -798,7 +798,7 @@ function PanelEditor:insert_symbol(token)
     self:push_undo()
     for _, b in ipairs(buttons) do b.face_glyph = glyph end
     self._preview_dirty = true
-    self:set_status(string.format("Face glyph → %s (%d)", glyph, #buttons))
+    self:set_status(string.format("Face glyph -> %s (%d)", glyph, #buttons))
     return
   end
   if field ~= "second" and field ~= "alpha" and field ~= "shift" and field ~= "fkey" and field ~= "label" then
@@ -811,7 +811,7 @@ function PanelEditor:insert_symbol(token)
   if value == nil then
     self:set_status(string.format("%s cleared (%d)", field, #buttons))
   else
-    self:set_status(string.format("%s → %s (%d)", field, value, #buttons))
+    self:set_status(string.format("%s -> %s (%d)", field, value, #buttons))
   end
 end
 
@@ -1359,10 +1359,10 @@ function PanelEditor:_toolbar(id)
     self:_layout_toolbar_hits()
   elseif id == "sel_lcd" then
     self:_select({ kind = "lcd" })
-    self:set_status("LCD selected — drag/resize; use inspector for color/radius")
+    self:set_status("LCD selected - drag/resize; use inspector for color/radius")
   elseif id == "sel_panel" then
     self:_select({ kind = "panel" })
-    self:set_status("Panel selected — drag/resize; use inspector for plate colors")
+    self:set_status("Panel selected - drag/resize; use inspector for plate colors")
   elseif id == "add_label" then
     self:add_label()
   elseif id == "delete" then
@@ -1534,7 +1534,7 @@ function PanelEditor:mousereleased(mx, my, button)
     self.measure.active = false
     local ddx, ddy, dist = self:_measure_delta(self.measure)
     self:set_status(string.format(
-      "Measure  Δx=%.2f  Δy=%.2f  dist=%.2f  (from %.2f,%.2f → %.2f,%.2f)",
+      "Measure  Δx=%.2f  Δy=%.2f  dist=%.2f  (from %.2f,%.2f -> %.2f,%.2f)",
       ddx, ddy, dist, self.measure.ax, self.measure.ay, self.measure.bx, self.measure.by))
     if not self:_alt_down() then
       self.measure = nil
@@ -1685,7 +1685,7 @@ function PanelEditor:_draw_symbol_panel()
   set_col(UI.border)
   love.graphics.line(sr.x, sr.y, sr.x + sr.w, sr.y)
   set_col(UI.text)
-  love.graphics.print("Symbols → " .. (self.symbol_target or "second"), sr.x + 8, sr.y + 6)
+  love.graphics.print("Symbols -> " .. (self.symbol_target or "second"), sr.x + 8, sr.y + 6)
   for _, t in ipairs(self:_symbol_target_rects()) do
     if t.id == self.symbol_target then
       set_col(UI.accent)
@@ -1882,7 +1882,7 @@ function PanelEditor:draw()
     "%s  |  live preview  |  %d buttons%s  |  Alt measure  Shift-drag box  Shift/Ctrl+click  Ctrl+A all  Ctrl+S save",
     path, #self.doc.buttons, nsel > 0 and ("  |  " .. nsel .. " selected") or "")
   if self.status_t > 0 and self.status ~= "" then
-    msg = self.status .. "   —   " .. msg
+    msg = self.status .. "   -   " .. msg
   end
   love.graphics.print(msg, 10, self.status_bar.y + 6)
 end

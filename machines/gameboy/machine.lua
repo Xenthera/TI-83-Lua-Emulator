@@ -124,16 +124,18 @@ function Machine.new()
 
   local mmu = self.mmu
   local timer, ppu, apu = self.timer, self.ppu, self.apu
+  -- APU is batched to instruction boundaries (flush on I/O / sample drain).
+  -- Timer/PPU stay per-M-cycle for mem_timing / mid-scanline LCDC demos.
   self.cpu = SM83.new({
     read = function(addr) return mmu:read(addr) end,
     write = function(addr, value) mmu:write(addr, value) end,
-    -- Advance timer/PPU/APU/serial one M-cycle during CPU memory/internal ops
-    -- so mid-instruction TIMA accesses (Blargg mem_timing) see correct time.
     tick = function(t)
       timer:tick(t)
       ppu:tick(t)
-      apu:tick(t)
-      mmu:tick(t)
+      apu:owe(t)
+      if mmu.serial.cycles > 0 then
+        mmu:tick(t)
+      end
     end,
     irq = self.irq,
   })
@@ -337,6 +339,7 @@ function Machine:run_cycles(budget)
   while ran < budget do
     local cyc = cpu:step()
     ran = ran + cyc
+    apu:flush()
     if cpu.halted and irq:pending() == 0 then
       -- Fast-forward HALT, but stop at mode boundaries so LYC/STAT can wake us.
       -- Use _line (true scanline); LY reads 0 mid-line-153 via the DMG quirk.
@@ -373,8 +376,8 @@ end
 
 function Machine:step_instruction()
   if not self.rom_loaded then return 0 end
-  -- bus.tick already advanced timer/ppu/mmu during the instruction
   local cyc = self.cpu:step()
+  self.apu:flush()
   self.total_cycles = self.total_cycles + cyc
   return cyc
 end

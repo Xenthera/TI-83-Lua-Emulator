@@ -1,7 +1,7 @@
 -- RISC-V CSR file + trap helpers (M-mode first; S/U wired for later).
 --
 -- Mental model: CSRs are the CPU's "control panel". Linux does not poke
--- devices for every privilege change — it writes mtvec/mepc/mstatus/satp
+-- devices for every privilege change - it writes mtvec/mepc/mstatus/satp
 -- and relies on traps. A trap freezes the faulting PC into mepc, records
 -- why in mcause, and jumps to mtvec. mret undoes that.
 
@@ -110,7 +110,7 @@ function Csr.new()
     time = U64.zero(),
   }, Csr)
   -- misa: RV64IMA + S + U (A=0, I=8, M=12, S=18, U=20).
-  -- MXL in [63:62]: 1=RV32, 2=RV64 → set bit 63 (hi bit 31).
+  -- MXL in [63:62]: 1=RV32, 2=RV64 -> set bit 63 (hi bit 31).
   local ext = bor(
     bor(bor(lshift(1, 0), lshift(1, 8)), lshift(1, 12)),
     bor(lshift(1, 18), lshift(1, 20))
@@ -154,7 +154,7 @@ local function is_stub_csr(addr)
 end
 
 local function sstatus_view(mstatus)
-  -- sstatus is a shadow of mstatus (SIE/SPIE/SPP/SUM/MXR/…); expose low bits for now
+  -- sstatus is a shadow of mstatus (SIE/SPIE/SPP/SUM/MXR/...); expose low bits for now
   return U64.band(mstatus, U64.from_u32(0x000DE133))
 end
 

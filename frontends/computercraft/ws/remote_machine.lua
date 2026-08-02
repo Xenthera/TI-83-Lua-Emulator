@@ -13,7 +13,7 @@ Remote.TAP_HOLD = 400000
 -- Raw bytes per load_rom chunk. Keep small so CC can yield between sends
 -- without dropping the websocket (1MB carts are ~128 chunks at 8KiB).
 Remote.ROM_CHUNK = 8 * 1024
--- Soft cap on queued audio pieces (~200–300 ms). Drop oldest to track LCD.
+-- Soft cap on queued audio pieces (~200-300 ms). Drop oldest to track LCD.
 Remote.AUDIO_Q_MAX = 3
 
 local function now_s()
@@ -350,7 +350,7 @@ function Remote:apply_pending_frame()
     return true
   end
   if type(raw) == "string" then
-    -- Binary EFRM (preferred) or JSON b64 fast-path — avoid full JSON decode.
+    -- Binary EFRM (preferred) or JSON b64 fast-path - avoid full JSON decode.
     if Protocol.is_frame_binary and Protocol.is_frame_binary(raw) then
       local ok, on = Protocol.decode_frame_binary(raw, self._fb)
       if ok then

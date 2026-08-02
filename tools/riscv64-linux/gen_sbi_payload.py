@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tiny RV64IMA S-mode payload placed at 0x80200000 as Image.
 
-Uses SBI legacy console putchar (eid=1) then WFI-idle. Proves OpenSBI → jump
+Uses SBI legacy console putchar (eid=1) then WFI-idle. Proves OpenSBI -> jump
 works before a real Linux Image is built.
 """
 from __future__ import annotations
@@ -58,13 +58,13 @@ def main() -> int:
         struct.pack_into("<I", mem, addr, word & 0xFFFFFFFF)
 
     # entry @ 0
-    put32(0x00, enc_u(0, 5, 0x37))  # lui a0, 0 → clear then addi
-    put32(0x04, enc_i(0x100, 0, 0, 5, 0x13))  # addi a0, x0, 0x100 (str) — but need auipc for reloc
+    put32(0x00, enc_u(0, 5, 0x37))  # lui a0, 0 -> clear then addi
+    put32(0x04, enc_i(0x100, 0, 0, 5, 0x13))  # addi a0, x0, 0x100 (str) - but need auipc for reloc
     # Use auipc+addi for PC-relative string at 0x100
     # auipc a0, 0 ; addi a0, a0, 0x100 - 4? At PC=0: auipc gives 0x80200000, +0x100 = str
     put32(0x00, 0x00000517)  # auipc a0, 0
-    put32(0x04, enc_i(0x100 - 4, 5, 0, 5, 0x13))  # addi a0, a0, 0xFC → 0x100 from entry
-    # Wait: auipc at 0 sets a0 = pc+0 = base. addi +0x100 → base+0x100. Offset from auipc insn is 0x100-0=0x100.
+    put32(0x04, enc_i(0x100 - 4, 5, 0, 5, 0x13))  # addi a0, a0, 0xFC -> 0x100 from entry
+    # Wait: auipc at 0 sets a0 = pc+0 = base. addi +0x100 -> base+0x100. Offset from auipc insn is 0x100-0=0x100.
     put32(0x04, enc_i(0x100, 5, 0, 5, 0x13))
     put32(0x08, enc_j(0x40 - 0x08, 1))  # jal ra, puts
     put32(0x0C, enc_j(0x80 - 0x0C, 0))  # j idle
@@ -72,7 +72,7 @@ def main() -> int:
     # puts @ 0x40: a0=str. Uses a1=ch, a6=0, a7=1, ecall; then a0+=1
     put32(0x40, enc_i(0, 10, 0, 11, 0x03))  # lb a1, 0(a0)
     put32(0x44, enc_b(0x20, 0, 11, 0))  # beqz a1, done
-    put32(0x48, enc_i(0, 11, 0, 10, 0x13))  # mv a0_arg: wait — SBI wants a0=char
+    put32(0x48, enc_i(0, 11, 0, 10, 0x13))  # mv a0_arg: wait - SBI wants a0=char
     # Save str ptr in s0 (x8)
     # Better rewrite puts properly:
     # redo entry/puts with s0

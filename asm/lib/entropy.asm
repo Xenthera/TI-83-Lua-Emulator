@@ -1,7 +1,7 @@
-; word entropy(void) — HL = seed material for PRNGs.
+; word entropy(void) - HL = seed material for PRNGs.
 ;
 ; TI-83+ has no RTC / GetTime (that is TI-84+ only). This mixes R, SP, and a
-; short spin that the OS interrupt can skew — valid on real 83+ hardware.
+; short spin that the OS interrupt can skew - valid on real 83+ hardware.
 
 entropy:
     push af

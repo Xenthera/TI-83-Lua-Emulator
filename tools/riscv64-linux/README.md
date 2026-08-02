@@ -1,20 +1,20 @@
-# RV64 custom board — OpenSBI + Linux + BusyBox
+# RV64 custom board - OpenSBI + Linux + BusyBox
 
 Host-side build for artifacts the Love `riscv64` machine boots. No QEMU.
 
 ## Quick start (Windows / WSL)
 
-1. **WSL Ubuntu** (once): `wsl --install -d Ubuntu`
+1. **WSL Ubuntu** (once): `wsl --install - d Ubuntu`
 2. **OpenSBI + DTB stub payload** (once, or after OpenSBI upgrades):
 
 ```bat
-wsl -d Ubuntu -e bash -lc "sed -i 's/\r$//' tools/riscv64-linux/build_opensbi.sh && bash tools/riscv64-linux/build_opensbi.sh"
+wsl - d Ubuntu - e bash - lc "sed - i 's/\r$//' tools/riscv64-linux/build_opensbi.sh && bash tools/riscv64-linux/build_opensbi.sh"
 ```
 
 3. **Linux + BusyBox initramfs** (replaces the stub `Image`):
 
 ```bat
-wsl -d Ubuntu -e bash -lc "sed -i 's/\r$//' tools/riscv64-linux/*.sh tools/riscv64-linux/rootfs_skel/init && bash tools/riscv64-linux/build_linux_busybox.sh"
+wsl - d Ubuntu - e bash - lc "sed - i 's/\r$//' tools/riscv64-linux/*.sh tools/riscv64-linux/rootfs_skel/init && bash tools/riscv64-linux/build_linux_busybox.sh"
 ```
 
 | Output | Role |
@@ -26,15 +26,15 @@ wsl -d Ubuntu -e bash -lc "sed -i 's/\r$//' tools/riscv64-linux/*.sh tools/riscv
 
 Build trees live on the Linux FS (faster than `/mnt/c`):
 
-- OpenSBI → `~/retro-rv64-opensbi`
-- Linux / BusyBox → `~/retro-rv64-linux`
+- OpenSBI -> `~/retro-rv64-opensbi`
+- Linux / BusyBox -> `~/retro-rv64-linux`
 
-4. Start Love → select **RV64**. Expect OpenSBI banner → `Linux version …` → BusyBox `ash` (bring-up may still need CPU/MMIO fixes).
+4. Start Love -> select **RV64**. Expect OpenSBI banner -> `Linux version ...` -> BusyBox `ash` (bring-up may still need CPU/MMIO fixes).
 
 Rebuild OpenSBI only (after deps installed):
 
 ```bat
-wsl -d Ubuntu bash tools/riscv64-linux/rebuild_nosemi.sh
+wsl - d Ubuntu bash tools/riscv64-linux/rebuild_nosemi.sh
 ```
 
 ## Try without toolchain
@@ -43,7 +43,7 @@ wsl -d Ubuntu bash tools/riscv64-linux/rebuild_nosemi.sh
 lua tools/riscv64-linux/gen_console_fw.lua
 ```
 
-Love → **RV64** loads `rom/riscv64.bin` console demo (Lua SBI) if no `fw_jump.bin` is present.
+Love -> **RV64** loads `rom/riscv64.bin` console demo (Lua SBI) if no `fw_jump.bin` is present.
 
 ## Memory map
 
@@ -72,18 +72,18 @@ Boot: `a0 = hartid`, `a1 = dtb`, reset PC = firmware (M-mode). OpenSBI jumps to 
 - `PLATFORM=generic`, `PLATFORM_RISCV_ISA=rv64ima_zicsr_zifencei` (no C)
 - `FW_JUMP_ADDR=0x80200000`, `FW_JUMP_FDT_ADDR=0x82000000`
 - Semihosting is **disabled** (ebreak probes panic in our core)
-- Emulator implements **A** (AMO) — required for the boot lottery
+- Emulator implements **A** (AMO) - required for the boot lottery
 
 ## Linux / BusyBox build notes
 
-- Kernel tag default: `v6.6.63` (`LINUX_VER=…` to override)
-- BusyBox tag default: `1_36_1` (`BUSYBOX_VER=…`)
+- Kernel tag default: `v6.6.63` (`LINUX_VER=...` to override)
+- BusyBox tag default: `1_36_1` (`BUSYBOX_VER=...`)
 - **No C extension** (`CONFIG_RISCV_ISA_C` off; `KCFLAGS=-march=rv64ima_zicsr_zifencei`)
-- BusyBox linked **static** against Bootlin **musl soft-float** (`riscv64--musl--bleeding-edge-2020.08-1` via `fetch_musl_toolchain.sh`) — modern Bootlin/`riscv64-linux-gnu` are `lp64d`+C
-- Kernel still uses `riscv64-linux-gnu-` with `KCFLAGS=-march=rv64ima_zicsr_zifencei -mabi=lp64`
+- BusyBox linked **static** against Bootlin **musl soft-float** (`riscv64--musl--bleeding-edge-2020.08-1` via `fetch_musl_toolchain.sh`) - modern Bootlin/`riscv64-linux-gnu` are `lp64d`+C
+- Kernel still uses `riscv64-linux-gnu-` with `KCFLAGS=-march=rv64ima_zicsr_zifencei - mabi=lp64`
 - Rootfs skel init: `tools/riscv64-linux/rootfs_skel/init`
 - Fragment: `tools/riscv64-linux/linux.config.fragment`
 
 ## Studio boot order
 
-**OpenSBI+Image+DTB** → Image-only (Lua SBI) → `rom/riscv64.bin` console demo.
+**OpenSBI+Image+DTB** -> Image-only (Lua SBI) -> `rom/riscv64.bin` console demo.

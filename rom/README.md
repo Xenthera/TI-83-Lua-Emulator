@@ -11,6 +11,8 @@
 - `gb/` - DMG cartridges for machine id `gameboy` (same idea as `riscv64/`)
   - `gb/gameboy.gb` / `gb/*.gb` - optional cart dumps you own (not redistributed)
   - `gb/gameboy_test.gb` - tiny checkerboard bring-up cart
+- `nes/` - iNES `.nes` carts for machine id `nes` (mappers 0/1/2/3)
+  - place dumps you own here; not redistributed
 
 ## Flash layout (512KB / 32x16KB)
 

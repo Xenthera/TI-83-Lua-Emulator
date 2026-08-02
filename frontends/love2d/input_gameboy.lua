@@ -1,4 +1,4 @@
--- Keyboard → Game Boy button names (machines.gameboy.hw.joypad).
+-- Keyboard -> Game Boy button names (machines.gameboy.hw.joypad).
 
 local Input = {}
 

@@ -71,7 +71,7 @@ function M:layout(gw, gh, _opts)
     return false
   end
 
-  -- Body / keypad width matches LCD — do not widen (that made it stubby).
+  -- Body / keypad width matches LCD - do not widen (that made it stubby).
   local face_w = glass_w
 
   self.lcd_cell = cell

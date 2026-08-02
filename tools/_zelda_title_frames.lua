@@ -1,4 +1,4 @@
--- Dump Zelda frames around beach→title, and sample SCX-per-line via LYC chain.
+-- Dump Zelda frames around beach->title, and sample SCX-per-line via LYC chain.
 local Machine = require("machines.gameboy.machine")
 
 local ROM = "rom/gb/Legend of Zelda, The - Link's Awakening (U) (V1.2) [!].gb"

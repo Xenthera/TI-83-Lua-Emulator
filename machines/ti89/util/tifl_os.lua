@@ -20,8 +20,8 @@ local function is_vector_table(s, off)
   -- Classic / Titanium stacks sit in low RAM; PC lands in flash.
   if ssp < 0x100 or ssp >= 0x200000 then return false end
   if pc % 2 ~= 0 then return false end
-  -- Titanium (24-bit): flash @ $800000 → PC often 0x008xxxxx
-  -- Classic: flash @ $200000 → PC often 0x002xxxxx
+  -- Titanium (24-bit): flash @ $800000 -> PC often 0x008xxxxx
+  -- Classic: flash @ $200000 -> PC often 0x002xxxxx
   if pc >= 0x800000 and pc < 0xC00000 then return true, ssp, pc end
   if pc >= 0x200000 and pc < 0x600000 then return true, ssp, pc end
   if pc >= 0x80000 and pc < 0xC00000 then return true, ssp, pc end -- 0x08xxxx Titanium trunc
@@ -32,7 +32,7 @@ end
 
 --- Find AMS vector table inside TIFL payload (after license / product banner).
 local function find_ams_offset(payload)
-  -- Ti / GraphLink OS upgrades: license… then CCCCCCCC then SSP/PC.
+  -- Ti / GraphLink OS upgrades: license... then CCCCCCCC then SSP/PC.
   for i = 1, #payload - 15 do
     if payload:byte(i) == 0xCC and payload:byte(i + 1) == 0xCC
         and payload:byte(i + 2) == 0xCC and payload:byte(i + 3) == 0xCC then

@@ -1,7 +1,7 @@
 -- Custom RV64 machine: modular bus + devices (Love IDE / unit tests).
 --
 -- Devices register on the bus; CPU only sees read/write callbacks.
--- Boot payloads (OpenSBI / Image / DTB) are host files — see boot.lua.
+-- Boot payloads (OpenSBI / Image / DTB) are host files - see boot.lua.
 
 local Ram = require("machines.riscv64.mem.ram")
 local Rom = require("machines.riscv64.mem.rom")
@@ -35,7 +35,7 @@ local function wire_bus(self)
   self.bus_dev = bus
   self.halt_dev = Halt.new(bus)
 
-  -- Priority: first match wins — halt before UART window, devices before RAM/ROM.
+  -- Priority: first match wins - halt before UART window, devices before RAM/ROM.
   bus:map("halt", Bus.HALT_ADDR, 1, self.halt_dev)
   bus:map("uart", Bus.UART_BASE, Uart.SIZE or 0x100, self.uart)
   bus:map("clint", Bus.CLINT_BASE, Clint.SIZE or 0x10000, self.clint)

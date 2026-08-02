@@ -1,5 +1,5 @@
 -- TI-89 LCD on Tom's GPU: true 1x1 GPU pixels (optional gap matrix).
--- Default cell=2 → each lit TI pixel is a 1x1 rect with 1px substrate gap.
+-- Default cell=2 -> each lit TI pixel is a 1x1 rect with 1px substrate gap.
 
 local Lcd = require("machines.ti89.lcd_geom")
 local Gpu = require("frontends.computercraft.gpu")

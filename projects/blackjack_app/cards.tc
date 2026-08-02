@@ -49,7 +49,7 @@ void cards_init() {
 }
 
 void draw_rank_glyph(byte x, byte y, byte rank) {
-  // A, 2-10, J, Q, K — all via the shared tiny font.
+  // A, 2-10, J, Q, K - all via the shared tiny font.
   if (rank == 0) {
     draw_letter(x, y, 65); // A
     return;

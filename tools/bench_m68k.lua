@@ -25,7 +25,7 @@ local function make_rom()
   -- Reset vectors (copied into RAM $0 on load/reset).
   poke32(0, 0x00001000) -- SSP
   poke32(4, 0x00800400) -- PC in Titanium flash window
-  -- Code in flash image at offset $400 → CPU addr $800400.
+  -- Code in flash image at offset $400 -> CPU addr $800400.
   poke16(0x400, 0x7001) -- MOVEQ #1,D0
   poke16(0x402, 0x60FE) -- BRA.S *
   local parts = {}

@@ -110,6 +110,8 @@ function Apu.new()
     sample_cap = Apu.SAMPLE_RATE * 2, -- ~2s ring
     -- Latched register bytes for reads
     reg = {},
+    -- Deferred cycles from per-M-cycle bus (flushed per instruction / I/O).
+    _debt = 0,
   }, Apu)
   for i = 0, 15 do self.wave[i] = 0 end
   for a = 0xFF10, 0xFF3F do self.reg[a] = 0 end
@@ -132,7 +134,21 @@ function Apu:reset()
   self.sample_r = 1
   self.sample_w = 1
   self.sample_count = 0
+  self._debt = 0
   for a = 0xFF10, 0xFF3F do self.reg[a] = 0 end
+end
+
+--- Queue cycles from the per-M-cycle bus; flush before I/O or sample drain.
+function Apu:owe(cycles)
+  if cycles > 0 then self._debt = self._debt + cycles end
+end
+
+function Apu:flush()
+  local d = self._debt
+  if d > 0 then
+    self._debt = 0
+    self:tick(d)
+  end
 end
 
 local function pulse_period(freq)
@@ -319,7 +335,7 @@ function Apu:_mix_sample()
   local s2 = pulse_out(self.ch2)
   local s3 = wave_out(self.ch3)
   local s4 = noise_out(self.ch4)
-  -- NR51 panning — mono mix of L+R enables
+  -- NR51 panning - mono mix of L+R enables
   local left, right = 0, 0
   local n = self.nr51
   if band(n, 0x01) ~= 0 then right = right + s1 end
@@ -342,11 +358,17 @@ local function clock_pulse(ch, cycles)
   if not ch.enabled then return end
   local period = ch.period
   if period < 4 then period = 4 end
-  ch.timer = ch.timer - cycles
-  while ch.timer <= 0 do
-    ch.timer = ch.timer + period
-    ch.duty_step = (ch.duty_step + 1) % 8
+  local t = ch.timer - cycles
+  if t > 0 then
+    ch.timer = t
+    return
   end
+  -- t <= 0: advance duty by whole periods (no per-edge Lua loop).
+  local overdue = -t
+  local steps = math.floor(overdue / period) + 1
+  ch.duty_step = (ch.duty_step + steps) % 8
+  ch.timer = period - (overdue % period)
+  if ch.timer <= 0 then ch.timer = period end
 end
 
 local function clock_wave(self, cycles)
@@ -354,16 +376,22 @@ local function clock_wave(self, cycles)
   if not ch.enabled then return end
   local period = ch.period
   if period < 2 then period = 2 end
-  ch.timer = ch.timer - cycles
-  while ch.timer <= 0 do
-    ch.timer = ch.timer + period
-    ch.pos = (ch.pos + 1) % 32
-    local b = self.wave[rshift(ch.pos, 1)] or 0
-    if band(ch.pos, 1) == 0 then
-      ch.sample = rshift(b, 4)
-    else
-      ch.sample = band(b, 0x0F)
-    end
+  local t = ch.timer - cycles
+  if t > 0 then
+    ch.timer = t
+    return
+  end
+  local overdue = -t
+  local steps = math.floor(overdue / period) + 1
+  if steps > 64 then steps = 64 end -- keep wave RAM catch-up bounded
+  ch.pos = (ch.pos + steps) % 32
+  ch.timer = period - (overdue % period)
+  if ch.timer <= 0 then ch.timer = period end
+  local b = self.wave[rshift(ch.pos, 1)] or 0
+  if band(ch.pos, 1) == 0 then
+    ch.sample = rshift(b, 4)
+  else
+    ch.sample = band(b, 0x0F)
   end
 end
 
@@ -371,41 +399,60 @@ local function clock_noise(ch, cycles)
   if not ch.enabled then return end
   local p = noise_period(ch)
   if p < 8 then p = 8 end
-  ch.timer = ch.timer - cycles
-  -- Cap LFSR steps so a large catch-up tick cannot hang the host.
-  local steps = 0
-  while ch.timer <= 0 and steps < 128 do
-    ch.timer = ch.timer + p
-    local xorv = bxor(band(ch.lfsr, 1), band(rshift(ch.lfsr, 1), 1))
-    ch.lfsr = bor(rshift(ch.lfsr, 1), lshift(xorv, 14))
-    if ch.width_mode ~= 0 then
-      ch.lfsr = band(ch.lfsr, 0x7FBF) -- clear bit 6
-      ch.lfsr = bor(ch.lfsr, lshift(xorv, 6))
+  local t = ch.timer - cycles
+  if t > 0 then
+    ch.timer = t
+    return
+  end
+  local overdue = -t
+  local steps = math.floor(overdue / p) + 1
+  if steps > 128 then steps = 128 end
+  local lfsr = ch.lfsr
+  local width = ch.width_mode
+  for _ = 1, steps do
+    local xorv = bxor(band(lfsr, 1), band(rshift(lfsr, 1), 1))
+    lfsr = bor(rshift(lfsr, 1), lshift(xorv, 14))
+    if width ~= 0 then
+      lfsr = band(lfsr, 0x7FBF)
+      lfsr = bor(lfsr, lshift(xorv, 6))
     end
-    steps = steps + 1
   end
-  if ch.timer <= 0 then
-    ch.timer = p
-  end
+  ch.lfsr = lfsr
+  ch.timer = p - (overdue % p)
+  if ch.timer <= 0 then ch.timer = p end
 end
 
 function Apu:tick(cycles)
   if cycles <= 0 then return end
   if not self.power then
     -- Still advance sample clock so hosts get silence at a steady rate.
-    self.sample_timer = self.sample_timer + cycles
-    while self.sample_timer >= CYCLES_PER_SAMPLE do
-      self.sample_timer = self.sample_timer - CYCLES_PER_SAMPLE
+    local st = self.sample_timer + cycles
+    local n = math.floor(st / CYCLES_PER_SAMPLE)
+    self.sample_timer = st - n * CYCLES_PER_SAMPLE
+    for _ = 1, n do
       self:_push_sample(0)
     end
+    return
+  end
+
+  -- Fast path: whole quantum fits before next frame-seq / sample edge.
+  local to_fs = FRAME_SEQ_PERIOD - self.fs_timer
+  local to_samp = CYCLES_PER_SAMPLE - self.sample_timer
+  if cycles < to_fs and cycles < to_samp then
+    clock_pulse(self.ch1, cycles)
+    clock_pulse(self.ch2, cycles)
+    clock_wave(self, cycles)
+    clock_noise(self.ch4, cycles)
+    self.fs_timer = self.fs_timer + cycles
+    self.sample_timer = self.sample_timer + cycles
     return
   end
 
   local left = cycles
   while left > 0 do
     local step = left
-    local to_fs = FRAME_SEQ_PERIOD - self.fs_timer
-    local to_samp = CYCLES_PER_SAMPLE - self.sample_timer
+    to_fs = FRAME_SEQ_PERIOD - self.fs_timer
+    to_samp = CYCLES_PER_SAMPLE - self.sample_timer
     if to_fs < step then step = to_fs end
     if to_samp < step then step = to_samp end
     if step < 1 then step = 1 end
@@ -433,6 +480,7 @@ end
 
 --- Drain up to `maxn` mono float samples (-1..1). Returns array, count.
 function Apu:drain_samples(maxn)
+  self:flush()
   maxn = maxn or self.sample_count
   if maxn > self.sample_count then maxn = self.sample_count end
   local out = {}
@@ -445,6 +493,7 @@ function Apu:drain_samples(maxn)
 end
 
 function Apu:samples_pending()
+  self:flush()
   return self.sample_count
 end
 
@@ -463,6 +512,7 @@ function Apu:_power_off()
 end
 
 function Apu:read(addr)
+  self:flush()
   addr = band(addr, 0xFFFF)
   if addr >= 0xFF30 and addr <= 0xFF3F then
     return self.wave[addr - 0xFF30] or 0
@@ -480,6 +530,7 @@ function Apu:read(addr)
 end
 
 function Apu:write(addr, v)
+  self:flush()
   addr = band(addr, 0xFFFF)
   v = band(v, 0xFF)
 

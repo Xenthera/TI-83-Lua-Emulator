@@ -9,7 +9,7 @@ return function(ok)
   local bus = m.bus
 
   ------------------------------------------------------------------
-  -- RAM mirror + vector write-protect ($000–$11F, all mirrors)
+  -- RAM mirror + vector write-protect ($000-$11F, all mirrors)
   ------------------------------------------------------------------
   bus:reset()
   bus:write8(0x000400, 0x5A)
@@ -129,7 +129,7 @@ return function(ok)
   -- All autovectors park at $800: after sleep wake, lower IRQs still pending
   -- in the bus latch can fire before the test inspects PC.
   for lvl = 1, 7 do poke32((24 + lvl) * 4, 0x0400) end
-  -- Handler lives in RAM ($000000–$1FFFFF); flash image only supplies reset vectors.
+  -- Handler lives in RAM ($000000-$1FFFFF); flash image only supplies reset vectors.
   poke16(0x400, 0x60FE) -- BRA.S * park (written into RAM after reset)
   local parts = {}
   for i = 0, 0xFFFF do parts[i + 1] = string.char(bytes[i]) end
@@ -193,7 +193,7 @@ return function(ok)
   bus:reset()
   ok("700012 default hi", bus:read8(0x700012) == 0x00)
   ok("700012 default n=18", bus:read8(0x700013) == 0x18, string.format("%02X", bus:read8(0x700013)))
-  -- AMS image area (classic $212188) is below $390000 → allowed
+  -- AMS image area (classic $212188) is below $390000 -> allowed
   ok("ams flash exec ok", bus:exec_allowed(0x812188) == true)
   -- Archive sector at classic $390000 / Titanium $990000 forbidden
   ok("archive flash exec blocked", bus:exec_allowed(0x990000) == false)

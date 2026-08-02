@@ -98,7 +98,7 @@ local function file_exists(path)
   return type(fs) == "table" and fs.exists and fs.exists(path)
 end
 
---- Parse `{id}[_gpu]_cc[_ws].lua` → { id, gpu, ws, file } or nil.
+--- Parse `{id}[_gpu]_cc[_ws].lua` -> { id, gpu, ws, file } or nil.
 --- (Lua patterns have no `(group)?`, so peel suffixes explicitly.)
 local function parse_frontend_name(name)
   if type(name) ~= "string" then return nil end
@@ -685,13 +685,13 @@ local function launch(group, want_gpu, want_ws, rom, url)
   if type(shell) == "table"
       and (type(shell.execute) == "function" or type(shell.run) == "function") then
     -- variant.path is already rooted at the launcher's directory (absolute from
-    -- the computer root). Do not shell.resolve() it — that prefixes cwd and
+    -- the computer root). Do not shell.resolve() it - that prefixes cwd and
     -- breaks when the user has `cd`'d elsewhere.
     local prog = variant.path
     local runner = shell.execute or shell.run
     local ok = runner(prog, unpack_fn(argv))
     if not ok then
-      -- Bundle prints the real ERROR: … before error(); leave it on screen.
+      -- Bundle prints the real ERROR: ... before error(); leave it on screen.
       return nil, "Frontend exited with an error (see messages above)."
     end
     return true
@@ -1078,7 +1078,7 @@ local function run_ui()
         else
           store_current_slot()
           save_prefs(prefs)
-          -- pcall preserves multiple returns: success → true / nil,err
+          -- pcall preserves multiple returns: success -> true / nil,err
           local ok, a, b = pcall(launch, g, want_gpu, want_ws, rom, url)
           message, message_ok = report_launch(g, ok, a, b)
           after_launch(message, message_ok)

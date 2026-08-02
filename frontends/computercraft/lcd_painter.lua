@@ -1,10 +1,10 @@
--- Shared CC LCD painter: 1bpp framebuffer → teletext sixtels (2×3 px / char).
+-- Shared CC LCD painter: 1bpp framebuffer -> teletext sixtels (2×3 px / char).
 -- Same \128-\159 encoding as pixelbox_lite; keypad monitors are unchanged.
--- No machine/CPU deps — only frontends.computercraft.cc.
+-- No machine/CPU deps - only frontends.computercraft.cc.
 
 local CC = require("frontends.computercraft.cc")
 
---- True if FB pixel (0-based x,y) is lit. Out-of-bounds → false (pad).
+--- True if FB pixel (0-based x,y) is lit. Out-of-bounds -> false (pad).
 local function fb_lit(fb, bpr, width, height, x, y)
   if not fb or x < 0 or y < 0 or x >= width or y >= height then
     return false
@@ -15,7 +15,7 @@ local function fb_lit(fb, bpr, width, height, x, y)
 end
 
 --- Pack six booleans into a sixtel char + fg/bg blit nybbles (CC teletext).
--- Pixel layout (cols L/R, rows top→bottom): p1 p2 / p3 p4 / p5 p6
+-- Pixel layout (cols L/R, rows top->bottom): p1 p2 / p3 p4 / p5 p6
 local function pack_sixtel(p1, p2, p3, p4, p5, p6, blit_on, blit_off)
   local bg_on = not not p6
   local char = 128

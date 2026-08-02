@@ -1,4 +1,4 @@
-// Tiny-C Blackjack Flash App — bet chips, stacked cards, F-key softkeys.
+// Tiny-C Blackjack Flash App - bet chips, stacked cards, F-key softkeys.
 // Bet: F1-F5 add chips; CLR clears; ENTER deals.
 // Play: F1 HIT  F2 STAND  F3 DOUBLE  F4 SPLIT
 // Result: F1/ENTER REBET (same ante)  F2 BET (chip screen)
@@ -31,7 +31,7 @@ word round_start_cash;
 word round_pnl;
 byte round_pnl_kind; // 0=push 1=won 2=lost
 
-// TI-OS GetKey: 2nd+MODE → kQuit (0x40). Leave the Flash App.
+// TI-OS GetKey: 2nd+MODE -> kQuit (0x40). Leave the Flash App.
 void quit_if(byte k) {
   if (k == 64) {
     os_exit();
@@ -402,12 +402,12 @@ void paint_footer(byte mode) {
     if (mode == 3) { draw_str(1, 50, "WIN"); }
     if (mode == 4) { draw_str(1, 50, "LOSE"); }
     if (mode == 5) { draw_str(1, 50, "PUSH"); }
-    // F1 REBET (5 glyphs → wider key), F2 BET
+    // F1 REBET (5 glyphs -> wider key), F2 BET
     draw_rect(1, SK_Y, 24, SK_H);
     draw_str(2, SK_Y + 2, "REBET");
     draw_rect(28, SK_Y, 16, SK_H);
     draw_str(29, SK_Y + 2, "BET");
-    // Very bottom-right: round P/L (tiny font is A–Z only).
+    // Very bottom-right: round P/L (tiny font is A-Z only).
     erase_rect(48, SK_Y, 48, SK_H);
     if (round_pnl_kind == 0) {
       draw_str(72, SK_Y + 2, "PUSHED");
@@ -554,8 +554,8 @@ byte all_hands_bust() {
 
 // Ante already removed from cash.
 // Even-money win returns 2x stake; push returns stake.
-// Natural blackjack (unsplit two-card 21) pays 3:2 — ceil(1.5*bet) profit.
-//   e.g. bet 5 → profit 8 (not 7.5). cash is word so payouts do not wrap.
+// Natural blackjack (unsplit two-card 21) pays 3:2 - ceil(1.5*bet) profit.
+//   e.g. bet 5 -> profit 8 (not 7.5). cash is word so payouts do not wrap.
 void settle_one(byte pt, byte dt, byte bet, byte nat) {
   word win;
   if (bet == 0) {
@@ -565,7 +565,7 @@ void settle_one(byte pt, byte dt, byte bet, byte nat) {
     return;
   }
   if (nat != 0) {
-    // Dealer natural → push
+    // Dealer natural -> push
     if ((d_n == 2) & (dt == 21)) {
       cash = cash + bet;
       return;
@@ -608,7 +608,7 @@ byte result_msg(byte pt, byte dt) {
 }
 
 // After result: F1 REBET (same ante if affordable), F2 BET (chip screen).
-// Returns 1 → open bet screen; 0 → wager already set for rebet deal.
+// Returns 1 -> open bet screen; 0 -> wager already set for rebet deal.
 byte settle() {
   byte pt;
   byte dt;
@@ -648,7 +648,7 @@ byte settle() {
   while (1) {
     k = os_get_key();
     quit_if(k);
-    // F1 / ENTER → rebet last ante when cash allows
+    // F1 / ENTER -> rebet last ante when cash allows
     if ((k == 73) | (k == 5)) {
       if ((ante > 0) & (cash >= ante)) {
         wager = ante;
@@ -656,7 +656,7 @@ byte settle() {
       }
       return 1;
     }
-    // F2 → place a new bet
+    // F2 -> place a new bet
     if (k == 72) {
       return 1;
     }
@@ -681,20 +681,20 @@ void bet_screen() {
     k = os_get_key();
     quit_if(k);
     prev = wager;
-    // F1-F5 → 1 / 5 / 10 / 50 / 100
+    // F1-F5 -> 1 / 5 / 10 / 50 / 100
     if (k == 73) { add_chip(0); }
     if (k == 72) { add_chip(1); }
     if (k == 46) { add_chip(2); }
     if (k == 90) { add_chip(3); }
     if (k == 68) { add_chip(4); }
-    // CLEAR → wipe wager
+    // CLEAR -> wipe wager
     if (k == 9) {
       wager = 0;
     }
     if (wager != prev) {
       paint_bet_wager(wager);
     }
-    // ENTER → deal
+    // ENTER -> deal
     if (k == 5) {
       if (wager > 0) {
         done = 1;
@@ -783,7 +783,7 @@ void main() {
         }
       }
     }
-    // Bust loses the ante already taken — no need to play dealer if every hand busted.
+    // Bust loses the ante already taken - no need to play dealer if every hand busted.
     if (all_hands_bust() == 0) {
       dealer_play();
     }

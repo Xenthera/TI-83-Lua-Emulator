@@ -1,6 +1,6 @@
 -- Battery-backed NVRAM: persist full machine savestates to disk.
 -- Layout: <root>/saves/<machine_id>/{meta.lua, *.bin}
--- Binary blobs (flash, ram, lcd fb, …) are .bin files; tables live in meta.lua.
+-- Binary blobs (flash, ram, lcd fb, ...) are .bin files; tables live in meta.lua.
 -- Works on desktop (io) and ComputerCraft (fs).
 
 local Path = require("framework.path")

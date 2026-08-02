@@ -58,7 +58,7 @@ function Keypad:draw()
   love.graphics.setColor(body)
   love.graphics.rectangle("fill", p.x, p.y, p.w, p.h, 4, 4)
   love.graphics.setColor(0.55, 0.60, 0.65, 1)
-  local label = "RV64 console — type to UART (optional)"
+  local label = "RV64 console - type to UART (optional)"
   local font = love.graphics.getFont()
   if font then
     local tw = font:getWidth(label)

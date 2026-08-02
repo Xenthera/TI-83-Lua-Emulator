@@ -180,7 +180,7 @@ local function program_word(self, addr, value)
 end
 
 -- LH28F320 bottom-parameter geometry (Titanium BFHE):
---   8 × 8KB at $00000–$0FFFF, then 64KB main blocks.
+--   8 × 8KB at $00000-$0FFFF, then 64KB main blocks.
 local function sector_base_and_size(addr)
   addr = addr % (4 * 1024 * 1024)
   if addr < 0x10000 then

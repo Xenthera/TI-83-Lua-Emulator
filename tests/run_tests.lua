@@ -21,6 +21,7 @@ dofile(ROOT .. "/tests/cpu/test_z80.lua")(ok)
 dofile(ROOT .. "/tests/cpus/m68k/test_m68k.lua")(ok)
 dofile(ROOT .. "/tests/cpus/riscv/test_rv64i.lua")(ok)
 dofile(ROOT .. "/tests/cpus/sm83/test_sm83.lua")(ok)
+dofile(ROOT .. "/tests/cpus/mos6502/test_mos6502.lua")(ok)
 
 print("== Hardware tests ==")
 dofile(ROOT .. "/tests/hw/test_lcd.lua")(ok)
@@ -39,6 +40,10 @@ dofile(ROOT .. "/tests/machines/test_riscv64_bus.lua")(ok)
 
 print("== Game Boy bus tests ==")
 dofile(ROOT .. "/tests/machines/test_gameboy_bus.lua")(ok)
+dofile(ROOT .. "/tests/machines/test_ppu_midline.lua")(ok)
+
+print("== NES bus tests ==")
+dofile(ROOT .. "/tests/machines/test_nes_bus.lua")(ok)
 
 print("== TI-84+ machine tests ==")
 dofile(ROOT .. "/tests/machines/test_ti84plus.lua")(ok)
@@ -84,7 +89,7 @@ if failed == 0 then
     vf:close()
     lua_bin = vendored
   else
-    local h = io.popen((sep == "\\" and "where luajit 2>nul" or "command -v luajit 2>/dev/null"))
+    local h = io.popen((sep == "\\" and "where luajit 2>nul" or "command - v luajit 2>/dev/null"))
     if h then
       local line = h:read("*l")
       h:close()

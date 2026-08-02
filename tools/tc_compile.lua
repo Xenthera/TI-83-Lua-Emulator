@@ -86,7 +86,7 @@ if app then
   local pages = (info and info.n_pages) or 1
   local page_sz = (info and info.page_bytes) or 16384
   print(string.format(
-    "Wrote %s (%d bytes file, app %s, %s) — %d bytes code, %d page%s (%d bytes/page)",
+    "Wrote %s (%d bytes file, app %s, %s) - %d bytes code, %d page%s (%d bytes/page)",
     out, #xk, name:upper(), sig, code, pages, pages == 1 and "" or "s", page_sz
   ))
   os.exit(0)

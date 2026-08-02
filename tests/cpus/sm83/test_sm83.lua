@@ -168,4 +168,35 @@ return function(ok)
   ))
   cpu = SM83.new(bus())
   ok("add sp,e", run_until_halt(cpu) and cpu.sp == 0x0100 and cpu:flag_c())
+
+  -- EI+HALT with pending IRQ: HALT bug must not double-fetch the ISR prologue.
+  -- Tobu Tobu Girl dies if PUSH HL at $0050 runs twice and RETI returns into WRAM.
+  clear()
+  mem[0xFFFF] = 0x04 -- timer
+  mem[0xFF0F] = 0x04
+  load(string.char(
+    0x21, 0x34, 0x12, -- LD HL,$1234
+    0xFB,             -- EI
+    0x76,             -- HALT (IME still 0 -> sets halt_bug; IME enables after)
+    0x00,             -- would be duplicated if no IRQ; IRQ should clear halt_bug
+    0x76
+  ), 0)
+  load(string.char(
+    0xE5, -- PUSH HL
+    0xE1, -- POP HL
+    0xD9  -- RETI
+  ), 0x50)
+  cpu = SM83.new(bus())
+  cpu.pc = 0
+  cpu.sp = 0xFFFE
+  local returned = false
+  for _ = 1, 40 do
+    cpu:step()
+    -- RETI must land on the NOP after HALT ($0005), not WRAM / a double-pushed junk addr.
+    if cpu.pc == 0x0005 and not cpu.halt_bug and cpu.ime then
+      returned = true
+      break
+    end
+  end
+  ok("ei+halt irq clears halt_bug", returned and cpu.sp == 0xFFFE and cpu:hl() == 0x1234)
 end

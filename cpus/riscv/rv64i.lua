@@ -5,7 +5,7 @@
 --   1. Check pending interrupts (timer) if MIE allows
 --   2. Fetch insn at pc (physical for now; Sv39 later)
 --   3. Decode + execute
---   4. If trap_cause set → save mepc/mcause, jump mtvec
+--   4. If trap_cause set -> save mepc/mcause, jump mtvec
 
 local bit = require("framework.util.bit")
 local band, bor, lshift, rshift = bit.band, bit.bor, bit.lshift, bit.rshift
@@ -87,7 +87,7 @@ local function addr_u32(a)
   return a.lo
 end
 
---- Physical bus access (page-table walks must use these — no translation).
+--- Physical bus access (page-table walks must use these - no translation).
 function RV64I:read8_phys(addr)
   local a = addr_u32(addr)
   if self.bus.read8 then
@@ -224,7 +224,7 @@ end
 function RV64I:check_interrupts()
   local csr = self.csr
   if csr.priv == Csr.PRIV_M and not csr:timer_enabled() then
-    -- still allow if MIE set — timer_enabled checks both
+    -- still allow if MIE set - timer_enabled checks both
   end
   if csr:timer_pending() and csr:timer_enabled() then
     -- Only take M-mode timer when in M with MIE, or when lower privilege
@@ -285,7 +285,7 @@ function RV64I:step()
 
   local csr = self.csr
   local pa = self.pc
-  -- Fast path: M-mode or bare satp → PC is already physical (no Sv39 / no clone).
+  -- Fast path: M-mode or bare satp -> PC is already physical (no Sv39 / no clone).
   if csr.priv ~= Csr.PRIV_M and Sv39.mode(csr.satp) ~= 0 then
     pa = self:translate(self.pc, "fetch")
     if not pa then

@@ -1,6 +1,6 @@
 -- Thin 6x8 monospace glyphs (ASCII 32-126).
 -- Each row is MSB-left; only the top 6 bits are drawn (1px stroke, 1px gap).
--- Tuned for 320x200 console LCDs — denser and less blocky than 8x8 filled fonts.
+-- Tuned for 320x200 console LCDs - denser and less blocky than 8x8 filled fonts.
 return {
   [32] = { 0, 0, 0, 0, 0, 0, 0, 0 },
   [33] = { 0x20, 0x20, 0x20, 0x20, 0x20, 0x00, 0x20, 0 }, -- !

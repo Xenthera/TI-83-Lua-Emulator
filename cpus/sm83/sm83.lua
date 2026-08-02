@@ -292,6 +292,10 @@ function SM83:service_interrupt()
   self.ime = false
   self.halted = false
   self.stopped = false
+  -- HALT bug only affects the next *instruction* fetch. Interrupt dispatch
+  -- replaces that fetch; leaving halt_bug set would double-execute the ISR
+  -- prologue (e.g. PUSH HL twice) and corrupt the return address.
+  self.halt_bug = false
   local irq = self.bus.irq
   local iff = irq and irq.iff or self.bus.read(0xFF0F)
   for i = 0, 4 do

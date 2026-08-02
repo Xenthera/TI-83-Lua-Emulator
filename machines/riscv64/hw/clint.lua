@@ -33,7 +33,7 @@ end
 function Clint:advance(cycles)
   cycles = math.floor(tonumber(cycles) or 0)
   if cycles <= 0 then return end
-  -- Mutate in place — avoid alloc every timer sync (was a hot-path tax).
+  -- Mutate in place - avoid alloc every timer sync (was a hot-path tax).
   U64.iadd_uint(self.mtime, cycles)
 end
 

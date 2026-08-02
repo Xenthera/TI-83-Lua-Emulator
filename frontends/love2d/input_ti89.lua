@@ -1,4 +1,4 @@
--- Host keyboard → TI-89 Titanium key names (matrix names).
+-- Host keyboard -> TI-89 Titanium key names (matrix names).
 
 local M = {}
 

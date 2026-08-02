@@ -2,8 +2,8 @@
 -- Lift TI ROM flash pages into mechanical ISO C for native/.
 --
 -- Usage:
---   lua tools/asm_to_c.lua rom/ti83plus.rom -o native/gen --pages 0
---   lua tools/asm_to_c.lua rom/ti83plus.rom -o native/gen
+--   lua tools/asm_to_c.lua rom/ti83plus.rom - o native/gen --pages 0
+--   lua tools/asm_to_c.lua rom/ti83plus.rom - o native/gen
 
 local function detect_root()
   if arg and arg[0] then

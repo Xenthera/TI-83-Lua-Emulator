@@ -49,7 +49,7 @@ return function(ok)
   cpu:step()
   ok("nop advances", cpu.pc == 0x0404)
 
-  -- ADD.L D0,D1 : D1=3, after moveq D0=5 → D1=8
+  -- ADD.L D0,D1 : D1=3, after moveq D0=5 -> D1=8
   cpu.d[1] = 3
   poke16(0x0404, 0xD280) -- ADD.L D0,D1
   cpu.pc = 0x0404
@@ -58,14 +58,14 @@ return function(ok)
 
   -- BRA.S +2 over a NOP to next
   poke16(0x0500, 0x6002) -- BRA.S *+4 (disp 2 from next word? disp relative to pc after op)
-  -- After fetching 6002, pc=502; disp=2 → pc=504
+  -- After fetching 6002, pc=502; disp=2 -> pc=504
   poke16(0x0502, 0x4E71)
   poke16(0x0504, 0x7001)
   cpu.pc = 0x0500
   cpu:step()
   ok("bra taken", cpu.pc == 0x0504, string.format("%08X", cpu.pc))
 
-  -- Illegal → exception vector 4
+  -- Illegal -> exception vector 4
   poke32(4 * 4, 0x0800) -- illegal handler
   poke16(0x0600, 0x4AFC)
   cpu.pc = 0x0600
@@ -82,7 +82,7 @@ return function(ok)
   cpu:step()
   ok("trap0 vectors", cpu.pc == 0x0900, string.format("%08X", cpu.pc))
 
-  -- Privilege: MOVE to SR in user mode → privilege violation (vector 8)
+  -- Privilege: MOVE to SR in user mode -> privilege violation (vector 8)
   poke32(8 * 4, 0x0A00)
   cpu.sr = 0x0000 -- user
   cpu.usp = 0x0E00
@@ -112,7 +112,7 @@ return function(ok)
   -- BTST #imm must not steal the following Bcc.W displacement (AMS boot desync)
   -- 0800 0000 = BTST #0,D0; 6600 0006 = BNE.W *+8; 7001 = MOVEQ #1,D0; 7002 = MOVEQ #2,D0
   cpu.sr = 0x2700
-  cpu.d[0] = 0 -- bit0 clear → Z set after BTST → BNE not taken
+  cpu.d[0] = 0 -- bit0 clear -> Z set after BTST -> BNE not taken
   poke16(0x0D00, 0x0800)
   poke16(0x0D02, 0x0000)
   poke16(0x0D04, 0x6600)
@@ -122,7 +122,7 @@ return function(ok)
   cpu.pc = 0x0D00
   cpu:step() -- BTST
   ok("btst leaves bcc.w intact", cpu.pc == 0x0D04, string.format("%08X", cpu.pc))
-  cpu:step() -- BNE.W not taken → skip disp, land on MOVEQ #1
+  cpu:step() -- BNE.W not taken -> skip disp, land on MOVEQ #1
   ok("bne.w not taken pc", cpu.pc == 0x0D08, string.format("%08X", cpu.pc))
   cpu:step()
   ok("after bne executes moveq1", cpu.d[0] == 1, tostring(cpu.d[0]))
@@ -163,7 +163,7 @@ return function(ok)
   -- Foundational ISA coverage (privilege / frames / EA / flags)
   ------------------------------------------------------------------
 
-  -- Line-A → vector 10; stacked PC points at the faulting op.
+  -- Line-A -> vector 10; stacked PC points at the faulting op.
   poke32(10 * 4, 0x0C80)
   cpu.sr = 0x2000
   cpu.ssp = 0x1000
@@ -201,7 +201,7 @@ return function(ok)
   ok("unlk restores a6", cpu:get_a(6) == 0xDEADBEEF, string.format("%08X", cpu:get_a(6)))
   ok("unlk restores sp", cpu.ssp == 0x0F80, string.format("%08X", cpu.ssp))
 
-  -- ANDI #imm,SR drops supervisor → A7 becomes USP
+  -- ANDI #imm,SR drops supervisor -> A7 becomes USP
   cpu.sr = 0x2000
   cpu.ssp = 0x0F00
   cpu.usp = 0x0E00
@@ -308,7 +308,7 @@ return function(ok)
   ok("lea d16(an)", cpu:get_a(0) == 0x2010, string.format("%08X", cpu:get_a(0)))
 
   cpu:set_a(1, 0x2100)
-  -- MOVE.W (d16,A0),(d16,A1): 00 sz=11 dstReg=1 dstMode=5 srcMode=5 srcReg=0 → 0x3368
+  -- MOVE.W (d16,A0),(d16,A1): 00 sz=11 dstReg=1 dstMode=5 srcMode=5 srcReg=0 -> 0x3368
   poke16(0x1910, 0x3368)
   poke16(0x1912, 0x0010)
   poke16(0x1914, 0x0020)
@@ -330,14 +330,14 @@ return function(ok)
   ok("move abs.l", cpu.d[0] == 0xCAFEBABE, string.format("%08X", cpu.d[0]))
 
   -- EA: PC-relative LEA
-  -- LEA $6(PC),A0 at 0x1930: after fetch op pc=1932, +ext → after ext pc=1934, disp from 1932
+  -- LEA $6(PC),A0 at 0x1930: after fetch op pc=1932, +ext -> after ext pc=1934, disp from 1932
   poke16(0x1930, 0x41FA) -- LEA d16(PC),A0
-  poke16(0x1932, 0x0006) -- → 0x1932+6 = 0x1938
+  poke16(0x1932, 0x0006) -- -> 0x1932+6 = 0x1938
   cpu.pc = 0x1930
   cpu:step()
   ok("lea pc-relative", cpu:get_a(0) == 0x1938, string.format("%08X", cpu:get_a(0)))
 
-  -- ADD.B flags: 0x7F+1 → V and N
+  -- ADD.B flags: 0x7F+1 -> V and N
   cpu.d[0] = 0x7F
   cpu.d[1] = 0x01
   poke16(0x1A00, 0xD001) -- ADD.B D1,D0
@@ -376,7 +376,7 @@ return function(ok)
   ok("rol sets C", band(cpu.sr, 0x01) ~= 0, string.format("%04X", cpu.sr))
   ok("rol leaves X", band(cpu.sr, 0x10) == 0, string.format("%04X", cpu.sr))
 
-  -- EXT.W: byte 0x80 → word 0xFF80; N from word, not long (Dn high may be 0)
+  -- EXT.W: byte 0x80 -> word 0xFF80; N from word, not long (Dn high may be 0)
   cpu.d[0] = 0x00000080
   poke16(0x1C00, 0x4880) -- EXT.W D0
   cpu.pc = 0x1C00
@@ -408,15 +408,15 @@ return function(ok)
   -- MULU / DIVU / div0
   cpu.d[0] = 0x00000010
   cpu.d[1] = 0x00000003
-  poke16(0x1E00, 0xC2C0) -- MULU D0,D1 → 0x30
+  poke16(0x1E00, 0xC2C0) -- MULU D0,D1 -> 0x30
   cpu.pc = 0x1E00
   cpu:step()
   ok("mulu", cpu.d[1] == 0x30, string.format("%08X", cpu.d[1]))
 
   cpu.d[0] = 0x0000000A
   cpu.d[1] = 0x00000002
-  poke16(0x1E10, 0x82C0) -- DIVU D0,D1 → q=0 remainder wrong; DIVU Dn,Dm is DIVU ea,Dn
-  -- DIVU D0,D1 encoding: 1000 001 011 000 000 = 82C0 → Dn=1, ea=D0. Yes D1/D0.
+  poke16(0x1E10, 0x82C0) -- DIVU D0,D1 -> q=0 remainder wrong; DIVU Dn,Dm is DIVU ea,Dn
+  -- DIVU D0,D1 encoding: 1000 001 011 000 000 = 82C0 -> Dn=1, ea=D0. Yes D1/D0.
   cpu.pc = 0x1E10
   cpu:step()
   ok("divu quot", band(cpu.d[1], 0xFFFF) == 0, string.format("%08X", cpu.d[1])) -- 2/10 = 0
@@ -506,7 +506,7 @@ return function(ok)
   ok("abcd reg", band(cpu.d[0], 0xFF) == 0x47, string.format("%02X", band(cpu.d[0], 0xFF)))
   ok("abcd no carry", band(cpu.sr, 0x11) == 0, string.format("%04X", cpu.sr))
 
-  -- ABCD with decimal carry: 0x19+0x01+X → 0x20 when X set from 9+1
+  -- ABCD with decimal carry: 0x19+0x01+X -> 0x20 when X set from 9+1
   cpu.d[0] = 0x19
   cpu.d[1] = 0x01
   cpu.sr = 0x2000
@@ -556,7 +556,7 @@ return function(ok)
   cpu:step()
   ok("chk in range", cpu.pc == 0x1EF2, string.format("%08X", cpu.pc))
 
-  -- CHK.W out of range → vector 6
+  -- CHK.W out of range -> vector 6
   cpu.d[0] = 15
   cpu.d[1] = 10
   cpu.sr = 0x2000
@@ -589,7 +589,7 @@ return function(ok)
   ok("movep.w load", band(cpu.d[1], 0xFFFFFFFF) == 0xFFFFABCD,
     string.format("%08X", cpu.d[1]))
 
-  -- NEGX.B D0: 0 - 1 - X → with X clear, result 0xFF and C/X set
+  -- NEGX.B D0: 0 - 1 - X -> with X clear, result 0xFF and C/X set
   cpu.d[0] = 0x01
   cpu.sr = 0x2000
   poke16(0x1F30, 0x4000) -- NEGX.B D0

@@ -380,14 +380,14 @@ local function op_scc(cpu, op)
   if mode == 0 then
     cpu.d[reg] = bor(band(cpu.d[reg], 0xFFFFFF00), val)
   elseif mode >= 2 then
-    -- EA already side-effected; need address — re-decode is wrong for postinc.
+    -- EA already side-effected; need address - re-decode is wrong for postinc.
     -- For tests, only Dn Scc is critical; mem Scc: write using addr if we had it.
     if addr then cpu:write8(addr, val) end
   end
   return 6
 end
 
--- MULU/MULS/DIVU/DIVS (word). Must run before AND/OR — same top nibble, bits8-6 = 011/111.
+-- MULU/MULS/DIVU/DIVS (word). Must run before AND/OR - same top nibble, bits8-6 = 011/111.
 local function op_mul_div(cpu, op)
   local top = band(rshift(op, 12), 15)
   local typ = band(rshift(op, 6), 7) -- bits 8-6
@@ -582,7 +582,7 @@ local function bcd_nbcd_byte(dst, x)
 end
 
 local function bcd_flags(cpu, res, c)
-  -- Z sticky (like ADDX); C/X from decimal carry; N/V undefined — follow Musashi.
+  -- Z sticky (like ADDX); C/X from decimal carry; N/V undefined - follow Musashi.
   if res ~= 0 then cpu.sr = band(cpu.sr, bnot(SR_Z)) end
   if band(res, 0x80) ~= 0 then cpu.sr = bor(cpu.sr, SR_N) else cpu.sr = band(cpu.sr, bnot(SR_N)) end
   cpu.sr = band(cpu.sr, bnot(SR_V))
@@ -653,7 +653,7 @@ local function op_add_sub_cmp(cpu, op)
   local regn = band(rshift(op, 9), 7)
   local dir = band(rshift(op, 8), 1) -- 0: ea->Dn  1: Dn->ea  (for ADD/SUB/AND/OR)
   local size_bits = band(rshift(op, 6), 3)
-  -- size 11 is *A / MUL / DIV — not AND/OR/ADD byte-long forms
+  -- size 11 is *A / MUL / DIV - not AND/OR/ADD byte-long forms
   if size_bits == 3 and opfamily ~= 13 and opfamily ~= 9 and opfamily ~= 11 then
     return nil
   end
@@ -722,7 +722,7 @@ local function op_add_sub_cmp(cpu, op)
   local dn = band(cpu.d[regn], EA.mask(size))
 
   if opfamily == 11 and band(rshift(op, 6), 3) <= 2 and dir == 0 then
-    -- CMP <ea>, Dn  →  Dn - ea
+    -- CMP <ea>, Dn  ->  Dn - ea
     local result = band(dn - ea_val, EA.mask(size))
     sub_flags(cpu, ea_val, dn, result, size)
     return 6
@@ -952,7 +952,7 @@ local function op_misc(cpu, op)
       cpu:push32(addr)
       return 12
     end
-    -- CHK.W <ea>,Dn — must be before LEA (same 0100xxx bits, different sz).
+    -- CHK.W <ea>,Dn - must be before LEA (same 0100xxx bits, different sz).
     if band(op, 0xF1C0) == 0x4180 then
       local dn = band(rshift(op, 9), 7)
       local mode = band(rshift(op, 3), 7)
@@ -1037,7 +1037,7 @@ local function op_misc(cpu, op)
       if dr == 0 then
         -- register to memory
         if mode == 4 then
-          -- Predec mask: bit0=A7 … bit7=A0, bit8=D7 … bit15=D0
+          -- Predec mask: bit0=A7 ... bit7=A0, bit8=D7 ... bit15=D0
           local addr = cpu:get_a(reg)
           for i = 0, 15 do
             if band(list, lshift(1, i)) ~= 0 then
@@ -1063,7 +1063,7 @@ local function op_misc(cpu, op)
           end
         end
       else
-        -- memory to register (control / postinc): bit0=D0 … bit15=A7
+        -- memory to register (control / postinc): bit0=D0 ... bit15=A7
         local addr
         if mode == 3 then
           addr = cpu:get_a(reg)

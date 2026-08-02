@@ -3,7 +3,7 @@ return function(ok)
   local out = "dist/_test_bundle_ti89.lua"
   require("framework.path").ensure_dir("dist")
   local cmd = string.format(
-    "lua tools/bundle.lua -o %s --root %s --entry frontends.computercraft.api_ti89 frontends.computercraft.api_ti89",
+    "lua tools/bundle.lua - o %s --root %s --entry frontends.computercraft.api_ti89 frontends.computercraft.api_ti89",
     out, ROOT
   )
   local ok_run = os.execute(cmd)

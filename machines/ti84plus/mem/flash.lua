@@ -1,5 +1,5 @@
 -- 1MB TI-84 Plus flash (64 × 16KB pages), AMD/Fujitsu 29LV800-style commands.
--- Boot/cert live in the top sector (pages 0x3C–0x3F). Port $14 unlock via MMU.
+-- Boot/cert live in the top sector (pages 0x3C-0x3F). Port $14 unlock via MMU.
 
 local bit = require("framework.util.bit")
 local band = bit.band
@@ -74,7 +74,7 @@ end
 
 local function erase_sector(self, page)
   local start = sector_start(page)
-  -- Refuse boot / certificate sector (pages 0x3C–0x3F).
+  -- Refuse boot / certificate sector (pages 0x3C-0x3F).
   if start >= 0x3C then
     return
   end

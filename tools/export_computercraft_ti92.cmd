@@ -1,5 +1,5 @@
 @echo off
-REM Windows launcher — avoids hanging on .lua file-association Invoke-Item.
+REM Windows launcher - avoids hanging on .lua file-association Invoke-Item.
 setlocal
 cd /d "%~dp0.."
 if exist "%~dp0luajit\luajit.exe" (

@@ -1,4 +1,4 @@
--- Dump Zelda LA machine state around beach→title corruption.
+-- Dump Zelda LA machine state around beach->title corruption.
 -- No fixes; diagnostic only.
 
 local Machine = require("machines.gameboy.machine")
@@ -151,7 +151,7 @@ for i = 1, 180 do
 end
 
 local cmp = assert(io.open(OUT .. "/compare.txt", "w"))
-cmp:write("Zelda LA beach→title state comparison\n\n")
+cmp:write("Zelda LA beach->title state comparison\n\n")
 local function write_s(label, s)
   if not s then cmp:write(label .. ": (missing)\n"); return end
   cmp:write(string.format("%s: lcdc=%02X scx=%02X scy=%02X lyc=%02X ie=%02X bank=%s vram=%s\n  bands=%s\n",
@@ -163,8 +163,8 @@ write_s("wave_late", s_wave)
 write_s("pre_hunt", s_pre)
 write_s("post_ie_clear", s_post)
 cmp:write("\nInterpretation guide:\n")
-cmp:write("1) If vram hash changes across wave→freeze while LCDC tile mode stable → graphics load / banking / CPU path\n")
-cmp:write("2) If vram hash identical but scx bands collapse → STAT/LYC/IE timing (render inputs wrong)\n")
-cmp:write("3) If LCDC.4 flips unexpectedly → tile addressing mode bug or game state corruption\n")
+cmp:write("1) If vram hash changes across wave->freeze while LCDC tile mode stable -> graphics load / banking / CPU path\n")
+cmp:write("2) If vram hash identical but scx bands collapse -> STAT/LYC/IE timing (render inputs wrong)\n")
+cmp:write("3) If LCDC.4 flips unexpectedly -> tile addressing mode bug or game state corruption\n")
 cmp:close()
 print("wrote " .. OUT .. "/compare.txt")

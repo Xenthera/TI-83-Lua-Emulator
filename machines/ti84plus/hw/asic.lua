@@ -30,10 +30,10 @@ function Asic.new(opts)
   self.port21 = 0x00 -- 1MB flash, 32K RAM (TI-84+ BE)
   self._on_prev = false
 
-  -- RTC (ports 40–48)
+  -- RTC (ports 40-48)
   self.rtc_ctrl = 0
-  self.rtc_set = { 0, 0, 0, 0 } -- 41–44
-  self.rtc_cur = { 0, 0, 0, 0 } -- 45–48
+  self.rtc_set = { 0, 0, 0, 0 } -- 41-44
+  self.rtc_cur = { 0, 0, 0, 0 } -- 45-48
   self._rtc_cycle_acc = 0
   self._usb = {} -- stub latches
   return self
@@ -205,7 +205,7 @@ function Asic:in_port(port)
     return self.rtc_cur[port - 0x44]
   elseif port >= 0x4C and port <= 0x57 then
     -- USB idle defaults (WikiTI / 84+ OS IM1 dispatcher).
-    -- Port 55 MUST read $1F when quiet — any low bit in 0..4 makes the ISR
+    -- Port 55 MUST read $1F when quiet - any low bit in 0..4 makes the ISR
     -- take the USB path and skip keypad scanning.
     if self._usb[port] ~= nil then
       return self._usb[port]
@@ -330,7 +330,7 @@ function Asic:out_port(port, value)
   elseif port == 0x40 then
     local prev = self.rtc_ctrl
     self.rtc_ctrl = band(value, 0x03)
-    -- Rising edge on bit1 copies set → current.
+    -- Rising edge on bit1 copies set -> current.
     if band(prev, 0x02) == 0 and band(self.rtc_ctrl, 0x02) ~= 0 then
       for i = 1, 4 do
         self.rtc_cur[i] = self.rtc_set[i]

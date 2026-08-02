@@ -1,4 +1,4 @@
--- PLIC stub — external interrupt controller placeholder.
+-- PLIC stub - external interrupt controller placeholder.
 -- Enough MMIO so DTB/probe does not fault; no real IRQ routing yet.
 
 local bit = require("framework.util.bit")

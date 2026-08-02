@@ -1,4 +1,4 @@
--- Test / syscon-style halt latch (write nonzero → stop hart).
+-- Test / syscon-style halt latch (write nonzero -> stop hart).
 
 local bit = require("framework.util.bit")
 local band = bit.band

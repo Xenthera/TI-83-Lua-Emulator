@@ -108,7 +108,7 @@ function Compendium:_build_blocks()
     eyebrow = "INCLUDE",
     title = "stdlib/gfx.tc",
     lines = {
-      { kind = "body", text = '#include <stdlib/gfx.tc> — shapes built on draw_pixel / erase_rect.' },
+      { kind = "body", text = '#include <stdlib/gfx.tc> - shapes built on draw_pixel / erase_rect.' },
     },
   })
   for _, item in ipairs(Natives.gfx_lib()) do

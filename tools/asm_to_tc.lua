@@ -3,8 +3,8 @@
 -- Does NOT target reassembly - portable / rename / stub HW.
 --
 -- Usage:
---   lua tools/asm_to_tc.lua rom/ti83plus.rom -o projects/os83_port
---   lua tools/asm_to_tc.lua rom/ti83plus.rom --pages 0 -o projects/os83_port
+--   lua tools/asm_to_tc.lua rom/ti83plus.rom - o projects/os83_port
+--   lua tools/asm_to_tc.lua rom/ti83plus.rom --pages 0 - o projects/os83_port
 
 local function detect_root()
   if arg and arg[0] then

@@ -9,18 +9,23 @@ package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 local lj = ROOT .. "/tools/luajit"
 package.cpath = lj .. "/?.dll;" .. lj .. "/?/?.dll;" .. package.cpath
 
+-- OpenResty-style JIT limits: large opcode tables / PPU loops need headroom.
+if jit and jit.opt then
+  jit.opt.start("maxtrace=8000", "maxrecord=16000", "minstitch=3", "maxmcode=40960")
+end
+
 local function usage()
   io.stderr:write([[
 Usage: luajit bridge/main.lua --machine ID [--rom PATH] [--port 8765] [--host *]
 
-  Machines: ti83plus, ti84plus, ti89, ti92plus, gameboy
-  (aliases: ti83, ti84, ti92, gb)
+  Machines: ti83plus, ti84plus, ti89, ti92plus, gameboy, nes
+  (aliases: ti83, ti84, ti92, gb, famicom)
 
   Runs the emulator on LuaJIT and serves LCD/key over WebSocket for thin
     ComputerCraft clients (dist/*_cc_ws.lua).
 
-  --rom is required for TI machines. For gameboy/gb it is optional: the
-  bridge can idle until a CC client uploads a cart via load_rom.
+  --rom is required for TI machines. For gameboy/gb and nes it is optional:
+  the bridge can idle until a client uploads a cart via load_rom.
 
   Speed (default: realtime 1.0x guest CPU clock):
     --speed N       run at Nx realtime (e.g. 0.5, 2)
@@ -80,7 +85,7 @@ end
 do
   local Protocol = require("bridge.protocol")
   local mid = Protocol.canonical_id(opts.machine or "ti89")
-  if (not opts.rom or opts.rom == "") and mid ~= "gameboy" then
+  if (not opts.rom or opts.rom == "") and mid ~= "gameboy" and mid ~= "nes" then
     usage()
   end
 end

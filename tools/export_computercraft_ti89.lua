@@ -6,7 +6,7 @@
 -- Or:
 --   tools\luajit\luajit.exe tools/export_computercraft_ti89.lua
 --
--- Avoid `.\tools\export_computercraft_ti89.lua` in PowerShell — Windows file
+-- Avoid `.\tools\export_computercraft_ti89.lua` in PowerShell - Windows file
 -- association can hang the terminal with no child process.
 
 local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]export_computercraft_ti89%.lua$") or "."
@@ -32,7 +32,7 @@ if dir and dir ~= "" then
   if package.config:sub(1, 1) == "\\" then
     os.execute(string.format('mkdir "%s" 2>nul', dir:gsub("/", "\\")))
   else
-    os.execute(string.format('mkdir -p "%s" 2>/dev/null', dir))
+    os.execute(string.format('mkdir - p "%s" 2>/dev/null', dir))
   end
 end
 

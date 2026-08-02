@@ -1,8 +1,8 @@
 #!/usr/bin/env luajit
--- Generate rom/riscv64.bin — interactive S-mode UART console (pre-Linux).
+-- Generate rom/riscv64.bin - interactive S-mode UART console (pre-Linux).
 --
--- Studio: select RV64 → see banner + "# " → focus LCD → type (echo).
--- Path exercised: M-mode UART print → mret to S → SBI putchar + UART RX.
+-- Studio: select RV64 -> see banner + "# " -> focus LCD -> type (echo).
+-- Path exercised: M-mode UART print -> mret to S -> SBI putchar + UART RX.
 
 local ROOT = arg[0]:match("(.+)[/\\]tools[/\\]") or "."
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
@@ -90,7 +90,7 @@ put32(0x024, enc_j(0x008 - 0x024, 0))
 put32(0x028, 0x00000013)                   -- nop pad (beq target adjust)
 put32(0x02C, enc_i(0, 1, 0, 0, 0x67))       -- ret jalr x0,0(x1)
 
--- Fix beq at 0x00C: from 0x00C to 0x02C is +0x20 — ok
+-- Fix beq at 0x00C: from 0x00C to 0x02C is +0x20 - ok
 
 -- main_m @ 0x040
 put32(0x040, enc_u(0, 5, 0x37))
@@ -123,7 +123,7 @@ put32(0x23C, 0x00000013)
 put32(0x240, 0x00000013)
 put32(0x244, enc_i(0, 1, 0, 0, 0x67))       -- ret
 
--- echo @ 0x280 — idle with WFI (like 68k STOP), not a busy poll burn.
+-- echo @ 0x280 - idle with WFI (like 68k STOP), not a busy poll burn.
 put32(0x280, enc_i(5, 6, 0, 7, 0x03))       -- LSR
 put32(0x284, enc_i(1, 7, 7, 7, 0x13))       -- DR?
 put32(0x288, enc_b(12, 0, 7, 1))            -- bnez -> 0x294 (have char)
@@ -171,7 +171,7 @@ local function ensure_dir(path)
   if sep == "\\" then
     os.execute('mkdir "' .. path:gsub("/", "\\") .. '" 2>nul')
   else
-    os.execute("mkdir -p '" .. path .. "'")
+    os.execute("mkdir - p '" .. path .. "'")
   end
 end
 
@@ -186,4 +186,4 @@ ensure_dir(ROOT .. "/rom")
 ensure_dir(ROOT .. "/rom/riscv64")
 write_path(ROOT .. "/rom/riscv64.bin")
 write_path(ROOT .. "/rom/riscv64/console.bin")
-print("Studio: RV64 → focus LCD → type")
+print("Studio: RV64 -> focus LCD -> type")

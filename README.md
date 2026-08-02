@@ -103,7 +103,7 @@ lua tools/export_computercraft_ti89.lua
 Or bundle any entry module:
 
 ```bash
-lua tools/bundle.lua -o dist/machine_only.lua machines.ti83plus.machine
+lua tools/bundle.lua - o dist/machine_only.lua machines.ti83plus.machine
 ```
 
 ### Wiring monitors (TI-83+)
@@ -159,7 +159,7 @@ Emulation can run on the PC; CC only paints and sends keys. Existing in-CC
 bundles are unchanged.
 
 ```bat
-REM 1) PC host (LuaJIT FFI sockets — no LuaSocket install needed)
+REM 1) PC host (LuaJIT FFI sockets - no LuaSocket install needed)
 bridge\run.cmd --machine ti89 --rom rom\ti89titanium.rom --port 8765
 
 REM 2) Export thin clients

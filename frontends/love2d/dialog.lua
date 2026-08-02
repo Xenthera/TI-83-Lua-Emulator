@@ -46,7 +46,7 @@ local function win_ps_path(script_body)
   f:write(script_body)
   f:close()
   local out = popen_read(string.format(
-    'powershell -NoProfile -STA -ExecutionPolicy Bypass -File "%s"',
+    'powershell - NoProfile - STA - ExecutionPolicy Bypass - File "%s"',
     tmp
   ))
   os.remove(tmp)
@@ -57,7 +57,7 @@ end
 local function win_file_dialog(kind, opts)
   opts = opts or {}
   local lines = {
-    "Add-Type -AssemblyName System.Windows.Forms",
+    "Add-Type - AssemblyName System.Windows.Forms",
     "$owner = New-Object System.Windows.Forms.Form",
     "$owner.TopMost = $true",
     "$owner.ShowInTaskbar = $false",
@@ -85,7 +85,7 @@ local function win_file_dialog(kind, opts)
   if opts.default_dir and opts.default_dir ~= "" then
     local ddir = opts.default_dir:gsub("/", "\\")
     lines[#lines + 1] = string.format(
-      "if (Test-Path -LiteralPath %s) { $d.InitialDirectory = %s }",
+      "if (Test-Path - LiteralPath %s) { $d.InitialDirectory = %s }",
       ps_quote(ddir), ps_quote(ddir)
     )
   end
@@ -98,7 +98,7 @@ end
 function M.choose_open_tiproj(default_dir)
   if is_macos() then
     -- Prefer choosing project.tiproj inside a project folder (sources are siblings).
-    return popen_read([[osascript -e 'try' -e 'POSIX path of (choose file with prompt "Open project.tiproj (or packed .tiproj)" of type {"tiproj","public.json","json"})' -e 'on error' -e 'return ""' -e 'end try']])
+    return popen_read([[osascript - e 'try' -e 'POSIX path of (choose file with prompt "Open project.tiproj (or packed .tiproj)" of type {"tiproj","public.json","json"})' -e 'on error' -e 'return ""' -e 'end try']])
   end
   if is_windows() then
     return win_file_dialog("open", {
@@ -114,7 +114,7 @@ function M.choose_save_tiproj(default_name)
   default_name = default_name or "project.tiproj"
   if is_macos() then
     local path = popen_read(string.format(
-      [[osascript -e 'try' -e 'POSIX path of (choose file name with prompt "Save TI project" default name "%s")' -e 'on error' -e 'return ""' -e 'end try']],
+      [[osascript - e 'try' -e 'POSIX path of (choose file name with prompt "Save TI project" default name "%s")' -e 'on error' -e 'return ""' -e 'end try']],
       default_name:gsub('"', "")
     ))
     if path and not path:match("%.tiproj$") then
@@ -168,7 +168,7 @@ function M.choose_open_rom(opts)
       )
     end
     return popen_read(string.format(
-      [[osascript -e 'try' -e '%s' -e 'on error' -e 'return ""' -e 'end try']],
+      [[osascript - e 'try' -e '%s' -e 'on error' -e 'return ""' -e 'end try']],
       choose:gsub("'", "'\\''")
     ))
   end
@@ -239,7 +239,7 @@ function M.choose_open_8x(kind, default_dir)
       )
     end
     return popen_read(string.format(
-      [[osascript -e 'try' -e '%s' -e 'on error' -e 'return ""' -e 'end try']],
+      [[osascript - e 'try' -e '%s' -e 'on error' -e 'return ""' -e 'end try']],
       choose:gsub("'", "'\\''")
     ))
   end
@@ -269,7 +269,7 @@ function M.choose_save_rom(default_name)
   default_name = default_name or "pipeline.rom"
   if is_macos() then
     local path = popen_read(string.format(
-      [[osascript -e 'try' -e 'POSIX path of (choose file name with prompt "Export ROM" default name "%s")' -e 'on error' -e 'return ""' -e 'end try']],
+      [[osascript - e 'try' -e 'POSIX path of (choose file name with prompt "Export ROM" default name "%s")' -e 'on error' -e 'return ""' -e 'end try']],
       default_name:gsub('"', "")
     ))
     if path and not path:match("%.rom$") and not path:match("%.bin$") then
@@ -300,7 +300,7 @@ function M.choose_save_8xk(default_name)
   default_name = default_name or "app.8xk"
   if is_macos() then
     local path = popen_read(string.format(
-      [[osascript -e 'try' -e 'POSIX path of (choose file name with prompt "Export Flash App (.8xk)" default name "%s")' -e 'on error' -e 'return ""' -e 'end try']],
+      [[osascript - e 'try' -e 'POSIX path of (choose file name with prompt "Export Flash App (.8xk)" default name "%s")' -e 'on error' -e 'return ""' -e 'end try']],
       default_name:gsub('"', "")
     ))
     if path and not path:match("%.8[xX][kK]$") then

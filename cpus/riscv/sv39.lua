@@ -1,9 +1,9 @@
 -- Sv39 virtual memory walk.
 --
 -- Think of satp as "page table base + on/off switch":
---   MODE=0  → bare: VA is PA (what we had in phase 1)
---   MODE=8  → Sv39: split VA into 3 VPN indexes + 12-bit page offset,
---             walk PTE[2]→PTE[1]→PTE[0], then PA = PPN<<12 | offset.
+--   MODE=0  -> bare: VA is PA (what we had in phase 1)
+--   MODE=8  -> Sv39: split VA into 3 VPN indexes + 12-bit page offset,
+--             walk PTE[2]->PTE[1]->PTE[0], then PA = PPN<<12 | offset.
 --
 -- Faults become traps (instruction/load/store page fault) with stval/mtval=VA.
 
@@ -76,7 +76,7 @@ function Sv39.translate(cpu, va, access)
   local csr = cpu.csr
   local mode = Sv39.mode(csr.satp)
   if mode == SATP_MODE_BARE or csr.priv == Csr.PRIV_M then
-    -- M-mode / bare: VA is PA. Return the same object — no clone (hot path).
+    -- M-mode / bare: VA is PA. Return the same object - no clone (hot path).
     return va, nil
   end
   if mode ~= SATP_MODE_SV39 then
@@ -195,7 +195,7 @@ Sv39.SATP_MODE_SV39 = SATP_MODE_SV39
 --- Encode satp for Sv39 with given root PPN (physical page number of L2 table).
 function Sv39.make_satp(root_ppn)
   local ppn = type(root_ppn) == "table" and root_ppn or U64.from_u32(root_ppn)
-  -- MODE=8 in [63:60] → hi bits 31:28 = 8
+  -- MODE=8 in [63:60] -> hi bits 31:28 = 8
   return U64.bor(U64.new(lshift(8, 28), 0), U64.band(ppn, U64.new(0x00000FFF, 0xFFFFFFFF)))
 end
 

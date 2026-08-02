@@ -5,7 +5,7 @@
 local bit = require("framework.util.bit")
 local band, bnot, lshift = bit.band, bit.bnot, bit.lshift
 
--- { row, col } — row = mask bit at $600018, col = data bit at $60001B
+-- { row, col } - row = mask bit at $600018, col = data bit at $60001B
 local KEY_MAP = {
   -- Row 0
   up = { row = 0, col = 0 },

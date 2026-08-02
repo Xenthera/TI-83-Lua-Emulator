@@ -13,6 +13,8 @@ local MACHINES = {
   ti92plus = { w = 240, h = 128, bpr = 30, id = "ti92plus" },
   -- Shade framebuffer: 1 byte/pixel, values 0-3 (not 1bpp packed).
   gameboy = { w = 160, h = 144, bpr = 160, id = "gameboy", fmt = "shade" },
+  -- NES palette index framebuffer: 1 byte/pixel, values 0-63.
+  nes = { w = 256, h = 240, bpr = 256, id = "nes", fmt = "nes" },
 }
 
 -- Short / GPU-client aliases -> canonical machine records.
@@ -20,6 +22,8 @@ MACHINES.ti83 = MACHINES.ti83plus
 MACHINES.ti84 = MACHINES.ti84plus
 MACHINES.ti92 = MACHINES.ti92plus
 MACHINES.gb = MACHINES.gameboy
+MACHINES.famicom = MACHINES.nes
+MACHINES.nintendo = MACHINES.nes
 MACHINES.ti83_gpu = MACHINES.ti83plus
 MACHINES.ti84_gpu = MACHINES.ti84plus
 MACHINES.ti89_gpu = MACHINES.ti89
@@ -43,6 +47,8 @@ function M.canonical_id(id)
     gb = "gameboy",
     gb_gpu = "gameboy",
     gameboy_gpu = "gameboy",
+    nintendo = "nes",
+    famicom = "nes",
   }
   return aliases[id] or id
 end

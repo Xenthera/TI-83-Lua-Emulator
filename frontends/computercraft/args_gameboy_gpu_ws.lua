@@ -22,7 +22,7 @@ OPTIONS
     --gpu NAME         GPU peripheral (default: first found)
 
 CONTROL PANEL
-    KEYS / SND / file list / pause / quit — same as gb_cc_ws
+    KEYS / SND / file list / pause / quit - same as gb_cc_ws
 
 HOST
     bridge\run.cmd --machine gb --port 8765

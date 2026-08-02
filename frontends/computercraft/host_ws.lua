@@ -423,7 +423,7 @@ function M.run(opts)
       classify = function() return nil end,
     },
   })
-  -- Never print() after gui:draw — CC scrolls the term and desyncs hitboxes
+  -- Never print() after gui:draw - CC scrolls the term and desyncs hitboxes
   -- (X button + monitor chips become unclickable).
   gui:draw()
   paint_views(true)
@@ -509,7 +509,7 @@ function M.run(opts)
     if ev == "timer" and a == tick then
       local t = now_ms()
       if held and t >= held_until then release_held_ui() end
-      -- LCD first when a frame is due — never let an empty speaker queue
+      -- LCD first when a frame is due - never let an empty speaker queue
       -- starve paints (that is the normal state while a buffer is playing).
       local have_frame = machine:has_pending_frame()
         or machine:display_dirty()
@@ -524,7 +524,7 @@ function M.run(opts)
       tick = os.startTimer(0.05)
     elseif ev == "websocket_message" then
       if not ws_url or a == ws_url or tostring(a) == tostring(ws_url) then
-        -- Stash only — never unpack PCM here (delays speaker_audio_empty).
+        -- Stash only - never unpack PCM here (delays speaker_audio_empty).
         machine:handle_raw(b, c)
       end
     elseif ev == "speaker_audio_empty" then

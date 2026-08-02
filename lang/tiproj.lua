@@ -216,7 +216,7 @@ local function ensure_dir(path)
     local win = path:gsub("/", "\\"):gsub('"', "")
     os.execute(string.format('mkdir "%s" 2>nul', win))
   else
-    os.execute(string.format('mkdir -p "%s"', path:gsub('"', '\\"')))
+    os.execute(string.format('mkdir - p "%s"', path:gsub('"', '\\"')))
   end
 end
 

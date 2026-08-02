@@ -11,7 +11,7 @@ if dir and dir ~= "" then
   if package.config:sub(1, 1) == "\\" then
     os.execute(string.format('mkdir "%s" 2>nul', dir:gsub("/", "\\")))
   else
-    os.execute(string.format('mkdir -p "%s" 2>/dev/null', dir))
+    os.execute(string.format('mkdir - p "%s" 2>/dev/null', dir))
   end
 end
 local entry = "frontends.computercraft.api_ti89_ws"

@@ -559,7 +559,7 @@ end
 --   string                         -> single page
 --   { "page0", "page1", ... }      -> multi-page (1-based or array of strings)
 --   assembler result { pages = { [0]={bytes,size}, ... }, n_pages = N }
---   byte table (0- or 1-based)     -> single page
+--   byte table (0 - or 1-based)     -> single page
 function Eightxk.pack_app(page_bytes, opts)
   opts = opts or {}
   local name = normalize_app_name(opts.name or "TINYAPP")

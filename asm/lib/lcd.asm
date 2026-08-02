@@ -2,7 +2,7 @@
 ;
 ; Real hardware needs ≥10µs between LCD accesses. The emulator is instant,
 ; but we always delay so Flash Apps behave on a real TI-83+ (and 83+SE/84+
-; at 15MHz). We do NOT poll port 10 bit7 — some LCD drivers break that.
+; at 15MHz). We do NOT poll port 10 bit7 - some LCD drivers break that.
 ;
 ; Multi-step RMW (draw_pixel) runs with interrupts off so the OS ISR cannot
 ; interleave LCD commands mid-update.

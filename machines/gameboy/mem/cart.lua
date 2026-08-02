@@ -264,7 +264,7 @@ function Cart:write(addr, v)
 
   if addr < 0x8000 then
     if self.mbc == 3 then
-      -- RTC latch: 0 then 1. Stub — keep frozen zeros.
+      -- RTC latch: 0 then 1. Stub - keep frozen zeros.
       self.rtc_latch = v
     else
       self.mode = band(v, 0x01)

@@ -12,7 +12,7 @@ SYNOPSIS
 
 DESCRIPTION
     Boots a TI-92 Plus AMS flash image (TIFL OS or raw dump).
-    The LCD sits inside the QWERTY face — the first monitor is the
+    The LCD sits inside the QWERTY face - the first monitor is the
     whole calculator (keys + inset 240x128 glass). Extra monitors can
     show MEM or OFF. The computer screen is the control panel.
 

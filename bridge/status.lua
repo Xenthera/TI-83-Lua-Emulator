@@ -33,12 +33,12 @@ function M.list_ipv4()
   local cmds
   if is_win then
     cmds = {
-      'powershell -NoProfile -Command "Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue | ForEach-Object { $_.IPAddress }"',
+      'powershell - NoProfile - Command "Get-NetIPAddress - AddressFamily IPv4 - ErrorAction SilentlyContinue | ForEach-Object { $_.IPAddress }"',
       "ipconfig",
     }
   else
     cmds = {
-      "hostname -I 2>/dev/null",
+      "hostname - I 2>/dev/null",
       "ip -4 -o addr show 2>/dev/null",
       "ifconfig 2>/dev/null",
     }

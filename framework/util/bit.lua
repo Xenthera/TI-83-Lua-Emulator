@@ -52,7 +52,7 @@ end
 
 if not native_ok then
   -- Prefer bit32 (unsigned) over legacy `bit` (often signed int32) when both
-  -- exist — ComputerCraft:Tweaked ships both; unsigned skips u32 wrapping.
+  -- exist - ComputerCraft:Tweaked ships both; unsigned skips u32 wrapping.
   if not take(rawget(_G, "bit32"), "bit32-global") then
     if not take(rawget(_G, "bit"), "bit-global") then
       local ok, lib = pcall(require, "bit32")
@@ -115,7 +115,7 @@ end
 
 -- LuaJIT/bit32 return signed int32 (-2^31..2^31-1). The emulator assumes
 -- unsigned 0..0xFFFFFFFF (Lua 5.3+ native). Normalize when needed.
--- lua53-native / bit32 already return unsigned — skip the branch.
+-- lua53-native / bit32 already return unsigned - skip the branch.
 local need_u32 = (backend ~= "lua53-native"
   and backend ~= "bit32-global"
   and backend ~= "bit32")
@@ -131,61 +131,57 @@ do
   local _band, _bor, _bxor, _bnot = band, bor, bxor, bnot
   local _lshift, _rshift = lshift, rshift
   if need_u32 then
+    -- Hot path: wrap once at the end; 2-arg is by far the common case.
+    local U32 = 0x100000000
     function band(a, b, c, d, e)
       local r = _band(a, b)
-      if r < 0 then r = r + 0x100000000 end
-      if c == nil then return r end
-      r = _band(r, c)
-      if r < 0 then r = r + 0x100000000 end
-      if d == nil then return r end
-      r = _band(r, d)
-      if r < 0 then r = r + 0x100000000 end
-      if e == nil then return r end
-      r = _band(r, e)
-      if r < 0 then r = r + 0x100000000 end
+      if c ~= nil then
+        r = _band(r, c)
+        if d ~= nil then
+          r = _band(r, d)
+          if e ~= nil then r = _band(r, e) end
+        end
+      end
+      if r < 0 then r = r + U32 end
       return r
     end
     function bor(a, b, c, d, e)
       local r = _bor(a, b)
-      if r < 0 then r = r + 0x100000000 end
-      if c == nil then return r end
-      r = _bor(r, c)
-      if r < 0 then r = r + 0x100000000 end
-      if d == nil then return r end
-      r = _bor(r, d)
-      if r < 0 then r = r + 0x100000000 end
-      if e == nil then return r end
-      r = _bor(r, e)
-      if r < 0 then r = r + 0x100000000 end
+      if c ~= nil then
+        r = _bor(r, c)
+        if d ~= nil then
+          r = _bor(r, d)
+          if e ~= nil then r = _bor(r, e) end
+        end
+      end
+      if r < 0 then r = r + U32 end
       return r
     end
     function bxor(a, b, c, d, e)
       local r = _bxor(a, b)
-      if r < 0 then r = r + 0x100000000 end
-      if c == nil then return r end
-      r = _bxor(r, c)
-      if r < 0 then r = r + 0x100000000 end
-      if d == nil then return r end
-      r = _bxor(r, d)
-      if r < 0 then r = r + 0x100000000 end
-      if e == nil then return r end
-      r = _bxor(r, e)
-      if r < 0 then r = r + 0x100000000 end
+      if c ~= nil then
+        r = _bxor(r, c)
+        if d ~= nil then
+          r = _bxor(r, d)
+          if e ~= nil then r = _bxor(r, e) end
+        end
+      end
+      if r < 0 then r = r + U32 end
       return r
     end
     function bnot(a)
       local r = _bnot(a)
-      if r < 0 then return r + 0x100000000 end
+      if r < 0 then return r + U32 end
       return r
     end
     function lshift(a, n)
       local r = _lshift(a, n)
-      if r < 0 then return r + 0x100000000 end
+      if r < 0 then return r + U32 end
       return r
     end
     function rshift(a, n)
       local r = _rshift(a, n)
-      if r < 0 then return r + 0x100000000 end
+      if r < 0 then return r + U32 end
       return r
     end
   else

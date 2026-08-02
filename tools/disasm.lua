@@ -1,9 +1,9 @@
 #!/usr/bin/env lua
 -- Disassemble a ROM/bin into our assembler dialect.
 -- Usage:
---   lua tools/disasm.lua rom/pipeline.rom -o out.asm
+--   lua tools/disasm.lua rom/pipeline.rom - o out.asm
 --   lua tools/disasm.lua rom/pipeline.rom --symbols-from-asm asm/generated/hello.asm
---   lua tools/disasm.lua rom/ti83plus.rom --page 0 --infer-names -o rom/ti83plus_p0_dis.asm
+--   lua tools/disasm.lua rom/ti83plus.rom --page 0 --infer-names - o rom/ti83plus_p0_dis.asm
 
 local function detect_root()
   if arg and arg[0] then

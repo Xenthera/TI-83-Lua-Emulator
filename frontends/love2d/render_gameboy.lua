@@ -1,4 +1,4 @@
--- DMG LCD presenter: 160x144 shades 0-3 → classic green palette texture.
+-- DMG LCD presenter: 160x144 shades 0-3 -> classic green palette texture.
 
 local Ppu = require("machines.gameboy.hw.ppu")
 

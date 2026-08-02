@@ -247,6 +247,50 @@ PROFILE.gameboy = {
   sp_label = "SP",
 }
 
+PROFILE.nes = {
+  id = "nes",
+  title = "NES",
+  mem_size = 0x10000,
+  addr_digits = 4,
+  region_names = { "RAM", "PPU", "APU/IO", "Cart" },
+  region_colors = {
+    { 0.30, 0.55, 0.35 },
+    { 0.55, 0.35, 0.65 },
+    { 0.70, 0.45, 0.20 },
+    { 0.25, 0.45, 0.70 },
+  },
+  bank_lines = { 0x2000, 0x4000, 0x8000 },
+  region_of = function(addr)
+    if addr < 0x2000 then return 1 end
+    if addr < 0x4000 then return 2 end
+    if addr < 0x8000 then return 3 end
+    return 4
+  end,
+  read = function(machine, addr)
+    addr = addr % 0x10000
+    if machine.cpu and machine.cpu.read then
+      return machine.cpu:read(addr)
+    end
+    if machine.ram and addr < 0x2000 then
+      return machine.ram[addr % 0x800] or 0
+    end
+    if machine.cart and machine.cart.cpu_read and addr >= 0x6000 then
+      return machine.cart:cpu_read(addr)
+    end
+    return 0
+  end,
+  get_pc = function(cpu)
+    return cpu and (cpu.pc or 0) or 0
+  end,
+  get_sp = function(cpu)
+    return cpu and (cpu.sp or 0) or 0
+  end,
+  marker_in_view = function(addr, _view_base, mem_size)
+    return addr >= 0 and addr < (mem_size or 0x10000)
+  end,
+  sp_label = "SP",
+}
+
 local function byte_rgb(profile, addr, val, heat)
   local idx = profile.region_of(addr)
   local base = profile.region_colors[idx] or profile.region_colors[1]
@@ -489,7 +533,7 @@ function MemMap:refresh(machine)
   local read = profile.read
   local pad = rgba(12, 13, 16)
 
-  for addr = 0, map_pixels - 1 do
+  for addr = 0, map_pixels -1 do
     if addr < mem_size then
       local phys = view_base + addr
       local val = read(machine, addr, view_base) or 0
@@ -591,7 +635,7 @@ function MemMap:mousepressed(mx, my)
   if self.open and (self:hit_drag(mx, my) or self:hit_toggle(mx, my)) then
     -- Defer toggle vs resize until move/release (drag left edge to widen).
     self._press_active = true
-    self._press_toggle = true -- click without drag → toggle
+    self._press_toggle = true -- click without drag -> toggle
     self._press_x = mx
     self._drag_origin_x = mx
     self._drag_origin_w = self.expanded_w
@@ -618,7 +662,7 @@ function MemMap:mousemoved(mx, my, machine)
       self._press_toggle = false
     end
     if self.dragging then
-      -- Panel is docked on the right: drag grip left → wider.
+      -- Panel is docked on the right: drag grip left -> wider.
       local nw = self._drag_origin_w + (self._drag_origin_x - mx)
       self:set_expanded_width(nw)
       return true, "resize"

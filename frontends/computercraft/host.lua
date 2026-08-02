@@ -222,7 +222,7 @@ function M.run(opts)
   end
 
   -- Multi-monitor roles: lcd | pad | mem | off (click cycles).
-  -- TI-92 (combined_face): face | mem | off — LCD is painted inside the keypad.
+  -- TI-92 (combined_face): face | mem | off - LCD is painted inside the keypad.
   -- views[side] = { side=, mon=, role=, painter=, pad=, face=, memmap= }
   local views = {}
   local view_order = {} -- stable side order for GUI chips
@@ -1245,7 +1245,7 @@ function M.run(opts)
           end
         else
           -- Wall-clock budget. Fixed cycles_per_tick (~2 GB frames) was only
-          -- ~67% realtime, so the APU under-produced vs speaker 48 kHz → gaps.
+          -- ~67% realtime, so the APU under-produced vs speaker 48 kHz -> gaps.
           local budget = math.floor(emu_hz * dt + 0.5)
           local max_budget = math.floor(emu_hz * 0.1) -- hitch catch-up cap
           if budget > max_budget then budget = max_budget end
@@ -1266,7 +1266,7 @@ function M.run(opts)
       end
 
       -- Only spend paint budget when something visible needs it.
-      -- Skip a frame if the speaker has no staged chunk (paint stalls → gaps).
+      -- Skip a frame if the speaker has no staged chunk (paint stalls -> gaps).
       if identify_on then
         -- Static name overlay; redrawn on toggle/resize, not every tick.
         if machine:display_dirty() then

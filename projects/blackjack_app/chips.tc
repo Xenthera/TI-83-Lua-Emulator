@@ -52,7 +52,7 @@ void draw_circle(byte cx, byte cy, byte r) {
 }
 
 void draw_chip(byte cx, byte cy, byte val) {
-  // r=9 → 19px wide, fills an F-key column; snug fit for "100"
+  // r=9 -> 19px wide, fills an F-key column; snug fit for "100"
   draw_circle(cx, cy, 9);
   draw_circle(cx, cy, 7);
   draw_pixel(cx, cy - 9);
@@ -107,7 +107,7 @@ void paint_bet_screen(word cash, byte wager) {
   i = 0;
   while (i < 5) {
     v = chip_value(i);
-    // Bottom row above the physical F-keys (r=9 → sits on y=44..62)
+    // Bottom row above the physical F-keys (r=9 -> sits on y=44..62)
     draw_chip(chip_x(i), 53, v);
     i = i + 1;
   }

@@ -16,7 +16,7 @@ local function ensure_dir(path)
   for part in string.gmatch(path, "[^/\\" .. sep .. "]+") do
     acc = acc == "" and part or (acc .. sep .. part)
     pcall(function()
-      if sep == "\\" then os.execute('mkdir "' .. acc .. '" 2>nul') else os.execute("mkdir -p '" .. acc .. "'") end
+      if sep == "\\" then os.execute('mkdir "' .. acc .. '" 2>nul') else os.execute("mkdir - p '" .. acc .. "'") end
     end)
   end
 end
@@ -186,7 +186,7 @@ for _, ent in ipairs(moon_dirs) do
   local cat, dir = ent[1], ent[2]
   for _, path in ipairs(collect_gbs(dir)) do
     local name = basename(path)
-    -- Skip CGB/SGB-only where marked, still run -GS (DMG/SGB) and plain
+    -- Skip CGB/SGB-only where marked, still run - GS (DMG/SGB) and plain
     local frames = 240
     if cat == "mooneye-mbc1" then frames = 300 end
     local r = run_rom(path, { frames = frames })

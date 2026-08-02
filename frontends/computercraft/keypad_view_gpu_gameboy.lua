@@ -1,4 +1,4 @@
--- Game Boy DMG keypad on Tom's GPU — cross D-pad, rounded-rect Select/Start, round A/B.
+-- Game Boy DMG keypad on Tom's GPU - cross D-pad, rounded-rect Select/Start, round A/B.
 -- Layout proportions match a real DMG face (not a grid of rectangles).
 
 local Gpu = require("frontends.computercraft.gpu")
@@ -51,7 +51,7 @@ function M:layout(x, y, w, h)
   local arm = math.max(6, u * 0.11)       -- arm thickness
   local reach = math.max(14, u * 0.22)    -- center to tip
   local half = arm * 0.5
-  -- Four hit targets (overlap in center is fine — same as physical cross)
+  -- Four hit targets (overlap in center is fine - same as physical cross)
   local dpad = {
     { "up", dpad_cx - half, dpad_cy - reach, arm, reach },
     { "down", dpad_cx - half, dpad_cy, arm, reach },
@@ -66,7 +66,7 @@ function M:layout(x, y, w, h)
   end
   self._dpad = { cx = dpad_cx, cy = dpad_cy, arm = arm, reach = reach }
 
-  -- Select / Start — rounded rects; START is wider so the label fits inside.
+  -- Select / Start - rounded rects; START is wider so the label fits inside.
   local bh = math.max(10, u * 0.075)
   local br = math.max(3, math.floor(bh * 0.45))
   local pill_y = y + h * 0.78 - bh * 0.5
@@ -91,7 +91,7 @@ function M:layout(x, y, w, h)
     x = start_x, y = pill_y, w = start_w, h = bh, r = br,
   }
 
-  -- B / A — round magenta buttons (A sits lower-right of B, like a DMG)
+  -- B / A - round magenta buttons (A sits lower-right of B, like a DMG)
   local ar = math.max(8, u * 0.115)
   self.buttons[#self.buttons + 1] = {
     key = "b", kind = "circle", label = "B",
@@ -149,7 +149,7 @@ function M:draw()
   local mw, mh = self.max_w, self.max_h
   Gpu.rect(gpu, p.x, p.y, p.w, p.h, COL.body, mw, mh)
 
-  -- D-pad cross (plain rects — no circle end-caps)
+  -- D-pad cross (plain rects - no circle end-caps)
   local d = self._dpad
   if d then
     local pressed_dpad = self.pressed == "up" or self.pressed == "down"

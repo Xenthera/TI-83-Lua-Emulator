@@ -24,7 +24,7 @@ key_scan_group:
     cp 0xFF
     jr z,key_scan_next
 
-    ; Exactly one low bit → scancode; else ignore (ghost / multi).
+    ; Exactly one low bit -> scancode; else ignore (ghost / multi).
     ld e,0                 ; pressed count
     ld b,8
 key_scan_bit:
@@ -124,7 +124,7 @@ key_down_test:
 key_down_bit0:
     and 1
     ld a,0
-    jr nz,key_down_out     ; bit set → not pressed
+    jr nz,key_down_out     ; bit set -> not pressed
     ld a,1
 key_down_out:
     pop de

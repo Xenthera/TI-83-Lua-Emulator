@@ -1,6 +1,6 @@
--- Shade (0–3) LCD painter for Tom's GPU (Game Boy DMG).
+-- Shade (0-3) LCD painter for Tom's GPU (Game Boy DMG).
 -- Usage: return require("frontends.computercraft.lcd_view_gpu_shade").make(geom [, opts])
--- opts.palette: optional { [0]=argb, … [3]=argb, bezel=, off= }
+-- opts.palette: optional { [0]=argb, ... [3]=argb, bezel=, off= }
 
 local Gpu = require("frontends.computercraft.gpu")
 

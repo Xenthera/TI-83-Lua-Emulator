@@ -32,7 +32,7 @@ function Bus.new(opts)
   self.io7[0x02], self.io7[0x03] = 0xFF, 0xFF
   self.io7[0x04], self.io7[0x05] = 0xFF, 0xFF
   self.io7[0x06], self.io7[0x07] = 0xFF, 0xFF
-  -- Flash exec protect: n=$18 → classic $390000–$3FFFFF (archive).
+  -- Flash exec protect: n=$18 -> classic $390000-$3FFFFF (archive).
   self.io7[0x12], self.io7[0x13] = 0x00, 0x18
   -- Cached classic-map cutoff for flash exec (updated with $700012/$13).
   self.flash_exec_first = 0x210000 + 0x18 * 0x10000
@@ -59,7 +59,7 @@ function Bus.new(opts)
   -- Protection latch off until AMS enables it; RAM page masks still stored.
   self.protect_enabled = false
   self.rtc_div = 0 -- $700014 increment divider
-  -- HW3 RTC ($710040–$710049): load regs + running seconds since load.
+  -- HW3 RTC ($710040-$710049): load regs + running seconds since load.
   self.rtc3_load_s = 0
   self.rtc3_load_frac = 0 -- 1/16th seconds (0..15)
   self.rtc3_cycles = 0 -- cycles since last reload while enabled
@@ -105,7 +105,7 @@ function Bus:reset()
   self.ram:clear()
 end
 
---- Refresh $710045–$710049 from load + elapsed time while RTC is enabled.
+--- Refresh $710045-$710049 from load + elapsed time while RTC is enabled.
 function Bus:rtc3_update_count()
   local enabled = band(self.io71[0x5F] or 0, 0x01) ~= 0
   local frac = self.rtc3_load_frac or 0
@@ -136,7 +136,7 @@ function Bus:io71_write(off, value)
     return
   end
   if off == 0x5F then
-    -- TiEmu: only bits 0–1 writable; bit7 always set.
+    -- TiEmu: only bits 0-1 writable; bit7 always set.
     value = bor(band(value, 0x03), 0x80)
     if band(value, 0x01) == 0 then
       -- Clock disabled: clear load seconds.
@@ -180,7 +180,7 @@ function Bus:raise_irq(level)
 end
 
 local function flash_offset(addr)
-  -- Titanium: $800000–$BFFFFF. Classic dumps: $200000–$5FFFFF.
+  -- Titanium: $800000-$BFFFFF. Classic dumps: $200000-$5FFFFF.
   if addr >= 0x800000 and addr < 0xC00000 then
     return addr - 0x800000
   end
@@ -216,7 +216,7 @@ local function map_write(self, addr, value)
   value = band(value, 0xFF)
   if addr < 0x200000 then
     local ram_off = addr % self.ram.SIZE
-    -- Real HW write-protects $000000–$00011F (288 bytes), including via the
+    -- Real HW write-protects $000000-$00011F (288 bytes), including via the
     -- 256KB RAM mirrors. AMS boot vectors come from the ROM copy at reset.
     if ram_off < 0x120 then
       return
@@ -310,7 +310,7 @@ end
 
 function Bus:io7_write(off, value)
   value = band(value, 0xFF)
-  -- Ghost ports $700008–$70000F mirror RAM exec protect $700000–$700007.
+  -- Ghost ports $700008-$70000F mirror RAM exec protect $700000-$700007.
   local ram_prot = off
   if off >= 0x08 and off <= 0x0F then
     ram_prot = off - 0x08
@@ -352,7 +352,7 @@ function Bus:exec_allowed(addr)
   if addr >= 0x200000 and addr < 0x600000 then
     -- Classic window is 4MB-wide, but 2MB HW2 images (TI-92+) often fetch from
     -- $40xxxx aliases. Flash:read8 already wraps with addr%size; protect must
-    -- use the same physical offset so $400132 (→$000132) is not treated as archive.
+    -- use the same physical offset so $400132 (->$000132) is not treated as archive.
     local foff = addr - 0x200000
     local sz = self.flash and self.flash.size
     if sz and sz > 0 and foff >= sz then
@@ -361,21 +361,21 @@ function Bus:exec_allowed(addr)
     return (0x200000 + foff) < cutoff
   end
   if not self.protect_enabled then return true end
-  -- RAM: 256KB mirrored; each bit in $700000–$700007 covers a 4KB page.
+  -- RAM: 256KB mirrored; each bit in $700000-$700007 covers a 4KB page.
   addr = band(addr or 0, 0xFFFFFF)
   if addr < 0x200000 then
     local page = rshift(addr % self.ram.SIZE, 12) -- 0..63
     if addr >= 0x40000 then
-      -- Shadow RAM $040000–$1FFFFF shares the last page bit (HW2+).
+      -- Shadow RAM $040000-$1FFFFF shares the last page bit (HW2+).
       page = 63
     end
-    local word = rshift(page, 4) -- 0..3 → ports $700000/$02/$04/$06
+    local word = rshift(page, 4) -- 0..3 -> ports $700000/$02/$04/$06
     local bitn = page % 16
     local hi = self.io7[word * 2] or 0
     local lo = self.io7[word * 2 + 1] or 0
     local mask = bor(lshift(hi, 8), lo)
-    -- bit SET => fetch forbidden. $700000:15-0 = $00Fxxx–$000xxx
-    -- (bit0=$000xxx … bit15=$00Fxxx). Reset $FFDF allows $005xxx only.
+    -- bit SET => fetch forbidden. $700000:15-0 = $00Fxxx-$000xxx
+    -- (bit0=$000xxx ... bit15=$00Fxxx). Reset $FFDF allows $005xxx only.
     if band(mask, lshift(1, bitn)) ~= 0 then return false end
   end
   return true

@@ -256,7 +256,7 @@ function M:relayout()
     self.text_scale = 0.5
   end
   local mw, mh = mon.getSize()
-  -- Map content box (panel+keys+LCD) to the full monitor — fill width and height.
+  -- Map content box (panel+keys+LCD) to the full monitor - fill width and height.
   local sx = mw / CONTENT_W
   local sy = mh / CONTENT_H
   local px = tonumber(PANEL.x) or 0
@@ -274,7 +274,7 @@ function M:relayout()
   local lw = math.max(0.01, tonumber(LCD.w) or 1)
   local lh = lw * (LcdGeom.HEIGHT / LcdGeom.WIDTH)
 
-  -- Integer sixtel scale (1x, 2x, …) that fits the monitor; never below 1x if possible.
+  -- Integer sixtel scale (1x, 2x, ...) that fits the monitor; never below 1x if possible.
   local max_scale = math.max(1, math.min(
     math.floor(mw / LCD_NEED_W),
     math.floor(mh / LCD_NEED_H)

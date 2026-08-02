@@ -6,7 +6,7 @@ local band, bor, lshift, rshift = bit.band, bit.bor, bit.lshift, bit.rshift
 local Timer = {}
 Timer.__index = Timer
 
--- TAC clock select → bit of DIV that clocks TIMA on falling edge
+-- TAC clock select -> bit of DIV that clocks TIMA on falling edge
 local TAC_BITS = { [0] = 9, [1] = 3, [2] = 5, [3] = 7 }
 
 function Timer.new(irq)
@@ -85,7 +85,8 @@ end
 function Timer:tick(cycles)
   if cycles <= 0 then return end
   if band(self.tac, 4) == 0 then
-    self.div = band(self.div + cycles, 0xFFFF)
+    -- DIV-only: pure add (no falling-edge TIMA). Mod 65536 without bit wrapper.
+    self.div = (self.div + cycles) % 65536
     return
   end
   local bitn = TAC_BITS[band(self.tac, 3)] or 9
@@ -93,18 +94,20 @@ function Timer:tick(cycles)
   local pmask = period - 1
   local left = cycles
   local div = self.div
+  -- Large ticks: jump whole TIMA increments when possible.
   while left > 0 do
-    local phase = band(div, pmask)
+    local phase = div % (pmask + 1)
     local to_edge = period - phase
-    if to_edge == 0 then to_edge = period end
-    local step = left
-    if step > to_edge then step = to_edge end
-    div = band(div + step, 0xFFFF)
-    left = left - step
-    if step == to_edge then
+    if to_edge <= 0 then to_edge = period end
+    if left >= to_edge then
+      div = (div + to_edge) % 65536
+      left = left - to_edge
       self.div = div
       self:_inc_tima()
       div = self.div
+    else
+      self.div = (div + left) % 65536
+      return
     end
   end
   self.div = div

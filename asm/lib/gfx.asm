@@ -1,6 +1,6 @@
 ; Pixel graphics for TI-83+ T6A04 (ports via lcd.asm).
 ; draw_pixel / clear_pixel: B = x (0-95), C = y (0-63)
-; erase_rect: B=x, C=y, D=w, E=h — clears by LCD byte (not per-pixel).
+; erase_rect: B=x, C=y, D=w, E=h - clears by LCD byte (not per-pixel).
 ;
 ; RMW / multi-byte clears run DI so the OS ISR cannot interleave LCD ops.
 
@@ -134,7 +134,7 @@ clear_pixel_done:
     ret
 
 ; =====================================================================
-; erase_rect — B=x, C=y, D=w, E=h
+; erase_rect - B=x, C=y, D=w, E=h
 ; Byte-oriented clear. Full columns: one zero write. Edges: masked RMW.
 ; Scratch frame on stack (Flash is not writable): IX-9 .. IX-1
 ;   -9 x0  -8 y0  -7 x1  -6 y1  -5 c0  -4 c1  -3 row  -2 col  -1 mask

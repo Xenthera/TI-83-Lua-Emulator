@@ -54,8 +54,9 @@ uploads the cart over WebSocket (`load_rom` chunks).
 | `ti89`      | 160x100 1bpp | `ti89_cc_ws`, `ti89_gpu_cc_ws` |
 | `ti92plus`  | 240x128 1bpp | `ti92_cc_ws` |
 | `gameboy`   | 160x144 shade (1 byte/px) | `gb_cc_ws` |
+| `nes`       | 256x240 NES palette index | Love2D / host (CC client TBD) |
 
-Aliases: `ti83`, `ti84`, `ti92`, `gb`.
+Aliases: `ti83`, `ti84`, `ti92`, `gb`, `famicom`.
 
 ## Protocol (v1)
 

@@ -4,8 +4,8 @@
 -- Banking is flattened for recovery - not for ROM round-trip.
 --
 -- Usage:
---   lua tools/disasm_all_pages.lua rom/ti83plus.rom -o rom/ti83plus_all_dis.asm
---   lua tools/disasm_all_pages.lua rom/ti83plus.rom --pages 0-3 -o rom/ti83plus_p0-3_dis.asm
+--   lua tools/disasm_all_pages.lua rom/ti83plus.rom - o rom/ti83plus_all_dis.asm
+--   lua tools/disasm_all_pages.lua rom/ti83plus.rom --pages 0-3 - o rom/ti83plus_p0-3_dis.asm
 
 local function detect_root()
   if arg and arg[0] then

@@ -10,6 +10,11 @@ end
 local ROOT = project_root()
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
+-- Match tools/bench_gb.lua / bench_nes.lua: give LuaJIT more trace room for cores.
+if jit and jit.opt then
+  jit.opt.start("maxtrace=8000", "maxrecord=16000", "minstitch=3", "maxmcode=40960")
+end
+
 local Manager = require("framework.manager")
 local Debugger = require("framework.debugger")
 local NVRAM = require("framework.nvram")
@@ -20,13 +25,16 @@ local Render89 = require("frontends.love2d.render_ti89")
 local Render92 = require("frontends.love2d.render_ti92")
 local RenderRV64 = require("frontends.love2d.render_riscv64")
 local RenderGB = require("frontends.love2d.render_gameboy")
+local RenderNES = require("frontends.love2d.render_nes")
 package.path = love.filesystem.getSource() .. "/?.lua;"
   .. ROOT .. "/frontends/love2d/?.lua;" .. package.path
 local Input = require("input")
 local Input89 = require("input_ti89")
 local Input92 = require("input_ti92")
 local InputGB = require("input_gameboy")
+local InputNES = require("input_nes")
 local AudioGB = require("audio_gameboy")
+local AudioNES = require("audio_nes")
 local Ide = require("ide")
 
 local manager
@@ -35,7 +43,7 @@ local render
 local debugger
 local save_slot
 local show_debug = false
-local machine_ids = { "ti83plus", "ti84plus", "ti89", "ti92plus", "riscv64", "gameboy" }
+local machine_ids = { "ti83plus", "ti84plus", "ti89", "ti92plus", "riscv64", "gameboy", "nes" }
 local machine_idx = 1
 local ide
 local force_present = true
@@ -46,6 +54,7 @@ local frame_count = 0
 local fps = 0
 local mono
 local gb_audio
+local nes_audio
 
 --- Human-readable clock rate for the status strip (measured or target).
 local function fmt_hz(hz)
@@ -66,6 +75,7 @@ local TITLES = {
   ti92plus = "Retro Emulator Studio - TI-92 Plus",
   riscv64 = "Retro Emulator Studio - RV64 Custom",
   gameboy = "Retro Emulator Studio - Game Boy",
+  nes = "Retro Emulator Studio - NES",
 }
 
 local function mark_present()
@@ -250,7 +260,48 @@ local function try_boot_machine(id)
       return true
     end
     ide.running = false
-    ide:log("Game Boy ready — place a .gb cart in rom/gb/ (e.g. rom/gb/tetris.gb)")
+    ide:log("Game Boy ready - place a .gb cart in rom/gb/ (e.g. rom/gb/tetris.gb)")
+    mark_present()
+    return false
+  end
+
+  if id == "nes" then
+    local nes_dir = ROOT .. "/rom/nes/"
+    local function try_nes(path, name)
+      local f = io.open(path, "rb")
+      if not f then return false end
+      f:close()
+      local ok, err = machine:load_rom_file(path)
+      if ok then
+        machine:reset()
+        ide.running = true
+        ide.focus = "lcd"
+        local mapper = machine.cart and machine.cart.mapper
+        ide:log("NES cart: " .. name .. (mapper and (" (mapper " .. mapper .. ")") or ""))
+        mark_present()
+        return true
+      end
+      ide:log("NES load failed: " .. tostring(err))
+      return false
+    end
+    local sep = package.config:sub(1, 1)
+    local dir = ROOT .. sep .. "rom" .. sep .. "nes"
+    local p = io.popen('dir /b "' .. dir .. '\\*.nes" 2>nul')
+    if not p then
+      p = io.popen('ls -1 "' .. dir .. '"/*.nes 2>/dev/null')
+    end
+    if p then
+      local listing = p:read("*a") or ""
+      p:close()
+      for name in listing:gmatch("[^\r\n]+") do
+        name = name:match("([^/\\]+)$") or name
+        if name:lower():match("%.nes$") and try_nes(nes_dir .. name, name) then
+          return true
+        end
+      end
+    end
+    ide.running = false
+    ide:log("NES ready - place a .nes cart in rom/nes/")
     mark_present()
     return false
   end
@@ -289,7 +340,7 @@ local function try_boot_machine(id)
         fi:close()
       end
     end
-    -- 2) Kernel-only (Lua SBI shim) — early bring-up without OpenSBI binary
+    -- 2) Kernel-only (Lua SBI shim) - early bring-up without OpenSBI binary
     do
       local img_path = dir .. "Image"
       local fi = io.open(img_path, "rb")
@@ -308,7 +359,7 @@ local function try_boot_machine(id)
         if ok then
           ide.running = true
           ide.focus = "lcd"
-          ide:log("RV64 Image boot (Lua SBI, S-mode) — add fw_jump.bin for OpenSBI")
+          ide:log("RV64 Image boot (Lua SBI, S-mode) - add fw_jump.bin for OpenSBI")
           mark_present()
           return true
         end
@@ -325,7 +376,7 @@ local function try_boot_machine(id)
         if ok then
           ide.running = true
           ide.focus = "lcd"
-          ide:log("RV64 console firmware: " .. name .. " — focus LCD and type")
+          ide:log("RV64 console firmware: " .. name .. " - focus LCD and type")
           mark_present()
           return true
         end
@@ -334,7 +385,7 @@ local function try_boot_machine(id)
     end
     machine:reset()
     ide.running = false
-    ide:log("RV64 ready — rom/riscv64/{fw_jump.bin,Image,board.dtb} or rom/riscv64.bin")
+    ide:log("RV64 ready - rom/riscv64/{fw_jump.bin,Image,board.dtb} or rom/riscv64.bin")
     mark_present()
     return false
   end
@@ -376,7 +427,7 @@ local function persist_machine(m, reason)
     local cok, cpath = m:save_cart_save()
     if ide then
       if cok then
-        ide:log(string.format("Cart save (%s) → %s", reason or "quit", tostring(cpath or m.save_path)))
+        ide:log(string.format("Cart save (%s) -> %s", reason or "quit", tostring(cpath or m.save_path)))
       elseif cpath then
         ide:log("Cart save failed: " .. tostring(cpath))
       end
@@ -385,7 +436,7 @@ local function persist_machine(m, reason)
   local ok, err = NVRAM.save(ROOT, m)
   if ide then
     if ok then
-      ide:log(string.format("Battery saved (%s) → saves/%s/", reason or "nvram", m.MACHINE_ID or "?"))
+      ide:log(string.format("Battery saved (%s) -> saves/%s/", reason or "nvram", m.MACHINE_ID or "?"))
     else
       ide:log("Battery save failed: " .. tostring(err))
     end
@@ -444,6 +495,7 @@ local function attach_machine(id)
     render = RenderRV64.new()
   elseif id == "gameboy" then
     render = RenderGB.new()
+    if nes_audio then nes_audio:stop() end
     if not gb_audio then
       gb_audio = AudioGB.new()
       if ide and gb_audio._ok then
@@ -452,11 +504,21 @@ local function attach_machine(id)
         ide:log("Game Boy audio: unavailable (love.audio.newQueueableSource failed)")
       end
     end
+  elseif id == "nes" then
+    render = RenderNES.new()
+    if gb_audio then gb_audio:stop() end
+    if not nes_audio then
+      nes_audio = AudioNES.new()
+      if ide and nes_audio._ok then
+        ide:log("NES audio: Love2D queueable source @ 44100 Hz")
+      elseif ide then
+        ide:log("NES audio: unavailable (love.audio.newQueueableSource failed)")
+      end
+    end
   else
     render = Render83.new()
-    if gb_audio then
-      gb_audio:stop()
-    end
+    if gb_audio then gb_audio:stop() end
+    if nes_audio then nes_audio:stop() end
   end
 
   force_present = true
@@ -492,6 +554,7 @@ end
 
 function love.quit()
   if gb_audio then gb_audio:stop() end
+  if nes_audio then nes_audio:stop() end
   persist_machine(machine, "quit")
 end
 
@@ -510,12 +573,18 @@ function love.update(dt)
   local ran = ide:run_emu(dt, machine, mark_present)
   cycles_this_sec = cycles_this_sec + ran
 
+  local want_mute = not ide.running or not machine.rom_loaded
   if gb_audio and machine and machine.MACHINE_ID == "gameboy" then
-    local want_mute = not ide.running or not machine.rom_loaded
     if gb_audio.muted ~= want_mute then
       gb_audio:set_muted(want_mute)
     end
     gb_audio:update(machine)
+  end
+  if nes_audio and machine and machine.MACHINE_ID == "nes" then
+    if nes_audio.muted ~= want_mute then
+      nes_audio:set_muted(want_mute)
+    end
+    nes_audio:update(machine)
   end
 end
 
@@ -642,9 +711,11 @@ function love.keypressed(key)
   if ide.focus == "lcd" then
     local mid = manager.current_id
     if mid == "riscv64" then
-      -- printable chars arrive via love.textinput → UART RX
+      -- printable chars arrive via love.textinput -> UART RX
     elseif mid == "gameboy" then
       InputGB.apply(machine, key, true)
+    elseif mid == "nes" then
+      InputNES.apply(machine, key, true)
     elseif mid == "ti83plus" or mid == "ti84plus" then
       Input.apply(machine, key, true)
     elseif mid == "ti92plus" then
@@ -663,6 +734,8 @@ function love.keyreleased(key)
     return
   elseif mid == "gameboy" then
     InputGB.apply(machine, key, false)
+  elseif mid == "nes" then
+    InputNES.apply(machine, key, false)
   elseif mid == "ti83plus" or mid == "ti84plus" then
     Input.apply(machine, key, false)
   elseif mid == "ti92plus" then

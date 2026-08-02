@@ -306,7 +306,7 @@ end
 --
 -- After boot the OS often leaves editOpen with editTop..editBtm spanning the
 -- free RAM gap (IsEditEmpty). Injecting into that gap and then PRGM-EDIT makes
--- the OS treat the program as an empty gap-buffer — blank editor despite valid
+-- the OS treat the program as an empty gap-buffer - blank editor despite valid
 -- tokens. Mirrors the important parts of BCALL CloseEditBuf without calling ROM
 -- (the BCALL trampoline is unsafe: CloseEditBuf reuses scrap RAM).
 --
@@ -408,7 +408,7 @@ end
 --- Grow program VAT downward by `entry_sz`.
 -- Boot often leaves FPS compacted against the VAT (MemChk free≈0) with a large
 -- unused gap below; in that mode we shift the top cluster with the VAT.
--- After CreateVar-style claim, FPS sits at the user-data end — only the VAT
+-- After CreateVar-style claim, FPS sits at the user-data end - only the VAT
 -- itself moves, and FPS is left alone for claim_allocated_user_ram.
 -- Returns address where the new entry's type byte should be written (ProgPtr).
 local function open_prog_vat_entry(mmu, entry_sz)
@@ -673,9 +673,9 @@ function Eightxp.make_blackjack_list()
 end
 
 --- BJSETUP replacement: mark setup complete without InsertMem growth loop.
--- BLACKJ83 gates on ʟBJS83(1)≠0 after `1→dim(ʟBJS83)` (preserves existing value).
+-- BLACKJ83 gates on ʟBJS83(1)≠0 after `1->dim(ʟBJS83)` (preserves existing value).
 function Eightxp.make_bjsetup_stub()
-  -- 1→dim(ʟBJS83):1→ʟBJS83(1):ClrHome:Disp "OK"
+  -- 1->dim(ʟBJS83):1->ʟBJS83(1):ClrHome:Disp "OK"
   local tokens = string.char(
     0x31, 0x04, 0xB5, 0xEB, 0x42, 0x4A, 0x53, 0x38, 0x33, 0x11, 0x3F,
     0x31, 0x04, 0xEB, 0x42, 0x4A, 0x53, 0x38, 0x33, 0x10, 0x31, 0x11, 0x3F,
@@ -704,7 +704,7 @@ end
 --
 -- Blackjack-style groups: real BJSETUP grows ʟBJ83 via InsertMem stores and
 -- clears RAM on this emu. We stub BJSETUP, pre-create ʟBJ83 (dim 102) and
--- ʟBJS83(1)=1 — BLACKJ83 indexes up to ʟBJ83(102) and gates on the flag.
+-- ʟBJS83(1)=1 - BLACKJ83 indexes up to ʟBJ83(102) and gates on the flag.
 function Eightxp.inject_file(mmu, file_bytes, opts)
   opts = opts or {}
   local vars, err = Eightxp.parse_vars(file_bytes)

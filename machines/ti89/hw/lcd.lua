@@ -4,7 +4,7 @@
 -- Logical VRAM (shared ASIC with 92+/V200): 240×128, 30 bytes/row.
 -- Hardware shows the upper-left 160×100 of that buffer; the trailing 80
 -- pixels/line and bottom 28 lines are real memory but not on the glass.
--- HW2+/Titanium: 4KB controller RAM snoops writes to $4C00–$5BFF (default).
+-- HW2+/Titanium: 4KB controller RAM snoops writes to $4C00-$5BFF (default).
 
 local bit = require("framework.util.bit")
 local band = bit.band
@@ -31,7 +31,7 @@ function Lcd.new()
   self.base = 0x4C00
   self.snoop_sel = 0
   self.snoop_base = 0x4C00
-  -- $600012/$013 reset value $3180 → 240×128 logical VRAM
+  -- $600012/$013 reset value $3180 -> 240×128 logical VRAM
   self.width_reg = 0x31
   self.height_reg = 0x80
   self.contrast = 0xFF

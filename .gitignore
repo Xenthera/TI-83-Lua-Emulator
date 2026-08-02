@@ -20,6 +20,8 @@ ti83_prefs_test.tmp
 tools/bin/*
 !tools/bin/.gitkeep
 tools/luajit/
+tools/nes-test-roms/
+tools/_nes_rom_list.txt
 
 # Ad-hoc debug probes (never commit)
 /tmp_*.lua

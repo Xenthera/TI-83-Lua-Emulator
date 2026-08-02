@@ -1,4 +1,4 @@
--- SE/84+ crystal timers (ports 30–38). WikiTI 83Plus:Ports:30.
+-- SE/84+ crystal timers (ports 30-38). WikiTI 83Plus:Ports:30.
 -- Three independent countdown timers; expiry sets port 04 bits 5/6/7.
 
 local bit = require("framework.util.bit")
@@ -234,7 +234,7 @@ function Crystal:force_nearest_expiry()
   end
   local t = self.timers[best_i]
   -- Pulse the port-$04 expiry bit for the waiting poll, but do not leave it
-  -- sticky — a stuck bit 7 steers every IM1 into the crystal handler.
+  -- sticky - a stuck bit 7 steers every IM1 into the crystal handler.
   t.expired = false
   t.active = false
   t.count = t.reload
@@ -251,7 +251,7 @@ end
 --- TI-OS delay loops: IN A,(4) / BIT 5|6|7,A / JR Z back into that poll.
 function Crystal:is_port04_delay_spin(mmu, pc)
   local op = mmu:read(pc)
-  -- INC HL ; IN A,(4) — common TI delay prologue
+  -- INC HL ; IN A,(4) - common TI delay prologue
   if op == 0x23 and mmu:read(pc + 1) == 0xDB and mmu:read(pc + 2) == 0x04 then
     return true
   end

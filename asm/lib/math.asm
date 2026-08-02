@@ -35,9 +35,9 @@ mul_u32:
     ld sp,hl
     ; -12 Alo -11 Ahi
     ; -10 Blo -9 Bhi
-    ; -8  BHlo -7 BHhi
-    ; -6  Plo -5 Phi
-    ; -4  PHlo -3 PHhi
+    ; -8  BHlo - 7 BHhi
+    ; -6  Plo - 5 Phi
+    ; -4  PHlo - 3 PHhi
     ld (ix-12),e
     ld (ix-11),d
     ld (ix-10),c

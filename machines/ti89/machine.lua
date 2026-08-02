@@ -54,7 +54,7 @@ end
 -- AMS cold-boot does MOVEA.L #$82423E,A4 / JMP (A4), which lands after LINK A6,#-12.
 -- Point A4 at the LINK so the frame exists before PEA -8(A6).
 local function patch_ams_boot_link(flash)
-  -- $8121AC: 287C 0082423E  → 0082423A
+  -- $8121AC: 287C 0082423E  -> 0082423A
   local o = 0x121AC
   if flash:read8(o) ~= 0x28 or flash:read8(o + 1) ~= 0x7C then return end
   if flash:read8(o + 2) ~= 0x00 or flash:read8(o + 3) ~= 0x82 then return end
@@ -103,7 +103,7 @@ function Machine:reset()
   self.bus:reset()
   if self.rom_loaded then
     -- TIB/JS-style images keep AMS at $12000; copy its vector table into RAM.
-    -- Plain dumps may already mirror vectors at $0 — prefer AMS block when present.
+    -- Plain dumps may already mirror vectors at $0 - prefer AMS block when present.
     local src = 0
     local w = self.flash:read8(0x12000) * 256 + self.flash:read8(0x12001)
     if w == 0x800F or w == 0x800E then

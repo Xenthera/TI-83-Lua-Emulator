@@ -2,7 +2,7 @@
 // #include <stdlib/gfx.tc>
 // Call lcd_init() once before drawing (bare-metal or Flash App).
 //
-// erase_rect(x,y,w,h) is a native (byte-oriented LCD clear) — do not redefine.
+// erase_rect(x,y,w,h) is a native (byte-oriented LCD clear) - do not redefine.
 
 void draw_hline(byte x0, byte x1, byte y) {
   byte x;

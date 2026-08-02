@@ -3,7 +3,7 @@ return function(ok)
   local out = "dist/_test_bundle.lua"
   require("framework.path").ensure_dir("dist")
   local cmd = string.format(
-    "lua tools/bundle.lua -o %s --root %s frontends.computercraft.api",
+    "lua tools/bundle.lua - o %s --root %s frontends.computercraft.api",
     out, ROOT
   )
   local ok_run = os.execute(cmd)
@@ -67,7 +67,7 @@ return function(ok)
   written.blits = 0
   local ok_big, lay2, n = painter:paint(fb, true)
   ok("large monitor accepted", ok_big == true)
-  -- NEED 48x22 centered in 100x70 → x0=27, y0=25
+  -- NEED 48x22 centered in 100x70 -> x0=27, y0=25
   ok("centered x", lay2.x0 == 27, tostring(lay2 and lay2.x0))
   ok("centered y", lay2.y0 == 25, tostring(lay2 and lay2.y0))
   ok("first paint blits 22 sixtel rows", n == 22 and written.blits == 22,

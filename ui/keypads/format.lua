@@ -17,12 +17,12 @@
 --       shape?, outline?, face_glyph? },
 --   }
 -- Button x/y/w/h are relative to panel (design_cols × design_rows).
--- radius is in design units (scaled by scene unit → pixels).
+-- radius is in design units (scaled by scene unit -> pixels).
 -- color is optional {r,g,b} override; nil uses theme.styles[style].
 -- label_size / legend_size are font points at a reference design unit (~40px);
 -- runtimes scale them with the keypad so the face looks identical at any size.
--- shape = "auto"|"rect"|"circle"  (auto: fkey/arrow → circle on TI-89)
--- outline = "auto"|"none"|"dark"|"light"|"custom"  (auto: shift → light on TI-89)
+-- shape = "auto"|"rect"|"circle"  (auto: fkey/arrow -> circle on TI-89)
+-- outline = "auto"|"none"|"dark"|"light"|"custom"  (auto: shift -> light on TI-89)
 -- Optional outline overrides (nil = use preset for the mode):
 --   outline_color {r,g,b}, outline_alpha 0..1,
 --   outline_width / outline_inset as fractions of min(button_w, button_h)
@@ -145,7 +145,7 @@ local OUTLINE_PRESETS = {
 }
 
 --- Resolve outline drawing params for a button. Returns nil when none/disabled.
--- style_for_auto: button style used when outline == "auto" (shift → light).
+-- style_for_auto: button style used when outline == "auto" (shift -> light).
 function Format.outline_resolved(b, style_for_auto)
   b = b or {}
   local mode = tostring(b.outline or "auto")

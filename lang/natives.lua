@@ -43,7 +43,7 @@ local BUILTINS = {
     params = { "byte", "byte" },
     param_names = { "x", "y" },
     summary = "Clear one pixel on the 96x64 LCD (AND with inverted mask).",
-    detail = "x is 0..95, y is 0..63. Prefer erase_rect for areas — per-pixel clears are slow.",
+    detail = "x is 0..95, y is 0..63. Prefer erase_rect for areas - per-pixel clears are slow.",
     example = "clear_pixel(48, 32);",
   },
   erase_rect = {
@@ -185,7 +185,7 @@ local BUILTINS = {
     params = {},
     param_names = {},
     summary = "Return seed material for a PRNG (not wall-clock time).",
-    detail = "The TI-83+ has no RTC — GetTime exists only on TI-84+. This mixes the Z80 R "
+    detail = "The TI-83+ has no RTC - GetTime exists only on TI-84+. This mixes the Z80 R "
       .. "register, SP, and a short IRQ-skewed spin. Use with #include <stdlib/rand.tc>: "
       .. "srand(entropy()); or srand_auto();",
     example = "srand(entropy());",
@@ -256,8 +256,8 @@ local LANG_NOTES = {
       .. "(and #include <stdlib/gfx.tc>) for pixel UI. "
       .. "LCD helpers insert real-hardware busy delays and DI around RMW "
       .. "(the emu is instant; a real T6A04 is not). "
-      .. "key_scan/key_wait/key_down stay bare-metal only — use os_get_key. "
-      .. "No TI-84+ clock APIs — seed PRNGs with entropy() / stdlib/rand.tc. "
+      .. "key_scan/key_wait/key_down stay bare-metal only - use os_get_key. "
+      .. "No TI-84+ clock APIs - seed PRNGs with entropy() / stdlib/rand.tc. "
       .. "Programs larger than 16KB are auto-split across archive pages "
       .. "(up to 14 x 16KB = 224KB) with far-call bank switching. "
       .. "For a real calculator, leave Sign on (tiproj sign:true / --sign); "

@@ -46,7 +46,7 @@ return function(ok)
   ok("ti89 keyDown", m89:keyDown("enter") == true)
   ok("ti89 getLCD", type(m89:getLCD().framebuffer) == "table")
 
-  -- HW3 RTC control at $71005F: only bits 0–1 stick; bit7 always set (TiEmu).
+  -- HW3 RTC control at $71005F: only bits 0-1 stick; bit7 always set (TiEmu).
   m89.bus:write8(0x71005F, 0xFE)
   ok("ti89 hw3 rtc ctrl mask", m89.bus:read8(0x71005F) == 0x82,
     string.format("%02X", m89.bus:read8(0x71005F)))
@@ -73,7 +73,7 @@ return function(ok)
   ok("ti92 qwerty has q", m92.keyboard.KEY_MAP.q ~= nil)
   ok("ti92 qwerty has enter", m92.keyboard.KEY_MAP.enter ~= nil)
   ok("ti92 qwerty 10 rows", m92.keyboard.ROWS == 10)
-  -- Matrix: Q is row9 col3; mask only that row → column bit3 clears.
+  -- Matrix: Q is row9 col3; mask only that row -> column bit3 clears.
   m92:set_key("q", true)
   m92.keyboard:write_mask(band(0xFFFF, bit.bnot(bit.lshift(1, 9))))
   local cols = m92.keyboard:read()

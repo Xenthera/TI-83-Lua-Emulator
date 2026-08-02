@@ -48,7 +48,7 @@ local STYLE = {
 local FKEY_SIZE = 1.14 -- 5% under prior 1.20
 local PITCH = 1.05 -- vertical step between equal rows (tighter than TI-83's 1.2)
 local KEYS = {
-  -- F1–F5: 2nd = F6–F8 (yellow, left); diamond = Y=/WINDOW/… (green, right)
+  -- F1-F5: 2nd = F6-F8 (yellow, left); diamond = Y=/WINDOW/... (green, right)
   { "f1", "F1", "fkey", 0, 0, 1, FKEY_SIZE, "F6", "Y=", nil },
   { "f2", "F2", "fkey", 1, 0, 1, FKEY_SIZE, "F7", "WINDOW", nil },
   { "f3", "F3", "fkey", 2, 0, 1, FKEY_SIZE, "F8", "GRAPH", nil },
@@ -77,7 +77,7 @@ local KEYS = {
   { "backspace", "bs", "fn", 3, 3.95, 1, 1, "INS", "DEL", nil }, -- face = ←
   { "clear", "CLEAR", "fn", 4, 3.95, 1, 1, nil, nil, nil },
 
-  -- X Y Z T ^  (ASCII legends — no superscript / Greek tofu)
+  -- X Y Z T ^  (ASCII legends - no superscript / Greek tofu)
   { "x", "X", "fn", 0, 3.95 + PITCH, 1, 1, "LN", "e^x", nil },
   { "y", "Y", "fn", 1, 3.95 + PITCH, 1, 1, "SIN", "SIN-1", nil },
   { "z", "Z", "fn", 2, 3.95 + PITCH, 1, 1, "COS", "COS-1", nil },
@@ -477,7 +477,7 @@ function Keypad:draw()
       local lw = b.legend_w or b.w
       -- No per-key legend wipe: plate already fills the strip; legends may overlap.
       if b.style == "fkey" then
-        -- F-row: 2nd (F6–F8) inset-left; diamond right on F1–F3, centered on F4–F5
+        -- F-row: 2nd (F6-F8) inset-left; diamond right on F1-F3, centered on F4-F5
         local inset = lw * 0.12
         if b.second then
           draw_label(legend_font, b.second, lx + inset, b.legend_y, lw * 0.40, b.legend_h,

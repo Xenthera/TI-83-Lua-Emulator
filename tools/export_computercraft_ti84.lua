@@ -29,7 +29,7 @@ if dir and dir ~= "" then
   if package.config:sub(1, 1) == "\\" then
     os.execute(string.format('mkdir "%s" 2>nul', dir:gsub("/", "\\")))
   else
-    os.execute(string.format('mkdir -p "%s" 2>/dev/null', dir))
+    os.execute(string.format('mkdir - p "%s" 2>/dev/null', dir))
   end
 end
 
@@ -65,7 +65,7 @@ end
 io.stdout:write("wrote " .. out .. "  (monolith)\n")
 io.stdout:write("\nOn the CC computer you need:\n")
 io.stdout:write("  1) ti84_cc.lua   (from dist/ti84_cc.lua)\n")
-io.stdout:write("  2) ti84plus.rom (or ti84p.rom / ti84.rom) — 1MB dump\n")
+io.stdout:write("  2) ti84plus.rom (or ti84p.rom / ti84.rom) - 1MB dump\n")
 io.stdout:write("  3) one+ advanced monitors (LCD/PAD/MEM/OFF per monitor)\n")
 io.stdout:write("  4) optional .8xk / .8xp files\n")
 io.stdout:write("Then run:\n")

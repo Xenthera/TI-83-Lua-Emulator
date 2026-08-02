@@ -20,7 +20,7 @@ local function which(cmd)
   if is_windows() then
     probe = 'where "' .. cmd .. '" 2>nul'
   else
-    probe = 'command -v "' .. cmd .. '" 2>/dev/null'
+    probe = 'command - v "' .. cmd .. '" 2>/dev/null'
   end
   local h = io.popen(probe)
   if not h then return nil end
@@ -34,7 +34,7 @@ end
 
 local function install_hint()
   if is_windows() then
-    return "Run: powershell -ExecutionPolicy Bypass -File tools\\install_rabbitsign.ps1"
+    return "Run: powershell - ExecutionPolicy Bypass - File tools\\install_rabbitsign.ps1"
   end
   return "Run: sh tools/install_rabbitsign.sh"
 end
@@ -98,7 +98,7 @@ local function ensure_dir(path)
     local win = path:gsub("/", "\\")
     os.execute("mkdir " .. shell_quote(win) .. " 2>nul")
   else
-    os.execute("mkdir -p " .. shell_quote(path))
+    os.execute("mkdir - p " .. shell_quote(path))
   end
 end
 

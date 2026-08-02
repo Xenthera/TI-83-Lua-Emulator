@@ -1,6 +1,6 @@
 -- Minimal SBI (Supervisor Binary Interface) served from M-mode.
 --
--- Linux does not program the CLINT directly for timers once up —
+-- Linux does not program the CLINT directly for timers once up -
 -- it ecalls into firmware: a7=extension, a6=function, a0..a5=args.
 -- We implement enough for early bring-up (not full OpenSBI).
 

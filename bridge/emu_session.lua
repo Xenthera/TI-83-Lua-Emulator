@@ -27,6 +27,10 @@ local FACTORIES = {
     return require("machines.gameboy.machine").new(),
       require("machines.gameboy.hw.ppu")
   end,
+  nes = function()
+    return require("machines.nes.machine").new(),
+      require("machines.nes.hw.ppu")
+  end,
 }
 
 function M.run(opts)
@@ -52,7 +56,7 @@ function M.run(opts)
   local machine = factory()
   local rom_path = opts.rom
   local rom_name = nil
-  local save_dir = opts.save_dir or "saves/gameboy"
+  local save_dir = opts.save_dir or ("saves/" .. machine_id)
   if rom_path and rom_path ~= "" then
     local ok, err = machine:load_rom_file(rom_path)
     if not ok then
@@ -63,8 +67,8 @@ function M.run(opts)
       print("cart save loaded: " .. tostring(machine.save_path))
       io.stdout:flush()
     end
-  elseif machine_id ~= "gameboy" then
-    return nil, "--rom PATH required (optional only for gameboy)"
+  elseif machine_id ~= "gameboy" and machine_id ~= "nes" then
+    return nil, "--rom PATH required (optional only for gameboy/nes)"
   end
   machine:reset()
 
@@ -215,8 +219,8 @@ function M.run(opts)
   end
 
   --- Drain APU into audio_pending; emit full chunks over WS (not tied to LCD).
-  -- Video coalesces to the newest frame — keep audio near "now" by dropping
-  -- oldest samples when the ring / pending queue grows past ~100–200 ms.
+  -- Video coalesces to the newest frame - keep audio near "now" by dropping
+  -- oldest samples when the ring / pending queue grows past ~100-200 ms.
   local function flush_audio_chunks(force)
     if not AudioPcm or not machine.apu or hold_frames then return end
     local pending = machine.apu:samples_pending()
@@ -288,30 +292,33 @@ function M.run(opts)
   end
 
   local function finish_rom_upload(client, data, name)
-    if machine_id ~= "gameboy" then
-      send_msg(client, Protocol.error_msg("load_rom: only supported for gameboy"))
+    if machine_id ~= "gameboy" and machine_id ~= "nes" then
+      send_msg(client, Protocol.error_msg("load_rom: only supported for gameboy/nes"))
       return
     end
-    if type(data) ~= "string" or #data < 0x150 then
+    local min_sz = (machine_id == "nes") and 16 or 0x150
+    if type(data) ~= "string" or #data < min_sz then
       send_msg(client, Protocol.error_msg("load_rom: cart too small"))
       return
     end
-    -- Basename-only uploads store .sav under saves/gameboy/ (ROM stays read-only).
+    local default_name = (machine_id == "nes") and "cart.nes" or "cart.gb"
+    -- Basename-only uploads store .sav under saves/<machine>/ (ROM stays read-only).
     local ok, err = machine:load_rom_bytes(data, {
-      path = name or rom_name or "cart.gb",
+      path = name or rom_name or default_name,
       save_dir = save_dir,
     })
     if not ok then
       send_msg(client, Protocol.error_msg("load_rom: " .. tostring(err or "failed")))
       return
     end
-    rom_name = name or rom_name or "cart.gb"
+    rom_name = name or rom_name or default_name
     rom_path = rom_name
     held_keys = {}
     pending_tap = nil
     machine:reset()
     reset_throttle_clock()
-    local title = gb_cart_title(data)
+    local title = (machine_id == "gameboy") and gb_cart_title(data)
+      or (machine.rom_data and machine.rom_data.title)
     Status.newline()
     print(string.format(
       "ROM loaded via WS  name=%s  size=%d%s%s",
@@ -491,15 +498,16 @@ function M.run(opts)
         tostring(msg.name or "?"), tostring(msg.size or "?")))
       io.stdout:flush()
     elseif t == "load_rom" then
-      if machine_id ~= "gameboy" then
-        send_msg(client, Protocol.error_msg("load_rom: only supported for gameboy"))
+      if machine_id ~= "gameboy" and machine_id ~= "nes" then
+        send_msg(client, Protocol.error_msg("load_rom: only supported for gameboy/nes"))
         return
       end
       local B64 = require("bridge.b64")
       local i = tonumber(msg.i) or 0
       local n = tonumber(msg.n) or 1
       local size = tonumber(msg.size) or 0
-      local name = msg.name and tostring(msg.name) or "cart.gb"
+      local name = msg.name and tostring(msg.name)
+        or ((machine_id == "nes") and "cart.nes" or "cart.gb")
       if n < 1 or i < 0 or i >= n then
         send_msg(client, Protocol.error_msg("load_rom: bad chunk index"))
         return

@@ -1,5 +1,5 @@
 -- TI-92 Plus LCD: physical panel = full logical VRAM 240×128 (30 bytes/row).
--- Same HW2 ASIC snoop window as TI-89 ($4C00–$5BFF default); glass shows all of it.
+-- Same HW2 ASIC snoop window as TI-89 ($4C00-$5BFF default); glass shows all of it.
 
 local bit = require("framework.util.bit")
 local band = bit.band
@@ -25,7 +25,7 @@ function Lcd.new()
   self.base = 0x4C00
   self.snoop_sel = 0
   self.snoop_base = 0x4C00
-  -- $600012/$013 reset → 240×128
+  -- $600012/$013 reset -> 240×128
   self.width_reg = 0x31
   self.height_reg = 0x80
   self.contrast = 0xFF

@@ -369,7 +369,7 @@ function M:draw()
   local mw, mh = mon.getSize()
   local body = C.black
   local fkey_bg = C.black
-  -- Love legend2 / legendd / legend_alpha → CC lightBlue / lime / white.
+  -- Love legend2 / legendd / legend_alpha -> CC lightBlue / lime / white.
   local second_fg = C.lightBlue or C.cyan
   local diamond_fg = C.lime or C.green
   local alpha_fg = C.white
@@ -394,7 +394,7 @@ function M:draw()
       end
       fill_rect(mon, lx0, y, lx1, y, bg)
 
-      -- F-row: 2nd (F6–F8) left lightBlue; diamond (Y=/WINDOW/…) right lime.
+      -- F-row: 2nd (F6-F8) left lightBlue; diamond (Y=/WINDOW/...) right lime.
       if b.fkey then
         local left = short_legend(b.second, math.max(1, width - 1))
         local right = short_legend(b.diamond, math.max(1, width - 1))
