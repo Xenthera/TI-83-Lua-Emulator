@@ -57,7 +57,7 @@ Runtime libs: `asm/lib/lcd.asm`, `asm/lib/text.asm`, `asm/lib/gfx.asm`, `asm/fon
 love frontends/love2d
 ```
 
-Toolbar switches **TI-83+**, **TI-84+**, **TI-89 Titanium**, and **TI-92 Plus** (QWERTY / 240×128). Place `rom/ti84plus.rom` (1MB) for 84+, or `rom/ti92plus.rom` / `.9xu` for 92+.
+Startup shows a **pixel launcher** that scans `machines/*/machine.lua` (and catalogs `cpus/`). Pick a machine to open the IDE; **Esc** or **Home** returns to the launcher. Place `rom/ti84plus.rom` (1MB) for 84+, or `rom/ti92plus.rom` / `.9xu` for 92+; Game Boy / NES carts under `rom/gb/` and `rom/nes/`.
 
 The frontend is a small IDE:
 
@@ -69,6 +69,30 @@ The frontend is a small IDE:
 - **LCD panel** - click it to send keypad keys; click the editor to type code
 
 Console at the bottom shows build errors and status.
+
+## Portable packages (Love2D)
+
+One command builds a runnable folder: fused/wrapped Love host **plus** mirrored sidecar trees (`machines/`, `cpus/`, `framework/`, `ui/`, `lang/`, `asm/`, `stdlib/`, `projects/`, `rom/`, `saves/`) next to the host. No hand-built layout.
+
+**Windows**
+
+```bat
+tools\package_love.cmd
+```
+
+Output: `dist/windows/RetroStudio/` — run `RetroStudio.exe`.
+
+**Linux / macOS**
+
+```bash
+./tools/package_love.sh          # auto-detect
+./tools/package_love.sh linux
+./tools/package_love.sh macos
+```
+
+Outputs: `dist/linux/RetroStudio/run.sh` or `dist/macos/RetroStudio/RetroStudio.app` (sidecar dirs sit beside the `.app`).
+
+Love 11.5 runtimes download once into `tools/love/` (gitignored). Drop a new machine under repo `machines/<id>/` (with `machine.lua`) and re-run the packager, or copy it into the staged `machines/` folder for a local test.
 
 ## Tests
 

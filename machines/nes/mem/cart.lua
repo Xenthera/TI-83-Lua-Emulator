@@ -298,7 +298,10 @@ function Cart:_mmc3_write(addr, v)
   elseif reg == 0xE000 then
     self.mmc3_irq_enabled = false
     self.mmc3_irq_pending = false
-    if self.cpu then self.cpu.irq = false end
+    if self.cpu then
+      self.cpu.mapper_irq = false
+      self.cpu.irq = not not self.cpu.apu_irq
+    end
   elseif reg == 0xE001 then
     self.mmc3_irq_enabled = true
   end
@@ -324,7 +327,10 @@ function Cart:_mmc3_clock_irq()
   end
   if self.mmc3_irq_counter == 0 and self.mmc3_irq_enabled then
     self.mmc3_irq_pending = true
-    if self.cpu then self.cpu.irq = true end
+    if self.cpu then
+      self.cpu.mapper_irq = true
+      self.cpu.irq = true
+    end
   end
 end
 

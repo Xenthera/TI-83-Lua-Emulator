@@ -355,6 +355,7 @@ function Ide.new(root)
   self.keypad_ui = self:_make_keypad("ti83plus")
   self.panel_editor = nil
   self.on_select_machine = nil -- set by main.lua: function(id)
+  self.on_home = nil -- set by main.lua: return to machine launcher
   self.focus = "editor" -- editor | docs | lcd | console | mem | gate_hz
   self.project_dir = nil
   self.project = nil
@@ -393,11 +394,12 @@ end
 function Ide:rom_open_profile()
   local id = self.machine_id or "ti83plus"
   local root = self.root or "."
+  -- Filters are machine-specific only (no "All files") so browse stays typed.
   if id == "gameboy" then
     return {
       title = "Load Game Boy ROM",
       prompt = "Load Game Boy cart (.gb)",
-      filter_win = "Game Boy ROMs (*.gb)|*.gb;*.GB|All files (*.*)|*.*",
+      filter_win = "Game Boy ROMs (*.gb)|*.gb;*.GB",
       filter_zenity = "Game Boy ROMs | *.gb *.GB",
       mac_types = '{"gb","GB","public.data"}',
       default_ext = "gb",
@@ -408,7 +410,7 @@ function Ide:rom_open_profile()
     return {
       title = "Load NES ROM",
       prompt = "Load NES cart (.nes)",
-      filter_win = "NES ROMs (*.nes)|*.nes;*.NES|All files (*.*)|*.*",
+      filter_win = "NES ROMs (*.nes)|*.nes;*.NES",
       filter_zenity = "NES ROMs | *.nes *.NES",
       mac_types = '{"nes","NES","public.data"}',
       default_ext = "nes",
@@ -419,7 +421,7 @@ function Ide:rom_open_profile()
     return {
       title = "Load RV64 firmware",
       prompt = "Load RV64 firmware (.bin)",
-      filter_win = "RV64 firmware (*.bin)|*.bin;*.BIN|All files (*.*)|*.*",
+      filter_win = "RV64 firmware (*.bin)|*.bin;*.BIN",
       filter_zenity = "RV64 firmware | *.bin *.BIN",
       mac_types = '{"bin","BIN","public.data"}',
       default_ext = "bin",
@@ -430,7 +432,7 @@ function Ide:rom_open_profile()
     return {
       title = "Load TI-89 ROM / OS",
       prompt = "Load TI-89 ROM or OS (.89u / .tib / .rom)",
-      filter_win = "TI-89 OS/ROM (*.89u;*.tib;*.rom;*.bin)|*.89u;*.89U;*.tib;*.TIB;*.rom;*.bin|All files (*.*)|*.*",
+      filter_win = "TI-89 OS/ROM (*.89u;*.tib;*.rom;*.bin)|*.89u;*.89U;*.tib;*.TIB;*.rom;*.ROM;*.bin;*.BIN",
       filter_zenity = "TI-89 OS/ROM | *.89u *.tib *.rom *.bin",
       mac_types = '{"89u","89U","tib","TIB","rom","bin","public.data"}',
       default_ext = "89u",
@@ -441,7 +443,7 @@ function Ide:rom_open_profile()
     return {
       title = "Load TI-92+ ROM / OS",
       prompt = "Load TI-92+ ROM or OS (.9xu / .tib / .rom)",
-      filter_win = "TI-92+ OS/ROM (*.9xu;*.tib;*.rom;*.bin)|*.9xu;*.9XU;*.tib;*.TIB;*.rom;*.bin|All files (*.*)|*.*",
+      filter_win = "TI-92+ OS/ROM (*.9xu;*.tib;*.rom;*.bin)|*.9xu;*.9XU;*.tib;*.TIB;*.rom;*.ROM;*.bin;*.BIN",
       filter_zenity = "TI-92+ OS/ROM | *.9xu *.tib *.rom *.bin",
       mac_types = '{"9xu","9XU","tib","TIB","rom","bin","public.data"}',
       default_ext = "9xu",
@@ -452,7 +454,7 @@ function Ide:rom_open_profile()
     return {
       title = "Load TI-84+ ROM",
       prompt = "Load TI-84 Plus ROM (.rom / .bin)",
-      filter_win = "TI-84+ ROMs (*.rom;*.bin)|*.rom;*.bin|All files (*.*)|*.*",
+      filter_win = "TI-84+ ROMs (*.rom;*.bin)|*.rom;*.ROM;*.bin;*.BIN",
       filter_zenity = "TI-84+ ROMs | *.rom *.bin",
       mac_types = '{"rom","bin","public.data"}',
       default_ext = "rom",
@@ -463,7 +465,7 @@ function Ide:rom_open_profile()
   return {
     title = "Load TI-83+ ROM",
     prompt = "Load TI-83 Plus ROM (.rom / .bin)",
-    filter_win = "TI-83+ ROMs (*.rom;*.bin)|*.rom;*.bin|All files (*.*)|*.*",
+    filter_win = "TI-83+ ROMs (*.rom;*.bin)|*.rom;*.ROM;*.bin;*.BIN",
     filter_zenity = "TI-83+ ROMs | *.rom *.bin",
     mac_types = '{"rom","bin","public.data"}',
     default_ext = "rom",
@@ -1235,17 +1237,12 @@ function Ide:layout(ww, wh)
     })
   end
 
-  -- Calculator column (right): machine select + run controls on row 1
+  -- Calculator column (right): home to launcher + run controls on row 1
   local calc_x = self.calc_rect.x + 8
   local mid = self.machine_id or "ti83plus"
   calc_x = add_group("Machine", m.row1_btn_y, m.row1_label_y, calc_x, {
-    { "mach_83", "TI-83+", mid == "ti83plus" and "seg_on" or "seg" },
-    { "mach_84", "TI-84+", mid == "ti84plus" and "seg_on" or "seg" },
-    { "mach_89", "TI-89 Ti", mid == "ti89" and "seg_on" or "seg" },
-    { "mach_92", "TI-92+", mid == "ti92plus" and "seg_on" or "seg" },
-    { "mach_rv", "RV64", mid == "riscv64" and "seg_on" or "seg" },
-    { "mach_gb", "GB", mid == "gameboy" and "seg_on" or "seg" },
-    { "mach_nes", "NES", mid == "nes" and "seg_on" or "seg" },
+    { "home", "Home" },
+    { "mach_label", mid, "disabled" },
   })
   calc_x = add_group("Run", m.row1_btn_y, m.row1_label_y, calc_x, {
     { "play", self.running and "Pause" or "Play" },
@@ -2150,40 +2147,12 @@ function Ide:mousepressed(mx, my, machine, on_loaded)
   elseif id == "load_grp" then
     self:load_grp(machine, on_loaded)
     return true
-  elseif id == "mach_83" then
-    if self.on_select_machine then
-      self.on_select_machine("ti83plus")
+  elseif id == "home" then
+    if self.on_home then
+      self.on_home()
     end
     return true
-  elseif id == "mach_84" then
-    if self.on_select_machine then
-      self.on_select_machine("ti84plus")
-    end
-    return true
-  elseif id == "mach_89" then
-    if self.on_select_machine then
-      self.on_select_machine("ti89")
-    end
-    return true
-  elseif id == "mach_92" then
-    if self.on_select_machine then
-      self.on_select_machine("ti92plus")
-    end
-    return true
-  elseif id == "mach_rv" then
-    if self.on_select_machine then
-      self.on_select_machine("riscv64")
-    end
-    return true
-  elseif id == "mach_gb" then
-    if self.on_select_machine then
-      self.on_select_machine("gameboy")
-    end
-    return true
-  elseif id == "mach_nes" then
-    if self.on_select_machine then
-      self.on_select_machine("nes")
-    end
+  elseif id == "mach_label" then
     return true
   elseif id == "panel" then
     if self.machine_id == "riscv64" then

@@ -1,12 +1,20 @@
 -- NES APU (2A03): pulse1/2, triangle, noise, DMC + frame counter.
 -- Batched tick (frame seq + sample edges); mono float samples at SAMPLE_RATE.
+--
+-- synth modes (same CPU regs / envelopes / IRQ):
+--   "classic" - hardware-faithful sequencers + nesdev mix (default)
+--   "hq"      - PolyBLEP / smooth modern render (machines.nes.hw.apu_hq)
 
 local bit = require("framework.util.bit")
 local band, bor, bxor, lshift, rshift = bit.band, bit.bor, bit.bxor, bit.lshift, bit.rshift
+local Hq = require("machines.nes.hw.apu_hq")
 
 local Apu = {}
 Apu.__index = Apu
-Apu.SAMPLE_RATE = 44100
+Apu.SYNTH_CLASSIC = "classic"
+Apu.SYNTH_HQ = "hq"
+-- Match CC speaker / bridge PCM rate so pulses aren't resampled (avoids crush).
+Apu.SAMPLE_RATE = 48000
 
 local CPU_HZ = 1789773
 local CYCLES_PER_SAMPLE = CPU_HZ / Apu.SAMPLE_RATE
@@ -68,8 +76,11 @@ local function make_noise()
   }
 end
 
-function Apu.new()
-  return setmetatable({
+function Apu.new(opts)
+  opts = opts or {}
+  local synth = opts.synth or Apu.SYNTH_CLASSIC
+  if synth ~= Apu.SYNTH_HQ then synth = Apu.SYNTH_CLASSIC end
+  local self = setmetatable({
     pulse1 = make_pulse(),
     pulse2 = make_pulse(),
     triangle = make_triangle(),
@@ -82,7 +93,8 @@ function Apu.new()
       silence = true, shift = 0, output = 0, irq = false,
     },
     frame_mode = 0,
-    frame_irq_inhibit = false,
+    -- RP2A03G (NES): frame IRQ inhibited after reset until $4017 enables it.
+    frame_irq_inhibit = true,
     frame_irq = false,
     frame_step = 0,
     frame_timer = FRAME4[1],
@@ -91,14 +103,41 @@ function Apu.new()
     sample_r = 1,
     sample_w = 1,
     sample_count = 0,
-    sample_cap = Apu.SAMPLE_RATE,
+    sample_cap = Apu.SAMPLE_RATE * 2,
     _debt = 0,
+    _dc = 0,
+    -- Pulse/noise/DMC timers clock on APU cycles (every 2nd CPU cycle).
+    _apu_odd = 0,
+    synth = synth,
+    _hq = nil,
     cpu = nil,
   }, Apu)
+  if synth == Apu.SYNTH_HQ then
+    self._hq = Hq.new_state()
+  end
+  return self
 end
 
 function Apu:set_cpu(cpu)
   self.cpu = cpu
+end
+
+--- Level-sensitive APU IRQ contribution (CPU ORs with mapper_irq).
+function Apu:_update_irq_line()
+  local cpu = self.cpu
+  if not cpu then return end
+  cpu.apu_irq = self.frame_irq or self.dmc.irq
+  cpu.irq = cpu.apu_irq or not not cpu.mapper_irq
+end
+
+--- Switch render path at runtime: "classic" | "hq".
+function Apu:set_synth(mode)
+  if mode == Apu.SYNTH_HQ then
+    self.synth = Apu.SYNTH_HQ
+    if not self._hq then self._hq = Hq.new_state() end
+  else
+    self.synth = Apu.SYNTH_CLASSIC
+  end
 end
 
 function Apu:reset()
@@ -111,13 +150,20 @@ function Apu:reset()
   d.bytes_remaining, d.bits_remaining = 0, 0
   d.sample_buffer_empty, d.silence = true, true
   d.output, d.timer = 0, 0
-  self.frame_mode, self.frame_irq_inhibit, self.frame_irq = 0, false, false
+  self.frame_mode, self.frame_irq_inhibit, self.frame_irq = 0, true, false
   self.frame_step, self.frame_timer = 0, FRAME4[1]
   self.sample_timer = 0
   self.samples = {}
   self.sample_r, self.sample_w, self.sample_count = 1, 1, 0
   self._debt = 0
+  self._dc = 0
+  self._apu_odd = 0
   self.noise.shift = 1
+  -- Do not touch mapper_irq — MMC3 owns that line.
+  self:_update_irq_line()
+  if self.synth == Apu.SYNTH_HQ then
+    Hq.reset(self)
+  end
 end
 
 function Apu:owe(c)
@@ -220,7 +266,7 @@ function Apu:_do_frame_step()
       self:_half_frame()
       if not self.frame_irq_inhibit then
         self.frame_irq = true
-        if self.cpu then self.cpu.irq = true end
+        self:_update_irq_line()
       end
     end
     self.frame_step = (step + 1) % 4
@@ -304,7 +350,7 @@ function Apu:_dmc_fill_sample()
       d.bytes_remaining = d.length
     elseif d.irq_enable then
       d.irq = true
-      if cpu then cpu.irq = true end
+      self:_update_irq_line()
     end
   end
 end
@@ -373,28 +419,54 @@ local function mix(p1, p2, tri, noi, dmc)
   local tnd = 0
   local t = tri / 8227 + noi / 12241 + dmc / 22638
   if t > 0 then tnd = 159.79 / ((1 / t) + 100) end
-  local s = (pulse_out_v + tnd) * 1.5
-  if s > 1 then s = 1 end
-  return s
+  return pulse_out_v + tnd
+end
+
+-- Slow DC estimate so pulse plateaus stay loud; soft-limit (no hard clip crush).
+local DC_R = 0.9996
+local DC_G = 1.0 - DC_R
+-- nesdev mix is ~0..1; after DC removal peaks are small — modest gain, not crush.
+local OUT_GAIN = 2.2
+
+local function soft_clip(x)
+  -- Soft-knee: avoid hard s8 clipping / bitcrush character.
+  local a = x
+  if a < 0 then a = -a end
+  local y = x / (1 + 0.22 * a)
+  if y > 0.98 then return 0.98 end
+  if y < -0.98 then return -0.98 end
+  return y
 end
 
 function Apu:_push_sample(s)
+  -- nesdev mix is unipolar ~0..1; remove slow DC then soft-limit to ~-1..1.
+  local dc = (self._dc or 0) * DC_R + s * DC_G
+  self._dc = dc
+  local out = soft_clip((s - dc) * OUT_GAIN)
+
   if self.sample_count >= self.sample_cap then
     self.sample_r = self.sample_r % self.sample_cap + 1
     self.sample_count = self.sample_count - 1
   end
-  self.samples[self.sample_w] = s
+  self.samples[self.sample_w] = out
   self.sample_w = self.sample_w % self.sample_cap + 1
   self.sample_count = self.sample_count + 1
 end
 
 function Apu:_advance_channels(n)
   if n <= 0 then return end
-  advance_pulse(self.pulse1, n)
-  advance_pulse(self.pulse2, n)
+  -- Triangle + DMC timers use CPU-cycle periods (nesdev DMC_RATE is CPU cycles).
+  -- Pulse/noise timers are APU-clocked (every 2nd CPU cycle).
   advance_triangle(self.triangle, n)
-  advance_noise(self.noise, n)
   advance_dmc(self, n)
+  local odd = self._apu_odd or 0
+  local apu_clocks = math.floor((n + odd) / 2)
+  self._apu_odd = (n + odd) % 2
+  if apu_clocks > 0 then
+    advance_pulse(self.pulse1, apu_clocks)
+    advance_pulse(self.pulse2, apu_clocks)
+    advance_noise(self.noise, apu_clocks)
+  end
 end
 
 function Apu:tick(cycles)
@@ -419,11 +491,18 @@ function Apu:tick(cycles)
     end
     if self.sample_timer >= CYCLES_PER_SAMPLE then
       self.sample_timer = self.sample_timer - CYCLES_PER_SAMPLE
-      self:_push_sample(mix(
-        pulse_out(self.pulse1), pulse_out(self.pulse2),
-        triangle_out(self.triangle), noise_out(self.noise),
-        self.dmc.output
-      ))
+      local s
+      if self.synth == Apu.SYNTH_HQ then
+        -- HQ advances its own phases by the cycles since last sample edge.
+        s = Hq.mix(self, CYCLES_PER_SAMPLE)
+      else
+        s = mix(
+          pulse_out(self.pulse1), pulse_out(self.pulse2),
+          triangle_out(self.triangle), noise_out(self.noise),
+          self.dmc.output
+        )
+      end
+      self:_push_sample(s)
     end
   end
 end
@@ -496,7 +575,10 @@ function Apu:write(addr, v)
     d.loop = band(v, 0x40) ~= 0
     d.rate_index = band(v, 0x0F)
     d.timer_period = DMC_RATE[d.rate_index] or 428
-    if not d.irq_enable then d.irq = false end
+    if not d.irq_enable then
+      d.irq = false
+      self:_update_irq_line()
+    end
   elseif addr == 0x4011 then
     self.dmc.output = band(v, 0x7F)
   elseif addr == 0x4012 then
@@ -525,6 +607,7 @@ function Apu:write(addr, v)
       d.bytes_remaining = 0
     end
     d.irq = false
+    self:_update_irq_line()
   elseif addr == 0x4017 then
     self.frame_mode = band(v, 0x80) ~= 0 and 1 or 0
     self.frame_irq_inhibit = band(v, 0x40) ~= 0
@@ -535,6 +618,7 @@ function Apu:write(addr, v)
       self:_quarter_frame()
       self:_half_frame()
     end
+    self:_update_irq_line()
   end
 end
 
@@ -551,6 +635,7 @@ function Apu:read(addr)
   if self.frame_irq then v = bor(v, 0x40) end
   if self.dmc.irq then v = bor(v, 0x80) end
   self.frame_irq = false
+  self:_update_irq_line()
   return v
 end
 

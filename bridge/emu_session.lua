@@ -27,8 +27,8 @@ local FACTORIES = {
     return require("machines.gameboy.machine").new(),
       require("machines.gameboy.hw.ppu")
   end,
-  nes = function()
-    return require("machines.nes.machine").new(),
+  nes = function(opts)
+    return require("machines.nes.machine").new(opts or {}),
       require("machines.nes.hw.ppu")
   end,
 }
@@ -53,7 +53,7 @@ function M.run(opts)
   end
   local socket = sock_or_err
 
-  local machine = factory()
+  local machine = factory(opts)
   local rom_path = opts.rom
   local rom_name = nil
   local save_dir = opts.save_dir or ("saves/" .. machine_id)
@@ -108,6 +108,12 @@ function M.run(opts)
   local target_hz = cpu_hz * speed
   -- Drop catch-up beyond 100ms (same window as Love2D).
   local max_lag_cycles = math.floor(target_hz * 0.1)
+
+  if machine_id == "nes" and machine.apu then
+    print("NES APU synth: " .. tostring(machine.apu.synth or "classic")
+      .. "  (--apu-hq / --apu classic|hq)")
+    io.stdout:flush()
+  end
 
   Status.print_banner({
     machine = machine_id,
@@ -204,9 +210,13 @@ function M.run(opts)
   local audio_chunk = 0
   local audio_pending = "" -- accumulated s8 PCM waiting for a full chunk
   local audio_seq = 0
-  if machine_id == "gameboy" and machine.apu then
+  if (machine_id == "gameboy" or machine_id == "nes") and machine.apu then
     AudioPcm = require("bridge.audio_pcm")
-    apu_rate = machine.apu.SAMPLE_RATE or require("machines.gameboy.hw.apu").SAMPLE_RATE
+    if machine_id == "nes" then
+      apu_rate = machine.apu.SAMPLE_RATE or require("machines.nes.hw.apu").SAMPLE_RATE
+    else
+      apu_rate = machine.apu.SAMPLE_RATE or require("machines.gameboy.hw.apu").SAMPLE_RATE
+    end
     audio_chunk = AudioPcm.CHUNK_SAMPLES or 8000
   end
 
@@ -219,14 +229,14 @@ function M.run(opts)
   end
 
   --- Drain APU into audio_pending; emit full chunks over WS (not tied to LCD).
-  -- Video coalesces to the newest frame - keep audio near "now" by dropping
-  -- oldest samples when the ring / pending queue grows past ~100-200 ms.
+  -- Prefer continuous realtime playback over aggressive drop/catch-up (that
+  -- sounds like sped-up audio with pauses when the CC speaker underruns).
   local function flush_audio_chunks(force)
     if not AudioPcm or not machine.apu or hold_frames then return end
     local pending = machine.apu:samples_pending()
     if pending > 0 then
-      -- Discard anything older than ~80 ms so audio tracks the latest LCD.
-      local max_keep = math.floor(apu_rate * 0.08)
+      -- Soft cap ~200 ms in the APU ring (only drop on large backlog).
+      local max_keep = math.floor(apu_rate * 0.20)
       if pending > max_keep then
         machine.apu:drain_samples(pending - max_keep) -- drop oldest
         pending = max_keep
@@ -239,8 +249,7 @@ function M.run(opts)
         end
       end
     end
-    local max_pend = AudioPcm.MAX_PENDING_BYTES or (audio_chunk * 4)
-    -- Trim oldest pending bytes if the client isn't draining WS fast enough.
+    local max_pend = AudioPcm.MAX_PENDING_BYTES or (audio_chunk * 3)
     if #audio_pending > max_pend then
       local drop = #audio_pending - max_pend
       drop = drop - (drop % math.max(1, audio_chunk))
@@ -260,7 +269,6 @@ function M.run(opts)
       broadcast_audio_bin(Protocol.audio_binary(audio_seq, AudioPcm.SPEAKER_RATE, audio_pending))
       audio_pending = ""
     end
-    -- Never skip LCD for audio: we drop oldest PCM to stay in sync instead.
     return false
   end
 

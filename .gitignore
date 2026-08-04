@@ -20,6 +20,7 @@ ti83_prefs_test.tmp
 tools/bin/*
 !tools/bin/.gitkeep
 tools/luajit/
+tools/love/
 tools/nes-test-roms/
 tools/_nes_rom_list.txt
 

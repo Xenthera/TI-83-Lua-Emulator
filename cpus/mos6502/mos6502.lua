@@ -27,6 +27,8 @@ function CPU:reset_regs()
   self.stall = 0
   self.nmi = false
   self.irq = false
+  self.apu_irq = false
+  self.mapper_irq = false
   self.nmi_edge = false
   self.nmi_defer_once = false
   self._cy = 0 -- cycles so far in current step()

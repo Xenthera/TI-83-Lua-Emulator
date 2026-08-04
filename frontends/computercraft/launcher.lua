@@ -13,6 +13,8 @@
 --     gb_cc.lua
 --     gb_gpu_cc.lua
 --     gb_gpu_cc_ws.lua
+--     nes_cc.lua
+--     nes_cc_ws.lua
 --
 -- Naming: {id}[_gpu]_cc[_ws].lua
 -- Run:  emu
@@ -24,6 +26,7 @@ local TITLES = {
   ti92 = "TI-92+",
   gb = "Game Boy",
   gameboy = "Game Boy",
+  nes = "NES",
 }
 
 local DEFAULT_ROM = {
@@ -33,9 +36,11 @@ local DEFAULT_ROM = {
   ti92 = "ti92p.rom",
   gb = "tetris.gb",
   gameboy = "tetris.gb",
+  nes = "game.nes",
 }
 
 --- File extensions offered by the ROM picker, keyed by machine id.
+--- Keep in sync with profile file_filter / Love2D rom_open_profile.
 local ROM_EXTS = {
   ti83 = { ".rom", ".bin" },
   ti84 = { ".rom", ".bin" },
@@ -43,6 +48,26 @@ local ROM_EXTS = {
   ti92 = { ".9xu", ".tib", ".rom", ".bin" },
   gb = { ".gb" },
   gameboy = { ".gb" },
+  nes = { ".nes" },
+  -- Full MACHINE_ID aliases (Love / bridge naming).
+  ti83plus = { ".rom", ".bin" },
+  ti84plus = { ".rom", ".bin" },
+  ti92plus = { ".9xu", ".tib", ".rom", ".bin" },
+  riscv64 = { ".bin" },
+}
+
+local ROM_PICK_TITLE = {
+  ti83 = "TI-83+ ROM",
+  ti84 = "TI-84+ ROM",
+  ti89 = "TI-89 ROM/OS",
+  ti92 = "TI-92+ ROM/OS",
+  gb = "Game Boy cart",
+  gameboy = "Game Boy cart",
+  nes = "NES cart",
+  ti83plus = "TI-83+ ROM",
+  ti84plus = "TI-84+ ROM",
+  ti92plus = "TI-92+ ROM/OS",
+  riscv64 = "RV64 firmware",
 }
 
 local DEFAULT_URL = "ws://127.0.0.1:8765"
@@ -328,8 +353,25 @@ local function hit_test(hits, x, y)
   return nil
 end
 
+local function rom_machine_id(machine_id)
+  local id = tostring(machine_id or "")
+  if ROM_EXTS[id] then return id end
+  -- Strip accidental suffixes if a full frontend stem is passed.
+  id = id:gsub("_gpu_ws$", ""):gsub("_ws$", ""):gsub("_gpu$", "")
+  if ROM_EXTS[id] then return id end
+  return id
+end
+
 local function rom_exts_for(machine_id)
-  return ROM_EXTS[machine_id] or { ".rom", ".bin", ".gb" }
+  local id = rom_machine_id(machine_id)
+  return ROM_EXTS[id] or { ".rom", ".bin" }
+end
+
+local function rom_pick_title(machine_id)
+  local id = rom_machine_id(machine_id)
+  local label = ROM_PICK_TITLE[id] or (TITLES[id] or id:upper())
+  local exts = rom_exts_for(id)
+  return "SELECT " .. tostring(label):upper() .. "  (" .. table.concat(exts, " ") .. ")"
 end
 
 local function match_rom_ext(name, exts)
@@ -419,9 +461,11 @@ local function wait_key(prompt)
 end
 
 --- Modal file picker with directory navigation.
+--- Only lists files matching the selected machine's ROM extensions.
 --- Returns a path (relative to computer root) or nil if cancelled.
 local function pick_rom_file(machine_id, current)
   local C = colors()
+  local mid = rom_machine_id(machine_id)
   local dir = program_dir()
   local focus_name = nil
   -- Open in the folder of the current selection when possible.
@@ -440,7 +484,7 @@ local function pick_rom_file(machine_id, current)
     end
   end
 
-  local entries, exts = list_rom_entries(dir, machine_id)
+  local entries, exts = list_rom_entries(dir, mid)
   local selected = 1
   for i, e in ipairs(entries) do
     if e.kind == "file" and (e.name == focus_name or e.path == current) then
@@ -450,9 +494,10 @@ local function pick_rom_file(machine_id, current)
   end
   local scroll = 0
   local hits = {}
+  local header = rom_pick_title(mid)
 
   local function reload(keep_name)
-    entries, exts = list_rom_entries(dir, machine_id)
+    entries, exts = list_rom_entries(dir, mid)
     selected = 1
     if keep_name then
       for i, e in ipairs(entries) do
@@ -483,12 +528,12 @@ local function pick_rom_file(machine_id, current)
     hits = {}
     term.setBackgroundColor(C.black)
     term.clear()
-    fill_row(1, w, C.gray, C.white, " SELECT ROM / CART")
+    fill_row(1, w, C.gray, C.white, " " .. header:sub(1, math.max(1, w - 11)))
     write_at(math.max(1, w - 9), 1, " Cancel ", C.white, C.red)
     hit_add(hits, w - 9, 1, w, 1, "cancel")
 
     local ext_s = table.concat(exts, " ")
-    local path_line = " " .. display_path(dir) .. "  [" .. ext_s .. "]"
+    local path_line = " " .. display_path(dir) .. "  only: " .. ext_s
     fill_row(2, w, C.black, C.lightGray, path_line)
     -- Click path header to go up one level (when not at root).
     if dir ~= "" then
@@ -504,9 +549,11 @@ local function pick_rom_file(machine_id, current)
       elseif e.kind == "dir" then dir_count = dir_count + 1 end
     end
 
-    if file_count == 0 and dir_count == 0 then
-      fill_row(list_top, w, C.black, C.red, " (no matching files here)")
-      fill_row(list_top + 1, w, C.black, C.lightGray, " Enter a folder or copy a ROM here.")
+    if file_count == 0 then
+      local hint = " (no " .. ext_s .. " files here)"
+      fill_row(list_top, w, C.black, C.red, hint)
+      fill_row(list_top + 1, w, C.black, C.lightGray,
+        " Open a folder or copy a matching ROM here.")
       list_top = list_top + 3
       list_h = math.max(1, list_bot - list_top + 1)
     end
@@ -635,8 +682,8 @@ local function launch_argv(group, want_gpu, want_ws, rom, url)
   if want_ws then
     argv[#argv + 1] = "--url"
     argv[#argv + 1] = (url and url ~= "") and url or DEFAULT_URL
-    -- Game Boy WS can upload a local cart to a ROM-less bridge.
-    if group.id == "gb" or group.id == "gameboy" then
+    -- GB / NES WS can upload a local cart to a ROM-less bridge.
+    if group.id == "gb" or group.id == "gameboy" or group.id == "nes" then
       local rom_path = resolve_rom(rom)
       if (not rom_path or rom_path == "") and DEFAULT_ROM[group.id] then
         rom_path = resolve_rom(DEFAULT_ROM[group.id])
@@ -716,7 +763,7 @@ local function launch(group, want_gpu, want_ws, rom, url)
   }
   if want_ws then
     opts.url = (url and url ~= "") and url or DEFAULT_URL
-    if group.id == "gb" or group.id == "gameboy" then
+    if group.id == "gb" or group.id == "gameboy" or group.id == "nes" then
       opts.rom = rom
       if not opts.rom or opts.rom == "" then
         opts.rom = DEFAULT_ROM[group.id]
@@ -913,7 +960,7 @@ local function run_ui()
     write_at(math.min(w - #vname, 28), y, vname, C.yellow, C.black)
 
     y = y + 1
-    local ws_rom = want_ws and g and (g.id == "gb" or g.id == "gameboy")
+    local ws_rom = want_ws and g and (g.id == "gb" or g.id == "gameboy" or g.id == "nes")
     if want_ws then
       local label = " URL: "
       fill_row(y, w, C.black, C.white, "")
@@ -927,6 +974,7 @@ local function run_ui()
       end
     end
     if (not want_ws) or ws_rom then
+      local exts = g and rom_exts_for(g.id) or { ".rom" }
       local label = want_ws and " CART: " or " ROM: "
       local browse = " [...] "
       fill_row(y, w, C.black, C.white, "")
@@ -939,6 +987,11 @@ local function run_ui()
       hit_add(hits, 1, y, #label + field_w, y, "edit_rom")
       write_at(#label + field_w + 1, y, browse, C.black, C.orange)
       hit_add(hits, #label + field_w + 1, y, #label + field_w + #browse, y, "browse_rom")
+      -- Tiny hint of accepted types on the next line when space allows.
+      if y + 1 < h - 4 then
+        y = y + 1
+        fill_row(y, w, C.black, C.gray, "  types: " .. table.concat(exts, " "))
+      end
     end
 
     y = y + 2
@@ -1140,7 +1193,7 @@ local function run_ui()
         end
       elseif key == keys.r then
         local g = current()
-        local ws_rom = want_ws and g and (g.id == "gb" or g.id == "gameboy")
+        local ws_rom = want_ws and g and (g.id == "gb" or g.id == "gameboy" or g.id == "nes")
         if (not want_ws) or ws_rom then
           local picked = pick_rom_file(g and g.id or "ti83", rom)
           if picked then

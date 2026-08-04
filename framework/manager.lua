@@ -1,15 +1,18 @@
 -- Emulator manager: register and create machines by id.
 
+local Discover = require("framework.discover")
+
 local Manager = {}
 Manager.__index = Manager
 
 local REGISTRY = {}
+local DISCOVERED = false
 
 function Manager.register(id, factory)
   REGISTRY[id] = factory
 end
 
-function Manager.list()
+local function registry_ids()
   local ids = {}
   for id in pairs(REGISTRY) do
     ids[#ids + 1] = id
@@ -18,15 +21,37 @@ function Manager.list()
   return ids
 end
 
-function Manager.create(id)
+function Manager.ensure_discovered(root)
+  if DISCOVERED and root == nil then
+    return registry_ids()
+  end
+  if root ~= nil then
+    for k in pairs(REGISTRY) do
+      REGISTRY[k] = nil
+    end
+  end
+  local ids = Discover.register_machines(Manager, root)
+  DISCOVERED = true
+  Manager._hardware = Discover.catalog_hardware(root or Discover.project_root(root))
+  return ids
+end
+
+function Manager.list()
+  Manager.ensure_discovered()
+  return registry_ids()
+end
+
+function Manager.create(id, opts)
+  Manager.ensure_discovered()
   local factory = REGISTRY[id]
   if not factory then
     return nil, "unknown machine: " .. tostring(id)
   end
-  return factory()
+  return factory(opts)
 end
 
 function Manager.new()
+  Manager.ensure_discovered()
   return setmetatable({
     current = nil,
     current_id = nil,
@@ -35,8 +60,8 @@ function Manager.new()
   }, Manager)
 end
 
-function Manager:select(id)
-  local m, err = Manager.create(id)
+function Manager:select(id, opts)
+  local m, err = Manager.create(id, opts)
   if not m then return nil, err end
   self.current = m
   self.current_id = id
@@ -65,27 +90,7 @@ function Manager:update(dt)
   return self.current:run_cycles(self.current:cycles_per_frame(60) * self.speed)
 end
 
--- Built-in registrations (lazy require).
-Manager.register("ti83plus", function()
-  return require("machines.ti83plus.machine").new()
-end)
-Manager.register("ti84plus", function()
-  return require("machines.ti84plus.machine").new()
-end)
-Manager.register("ti89", function()
-  return require("machines.ti89.machine").new()
-end)
-Manager.register("ti92plus", function()
-  return require("machines.ti92plus.machine").new()
-end)
-Manager.register("riscv64", function()
-  return require("machines.riscv64.machine").new()
-end)
-Manager.register("gameboy", function()
-  return require("machines.gameboy.machine").new()
-end)
-Manager.register("nes", function()
-  return require("machines.nes.machine").new()
-end)
+-- Discover machines from package.path / cwd at load (tests + tools).
+Manager.ensure_discovered()
 
 return Manager

@@ -76,11 +76,16 @@ function Machine.save_path_for(rom_path, opts)
   return sav_name
 end
 
-function Machine.new()
+function Machine.new(opts)
+  opts = opts or {}
   local self = setmetatable({}, Machine)
   self.cart = Cart.new()
   self.joypad = Joypad.new()
-  self.apu = Apu.new()
+  local apu_opts = opts.apu or {}
+  if type(opts.apu_synth) == "string" then
+    apu_opts = { synth = opts.apu_synth }
+  end
+  self.apu = Apu.new(apu_opts)
   self.ram = {}
   for i = 0, 0x7FF do self.ram[i] = 0 end
 

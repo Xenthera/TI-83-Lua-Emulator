@@ -69,11 +69,15 @@ function M.run(opts)
   local machine, err = Remote.connect(url, machine_id, opts)
   if not machine then return fail(err) end
 
-  -- Optional: upload a local cart/ROM to the bridge (Game Boy).
+  local cart_upload = (machine_id == "gameboy" or machine_id == "nes")
+  local cart_ext = (machine_id == "nes") and "%.nes$" or "%.gb$"
+  local cart_hint = (machine_id == "nes") and ".nes" or ".gb"
+
+  -- Optional: upload a local cart/ROM to the bridge (GB / NES).
   if opts.rom and opts.rom ~= "" then
-    if machine_id ~= "gameboy" then
+    if not cart_upload then
       machine:close()
-      return fail("--rom upload over WS is only supported for gameboy")
+      return fail("--rom upload over WS is only supported for gameboy/nes")
     end
     say("Reading ROM " .. tostring(opts.rom) .. " ...")
     local data, rerr = CC.read_file(opts.rom)
@@ -92,7 +96,7 @@ function M.run(opts)
   else
     -- Allow LCD frames (bridge holds them after hello until ready).
     machine:send_ready()
-    if machine_id == "gameboy" and not machine.rom_loaded then
+    if cart_upload and not machine.rom_loaded then
       say("Bridge has no cart yet -- start with --rom PATH to upload one.")
     end
   end
@@ -256,13 +260,13 @@ function M.run(opts)
     prefs.monitors = remembered
     prefs.theme = theme_id
     prefs.keybinds = prefs_keybinds
-    prefs.muted = audio and audio.muted or prefs.muted
+    prefs.muted = false -- mute is session-only
     Prefs.save({
       monitors = remembered,
       theme = theme_id,
       gate_hz = prefs.gate_hz,
       keybinds = prefs_keybinds,
-      muted = prefs.muted,
+      muted = false,
     }, P.prefs_file or "ti_ws.prefs")
   end
 
@@ -394,12 +398,18 @@ function M.run(opts)
     end
   end
 
-  local want_audio = machine_id == "gameboy" or P.enable_audio
+  local want_audio = machine_id == "gameboy" or machine_id == "nes" or P.enable_audio
+  -- CC playAudio volume 0..3 mostly extends hearing *distance*, not loudness.
+  -- Keep digital_gain near 1 to avoid s8 clipping; APU OUT_GAIN sets level.
+  local speaker_vol = 3
+  local dig_gain = 1.0
   audio = want_audio and SpeakerAudio.new({
-    muted = prefs.muted and true or false,
+    muted = false, -- always start with sound on; mute is session-only
+    volume = speaker_vol,
+    digital_gain = dig_gain,
   }) or nil
   if audio and not audio.speaker then
-    say("No speaker attached - attach a speaker for GB audio.")
+    say("No speaker attached - attach a speaker for audio.")
   end
 
   local gui = ControlGui.new({
@@ -428,20 +438,22 @@ function M.run(opts)
   gui:draw()
   paint_views(true)
 
-  -- Decode at most `budget` WS PCM chunks (never on speaker_audio_empty).
+  -- Decode at most `budget` WS PCM chunks into the speaker queue.
   local function flush_audio(budget)
     if not audio or not machine.take_audio then return end
     budget = budget or 1
-    if budget > 2 then budget = 2 end
+    if budget > 3 then budget = 3 end
     for _ = 1, budget do
       if not audio:needs_data() then break end
       local pcm = machine:take_audio()
       if not pcm then break end
       audio:push_pcm(pcm)
     end
-    -- Drop backlog so sound tracks the newest frame (coalesced video).
-    if audio.trim_to then
-      audio:trim_to(audio.play_samples or 4800)
+    -- Soft trim only on large backlog (after primed). Tight trim caused
+    -- skip-ahead ("too fast") then underrun pauses.
+    if audio.primed and audio.trim_to then
+      local keep = (audio.play_samples or 4800) * 2
+      audio:trim_to(keep)
     end
     audio:pump()
   end
@@ -455,7 +467,8 @@ function M.run(opts)
   local HOLD_UI_MS = 120
   -- ~15 fps steady; wake on pending WS frames (dirty is only set after apply).
   local paint_ms, last_paint = 66, now_ms()
-  local tick = os.startTimer(0.05)
+  -- Faster tick so we pull PCM before the speaker underruns (was 50 ms).
+  local tick = os.startTimer(0.025)
   local ws_url = machine.url
 
   local function release_held_ui()
@@ -519,16 +532,17 @@ function M.run(opts)
         last_paint = t
         flush_audio(1)
       else
-        flush_audio(audio_critical() and 2 or 1)
+        flush_audio(audio_critical() and 3 or 1)
       end
-      tick = os.startTimer(0.05)
+      tick = os.startTimer(0.025)
     elseif ev == "websocket_message" then
       if not ws_url or a == ws_url or tostring(a) == tostring(ws_url) then
         -- Stash only - never unpack PCM here (delays speaker_audio_empty).
         machine:handle_raw(b, c)
       end
     elseif ev == "speaker_audio_empty" then
-      -- Instant play of already-staged PCM only (no decode on this event).
+      -- Refill from WS stash then play; binary unpack is cheap enough here.
+      flush_audio(2)
       if audio then audio:on_empty() end
     elseif ev == "websocket_closed" then
       say("WebSocket closed")
@@ -712,7 +726,9 @@ function M.run(opts)
         end
       elseif act and act.action == "file" then
         local file = act.file
-        if file and (file.kind == "cart" or (file.name and tostring(file.name):lower():match("%.gb$"))) then
+        local name_ok = file and file.name
+          and tostring(file.name):lower():match(cart_ext)
+        if file and (file.kind == "cart" or name_ok) then
           local path = file.path or file.name
           gui:set_message("Uploading " .. tostring(file.name) .. "...", true)
           gui:draw()
@@ -732,7 +748,7 @@ function M.run(opts)
             end
           end
         else
-          gui:set_message("WS mode: click a .gb cart to upload", false)
+          gui:set_message("WS mode: click a " .. cart_hint .. " cart to upload", false)
           gui:draw()
         end
       elseif gui.dirty_status or gui.dirty then

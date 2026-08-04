@@ -139,7 +139,7 @@ function M.run(opts)
 
   local want_audio = remote_id == "gameboy" or P.enable_audio
   local audio = want_audio and SpeakerAudio.new({
-    muted = prefs.muted and true or false,
+    muted = false, -- always start with sound on; mute is session-only
   }) or nil
   if audio and not audio.speaker then
     say("No speaker attached - attach a speaker for GB audio.")
@@ -147,7 +147,7 @@ function M.run(opts)
 
   local function persist_prefs()
     prefs.theme = theme_id
-    prefs.muted = audio and audio.muted or prefs.muted
+    prefs.muted = false -- mute is session-only
     if prefs_keybinds then prefs.keybinds = prefs_keybinds end
     return Prefs.save(prefs, prefs_file)
   end

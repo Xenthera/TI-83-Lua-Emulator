@@ -4,11 +4,11 @@
 
 local M = {}
 M.SPEAKER_RATE = 48000
--- One WS chunk (~100 ms). Covers a short LCD paint without stacking lag.
+-- ~100 ms play buffers. Bigger queue = fewer underrun pauses on CC.
 M.PLAY_SAMPLES = 4800
 M.PREFILL_SAMPLES = 4800
--- Hard cap on staged PCM (~200 ms). Older samples are dropped to resync.
-M.MAX_QUEUED_SAMPLES = 9600
+-- Hard cap on staged PCM (~300 ms).
+M.MAX_QUEUED_SAMPLES = 14400
 
 local function find_speaker()
   if type(peripheral) ~= "table" or type(peripheral.find) ~= "function" then
@@ -25,12 +25,29 @@ local function chunk_len(ch)
   return (type(ch) == "table" and #ch) or 0
 end
 
+local function apply_gain(samples, gain)
+  gain = tonumber(gain) or 1
+  if not gain or gain == 1 or type(samples) ~= "table" then
+    return samples
+  end
+  local out = {}
+  for i = 1, #samples do
+    local v = (samples[i] or 0) * gain
+    if v > 127 then v = 127 elseif v < -128 then v = -128 end
+    -- playAudio wants integers
+    if v >= 0 then out[i] = math.floor(v + 0.5) else out[i] = math.ceil(v - 0.5) end
+  end
+  return out
+end
+
 function M.new(opts)
   opts = opts or {}
   return setmetatable({
     speaker = find_speaker(),
     muted = not not opts.muted,
     volume = tonumber(opts.volume) or 1,
+    -- Extra PCM multiply (CC volume 1..3 is mostly hearing *range*, not loudness).
+    digital_gain = tonumber(opts.digital_gain) or 1,
     queue = {},
     queued_samples = 0,
     playing = false,
@@ -96,6 +113,7 @@ function M:push_pcm(samples)
     end
     return false
   end
+  samples = apply_gain(samples, self.digital_gain)
   self.queue[#self.queue + 1] = samples
   self.queued_samples = self.queued_samples + #samples
   while self.queued_samples > self.max_queued and #self.queue > 1 do
@@ -113,7 +131,7 @@ function M:needs_data()
   if not self.primed then
     return self.queued_samples < self.prefill
   end
-  -- Only stage the next short buffer; more than that is audible lag.
+  -- Keep about one play buffer staged while another is playing.
   return self.queued_samples < self.play_samples
 end
 

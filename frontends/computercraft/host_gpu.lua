@@ -228,7 +228,7 @@ function M.run(opts)
     apu_rate = ApuMod.SAMPLE_RATE
     audio_drain_cap = math.floor(apu_rate / 15 * 2 + 0.5)
     audio_chunk_target = AudioPcm.CHUNK_SAMPLES or 24000
-    audio = SpeakerAudio.new({ muted = not not prefs.muted })
+    audio = SpeakerAudio.new({ muted = false })
     if not audio.speaker then
       say("No speaker attached - GB audio needs a speaker peripheral.")
     end
@@ -237,7 +237,7 @@ function M.run(opts)
   local function persist_prefs()
     prefs.theme = theme_id
     prefs.gate_hz = gate_hz
-    prefs.muted = audio and audio.muted or prefs.muted
+    prefs.muted = false -- mute is session-only
     if prefs_keybinds then prefs.keybinds = prefs_keybinds end
     return Prefs.save(prefs, prefs_file)
   end

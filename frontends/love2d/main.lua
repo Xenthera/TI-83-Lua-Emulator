@@ -1,13 +1,71 @@
 -- Love2D mini IDE: Tiny-C / ASM editors + multi-machine LCD emulator.
 
+local function file_exists(path)
+  local f = io.open(path, "rb")
+  if not f then return false end
+  f:close()
+  return true
+end
+
+local function boot_log(msg)
+  local base = love.filesystem.getSourceBaseDirectory()
+  if not base or base == "" then return end
+  local path = base:gsub("\\", "/") .. "/boot.log"
+  local f = io.open(path, "a")
+  if not f then return end
+  f:write(os.date("!%Y-%m-%dT%H:%M:%SZ "), tostring(msg), "\n")
+  f:close()
+end
+
+--- Project ROOT: packaged host dir (+ macOS .app walk-up), else repo via frontends/love2d.
 local function project_root()
+  local base = love.filesystem.getSourceBaseDirectory()
+  boot_log("getSourceBaseDirectory=" .. tostring(base))
+  boot_log("getSource=" .. tostring(love.filesystem.getSource()))
+  if base and base ~= "" then
+    base = base:gsub("\\", "/")
+    -- Fused exe / .love beside sidecar: machines/ next to host.
+    if file_exists(base .. "/machines") or file_exists(base .. "/framework/manager.lua") then
+      boot_log("ROOT=base (sidecar present)")
+      return base
+    end
+    -- macOS .app: getSourceBaseDirectory is often .../RetroStudio.app/Contents/Resources
+    local app = base:match("^(.*%.app)/Contents/")
+    if app then
+      local parent = app:match("^(.*)/[^/]+%.app$")
+      if parent and (file_exists(parent .. "/machines")
+          or file_exists(parent .. "/framework/manager.lua")) then
+        boot_log("ROOT=macos app parent")
+        return parent
+      end
+    end
+  end
+
   local src = love.filesystem.getSource():gsub("\\", "/")
+  -- Dev: source is the frontends/love2d folder.
   local root = src:match("^(.*)/frontends/love2d/?$")
-  if root then return root end
-  return src .. "/../.."
+  if root and file_exists(root .. "/machines") then
+    boot_log("ROOT=dev frontends/love2d parent")
+    return root
+  end
+  -- Packaged .love only (no fused path): base dir of the archive.
+  if base and base ~= "" and not src:match("%.love$") then
+    local up = (base .. "/../.."):gsub("\\", "/")
+    if file_exists(up .. "/machines") then
+      boot_log("ROOT=up2")
+      return up
+    end
+  end
+  if base and file_exists(base .. "/machines") then
+    boot_log("ROOT=base machines")
+    return base
+  end
+  boot_log("ROOT=fallback")
+  return root or (src .. "/../..")
 end
 
 local ROOT = project_root()
+boot_log("resolved ROOT=" .. tostring(ROOT))
 package.path = ROOT .. "/?.lua;" .. ROOT .. "/?/init.lua;" .. package.path
 
 -- Match tools/bench_gb.lua / bench_nes.lua: give LuaJIT more trace room for cores.
@@ -15,27 +73,41 @@ if jit and jit.opt then
   jit.opt.start("maxtrace=8000", "maxrecord=16000", "minstitch=3", "maxmcode=40960")
 end
 
-local Manager = require("framework.manager")
-local Debugger = require("framework.debugger")
-local NVRAM = require("framework.nvram")
-local Machine83 = require("machines.ti83plus.machine")
-local Render83 = require("frontends.love2d.render")
-local Render84 = require("frontends.love2d.render_ti84")
-local Render89 = require("frontends.love2d.render_ti89")
-local Render92 = require("frontends.love2d.render_ti92")
-local RenderRV64 = require("frontends.love2d.render_riscv64")
-local RenderGB = require("frontends.love2d.render_gameboy")
-local RenderNES = require("frontends.love2d.render_nes")
+local function must_require(name)
+  local ok, mod = pcall(require, name)
+  if not ok then
+    boot_log("REQUIRE FAILED " .. name .. ": " .. tostring(mod))
+    error(mod)
+  end
+  return mod
+end
+
+local Manager = must_require("framework.manager")
+Manager.ensure_discovered(ROOT)
+
+local Debugger = must_require("framework.debugger")
+local NVRAM = must_require("framework.nvram")
+local Machine83 = must_require("machines.ti83plus.machine")
+-- Frontend modules live inside the Love source / .love (short names).
 package.path = love.filesystem.getSource() .. "/?.lua;"
   .. ROOT .. "/frontends/love2d/?.lua;" .. package.path
-local Input = require("input")
-local Input89 = require("input_ti89")
-local Input92 = require("input_ti92")
-local InputGB = require("input_gameboy")
-local InputNES = require("input_nes")
-local AudioGB = require("audio_gameboy")
-local AudioNES = require("audio_nes")
-local Ide = require("ide")
+local Render83 = must_require("render")
+local Render84 = must_require("render_ti84")
+local Render89 = must_require("render_ti89")
+local Render92 = must_require("render_ti92")
+local RenderRV64 = must_require("render_riscv64")
+local RenderGB = must_require("render_gameboy")
+local RenderNES = must_require("render_nes")
+local Input = must_require("input")
+local Input89 = must_require("input_ti89")
+local Input92 = must_require("input_ti92")
+local InputGB = must_require("input_gameboy")
+local InputNES = must_require("input_nes")
+local AudioGB = must_require("audio_gameboy")
+local AudioNES = must_require("audio_nes")
+local Ide = must_require("ide")
+local Launcher = must_require("launcher")
+boot_log("requires ok")
 
 local manager
 local machine
@@ -43,9 +115,11 @@ local render
 local debugger
 local save_slot
 local show_debug = false
-local machine_ids = { "ti83plus", "ti84plus", "ti89", "ti92plus", "riscv64", "gameboy", "nes" }
+local machine_ids = {}
 local machine_idx = 1
 local ide
+local launcher
+local screen_mode = "launcher" -- "launcher" | "ide"
 local force_present = true
 local cycles_this_sec = 0
 local sec_accum = 0
@@ -284,21 +358,38 @@ local function try_boot_machine(id)
       ide:log("NES load failed: " .. tostring(err))
       return false
     end
+    -- Prefer known smoke carts; avoid alphabetically-first timing torture carts.
+    local prefer = {
+      "smb.nes", "mario.nes", "nestest.nes", "super_mario_bros.nes",
+    }
+    for _, name in ipairs(prefer) do
+      if try_nes(nes_dir .. name, name) then return true end
+    end
     local sep = package.config:sub(1, 1)
     local dir = ROOT .. sep .. "rom" .. sep .. "nes"
     local p = io.popen('dir /b "' .. dir .. '\\*.nes" 2>nul')
     if not p then
       p = io.popen('ls -1 "' .. dir .. '"/*.nes 2>/dev/null')
     end
+    local fallback
     if p then
       local listing = p:read("*a") or ""
       p:close()
       for name in listing:gmatch("[^\r\n]+") do
         name = name:match("([^/\\]+)$") or name
-        if name:lower():match("%.nes$") and try_nes(nes_dir .. name, name) then
-          return true
+        local low = name:lower()
+        if low:match("%.nes$") then
+          -- Defer known timing-sensitive carts unless nothing else is present.
+          if low:find("battletoads", 1, true) or low:find("nestest", 1, true) then
+            fallback = fallback or name
+          elseif try_nes(nes_dir .. name, name) then
+            return true
+          end
         end
       end
+    end
+    if fallback and try_nes(nes_dir .. fallback, fallback) then
+      return true
     end
     ide.running = false
     ide:log("NES ready - place a .nes cart in rom/nes/")
@@ -510,7 +601,7 @@ local function attach_machine(id)
     if not nes_audio then
       nes_audio = AudioNES.new()
       if ide and nes_audio._ok then
-        ide:log("NES audio: Love2D queueable source @ 44100 Hz")
+        ide:log("NES audio: Love2D queueable source @ 48000 Hz")
       elseif ide then
         ide:log("NES audio: unavailable (love.audio.newQueueableSource failed)")
       end
@@ -531,24 +622,51 @@ local function attach_machine(id)
   end
 end
 
-function love.load()
-  love.keyboard.setKeyRepeat(true)
-  mono = make_ui_font()
-  love.graphics.setFont(mono)
-  love.graphics.setDefaultFilter("linear", "linear", 1)
+local function enter_launcher()
+  screen_mode = "launcher"
+  if ide then ide.running = false end
+  if gb_audio then gb_audio:stop() end
+  if nes_audio then nes_audio:stop() end
+  if launcher then launcher:refresh() end
+  love.window.setTitle("Retro Emulator Studio")
+end
 
-  manager = Manager.new()
-  ide = Ide.new(ROOT)
-  ide.on_select_machine = attach_machine
-  attach_machine("ti83plus")
-  local dpi = love.window.getDPIScale and love.window.getDPIScale() or 1
-  ide:log(string.format("Retro Emulator Studio ready - HiDPI scale=%.1fx", dpi))
-  ide:log("Machine: toolbar TI-83+ / TI-89 / TI-92+   F7=save  Shift+F7=load  F8=debugger")
-  ide:log("Battery memory: auto-saves to saves/<machine>/ on quit or machine switch")
-
-  if not machine.rom_loaded then
+local function enter_machine(id)
+  screen_mode = "ide"
+  attach_machine(id)
+  if machine and not machine.rom_loaded and ide and ide:tinyc_supported(id) then
     ide.tab = "tc"
     ide:build(machine, mark_present)
+  end
+end
+
+function love.load()
+  boot_log("love.load start")
+  local ok, err = xpcall(function()
+    love.keyboard.setKeyRepeat(true)
+    mono = make_ui_font()
+    love.graphics.setFont(mono)
+    love.graphics.setDefaultFilter("linear", "linear", 1)
+
+    manager = Manager.new()
+    machine_ids = Manager.list()
+    boot_log("machines=" .. table.concat(machine_ids, ","))
+    ide = Ide.new(ROOT)
+    ide.on_select_machine = attach_machine
+    ide.on_home = enter_launcher
+    launcher = Launcher.new(ROOT, Manager)
+
+    local dpi = love.window.getDPIScale and love.window.getDPIScale() or 1
+    ide:log(string.format("Retro Emulator Studio ready - HiDPI scale=%.1fx  ROOT=%s", dpi, ROOT))
+    ide:log("Discovered machines: " .. table.concat(machine_ids, ", "))
+    ide:log("Launcher: pick a machine  ·  Esc=home  ·  F7=save  Shift+F7=load  Ctrl+F8=debugger")
+    ide:log("Battery memory: auto-saves to saves/<machine>/ on quit or machine switch")
+    enter_launcher()
+    boot_log("love.load ok mode=launcher")
+  end, debug.traceback)
+  if not ok then
+    boot_log("love.load FAILED: " .. tostring(err))
+    error(err)
   end
 end
 
@@ -559,6 +677,10 @@ function love.quit()
 end
 
 function love.update(dt)
+  if screen_mode == "launcher" then
+    return
+  end
+  if not ide or not machine then return end
   ide:update(dt, machine)
   frame_count = frame_count + 1
   sec_accum = sec_accum + dt
@@ -589,8 +711,14 @@ function love.update(dt)
 end
 
 function love.draw()
-  love.graphics.clear(0.10, 0.11, 0.12, 1)
   love.graphics.setFont(mono)
+  if screen_mode == "launcher" then
+    if launcher then launcher:draw() end
+    return
+  end
+
+  love.graphics.clear(0.10, 0.11, 0.12, 1)
+  if not machine then return end
 
   if force_present or machine:display_dirty() then
     if render then
@@ -654,20 +782,31 @@ end
 
 function love.mousepressed(x, y, button)
   if button ~= 1 then return end
+  if screen_mode == "launcher" then
+    local id = launcher and launcher:mousepressed(x, y)
+    if id then enter_machine(id) end
+    return
+  end
   ide:mousepressed(x, y, machine, mark_present)
 end
 
 function love.mousemoved(x, y)
+  if screen_mode == "launcher" then
+    if launcher then launcher:mousemoved(x, y) end
+    return
+  end
   ide:mousemoved(x, y, machine)
 end
 
 function love.mousereleased(x, y, button)
+  if screen_mode == "launcher" then return end
   if button == 1 then
     ide:mousereleased(machine)
   end
 end
 
 function love.textinput(t)
+  if screen_mode == "launcher" then return end
   if ide.focus == "lcd" and manager and manager.current_id == "riscv64" and machine then
     for i = 1, #t do
       machine:set_key(t:sub(i, i), true)
@@ -678,13 +817,25 @@ function love.textinput(t)
 end
 
 function love.keypressed(key)
+  if screen_mode == "launcher" then
+    local id = launcher and launcher:keypressed(key)
+    if id then enter_machine(id) end
+    return
+  end
+  if key == "escape" and ide and not ide.panel_editor then
+    enter_launcher()
+    return
+  end
   if key == "f6" and love.keyboard.isDown("lctrl", "rctrl") then
     -- Ctrl+F6 still cycles machines; plain F6 stays Play (IDE).
+    machine_ids = Manager.list()
+    if #machine_ids == 0 then return end
     machine_idx = machine_idx % #machine_ids + 1
     attach_machine(machine_ids[machine_idx])
     return
   end
   if key == "f7" then
+    if not machine then return end
     if love.keyboard.isDown("lshift", "rshift") then
       if save_slot then
         local ok, err = machine:loadState(save_slot)
@@ -703,6 +854,14 @@ function love.keypressed(key)
   end
   if key == "f8" and love.keyboard.isDown("lctrl", "rctrl") then
     show_debug = not show_debug
+    return
+  end
+  -- F9: toggle NES APU render (classic hardware mix vs modern HQ PolyBLEP).
+  if key == "f9" and machine and machine.MACHINE_ID == "nes" and machine.apu
+      and machine.apu.set_synth then
+    local next = (machine.apu.synth == "hq") and "classic" or "hq"
+    machine.apu:set_synth(next)
+    if ide then ide:log("NES APU synth: " .. next) end
     return
   end
   if ide:keypressed(key, machine, mark_present) then
@@ -729,6 +888,7 @@ function love.keypressed(key)
 end
 
 function love.keyreleased(key)
+  if screen_mode == "launcher" or not machine then return end
   local mid = manager.current_id
   if mid == "riscv64" then
     return
@@ -748,10 +908,15 @@ function love.keyreleased(key)
 end
 
 function love.wheelmoved(x, y)
+  if screen_mode == "launcher" then
+    if launcher then launcher:wheelmoved(x, y) end
+    return
+  end
   ide:wheelmoved(x, y)
 end
 
 function love.resize(w, h)
+  if launcher then launcher:layout(w, h) end
   if ide then
     ide:layout(w, h)
   end

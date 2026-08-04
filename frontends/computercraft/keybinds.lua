@@ -33,19 +33,22 @@ local function copy_map(src)
   return out
 end
 
+local function is_pad_machine(id)
+  id = tostring(id or "")
+  return id == "gameboy" or id == "gameboy_ws" or id == "gb"
+    or id == "gameboy_gpu" or id == "gameboy_gpu_ws" or id == "gb_gpu"
+    or id == "nes" or id == "nes_ws"
+end
+
 function M.defaults_for(profile_id)
-  local id = tostring(profile_id or "")
-  if id == "gameboy" or id == "gameboy_ws" or id == "gb"
-      or id == "gameboy_gpu" or id == "gameboy_gpu_ws" or id == "gb_gpu" then
+  if is_pad_machine(profile_id) then
     return copy_map(M.GB_DEFAULTS)
   end
   return {}
 end
 
 function M.buttons_for(profile_id)
-  local id = tostring(profile_id or "")
-  if id == "gameboy" or id == "gameboy_ws" or id == "gb"
-      or id == "gameboy_gpu" or id == "gameboy_gpu_ws" or id == "gb_gpu" then
+  if is_pad_machine(profile_id) then
     return M.GB_BUTTONS
   end
   return nil

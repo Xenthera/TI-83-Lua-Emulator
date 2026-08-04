@@ -34,7 +34,7 @@ end
 
 local function install_hint()
   if is_windows() then
-    return "Run: powershell - ExecutionPolicy Bypass - File tools\\install_rabbitsign.ps1"
+    return "Run: powershell -ExecutionPolicy Bypass -File tools\\install_rabbitsign.ps1"
   end
   return "Run: sh tools/install_rabbitsign.sh"
 end

@@ -42,8 +42,18 @@ rate, held keys, pause, and frame sequence.
 Guest CPU speed defaults to **realtime** (match the machine's nominal Hz).
 Use `--speed 2` for 2x, or `--no-throttle` to run uncapped.
 
-Game Boy can start with no `--rom`. A CC client (`gb_cc_ws --rom cart.gb`)
-uploads the cart over WebSocket (`load_rom` chunks).
+Game Boy and NES can start with no `--rom`. A CC client
+(`gb_cc_ws --rom cart.gb` / `nes_cc_ws --rom cart.nes`) uploads the cart
+over WebSocket (`load_rom` chunks).
+
+NES audio defaults to the hardware-faithful APU. For a smoother modern
+render (same `$4000–$4017` programming, PolyBLEP pulses):
+
+```bat
+bridge\run.cmd --machine nes --apu-hq --port 8765
+```
+
+Or `--apu classic` / `--apu hq`.
 
 ## Machines
 
@@ -54,7 +64,7 @@ uploads the cart over WebSocket (`load_rom` chunks).
 | `ti89`      | 160x100 1bpp | `ti89_cc_ws`, `ti89_gpu_cc_ws` |
 | `ti92plus`  | 240x128 1bpp | `ti92_cc_ws` |
 | `gameboy`   | 160x144 shade (1 byte/px) | `gb_cc_ws` |
-| `nes`       | 256x240 NES palette index | Love2D / host (CC client TBD) |
+| `nes`       | 256x240 NES palette index | `nes_cc_ws` |
 
 Aliases: `ti83`, `ti84`, `ti92`, `gb`, `famicom`.
 
@@ -66,7 +76,8 @@ Text WebSocket frames, one JSON object per message (`t` = type).
 **Server -> client:** `hello_ok`, `frame`, `state`, `pong`, `error`
 
 Frame payload uses base64 of the framebuffer (row-major). TI machines are
-packed 1bpp; Game Boy uses one byte per pixel (shade 0-3).
+packed 1bpp; Game Boy uses one byte per pixel (shade 0-3); NES uses one
+byte per pixel (palette index 0-63).
 
 See `bridge/protocol.lua`.
 

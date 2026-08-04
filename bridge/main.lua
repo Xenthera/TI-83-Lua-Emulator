@@ -33,6 +33,10 @@ Usage: luajit bridge/main.lua --machine ID [--rom PATH] [--port 8765] [--host *]
     --cycles N      max guest cycles per loop slice (default ~CPU_HZ/120)
     --fps N         LCD push rate to CC (default 30)
 
+  NES audio (optional):
+    --apu-hq        modern PolyBLEP synth (still CPU-register driven)
+    --apu classic   hardware-faithful APU render (default)
+
 ]])
   os.exit(1)
 end
@@ -73,6 +77,11 @@ while i <= #arg do
     opts.speed = tonumber(arg[i]) or 1.0
   elseif a == "--no-throttle" then
     opts.throttle = false
+  elseif a == "--apu-hq" then
+    opts.apu_synth = "hq"
+  elseif a == "--apu" then
+    i = i + 1
+    opts.apu_synth = arg[i]
   elseif a:sub(1, 1) == "-" then
     io.stderr:write("unknown option: " .. a .. "\n")
     usage()

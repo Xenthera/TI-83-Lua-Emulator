@@ -100,13 +100,15 @@ function M.load(filename, default_theme)
           out.gate_hz = math.min(1000000, math.floor(n))
         end
       elseif muted then
-        local m = muted:lower()
-        out.muted = (m == "1" or m == "true" or m == "yes" or m == "on")
+        -- Legacy key ignored: mute is session-only so audio machines
+        -- always start unmuted (see hosts / SpeakerAudio).
       elseif kb_btn and kb_key then
         out.keybinds[kb_btn:lower()] = kb_key
       end
     end
   end
+  -- Never restore mute from disk.
+  out.muted = false
   return out
 end
 
@@ -156,17 +158,14 @@ function M.save(opts, filename)
     "# monitor <side> <lcd|pad|mem|off>",
     "# theme <" .. table.concat(Themes.ORDER, "|") .. ">",
     "# gate_hz <steps per second when Gate is on>",
-    "# muted <true|false>  (GB speaker)",
     "# keybind <emu_button> <cc_key_name>",
+    "# (mute is session-only; not persisted)",
   }
   for _, side in ipairs(sides) do
     lines[#lines + 1] = "monitor " .. side .. " " .. map[side]
   end
   lines[#lines + 1] = "theme " .. theme
   lines[#lines + 1] = "gate_hz " .. tostring(gate_hz)
-  if opts.muted ~= nil then
-    lines[#lines + 1] = "muted " .. (opts.muted and "true" or "false")
-  end
 
   if type(opts.keybinds) == "table" then
     local btns = {}
@@ -198,7 +197,7 @@ function M.save_monitors(monitors, filename)
     theme = cur.theme,
     gate_hz = cur.gate_hz,
     keybinds = cur.keybinds,
-    muted = cur.muted,
+    muted = false,
   }, filename)
 end
 

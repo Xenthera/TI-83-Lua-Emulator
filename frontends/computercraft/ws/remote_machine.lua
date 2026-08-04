@@ -13,8 +13,8 @@ Remote.TAP_HOLD = 400000
 -- Raw bytes per load_rom chunk. Keep small so CC can yield between sends
 -- without dropping the websocket (1MB carts are ~128 chunks at 8KiB).
 Remote.ROM_CHUNK = 8 * 1024
--- Soft cap on queued audio pieces (~200-300 ms). Drop oldest to track LCD.
-Remote.AUDIO_Q_MAX = 3
+-- Soft cap on queued audio pieces (~3x 100 ms chunks). Drop oldest only on flood.
+Remote.AUDIO_Q_MAX = 4
 
 local function now_s()
   if type(os) == "table" and type(os.epoch) == "function" then
@@ -149,15 +149,16 @@ function Remote:send_ready()
   return self:send(Protocol.ready())
 end
 
---- Upload a cart/ROM to the bridge (chunked base64). Game Boy only today.
+--- Upload a cart/ROM to the bridge (chunked base64). Game Boy / NES.
 -- opts.quiet: do not print progress (avoids scrolling an on-screen control GUI).
 function Remote:load_rom_bytes(bytes, name, opts)
-  if type(bytes) ~= "string" or #bytes < 0x150 then
-    return nil, "ROM too small (need >= 0x150 bytes)"
+  local min_sz = (self.machine_id == "nes") and 16 or 0x150
+  if type(bytes) ~= "string" or #bytes < min_sz then
+    return nil, string.format("ROM too small (need >= %d bytes)", min_sz)
   end
   opts = opts or {}
   local quiet = not not opts.quiet
-  name = name or "cart.gb"
+  name = name or ((self.machine_id == "nes") and "cart.nes" or "cart.gb")
   local size = #bytes
   local chunk_n = Remote.ROM_CHUNK
   local n = math.floor((size + chunk_n - 1) / chunk_n)

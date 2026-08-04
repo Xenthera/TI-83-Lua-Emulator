@@ -1,13 +1,16 @@
--- Love2D queueable sink for NES APU samples (mono, 44100 Hz).
+-- Love2D queueable sink for NES APU samples (mono, 48000 Hz).
 
 local Apu = require("machines.nes.hw.apu")
 
 local Audio = {}
 Audio.__index = Audio
 
-local SAMPLE_RATE = Apu.SAMPLE_RATE
+local SAMPLE_RATE = Apu.SAMPLE_RATE -- 48000 (matches CC / bridge)
+-- ~43 ms buffers x several queued: absorbs Love frame hitches without A/V mush.
 local BUFFER_SAMPLES = 2048
 local QUEUE_BUFFERS = 6
+-- Drop APU ring only if it grows past ~250 ms (pause / hitch recovery).
+local MAX_PENDING = math.floor(SAMPLE_RATE * 0.25)
 
 function Audio.new()
   local self = setmetatable({
@@ -58,27 +61,28 @@ function Audio:update(machine)
   end
 
   local src = self.source
-  local hp = self._hp or 0
-  local prev = self._prev or 0
+  local pending = machine.apu:samples_pending()
+  if pending > MAX_PENDING then
+    machine.apu:drain_samples(pending - MAX_PENDING)
+    pending = MAX_PENDING
+  end
+
+  -- Fill every free buffer we can (same strategy as Game Boy audio).
   while src:getFreeBufferCount() > 0 do
     local need = BUFFER_SAMPLES
-    local pending = machine.apu:samples_pending()
     if pending < need then
       break
     end
     local samples = machine.apu:drain_samples(need)
+    pending = pending - need
     local sd = self._bufs[self._bi]
     self._bi = self._bi % #self._bufs + 1
     for i = 1, need do
-      local x = samples[i] or 0
-      -- DC blocker so unipolar APU mix is centered for PCM.
-      hp = hp * 0.995 + x - prev
-      prev = x
-      sd:setSample(i - 1, clamp16(hp))
+      -- APU already emits bipolar floats (-1..1).
+      sd:setSample(i - 1, clamp16(samples[i] or 0))
     end
     src:queue(sd)
   end
-  self._hp, self._prev = hp, prev
 
   if not src:isPlaying() and src:getFreeBufferCount() < QUEUE_BUFFERS then
     src:play()

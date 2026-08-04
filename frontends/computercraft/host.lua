@@ -443,7 +443,7 @@ function M.run(opts)
       theme = theme_id,
       gate_hz = gate_hz,
       keybinds = prefs_keybinds,
-      muted = audio and audio.muted or prefs.muted,
+      muted = false, -- mute is session-only; always start unmuted
     }, P.prefs_file)
     return path, err
   end
@@ -574,12 +574,18 @@ function M.run(opts)
   local audio_drain_cap = 0
   if machine.apu then
     AudioPcm = require("bridge.audio_pcm")
-    local ApuMod = require("machines.gameboy.hw.apu")
-    apu_rate = ApuMod.SAMPLE_RATE
+    apu_rate = machine.apu.SAMPLE_RATE
+    if not apu_rate then
+      local ok_mod, ApuMod = pcall(require, (machine.MACHINE_ID == "nes")
+        and "machines.nes.hw.apu"
+        or "machines.gameboy.hw.apu")
+      if ok_mod and ApuMod then apu_rate = ApuMod.SAMPLE_RATE end
+    end
+    apu_rate = apu_rate or 32768
     audio_drain_cap = math.floor(apu_rate / 15 * 2 + 0.5)
-    audio = SpeakerAudio.new({ muted = not not prefs.muted })
+    audio = SpeakerAudio.new({ muted = false })
     if not audio.speaker then
-      say("No speaker attached - GB audio needs a speaker peripheral.")
+      say("No speaker attached - audio needs a speaker peripheral.")
     end
   end
 

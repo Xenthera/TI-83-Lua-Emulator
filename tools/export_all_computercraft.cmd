@@ -31,6 +31,11 @@ echo === Game Boy DMG (in-CC emu) ===
 if errorlevel 1 exit /b 1
 
 echo.
+echo === NES (in-CC emu, pixelbox + CC palette) ===
+"%LJ%" "%~dp0export_computercraft_nes.lua" %*
+if errorlevel 1 exit /b 1
+
+echo.
 echo === Game Boy GPU (in-CC emu) ===
 "%LJ%" "%~dp0export_computercraft_gameboy_gpu.lua" %*
 if errorlevel 1 exit /b 1
@@ -66,6 +71,11 @@ echo === Game Boy WebSocket client ===
 if errorlevel 1 exit /b 1
 
 echo.
+echo === NES WebSocket client ===
+"%LJ%" "%~dp0export_computercraft_nes_ws.lua" %*
+if errorlevel 1 exit /b 1
+
+echo.
 echo === Game Boy GPU WebSocket client ===
 "%LJ%" "%~dp0export_computercraft_gameboy_gpu_ws.lua" %*
 if errorlevel 1 exit /b 1
@@ -88,6 +98,8 @@ copy /Y "%DIST%\ti84_cc.lua" "%FE%\ti84_cc.lua" >nul
 copy /Y "%DIST%\ti89_cc.lua" "%FE%\ti89_cc.lua" >nul
 copy /Y "%DIST%\ti92_cc.lua" "%FE%\ti92_cc.lua" >nul
 copy /Y "%DIST%\gb_cc.lua" "%FE%\gb_cc.lua" >nul
+copy /Y "%DIST%\nes_cc.lua" "%FE%\nes_cc.lua" >nul
+copy /Y "%DIST%\nes_cc_ws.lua" "%FE%\nes_cc_ws.lua" >nul
 copy /Y "%DIST%\gb_gpu_cc.lua" "%FE%\gb_gpu_cc.lua" >nul
 copy /Y "%DIST%\ti89_gpu_cc.lua" "%FE%\ti89_gpu_cc.lua" >nul
 copy /Y "%DIST%\ti83_cc_ws.lua" "%FE%\ti83_cc_ws.lua" >nul
@@ -102,12 +114,17 @@ echo.
 echo Deploy to a CC computer:
 echo   emu.lua
 echo   frontends\   (contents of dist\frontends\)
-echo   ROMs / .gb carts next to emu.lua
+echo   ROMs / .gb / .nes carts next to emu.lua
 echo.
 echo WS bridge examples:
 echo   bridge\run.cmd --machine ti84plus --rom rom\ti84p.rom
 echo   bridge\run.cmd --machine ti92plus --rom rom\ti92plus.rom
 echo   bridge\run.cmd --machine gameboy --rom rom\gb\tetris.gb
+echo.
+echo NES:
+echo   nes_cc --rom mario.nes
+echo   bridge\run.cmd --machine nes
+echo   nes_cc_ws --url ws://HOST:8765 --rom mario.nes
 echo.
 echo Then run:  emu
 exit /b 0
